@@ -1,0 +1,66 @@
+{
+  "version": "1.0.0",
+  "privilege_levels": [
+    {
+      "level": "minimal",
+      "privileges": [
+        "read_personal_files",
+        "basic_computation"
+      ],
+      "description": "Basic read-only access for simple tasks"
+    },
+    {
+      "level": "standard",
+      "privileges": [
+        "read_personal_files",
+        "write_temporary_files",
+        "access_approved_apis",
+        "send_notifications"
+      ],
+      "description": "Standard access for personal assistant tasks"
+    },
+    {
+      "level": "advanced",
+      "privileges": [
+        "read_personal_files",
+        "write_organized_files",
+        "access_calendar_api",
+        "access_email_api",
+        "execute_safe_commands",
+        "web_research_approved"
+      ],
+      "description": "Advanced access for comprehensive personal management"
+    },
+    {
+      "level": "custom",
+      "privileges": [],
+      "description": "User-defined privilege set"
+    }
+  ],
+  "specific_privileges": {
+    "read_home_dir": {
+      "description": "Read access to user's home directory",
+      "risk_level": "low"
+    },
+    "write_temp_dir": {
+      "description": "Write access to temporary directory",
+      "risk_level": "low"
+    },
+    "access_calendar_api": {
+      "description": "Access to calendar APIs",
+      "risk_level": "medium"
+    },
+    "access_email_api": {
+      "description": "Access to email APIs",
+      "risk_level": "medium"
+    },
+    "execute_safe_commands": {
+      "description": "Execute predefined safe system commands",
+      "risk_level": "high"
+    },
+    "web_access_approved": {
+      "description": "Access approved websites",
+      "risk_level": "medium"
+    }
+  }
+}

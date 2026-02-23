@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "rules": [
+    {
+      "id": "no_external_network",
+      "name": "No External Network Access",
+      "description": "Agent cannot access external networks without explicit approval",
+      "severity": "high",
+      "enforcement": "runtime_block"
+    },
+    {
+      "id": "read_only_filesystem",
+      "name": "Read-Only Filesystem Access",
+      "description": "Agent can only read files, not modify or delete",
+      "severity": "medium",
+      "enforcement": "permission_check"
+    },
+    {
+      "id": "no_system_commands",
+      "name": "No System Command Execution",
+      "description": "Agent cannot execute system-level commands",
+      "severity": "high",
+      "enforcement": "command_filter"
+    },
+    {
+      "id": "encrypted_communication",
+      "name": "Encrypted Communication Only",
+      "description": "All agent communications must be encrypted",
+      "severity": "high",
+      "enforcement": "protocol_enforcement"
+    },
+    {
+      "id": "credential_isolation",
+      "name": "Credential Isolation",
+      "description": "Credentials are isolated and cannot be accessed by other agents",
+      "severity": "critical",
+      "enforcement": "sandboxing"
+    },
+    {
+      "id": "audit_logging",
+      "name": "Audit Logging",
+      "description": "All agent actions are logged for audit purposes",
+      "severity": "medium",
+      "enforcement": "automatic"
+    }
+  ]
+}

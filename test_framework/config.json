@@ -1,0 +1,7 @@
+{
+  "framework_version": "1.0.0",
+  "encryption_enabled": true,
+  "supported_platforms": ["zeroclaw", "openclaw", "nanoclaw"],
+  "default_privilege_level": "standard",
+  "audit_logging": true
+}

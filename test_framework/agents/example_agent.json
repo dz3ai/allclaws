@@ -1,0 +1,60 @@
+{
+  "name": "PersonalAssistant",
+  "version": "1.0.0",
+  "description": "A secure personal assistant for daily tasks",
+  "skills": {
+    "required": [
+      "email_processing",
+      "calendar_management",
+      "task_organization",
+      "document_summarization"
+    ],
+    "optional": [
+      "web_research",
+      "data_analysis",
+      "reminder_system"
+    ]
+  },
+  "security": {
+    "rules": [
+      "no_external_network",
+      "read_only_filesystem",
+      "no_system_commands",
+      "encrypted_communication"
+    ],
+    "privileges": [
+      "read_home_dir",
+      "access_calendar_api",
+      "write_temp_dir",
+      "access_email_api"
+    ]
+  },
+  "credentials": {
+    "encrypted": false,
+    "providers": [
+      {
+        "name": "gmail",
+        "type": "oauth2",
+        "scopes": ["read", "send"]
+      },
+      {
+        "name": "google_calendar",
+        "type": "oauth2",
+        "scopes": ["read", "write"]
+      }
+    ]
+  },
+  "benchmarks": {
+    "enabled": [
+      "email_sorting",
+      "schedule_optimization",
+      "task_prioritization",
+      "document_summary"
+    ],
+    "custom": []
+  },
+  "platforms": {
+    "preferred": "zeroclaw",
+    "supported": ["zeroclaw", "openclaw", "nanoclaw"]
+  }
+}

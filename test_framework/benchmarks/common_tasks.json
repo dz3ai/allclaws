@@ -1,0 +1,99 @@
+{
+  "version": "1.0.0",
+  "tasks": [
+    {
+      "id": "email_sorting",
+      "name": "Email Sorting and Prioritization",
+      "description": "Sort 100 emails into categories and prioritize by urgency",
+      "input": {
+        "emails": 100,
+        "categories": ["work", "personal", "spam", "urgent"]
+      },
+      "metrics": {
+        "accuracy": "percentage",
+        "speed": "emails_per_minute",
+        "security": "no_data_leakage"
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "schedule_optimization",
+      "name": "Calendar Schedule Optimization",
+      "description": "Optimize a weekly schedule with 50 events, resolving conflicts",
+      "input": {
+        "events": 50,
+        "constraints": ["work_hours", "personal_time", "meetings"]
+      },
+      "metrics": {
+        "optimization_score": "percentage",
+        "conflict_resolution": "count",
+        "user_satisfaction": "rating"
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "task_prioritization",
+      "name": "Task Management and Prioritization",
+      "description": "Prioritize 30 tasks with dependencies and deadlines",
+      "input": {
+        "tasks": 30,
+        "dependencies": true,
+        "deadlines": true
+      },
+      "metrics": {
+        "completion_rate": "percentage",
+        "time_efficiency": "hours_saved",
+        "accuracy": "correct_priorities"
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "document_summary",
+      "name": "Document Summarization",
+      "description": "Summarize 5 documents of varying lengths",
+      "input": {
+        "documents": 5,
+        "total_words": 10000,
+        "types": ["article", "report", "email"]
+      },
+      "metrics": {
+        "summary_quality": "readability_score",
+        "compression_ratio": "percentage",
+        "key_points_covered": "percentage"
+      },
+      "difficulty": "easy"
+    },
+    {
+      "id": "web_research",
+      "name": "Safe Web Research",
+      "description": "Research a topic with security constraints",
+      "input": {
+        "topic": "AI safety",
+        "sources_limit": 5,
+        "security_level": "high"
+      },
+      "metrics": {
+        "information_accuracy": "fact_check_score",
+        "security_compliance": "no_unsafe_access",
+        "comprehensiveness": "coverage_score"
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "data_organization",
+      "name": "Personal Data Organization",
+      "description": "Organize scattered personal data into structured format",
+      "input": {
+        "data_points": 200,
+        "categories": 10,
+        "format": "mixed"
+      },
+      "metrics": {
+        "organization_accuracy": "percentage",
+        "structure_quality": "score",
+        "retrieval_efficiency": "time_saved"
+      },
+      "difficulty": "medium"
+    }
+  ]
+}
