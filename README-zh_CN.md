@@ -23,8 +23,8 @@
 - **NanoClaw** (Node.js 写的)：专攻 WhatsApp 的助手，用容器跑代理
 
 **成果展示：**
-- `architecture_comparison.md` - 技术分析报告
-- `architecture_comparison.zh-CN.md` - 中文版分析
+- `architecture/architecture_comparison.md` - 技术分析报告
+- `architecture/architecture_comparison.zh-CN.md` - 中文版分析
 - 各种平台的优缺点对比表
 
 ### 2. 个人代理测试框架
@@ -41,6 +41,7 @@
 
 **项目结构：**
 ```
+architecture/             # 架构分析和对比文档
 test_framework/
 ├── agents/                # 代理配置文件放这里
 ├── benchmarks/            # 性能测试脚本
@@ -92,11 +93,9 @@ test_framework/
 
 ### 想看架构分析？
 ```bash
-# 看完整版平台对比
-cat architecture_comparison.md
+[看完整版平台对比](architecture/architecture_comparison.md)
 
-# 看中文版分析
-cat architecture_comparison.zh-CN.md
+[看中文版分析](architecture/architecture_comparison.zh-CN.md)
 ```
 
 ### 想试试测试框架？

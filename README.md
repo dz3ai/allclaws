@@ -22,8 +22,8 @@ Comprehensive analysis of personal AI agent platforms including:
 - **NanoClaw** (Node.js): WhatsApp-focused assistant with containerized agents
 
 **Key Deliverables:**
-- `architecture_comparison.md` - Detailed technical analysis
-- `architecture_comparison.zh-CN.md` - Chinese translation
+- `architecture/architecture_comparison.md` - Detailed technical analysis
+- `architecture/architecture_comparison.zh-CN.md` - Chinese translation
 - Platform capability matrices and trade-off analysis
 
 ### 2. Personal Agent Test Framework
@@ -40,6 +40,7 @@ A comprehensive testing framework for evaluating personal AI agents across multi
 
 **Directory Structure:**
 ```
+architecture/             # Architecture analysis and comparisons
 test_framework/
 ├── agents/                # Agent configuration definitions
 ├── benchmarks/            # Performance test suites
@@ -92,10 +93,10 @@ Creating educational content about personal AI assistants:
 ### For Architecture Analysis
 ```bash
 # Read the comprehensive platform comparison
-cat architecture_comparison.md
+cat architecture/architecture_comparison.md
 
 # View Chinese translation
-cat architecture_comparison.zh-CN.md
+cat architecture/architecture_comparison.zh-CN.md
 ```
 
 ### For Testing Framework
