@@ -40,7 +40,8 @@ credentials/
 
 #### 3. File Permissions
 - The master key file has restrictive permissions (`chmod 600`) - only the owner can read/write
-- This prevents other users on the system from accessing the key
+- The `.encrypted/` directory has owner-only permissions (`chmod 700`) - only the owner can read/write/execute
+- This prevents other users on the system from accessing the key or encrypted credential files
 
 #### 4. Local-Only Storage
 - All credential data stays on your local machine
