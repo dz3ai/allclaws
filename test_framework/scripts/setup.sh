@@ -14,6 +14,9 @@ mkdir -p credentials/.encrypted
 mkdir -p agents/templates
 mkdir -p tmp
 
+# Set secure permissions on credentials directory
+chmod 700 credentials/.encrypted
+
 # Generate encryption key if not exists
 if [ ! -f credentials/.master_key ]; then
     echo "Generating master encryption key..."
