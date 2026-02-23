@@ -1,5 +1,9 @@
 # Personal Agent Test Framework .gitignore
 # Exclude sensitive and temporary files to prevent accidental commit of personal information
+#
+# This repository contains agent configurations, security rules, and benchmarking tools
+# that may include sensitive data like encryption keys, credentials, and personal information.
+# The .gitignore ensures that no sensitive data is accidentally committed to version control.
 
 # Temporary files
 tmp/
