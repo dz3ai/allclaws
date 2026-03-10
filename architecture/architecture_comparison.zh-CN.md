@@ -1,4 +1,4 @@
-# 架构比较：Zeroclaw vs Openclaw vs NanoClaw
+# 架构比较：Zeroclaw vs Openclaw vs NanoClaw vs IronClaw
 
 ## Zeroclaw 架构总结
 
@@ -175,22 +175,101 @@ graph TD
     I --> L[浏览器自动化：container/skills/agent-browser.md]
 ```
 
+## IronClaw 架构总结
+
+**概述：** IronClaw 是一个基于 Rust 的安全个人 AI 助手，优先考虑数据保护、多层安全和自我扩展能力。它使用 WebAssembly 沙箱进行工具执行，使用 PostgreSQL 进行持久化存储。
+
+**关键原则：**
+- 安全优先，纵深防御
+- 你的数据属于你（本地存储、加密、无遥测）
+- 通过动态工具构建实现自我扩展
+- 透明设计（开源、可审计）
+- WASM 工具基于能力的权限控制
+
+**核心架构：**
+- **语言：** Rust
+- **入口点：** `src/main.rs`（CLI 入口点和应用程序引导）
+- **模块：**
+  - `src/agent/`（代理逻辑和编排）
+  - `src/channels/`（频道实现：REPL、HTTP、基于 WASM）
+  - `src/config/`（配置管理）
+  - `src/context/`（执行上下文管理）
+  - `src/db/`（PostgreSQL 数据库操作和 pgvector）
+  - `src/llm/`（LLM 提供者抽象和多提供者支持）
+  - `src/orchestrator/`（Docker 沙箱和容器生命周期）
+  - `src/registry/`（工具和频道注册表）
+  - `src/sandbox/`（不受信任工具执行的 WASM 沙箱）
+  - `src/safety/`（提示注入防御和内容清理）
+  - `src/secrets/`（安全密钥存储和系统钥匙串集成）
+  - `src/bootstrap.rs`（应用程序初始化和入职）
+  - `src/app.rs`（主要应用程序逻辑）
+- **扩展点：**
+  - 具有基于能力权限的 WASM 工具
+  - MCP（模型上下文协议）服务器
+  - 基于 Docker 的 Worker 容器
+  - 基于 WASM 的频道（Telegram、Slack、WhatsApp）
+- **安全层：**
+  - 具有端点白名单的 WASM 沙箱
+  - 主机边界的密钥注入（从不暴露给 WASM）
+  - 提示注入防御（模式检测、清理）
+  - 密钥的 AES-256-GCM 加密
+  - 无遥测或数据共享
+- **构建/测试：**
+  - 包管理器：Cargo
+  - 运行时：原生 Rust 二进制文件
+  - 测试：`cargo test`，使用 testcontainers 的集成测试
+  - 代码检查/格式化：`cargo clippy`，通过 `cargo fmt` 格式化
+- **平台：** Mac、Windows、Linux（原生二进制文件，提供安装程序）
+- **频道：** REPL、HTTP Webhooks、Web Gateway（SSE/WebSocket）、WASM 频道（Telegram、Slack、WhatsApp）
+- **内存：** 具有 pgvector 的 PostgreSQL，用于混合搜索（全文 + 向量）
+- **数据库：** PostgreSQL 15+（必需），可选的 libSQL/Turso 支持
+- **功能：** 例程（cron、事件触发器、webhooks）、并行作业执行、工作区文件系统
+
+### 架构图
+
+```mermaid
+graph TD
+    A[CLI 入口：main.rs] --> B[引导：bootstrap.rs]
+    B --> C[应用：app.rs]
+    C --> D[频道]
+    D --> D1[REPL]
+    D --> D2[HTTP Webhooks]
+    D --> D3[WASM 频道]
+    D --> D4[Web Gateway SSE/WS]
+    C --> E[代理循环]
+    E --> F[路由器意图分类]
+    E --> G[调度器并行作业]
+    E --> H[例程引擎]
+    G --> I[Workers]
+    I --> J[编排器]
+    J --> K[Docker 沙箱]
+    J --> L[工具注册表]
+    L --> L1[内置工具]
+    L --> L2[MCP 服务器]
+    L --> L3[WASM 工具]
+    C --> M[工作区内存]
+    C --> N[安全层]
+    C --> O[DB PostgreSQL pgvector]
+```
+
 ## 比较
 
-| 方面 | Zeroclaw | Openclaw | NanoClaw |
-|------|----------|----------|----------|
-| 语言 | Rust | TypeScript | TypeScript (Node.js) |
-| 重点 | 高性能运行时 | 具有频道/插件的 CLI | 个人 WhatsApp 助手 |
-| 模块化 | Trait 基础扩展 | 插件基础扩展 | 单进程 + 容器 |
-| 安全性 | 首要，互联网邻接 | CLI 安全性，编辑 | 容器隔离 |
-| 平台 | 原生（Linux 等） | 跨平台（Mac、Win、Linux、移动） | macOS (launchctl)，容器化代理 |
-| 文档 | 本地 docs/，i18n | Mintlify 托管，i18n | README + docs/ |
-| 构建 | Cargo | pnpm/bun | npm + 容器构建 |
-| 测试 | Rust 测试 | Vitest | 未指定 |
-| 频道 | 核心频道 | 核心 + 扩展 | 仅 WhatsApp |
-| 集成/扩展 | 外围设备（GPIO 等） | 媒体管道 | 通过 Bash 的浏览器自动化 |
-| 运行时 | 原生适配器 | 基于 Node | Node + 容器化 Claude SDK |
-| 隔离 | 模块级 | 插件级 | 每组容器 |
-| 内存 | 具有嵌入的 Markdown/SQLite | 未指定 | 每组 CLAUDE.md |
+| 方面 | Zeroclaw | Openclaw | NanoClaw | IronClaw |
+|------|----------|----------|----------|-----------|
+| 语言 | Rust | TypeScript | TypeScript (Node.js) | Rust |
+| 重点 | 高性能运行时 | 具有频道/插件的 CLI | 个人 WhatsApp 助手 | 安全个人 AI 助手 |
+| 模块化 | Trait 基础扩展 | 插件基础扩展 | 单进程 + 容器 | WASM 工具 + MCP + Docker |
+| 安全性 | 首要，互联网邻接 | CLI 安全性，编辑 | 容器隔离 | WASM 沙箱 + 纵深防御 |
+| 平台 | 原生（Linux 等） | 跨平台（Mac、Win、Linux、移动） | macOS (launchctl)，容器化代理 | 跨平台（Mac、Win、Linux） |
+| 文档 | 本地 docs/，i18n | Mintlify 托管，i18n | README + docs/ | README + docs/ |
+| 构建 | Cargo | pnpm/bun | npm + 容器构建 | Cargo |
+| 测试 | Rust 测试 | Vitest | 未指定 | Rust 测试 + 集成 |
+| 频道 | 核心频道 | 核心 + 扩展 | 仅 WhatsApp | REPL、HTTP、WASM、Web Gateway |
+| 集成/扩展 | 外围设备（GPIO 等） | 媒体管道 | 通过 Bash 的浏览器自动化 | WASM 工具、MCP、Docker |
+| 运行时 | 原生适配器 | 基于 Node | Node + 容器化 Claude SDK | 原生 + Docker Workers |
+| 隔离 | 模块级 | 插件级 | 每组容器 | WASM 沙箱 + 每作业容器 |
+| 内存 | 具有嵌入的 Markdown/SQLite | 未指定 | 每组 CLAUDE.md | PostgreSQL + pgvector |
+| 数据库 | SQLite | 未指定 | SQLite | PostgreSQL（必需） |
+| LLM 支持 | 模型提供者 | Web 提供者 | Claude Agent SDK | 多提供者（NEAR AI、OpenAI 兼容） |
 
-所有三个都是自主代理项目，但 Zeroclaw 强调 Rust 性能和扩展性，Openclaw 专注于具有广泛频道支持的 TypeScript CLI，而 NanoClaw 是更简单的容器化 WhatsApp 到 Claude 桥接，具有组隔离。
+所有四个都是自主代理项目，各有侧重：Zeroclaw 强调 Rust 性能和硬件扩展性，Openclaw 专注于具有广泛频道支持的 TypeScript CLI，NanoClaw 是具有组隔离的容器化 WhatsApp 到 Claude 桥接，而 IronClaw 通过 WASM 沙箱和多层防御机制优先考虑安全性。

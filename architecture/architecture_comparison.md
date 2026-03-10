@@ -1,4 +1,4 @@
-# Architecture Comparison: Zeroclaw vs Openclaw vs NanoClaw
+# Architecture Comparison: Zeroclaw vs Openclaw vs NanoClaw vs IronClaw
 
 ## Zeroclaw Architecture Summary
 
@@ -150,25 +150,104 @@ graph TD
     I --> L[Browser Automation: container/skills/agent-browser.md]
 ```
 
+## IronClaw Architecture Summary
+
+**Overview:** IronClaw is a Rust-based secure personal AI assistant that prioritizes data protection, multi-layer security, and self-expanding capabilities. It uses WebAssembly sandboxing for tool execution and PostgreSQL for persistent storage.
+
+**Key Principles:**
+- Security first with defense in depth
+- Your data stays yours (local storage, encrypted, no telemetry)
+- Self-expanding capabilities through dynamic tool building
+- Transparency by design (open source, auditable)
+- Capability-based permissions for WASM tools
+
+**Core Architecture:**
+- **Language:** Rust
+- **Entry Point:** `src/main.rs` (CLI entrypoint and application bootstrapping)
+- **Modules:**
+  - `src/agent/` (agent logic and orchestration)
+  - `src/channels/` (channel implementations: REPL, HTTP, WASM-based)
+  - `src/config/` (configuration management)
+  - `src/context/` (execution context management)
+  - `src/db/` (PostgreSQL database operations with pgvector)
+  - `src/llm/` (LLM provider abstraction with multi-provider support)
+  - `src/orchestrator/` (Docker sandbox and container lifecycle)
+  - `src/registry/` (tool and channel registry)
+  - `src/sandbox/` (WASM sandbox for untrusted tool execution)
+  - `src/safety/` (prompt injection defense and content sanitization)
+  - `src/secrets/` (secure secret storage with system keychain integration)
+  - `src/bootstrap.rs` (application initialization and onboarding)
+  - `src/app.rs` (main application logic)
+- **Extension Points:**
+  - WASM tools with capability-based permissions
+  - MCP (Model Context Protocol) servers
+  - Docker-based worker containers
+  - WASM-based channels (Telegram, Slack, WhatsApp)
+- **Security Layers:**
+  - WASM sandbox with endpoint allowlisting
+  - Credential injection at host boundary (never exposed to WASM)
+  - Prompt injection defense (pattern detection, sanitization)
+  - AES-256-GCM encryption for secrets
+  - No telemetry or data sharing
+- **Build/Test:**
+  - Package Manager: Cargo
+  - Runtime: Native Rust binary
+  - Tests: `cargo test`, integration tests with testcontainers
+  - Linting: `cargo clippy`, formatting via `cargo fmt`
+- **Platforms:** Mac, Windows, Linux (native binaries, installers available)
+- **Channels:** REPL, HTTP webhooks, Web Gateway (SSE/WebSocket), WASM channels (Telegram, Slack, WhatsApp)
+- **Memory:** PostgreSQL with pgvector for hybrid search (full-text + vector)
+- **Database:** PostgreSQL 15+ (required), with optional libSQL/Turso support
+- **Features:** Routines (cron, event triggers, webhooks), parallel job execution, workspace filesystem
+
+### Architecture Diagram
+
+```mermaid
+graph TD
+    A[CLI Entry: main.rs] --> B[Bootstrap: bootstrap.rs]
+    B --> C[App: app.rs]
+    C --> D[Channels]
+    D --> D1[REPL]
+    D --> D2[HTTP Webhooks]
+    D --> D3[WASM Channels]
+    D --> D4[Web Gateway SSE/WS]
+    C --> E[Agent Loop]
+    E --> F[Router Intent Classification]
+    E --> G[Scheduler Parallel Jobs]
+    E --> H[Routines Engine]
+    G --> I[Workers]
+    I --> J[Orchestrator]
+    J --> K[Docker Sandbox]
+    J --> L[Tool Registry]
+    L --> L1[Built-in Tools]
+    L --> L2[MCP Servers]
+    L --> L3[WASM Tools]
+    C --> M[Workspace Memory]
+    C --> N[Safety Layer]
+    C --> O[DB PostgreSQL pgvector]
+```
+
 ## Comparison
 
-| Aspect | Zeroclaw | Openclaw | NanoClaw |
-|--------|----------|----------|----------|
-| Language | Rust | TypeScript | TypeScript (Node.js) |
-| Focus | High-performance runtime | CLI with channels/plugins | Personal WhatsApp assistant |
-| Modularity | Trait-based extensions | Plugin-based extensions | Single process + containers |
-| Security | First-class, internet-adjacent | CLI security, redaction | Container isolation |
-| Platforms | Native (Linux, etc.) | Cross-platform (Mac, Win, Linux, mobile) | macOS (launchctl), containerized agents |
-| Docs | Local docs/, i18n | Mintlify-hosted, i18n | README + docs/ |
-| Build | Cargo | pnpm/bun | npm + container build |
-| Tests | Rust tests | Vitest | Not specified |
-| Channels | Core channels | Core + extensions | WhatsApp only |
-| Integrations/Extensions | Peripherals (GPIO, etc.) | Media pipeline | Browser automation via Bash |
-| Runtime | Native adapters | Node-based | Node + containerized Claude SDK |
-| Isolation | Module-level | Plugin-level | Per-group containers |
-| Memory | Markdown/SQLite with embeddings | Not specified | Per-group CLAUDE.md |
+| Aspect | Zeroclaw | Openclaw | NanoClaw | IronClaw |
+|--------|----------|----------|----------|-----------|
+| Language | Rust | TypeScript | TypeScript (Node.js) | Rust |
+| Focus | High-performance runtime | CLI with channels/plugins | Personal WhatsApp assistant | Secure personal AI assistant |
+| Modularity | Trait-based extensions | Plugin-based extensions | Single process + containers | WASM tools + MCP + Docker |
+| Security | First-class, internet-adjacent | CLI security, redaction | Container isolation | WASM sandbox + defense in depth |
+| Platforms | Native (Linux, etc.) | Cross-platform (Mac, Win, Linux, mobile) | macOS (launchctl), containerized agents | Cross-platform (Mac, Win, Linux) |
+| Docs | Local docs/, i18n | Mintlify-hosted, i18n | README + docs/ | README + docs/ |
+| Build | Cargo | pnpm/bun | npm + container build | Cargo |
+| Tests | Rust tests | Vitest | Not specified | Rust tests + integration |
+| Channels | Core channels | Core + extensions | WhatsApp only | REPL, HTTP, WASM, Web Gateway |
+| Integrations/Extensions | Peripherals (GPIO, etc.) | Media pipeline | Browser automation via Bash | WASM tools, MCP, Docker |
+| Runtime | Native adapters | Node-based | Node + containerized Claude SDK | Native with Docker workers |
+| Isolation | Module-level | Plugin-level | Per-group containers | WASM sandbox + per-job containers |
+| Memory | Markdown/SQLite with embeddings | Not specified | Per-group CLAUDE.md | PostgreSQL with pgvector |
+| Database | SQLite | Not specified | SQLite | PostgreSQL (required) |
+| LLM Support | Model providers | Web provider | Claude Agent SDK | Multi-provider (NEAR AI, OpenAI-compatible) |
 
-All three are autonomous agent projects, but Zeroclaw emphasizes Rust performance and extensibility, Openclaw focuses on TypeScript CLI with broad channel support, and NanoClaw is a simpler, containerized WhatsApp-to-Claude bridge with group isolation.
+All four are autonomous agent projects with distinct focuses: Zeroclaw emphasizes Rust performance and hardware extensibility, Openclaw focuses on TypeScript CLI with extensive channel support, NanoClaw is a containerized WhatsApp-to-Claude bridge with group isolation, and IronClaw prioritizes security through WASM sandboxing and multi-layer defense mechanisms.
 
 **Overview:** Zeroclaw is a Rust-first autonomous agent runtime designed for high performance, efficiency, stability, extensibility, sustainability, and security. It uses a trait-driven, modular architecture to enable pluggable components.
 
