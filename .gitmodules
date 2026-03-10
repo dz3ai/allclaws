@@ -1,0 +1,12 @@
+[submodule "nanoclaw"]
+	path = nanoclaw
+	url = https://github.com/qwibitai/nanoclaw.git
+[submodule "zeroclaw"]
+	path = zeroclaw
+	url = https://github.com/zeroclaw-labs/zeroclaw.git
+[submodule "openclaw"]
+	path = openclaw
+	url = https://github.com/openclaw/openclaw.git
+[submodule "ironclaw"]
+	path = ironclaw
+	url = https://github.com/nearai/ironclaw.git
