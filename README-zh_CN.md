@@ -22,6 +22,8 @@
 - **Openclaw** (TypeScript 写的)：超级灵活的命令行工具，支持各种聊天渠道
 - **NanoClaw** (Node.js 写的)：专攻 WhatsApp 的助手，用容器跑代理
 - **IronClaw** (Rust 写的)：安全优先的个人 AI 助手，用 WASM 沙箱和多层防御保护你的数据
+- **GoClaw** (Go 写的)：多代理 AI 网关，支持团队编排和多租户 PostgreSQL
+- **Nanobot** (Python 写的)：超轻量级个人 AI 助手，只有约 4000 行核心代码
 
 **成果展示：**
 - `architecture/architecture_comparison.md` - 技术分析报告
@@ -35,7 +37,7 @@
 
 **框架亮点：**
 - **代理配置**：用 JSON 格式定义代理，还带安全规则验证
-- **多平台支持**：Zeroclaw、Openclaw、NanoClaw、IronClaw，甚至你自己写的代理
+- **多平台支持**：Zeroclaw、Openclaw、NanoClaw、IronClaw、GoClaw、Nanobot，甚至你自己写的代理
 - **安全测试**：检查权限、加密凭据、规则执行等等
 - **基准测试**：日常任务测试套件（邮件、日历、任务管理）
 - **性能指标**：标准化测试，让不同平台能公平比较
@@ -119,7 +121,7 @@ bash tests/test_agent_validation.sh
 ## 📊 项目进度
 
 ### ✅ 已经搞定的
-- [x] 四大平台架构深度分析（Zeroclaw、Openclaw、NanoClaw、IronClaw）
+- [x] 六大平台架构深度分析（Zeroclaw、Openclaw、NanoClaw、IronClaw、GoClaw、Nanobot）
 - [x] 核心测试框架，带安全验证
 - [x] 代理配置规范和验证逻辑
 - [x] 安全权限和规则执行机制
@@ -161,6 +163,8 @@ bash tests/test_agent_validation.sh
 - **Openclaw**：https://github.com/openclaw/openclaw
 - **NanoClaw**：https://github.com/qwibitai/nanoclaw
 - **IronClaw**：https://github.com/nearai/ironclaw
+- **GoClaw**：https://github.com/nextlevelbuilder/goclaw
+- **Nanobot**：https://github.com/HKUDS/nanobot
 
 ## 📞 聊聊？
 

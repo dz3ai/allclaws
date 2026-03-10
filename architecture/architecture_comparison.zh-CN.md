@@ -1,4 +1,4 @@
-# 架构比较：Zeroclaw vs Openclaw vs NanoClaw vs IronClaw
+# 架构比较：Zeroclaw vs Openclaw vs NanoClaw vs IronClaw vs GoClaw vs Nanobot
 
 ## Zeroclaw 架构总结
 
@@ -252,24 +252,212 @@ graph TD
     C --> O[DB PostgreSQL pgvector]
 ```
 
+## GoClaw 架构总结
+
+**概述：** GoClaw 是一个多代理 AI 网关，将 LLM 连接到工具、频道和数据——作为单个 Go 二进制文件部署，零运行时依赖。它在 13+ 个 LLM 提供者中编排代理团队、代理间委托和质量门控工作流，并具有完整的 PostgreSQL 多租户隔离。
+
+**关键原则：**
+- 代理团队与编排，具有共享任务板
+- 多租户 PostgreSQL，每用户工作空间
+- 单二进制部署（~25 MB）
+- 5 层生产安全防御
+- 13+ 个 LLM 提供者，原生 Anthropic 支持
+- WebSocket RPC + HTTP API
+
+**核心架构：**
+- **语言：** Go 1.26
+- **入口点：** `cmd/goclaw/main.go`（CLI 入口点）
+- **模块：**
+  - `cmd/`（CLI 命令、网关启动、入职向导、迁移）
+  - `internal/gateway/`（WS + HTTP 服务器、客户端、方法路由器）
+  - `internal/gateway/methods/`（RPC 处理程序：chat、agents、sessions、config、skills、cron、pairing）
+  - `internal/agent/`（代理循环：think→act→observe、路由器、解析器、输入守卫）
+  - `internal/providers/`（LLM 提供者：Anthropic 原生 HTTP+SSE、OpenAI-compat HTTP+SSE）
+  - `internal/tools/`（工具注册表：fs、exec、web、memory、delegate、team、MCP、custom）
+  - `internal/store/`（存储接口 + pg/ PostgreSQL 实现）
+  - `internal/bootstrap/`（系统提示文件：SOUL.md、IDENTITY.md + seeding）
+  - `internal/config/`（配置加载，JSON5 + env 变量覆盖）
+  - `internal/channels/`（频道管理器：Telegram、Feishu/Lark、Zalo、Discord、WhatsApp）
+  - `internal/http/`（HTTP API：/v1/chat/completions、/v1/agents、/v1/skills）
+  - `internal/skills/`（SKILL.md 加载器 + BM25 搜索）
+  - `internal/memory/`（内存系统，pgvector）
+  - `internal/tracing/`（LLM 调用跟踪 + 可选 OTel 导出）
+  - `internal/scheduler/`（基于车道并发：main/subagent/delegate/cron）
+  - `internal/cron/`（cron 调度：at/every/cron 表达式）
+  - `internal/permissions/`（RBAC：admin/operator/viewer）
+  - `internal/pairing/`（浏览器配对，8 字符代码）
+  - `internal/crypto/`（API 密钥的 AES-256-GCM 加密）
+  - `internal/sandbox/`（基于 Docker 的代码沙箱）
+  - `internal/tts/`（文本转语音：OpenAI、ElevenLabs、Edge、MiniMax）
+  - `internal/i18n/`（消息目录，T(locale, key, args...)）
+  - `pkg/protocol/`（线路类型：frames、methods、errors、events）
+  - `pkg/browser/`（浏览器自动化，Rod + CDP）
+  - `ui/web/`（React SPA：pnpm、Vite 6、Tailwind CSS 4、Radix UI、Zustand）
+- **扩展点：**
+  - MCP 协议支持（stdio/SSE/streamable-http）
+  - 通过工具注册表自定义工具
+  - 代理评估器和钩子系统
+- **安全层：**
+  - 速率限制
+  - 提示注入检测
+  - SSRF 保护
+  - Shell 拒绝模式
+  - 密钥的 AES-256-GCM 加密
+  - 每用户隔离会话
+- **构建/测试：**
+  - 包管理器：Go modules
+  - 运行时：原生 Go 二进制文件
+  - 测试：`go test`，带 race 检测器的集成测试
+  - 代码检查/格式化：`go vet`、`go fix`、`go build`
+- **平台：** 通过单个二进制文件 + Docker 跨平台（~50 MB Alpine）
+- **频道：** Telegram、Discord、Slack、Zalo OA、Zalo Personal、Feishu/Lark、WhatsApp
+- **内存：** PostgreSQL 15+ 带 pgvector 用于混合搜索
+- **数据库：** PostgreSQL 15+（多租户必需）
+- **功能：** 代理团队、对话转移、评估循环质量门控、钩子系统、知识图谱、13+ 个 LLM 提供者、7+ 个消息频道、OpenTelemetry 可观测性
+
+### 架构图
+
+```mermaid
+graph TB
+    subgraph Clients
+        WEB["Web 仪表板"]
+        TG["Telegram"]
+        DC["Discord"]
+        SL["Slack"]
+        FS["Feishu/Lark"]
+        ZL["Zalo OA"]
+        ZLP["Zalo Personal"]
+        API["HTTP API"]
+    end
+
+    subgraph Gateway["GoClaw 网关"]
+        WS["WebSocket RPC"]
+        REST["HTTP Server"]
+        CM["Channel Manager"]
+        BUS["Message Bus"]
+        SCHED["基于车道调度器"]
+        ROUTER["代理路由器"]
+        LOOP["代理循环"]
+        TOOLS["工具注册表"]
+        LLM["LLM 提供者"]
+    end
+
+    subgraph Storage
+        PG["PostgreSQL + pgvector"]
+    end
+
+    WEB --> WS
+    TG & DC & SL & FS & ZL & ZLP --> CM
+    API --> REST
+    WS & REST & CM --> BUS
+    BUS --> SCHED
+    SCHED --> ROUTER
+    ROUTER --> LOOP
+    LOOP --> TOOLS
+    LOOP --> LLM
+    LOOP --> PG
+```
+
+## Nanobot 架构总结
+
+**概述：** Nanobot 是一个超轻量级个人 AI 助手，只有约 4,000 行核心代理代码——比 OpenClaw 小 99%。它以最小的资源占用提供核心代理功能，实现更快的启动、更低的资源使用和更快的迭代。
+
+**关键原则：**
+- 超轻量级设计（~4,000 LOC 核心代理代码）
+- 研究就绪，代码清晰易读
+- 极速，最小资源占用
+- 易于使用，一键部署
+- MCP（模型上下文协议）支持
+- 通过 LiteLLM 支持多个 LLM 提供者
+
+**核心架构：**
+- **语言：** Python 3.11+
+- **入口点：** `nanobot/__main__.py`（通过 Typer 的 CLI 入口点）
+- **模块：**
+  - `nanobot/agent/`（代理编排和推理）
+  - `nanobot/channels/`（频道实现：Telegram、Discord、Slack、WhatsApp、Feishu、QQ、Email、Matrix）
+  - `nanobot/cli/`（CLI 命令和界面）
+  - `nanobot/config/`（通过 Pydantic 的配置管理）
+  - `nanobot/providers/`（通过 LiteLLM 的 LLM 提供者：Anthropic、OpenAI、DeepSeek、Qwen、Moonshot、VolcEngine、MiniMax、Mistral 等）
+  - `nanobot/skills/`（具有 ClawHub 集成的技能系统）
+  - `nanobot/cron/`（计划任务管理）
+  - `nanobot/session/`（会话历史管理）
+  - `nanobot/utils/`（实用函数和辅助工具）
+  - `nanobot/heartbeat/`（心跳和健康监控）
+  - `nanobot/bus/`（用于代理通信的消息总线）
+  - `nanobot/templates/`（提示模板）
+  - `bridge/`（MCP 桥接实现）
+- **扩展点：**
+  - 通过 ClawHub 集成自定义技能
+  - MCP 协议支持（stdio、SSE）
+  - 自定义频道实现
+  - 自定义 LLM 提供者
+- **构建/测试：**
+  - 包管理器：pip/PyPI (nanobot-ai)
+  - 运行时：Python 3.11+ 通过 pip install
+  - 测试：位于 `tests/` 目录
+  - 依赖项：Typer、LiteLLM、Pydantic、websockets、httpx、loguru、rich
+- **平台：** 通过 Python + Docker 跨平台
+- **频道：** Telegram、Discord、Slack、WhatsApp、Feishu、QQ、Email、Matrix、CLI
+- **内存：** 带有可配置保留的会话历史管理
+- **数据库：** SQLite（用于本地数据持久化）
+- **功能：** 24/7 实时市场分析、全栈软件工程、智能日常例程管理、个人知识助手、多模态支持、计划任务（cron）、子代理支持、MCP 集成、ClawHub 技能市场
+
+### 架构图
+
+```mermaid
+graph TB
+    A[CLI 入口：__main__.py] --> B[代理编排器]
+    B --> C[推理引擎]
+    C --> D[工具执行]
+    D --> D1[技能]
+    D --> D2[MCP 桥接]
+    D --> D3[自定义工具]
+    B --> E[会话管理器]
+    E --> E1[会话历史]
+    E --> E2[内存保留]
+    B --> F[Cron 调度器]
+    F --> F1[计划任务]
+    F --> F2[提醒]
+    B --> G[频道管理器]
+    G --> G1[Telegram]
+    G --> G2[Discord]
+    G --> G3[Slack]
+    G --> G4[WhatsApp]
+    G --> G5[Feishu]
+    G --> G6[QQ]
+    G --> G7[Email]
+    G --> G8[Matrix]
+    G --> G9[CLI]
+    B --> H[提供者管理器]
+    H --> H1[Anthropic]
+    H --> H2[OpenAI]
+    H --> H3[DeepSeek]
+    H --> H4[Qwen]
+    H --> H5[通过 LiteLLM 的其他]
+    B --> I[ClawHub 集成]
+    I --> I1[技能搜索]
+    I --> I2[技能安装]
+```
+
 ## 比较
 
-| 方面 | Zeroclaw | Openclaw | NanoClaw | IronClaw |
-|------|----------|----------|----------|-----------|
-| 语言 | Rust | TypeScript | TypeScript (Node.js) | Rust |
-| 重点 | 高性能运行时 | 具有频道/插件的 CLI | 个人 WhatsApp 助手 | 安全个人 AI 助手 |
-| 模块化 | Trait 基础扩展 | 插件基础扩展 | 单进程 + 容器 | WASM 工具 + MCP + Docker |
-| 安全性 | 首要，互联网邻接 | CLI 安全性，编辑 | 容器隔离 | WASM 沙箱 + 纵深防御 |
-| 平台 | 原生（Linux 等） | 跨平台（Mac、Win、Linux、移动） | macOS (launchctl)，容器化代理 | 跨平台（Mac、Win、Linux） |
-| 文档 | 本地 docs/，i18n | Mintlify 托管，i18n | README + docs/ | README + docs/ |
-| 构建 | Cargo | pnpm/bun | npm + 容器构建 | Cargo |
-| 测试 | Rust 测试 | Vitest | 未指定 | Rust 测试 + 集成 |
-| 频道 | 核心频道 | 核心 + 扩展 | 仅 WhatsApp | REPL、HTTP、WASM、Web Gateway |
-| 集成/扩展 | 外围设备（GPIO 等） | 媒体管道 | 通过 Bash 的浏览器自动化 | WASM 工具、MCP、Docker |
-| 运行时 | 原生适配器 | 基于 Node | Node + 容器化 Claude SDK | 原生 + Docker Workers |
-| 隔离 | 模块级 | 插件级 | 每组容器 | WASM 沙箱 + 每作业容器 |
-| 内存 | 具有嵌入的 Markdown/SQLite | 未指定 | 每组 CLAUDE.md | PostgreSQL + pgvector |
-| 数据库 | SQLite | 未指定 | SQLite | PostgreSQL（必需） |
-| LLM 支持 | 模型提供者 | Web 提供者 | Claude Agent SDK | 多提供者（NEAR AI、OpenAI 兼容） |
+| 方面 | Zeroclaw | Openclaw | NanoClaw | IronClaw | GoClaw | Nanobot |
+|------|----------|----------|----------|-----------|---------|---------|
+| 语言 | Rust | TypeScript | TypeScript (Node.js) | Rust | Go 1.26 | Python 3.11+ |
+| 重点 | 高性能运行时 | 具有频道/插件的 CLI | 个人 WhatsApp 助手 | 安全个人 AI 助手 | 多代理网关与团队 | 超轻量级助手 |
+| 模块化 | Trait 基础扩展 | 插件基础扩展 | 单进程 + 容器 | WASM 工具 + MCP + Docker | 工具注册表 + 钩子 | 技能系统 + MCP |
+| 安全性 | 首要，互联网邻接 | CLI 安全性，编辑 | 容器隔离 | WASM 沙箱 + 纵深防御 | 5 层防御 | 安全加固 |
+| 平台 | 原生（Linux 等） | 跨平台（Mac、Win、Linux、移动） | macOS (launchctl)，容器化代理 | 跨平台（Mac、Win、Linux） | 跨平台（二进制 + Docker） | 跨平台（Python + Docker） |
+| 文档 | 本地 docs/，i18n | Mintlify 托管，i18n | README + docs/ | README + docs/ | README + docs/ | README + docs/ |
+| 构建 | Cargo | pnpm/bun | npm + 容器构建 | Cargo | Go modules | pip/PyPI |
+| 测试 | Rust 测试 | Vitest | 未指定 | Rust 测试 + 集成 | go test + race 检测 | tests/ 目录 |
+| 频道 | 核心频道 | 核心 + 扩展 | 仅 WhatsApp | REPL、HTTP、WASM、Web Gateway | Telegram、Discord、Slack 等 | Telegram、Discord、Slack 等 |
+| 集成/扩展 | 外围设备（GPIO 等） | 媒体管道 | 通过 Bash 的浏览器自动化 | WASM 工具、MCP、Docker | MCP、自定义工具、钩子 | ClawHub 技能、MCP |
+| 运行时 | 原生适配器 | 基于 Node | Node + 容器化 Claude SDK | 原生 + Docker Workers | 原生 Go 二进制文件 | Python 运行时 |
+| 隔离 | 模块级 | 插件级 | 每组容器 | WASM 沙箱 + 每作业容器 | 每用户工作空间（PostgreSQL） | 会话级别 |
+| 内存 | 具有嵌入的 Markdown/SQLite | 未指定 | 每组 CLAUDE.md | PostgreSQL + pgvector | PostgreSQL + pgvector | 会话历史 |
+| 数据库 | SQLite | 未指定 | SQLite | PostgreSQL（必需） | PostgreSQL 15+（必需） | SQLite（本地） |
+| LLM 支持 | 模型提供者 | Web 提供者 | Claude Agent SDK | 多提供者（NEAR AI、OpenAI 兼容） | 13+ 提供者（Anthropic 原生、OpenAI-compat） | 通过 LiteLLM 多提供者 |
 
-所有四个都是自主代理项目，各有侧重：Zeroclaw 强调 Rust 性能和硬件扩展性，Openclaw 专注于具有广泛频道支持的 TypeScript CLI，NanoClaw 是具有组隔离的容器化 WhatsApp 到 Claude 桥接，而 IronClaw 通过 WASM 沙箱和多层防御机制优先考虑安全性。
+所有六个都是自主代理项目，各有侧重：Zeroclaw 强调 Rust 性能和硬件扩展性，Openclaw 专注于具有广泛频道支持的 TypeScript CLI，NanoClaw 是具有组隔离的容器化 WhatsApp 到 Claude 桥接，IronClaw 通过 WASM 沙箱和多层防御机制优先考虑安全性，GoClaw 专注于具有多租户 PostgreSQL 和代理团队的多代理编排，而 Nanobot 优先考虑超轻量级设计、最小资源占用和研究就绪的代码。

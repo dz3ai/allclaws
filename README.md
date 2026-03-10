@@ -21,6 +21,8 @@ Comprehensive analysis of personal AI agent platforms including:
 - **Openclaw** (TypeScript): Extensible CLI with multi-channel support
 - **NanoClaw** (Node.js): WhatsApp-focused assistant with containerized agents
 - **IronClaw** (Rust-based): Secure personal AI assistant with WASM sandboxing and defense-in-depth security
+- **GoClaw** (Go-based): Multi-agent AI gateway with teams, orchestration, and multi-tenant PostgreSQL
+- **Nanobot** (Python-based): Ultra-lightweight personal AI assistant with ~4,000 LOC core code
 
 **Key Deliverables:**
 - `architecture/architecture_comparison.md` - Detailed technical analysis
@@ -34,7 +36,7 @@ A comprehensive testing framework for evaluating personal AI agents across multi
 
 **Framework Features:**
 - **Agent Definition & Validation**: JSON-based configuration with security rules
-- **Multi-Platform Support**: Zeroclaw, Openclaw, NanoClaw, IronClaw, and custom agents
+- **Multi-Platform Support**: Zeroclaw, Openclaw, NanoClaw, IronClaw, GoClaw, Nanobot, and custom agents
 - **Security Testing**: Privilege validation, credential encryption, rule enforcement
 - **Benchmark Suite**: Common personal tasks (email, calendar, task management)
 - **Performance Metrics**: Standardized testing across platforms
@@ -120,7 +122,7 @@ bash tests/test_agent_validation.sh
 ## 📊 Current Status & Roadmap
 
 ### ✅ Completed
-- [x] Architecture analysis of 4 major platforms (Zeroclaw, Openclaw, NanoClaw, IronClaw)
+- [x] Architecture analysis of 6 major platforms (Zeroclaw, Openclaw, NanoClaw, IronClaw, GoClaw, Nanobot)
 - [x] Core test framework with security validation
 - [x] Agent configuration schema and validation
 - [x] Security privilege and rule enforcement
@@ -162,6 +164,8 @@ This is an active research project. Contributions welcome in:
 - **Openclaw**: https://github.com/openclaw/openclaw
 - **NanoClaw**: https://github.com/qwibitai/nanoclaw
 - **IronClaw**: https://github.com/nearai/ironclaw
+- **GoClaw**: https://github.com/nextlevelbuilder/goclaw
+- **Nanobot**: https://github.com/HKUDS/nanobot
 
 ## 📞 Contact & Discussion
 
