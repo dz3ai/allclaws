@@ -10,3 +10,9 @@
 [submodule "ironclaw"]
 	path = ironclaw
 	url = https://github.com/nearai/ironclaw.git
+[submodule "goclaw"]
+	path = goclaw
+	url = https://github.com/nextlevelbuilder/goclaw.git
+[submodule "nanobot"]
+	path = nanobot
+	url = https://github.com/HKUDS/nanobot.git
