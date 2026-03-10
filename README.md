@@ -20,6 +20,7 @@ Comprehensive analysis of personal AI agent platforms including:
 - **Zeroclaw** (Rust-based): High-performance runtime with trait-driven architecture
 - **Openclaw** (TypeScript): Extensible CLI with multi-channel support
 - **NanoClaw** (Node.js): WhatsApp-focused assistant with containerized agents
+- **IronClaw** (Rust-based): Secure personal AI assistant with WASM sandboxing and defense-in-depth security
 
 **Key Deliverables:**
 - `architecture/architecture_comparison.md` - Detailed technical analysis
@@ -33,7 +34,7 @@ A comprehensive testing framework for evaluating personal AI agents across multi
 
 **Framework Features:**
 - **Agent Definition & Validation**: JSON-based configuration with security rules
-- **Multi-Platform Support**: Zeroclaw, Openclaw, NanoClaw, and custom agents
+- **Multi-Platform Support**: Zeroclaw, Openclaw, NanoClaw, IronClaw, and custom agents
 - **Security Testing**: Privilege validation, credential encryption, rule enforcement
 - **Benchmark Suite**: Common personal tasks (email, calendar, task management)
 - **Performance Metrics**: Standardized testing across platforms
@@ -119,7 +120,7 @@ bash tests/test_agent_validation.sh
 ## 📊 Current Status & Roadmap
 
 ### ✅ Completed
-- [x] Architecture analysis of 3 major platforms (Zeroclaw, Openclaw, NanoClaw)
+- [x] Architecture analysis of 4 major platforms (Zeroclaw, Openclaw, NanoClaw, IronClaw)
 - [x] Core test framework with security validation
 - [x] Agent configuration schema and validation
 - [x] Security privilege and rule enforcement
@@ -157,9 +158,10 @@ This is an active research project. Contributions welcome in:
 
 ## 🔗 Related Projects
 
-- **Zeroclaw**: https://github.com/zeroclaw/zeroclaw
+- **Zeroclaw**: https://github.com/zeroclaw-labs/zeroclaw
 - **Openclaw**: https://github.com/openclaw/openclaw
-- **NanoClaw**: https://github.com/nanoclaw/nanoclaw
+- **NanoClaw**: https://github.com/qwibitai/nanoclaw
+- **IronClaw**: https://github.com/nearai/ironclaw
 
 ## 📞 Contact & Discussion
 
