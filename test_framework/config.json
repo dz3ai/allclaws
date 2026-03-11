@@ -1,7 +1,15 @@
 {
   "framework_version": "1.0.0",
   "encryption_enabled": true,
-  "supported_platforms": ["zeroclaw", "openclaw", "nanoclaw"],
+  "supported_platforms": ["zeroclaw", "openclaw", "nanoclaw", "ironclaw", "goclaw", "nanobot"],
   "default_privilege_level": "standard",
-  "audit_logging": true
+  "audit_logging": true,
+  "platform_paths": {
+    "zeroclaw": "../zeroclaw",
+    "openclaw": "../openclaw",
+    "nanoclaw": "../nanoclaw",
+    "ironclaw": "../ironclaw",
+    "goclaw": "../goclaw",
+    "nanobot": "../nanobot"
+  }
 }

@@ -29,9 +29,17 @@ cat > config.json << EOF
 {
   "framework_version": "1.0.0",
   "encryption_enabled": true,
-  "supported_platforms": ["zeroclaw", "openclaw", "nanoclaw"],
+  "supported_platforms": ["zeroclaw", "openclaw", "nanoclaw", "ironclaw", "goclaw", "nanobot"],
   "default_privilege_level": "standard",
-  "audit_logging": true
+  "audit_logging": true,
+  "platform_paths": {
+    "zeroclaw": "../zeroclaw",
+    "openclaw": "../openclaw",
+    "nanoclaw": "../nanoclaw",
+    "ironclaw": "../ironclaw",
+    "goclaw": "../goclaw",
+    "nanobot": "../nanobot"
+  }
 }
 EOF
 
@@ -40,3 +48,5 @@ echo "Next steps:"
 echo "1. Define your agent in agents/example_agent.json"
 echo "2. Run validate_agent.sh to check configuration"
 echo "3. Run run_benchmark.sh to test performance"
+echo ""
+echo "Available platforms: zeroclaw, openclaw, nanoclaw, ironclaw, goclaw, nanobot"

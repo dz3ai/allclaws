@@ -7,7 +7,7 @@ PLATFORM=$2
 
 if [ -z "$AGENT_CONFIG" ] || [ -z "$PLATFORM" ]; then
     echo "Usage: $0 <agent_config.json> <platform>"
-    echo "Platforms: zeroclaw, openclaw, nanoclaw"
+    echo "Platforms: zeroclaw, openclaw, nanoclaw, ironclaw, goclaw, nanobot"
     exit 1
 fi
 
@@ -18,11 +18,11 @@ fi
 
 # Validate platform
 case $PLATFORM in
-    zeroclaw|openclaw|nanoclaw)
+    zeroclaw|openclaw|nanoclaw|ironclaw|goclaw|nanobot)
         ;;
     *)
         echo "Unsupported platform: $PLATFORM"
-        echo "Supported: zeroclaw, openclaw, nanoclaw"
+        echo "Supported: zeroclaw, openclaw, nanoclaw, ironclaw, goclaw, nanobot"
         exit 1
         ;;
 esac
@@ -50,33 +50,92 @@ for benchmark in $BENCHMARKS; do
 
     case $PLATFORM in
         zeroclaw)
-            # Assume zeroclaw binary is available
-            if command -v zeroclaw >/dev/null 2>&1; then
-                zeroclaw benchmark "$benchmark" --config "$AGENT_CONFIG" --output "$RESULT_DIR/${benchmark}.json"
+            # Use local zeroclaw submodule
+            if [ -f "../zeroclaw/Cargo.toml" ]; then
+                cd ../zeroclaw
+                if [ -f "target/release/zeroclaw" ]; then
+                    ./target/release/zeroclaw benchmark "$benchmark" --config "../test_framework/$AGENT_CONFIG" --output "../test_framework/$RESULT_DIR/${benchmark}.json"
+                else
+                    echo "Zeroclaw binary not found. Building zeroclaw..."
+                    cargo build --release
+                    ./target/release/zeroclaw benchmark "$benchmark" --config "../test_framework/$AGENT_CONFIG" --output "../test_framework/$RESULT_DIR/${benchmark}.json"
+                fi
+                cd test_framework
             else
-                echo "Zeroclaw binary not found. Please build zeroclaw first."
+                echo "Zeroclaw submodule not found. Please run: git submodule update --init --recursive"
                 exit 1
             fi
             ;;
         openclaw)
-            # Assume openclaw is available via pnpm
-            if command -v pnpm >/dev/null 2>&1; then
-                cd /home/dannyz/local/src/openclaw
-                pnpm openclaw benchmark "$benchmark" --config "../../../allclaws/test_framework/$AGENT_CONFIG" --output "../../../allclaws/test_framework/$RESULT_DIR/${benchmark}.json"
-                cd - >/dev/null
+            # Use local openclaw submodule
+            if [ -f "../openclaw/package.json" ]; then
+                cd ../openclaw
+                if command -v pnpm >/dev/null 2>&1; then
+                    pnpm openclaw benchmark "$benchmark" --config "../test_framework/$AGENT_CONFIG" --output "../test_framework/$RESULT_DIR/${benchmark}.json"
+                else
+                    echo "pnpm not found. Please install pnpm."
+                    cd test_framework
+                    exit 1
+                fi
+                cd test_framework
             else
-                echo "pnpm not found. Please install pnpm."
+                echo "Openclaw submodule not found. Please run: git submodule update --init --recursive"
                 exit 1
             fi
             ;;
         nanoclaw)
-            # Assume nanoclaw is available
-            if [ -f "/home/dannyz/local/src/nanoclaw/package.json" ]; then
-                cd /home/dannyz/local/src/nanoclaw
-                npm run benchmark "$benchmark" --config "../../../allclaws/test_framework/$AGENT_CONFIG" --output "../../../allclaws/test_framework/$RESULT_DIR/${benchmark}.json"
-                cd - >/dev/null
+            # Use local nanoclaw submodule
+            if [ -f "../nanoclaw/package.json" ]; then
+                cd ../nanoclaw
+                npm run benchmark "$benchmark" --config "../test_framework/$AGENT_CONFIG" --output "../test_framework/$RESULT_DIR/${benchmark}.json"
+                cd test_framework
             else
-                echo "NanoClaw not found."
+                echo "NanoClaw submodule not found. Please run: git submodule update --init --recursive"
+                exit 1
+            fi
+            ;;
+        ironclaw)
+            # Use local ironclaw submodule
+            if [ -f "../ironclaw/Cargo.toml" ]; then
+                cd ../ironclaw
+                if [ -f "target/release/ironclaw" ]; then
+                    ./target/release/ironclaw benchmark "$benchmark" --config "../test_framework/$AGENT_CONFIG" --output "../test_framework/$RESULT_DIR/${benchmark}.json"
+                else
+                    echo "IronClaw binary not found. Building ironclaw..."
+                    cargo build --release
+                    ./target/release/ironclaw benchmark "$benchmark" --config "../test_framework/$AGENT_CONFIG" --output "../test_framework/$RESULT_DIR/${benchmark}.json"
+                fi
+                cd test_framework
+            else
+                echo "IronClaw submodule not found. Please run: git submodule update --init --recursive"
+                exit 1
+            fi
+            ;;
+        goclaw)
+            # Use local goclaw submodule
+            if [ -f "../goclaw/go.mod" ]; then
+                cd ../goclaw
+                if [ -f "goclaw" ]; then
+                    ./goclaw benchmark "$benchmark" --config "../test_framework/$AGENT_CONFIG" --output "../test_framework/$RESULT_DIR/${benchmark}.json"
+                else
+                    echo "GoClaw binary not found. Building goclaw..."
+                    go build -o goclaw .
+                    ./goclaw benchmark "$benchmark" --config "../test_framework/$AGENT_CONFIG" --output "../test_framework/$RESULT_DIR/${benchmark}.json"
+                fi
+                cd test_framework
+            else
+                echo "GoClaw submodule not found. Please run: git submodule update --init --recursive"
+                exit 1
+            fi
+            ;;
+        nanobot)
+            # Use local nanobot submodule
+            if [ -f "../nanobot/pyproject.toml" ]; then
+                cd ../nanobot
+                python -m nanobot benchmark "$benchmark" --config "../test_framework/$AGENT_CONFIG" --output "../test_framework/$RESULT_DIR/${benchmark}.json"
+                cd test_framework
+            else
+                echo "Nanobot submodule not found. Please run: git submodule update --init --recursive"
                 exit 1
             fi
             ;;

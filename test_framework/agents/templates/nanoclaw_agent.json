@@ -1,0 +1,27 @@
+{
+  "name": "NanoClaw Agent",
+  "platform": "nanoclaw",
+  "version": "1.0.0",
+  "description": "WhatsApp-focused assistant with containerized agents",
+  "skills": {
+    "required": ["messaging", "group_management"],
+    "optional": ["automation", "browser_control"]
+  },
+  "security": {
+    "rules": ["container_isolation", "group_level_permissions"],
+    "privileges": ["send_whatsapp", "read_groups"]
+  },
+  "credentials": {
+    "encrypted": true,
+    "providers": ["whatsapp_api"]
+  },
+  "benchmarks": {
+    "enabled": ["messaging", "task_automation"],
+    "custom": []
+  },
+  "platform_config": {
+    "package_manager": "npm",
+    "install_command": "npm install",
+    "container_runtime": "docker"
+  }
+}

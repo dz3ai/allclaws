@@ -1,0 +1,29 @@
+{
+  "name": "Nanobot Agent",
+  "platform": "nanobot",
+  "version": "1.0.0",
+  "description": "Ultra-lightweight personal AI assistant with minimal footprint",
+  "skills": {
+    "required": ["task_execution", "session_management"],
+    "optional": ["clawhub_skills", "mcp_integration"]
+  },
+  "security": {
+    "rules": ["session_isolation", "security_hardening"],
+    "privileges": ["execute_tasks", "manage_sessions"]
+  },
+  "credentials": {
+    "encrypted": true,
+    "providers": ["anthropic_api", "deepseek_api"]
+  },
+  "benchmarks": {
+    "enabled": ["lightweight_performance", "startup_time"],
+    "custom": []
+  },
+  "platform_config": {
+    "package_manager": "pip",
+    "install_command": "pip install nanobot-ai",
+    "run_command": "python -m nanobot",
+    "python_version": "3.11+",
+    "database_type": "sqlite"
+  }
+}

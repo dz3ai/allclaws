@@ -1,0 +1,26 @@
+{
+  "name": "Zeroclaw Agent",
+  "platform": "zeroclaw",
+  "version": "1.0.0",
+  "description": "High-performance Rust-based personal AI agent",
+  "skills": {
+    "required": ["task_management", "web_browsing"],
+    "optional": ["hardware_integration", "gpio_control"]
+  },
+  "security": {
+    "rules": ["no_external_network", "read_only_filesystem"],
+    "privileges": ["read_home_dir", "execute_safe_commands"]
+  },
+  "credentials": {
+    "encrypted": true,
+    "providers": []
+  },
+  "benchmarks": {
+    "enabled": ["task_management", "web_research"],
+    "custom": []
+  },
+  "platform_config": {
+    "binary_path": "../zeroclaw/target/release/zeroclaw",
+    "build_command": "cargo build --release"
+  }
+}

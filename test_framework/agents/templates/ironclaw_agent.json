@@ -1,0 +1,28 @@
+{
+  "name": "IronClaw Agent",
+  "platform": "ironclaw",
+  "version": "1.0.0",
+  "description": "Secure personal AI assistant with WASM sandboxing",
+  "skills": {
+    "required": ["secure_execution", "tool_management"],
+    "optional": ["wasm_tools", "mcp_integration"]
+  },
+  "security": {
+    "rules": ["wasm_sandbox", "defense_in_depth", "no_telemetry"],
+    "privileges": ["execute_wasm", "access_database"]
+  },
+  "credentials": {
+    "encrypted": true,
+    "providers": ["near_ai", "openai_api"]
+  },
+  "benchmarks": {
+    "enabled": ["secure_execution", "tool_performance"],
+    "custom": []
+  },
+  "platform_config": {
+    "binary_path": "../ironclaw/target/release/ironclaw",
+    "build_command": "cargo build --release",
+    "database_required": true,
+    "database_type": "postgresql"
+  }
+}

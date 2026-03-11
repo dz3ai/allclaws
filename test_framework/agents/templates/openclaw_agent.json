@@ -1,0 +1,27 @@
+{
+  "name": "Openclaw Agent",
+  "platform": "openclaw",
+  "version": "1.0.0",
+  "description": "TypeScript CLI with extensive channel support",
+  "skills": {
+    "required": ["email_processing", "calendar_integration"],
+    "optional": ["media_processing", "channel_routing"]
+  },
+  "security": {
+    "rules": ["content_redaction", "access_control"],
+    "privileges": ["read_documents", "send_messages"]
+  },
+  "credentials": {
+    "encrypted": true,
+    "providers": ["gmail_api", "calendar_api"]
+  },
+  "benchmarks": {
+    "enabled": ["email_sorting", "schedule_optimization"],
+    "custom": []
+  },
+  "platform_config": {
+    "package_manager": "pnpm",
+    "install_command": "pnpm install",
+    "run_command": "pnpm openclaw"
+  }
+}

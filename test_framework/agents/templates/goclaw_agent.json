@@ -1,0 +1,29 @@
+{
+  "name": "GoClaw Agent",
+  "platform": "goclaw",
+  "version": "1.0.0",
+  "description": "Multi-agent AI gateway with teams and orchestration",
+  "skills": {
+    "required": ["agent_teams", "multi_tenant"],
+    "optional": ["conversation_handoff", "evaluate_loop"]
+  },
+  "security": {
+    "rules": ["5_layer_defense", "prompt_injection_detection"],
+    "privileges": ["manage_teams", "access_workspaces"]
+  },
+  "credentials": {
+    "encrypted": true,
+    "providers": ["anthropic_api", "openai_api"]
+  },
+  "benchmarks": {
+    "enabled": ["team_orchestration", "multi_tenant_isolation"],
+    "custom": []
+  },
+  "platform_config": {
+    "binary_path": "../goclaw/goclaw",
+    "build_command": "go build -o goclaw .",
+    "database_required": true,
+    "database_type": "postgresql",
+    "llm_providers": ["anthropic", "openai", "groq", "deepseek", "gemini"]
+  }
+}

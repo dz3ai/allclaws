@@ -1,6 +1,6 @@
 # 个人代理测试框架
 
-此框架允许用户跨不同平台（Zeroclaw、Openclaw、NanoClaw 等）定义、配置和基准测试个人 AI 代理。它强调安全性、技能验证和性能测试。
+此框架允许用户跨不同平台（Zeroclaw、Openclaw、NanoClaw、IronClaw、GoClaw、Nanobot 等）定义、配置和基准测试个人 AI 代理。它强调安全性、技能验证和性能测试。
 
 ## 概述
 
@@ -8,7 +8,7 @@
 - **代理定义**：指定所需技能、安全规则、系统权限和凭据
 - **安全验证**：确保代理在批准的边界内运行
 - **基准套件**：用于性能比较的常见个人任务
-- **多平台支持**：在 Zeroclaw (Rust)、Openclaw (TypeScript)、NanoClaw (Node.js) 或自定义代理上运行基准测试
+- **多平台支持**：在 Zeroclaw (Rust)、Openclaw (TypeScript)、NanoClaw (Node.js)、IronClaw (Rust)、GoClaw (Go)、Nanobot (Python) 或自定义代理上运行基准测试
 
 ## 目录结构
 
@@ -42,7 +42,7 @@ test_framework/
 1. **设置**：运行 `./scripts/setup.sh` 初始化框架
 2. **定义代理**：在 `agents/` 中创建代理配置
 3. **验证**：运行 `./scripts/validate_agent.sh <agent_config>`
-4. **基准测试**：运行 `./scripts/run_benchmark.sh <agent_config> <platform>`
+4. **基准测试**：运行 `./scripts/run_benchmark.sh <agent_config> <platform>` (平台: zeroclaw, openclaw, nanoclaw, ironclaw, goclaw, nanobot)
 
 ## 先决条件
 
@@ -97,10 +97,15 @@ test_framework/
 
 ## 支持的平台
 
-- **Zeroclaw**：基于 Rust 的高性能运行时
-- **Openclaw**：具有广泛渠道的 TypeScript CLI
-- **NanoClaw**：Node.js WhatsApp 助手
+- **Zeroclaw**：基于 Rust 的高性能运行时，具有 trait 驱动的架构
+- **Openclaw**：具有广泛渠道和插件的 TypeScript CLI
+- **NanoClaw**：具有容器化代理的 Node.js WhatsApp 助手
+- **IronClaw**：基于 Rust 的安全个人 AI 助手，具有 WASM 沙箱
+- **GoClaw**：基于 Go 的多代理 AI 网关，支持团队和编排
+- **Nanobot**：基于 Python 的超轻量级个人 AI 助手
 - **自定义**：任何具有 HTTP API 的代理
+
+所有平台都可以作为本地 git 子模块用于测试和基准测试。
 
 ## API 参考
 

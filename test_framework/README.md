@@ -1,6 +1,6 @@
 # Personal Agent Test Framework
 
-This framework allows users to define, configure, and benchmark personal AI agents across different platforms (Zeroclaw, Openclaw, NanoClaw, and others). It emphasizes security, skill validation, and performance testing.
+This framework allows users to define, configure, and benchmark personal AI agents across different platforms (Zeroclaw, Openclaw, NanoClaw, IronClaw, GoClaw, Nanobot, and others). It emphasizes security, skill validation, and performance testing.
 
 ## Overview
 
@@ -8,7 +8,7 @@ The framework provides:
 - **Agent Definition**: Specify required skills, security rules, system privileges, and credentials
 - **Security Validation**: Ensure agents operate within approved boundaries
 - **Benchmark Suite**: Common personal tasks for performance comparison
-- **Multi-Platform Support**: Run benchmarks on Zeroclaw (Rust), Openclaw (TypeScript), NanoClaw (Node.js), or custom agents
+- **Multi-Platform Support**: Run benchmarks on Zeroclaw (Rust), Openclaw (TypeScript), NanoClaw (Node.js), IronClaw (Rust), GoClaw (Go), Nanobot (Python), or custom agents
 
 ## Directory Structure
 
@@ -42,7 +42,7 @@ test_framework/
 1. **Setup**: Run `./scripts/setup.sh` to initialize the framework
 2. **Define Agent**: Create an agent config in `agents/`
 3. **Validate**: Run `./scripts/validate_agent.sh <agent_config>`
-4. **Benchmark**: Run `./scripts/run_benchmark.sh <agent_config> <platform>`
+4. **Benchmark**: Run `./scripts/run_benchmark.sh <agent_config> <platform>` (platforms: zeroclaw, openclaw, nanoclaw, ironclaw, goclaw, nanobot)
 
 ## Prerequisites
 
@@ -97,10 +97,15 @@ Common personal tasks include:
 
 ## Supported Platforms
 
-- **Zeroclaw**: Rust-based, high-performance runtime
-- **Openclaw**: TypeScript CLI with extensive channels
-- **NanoClaw**: Node.js WhatsApp assistant
+- **Zeroclaw**: Rust-based, high-performance runtime with trait-driven architecture
+- **Openclaw**: TypeScript CLI with extensive channels and plugins
+- **NanoClaw**: Node.js WhatsApp assistant with containerized agents
+- **IronClaw**: Rust-based secure personal AI assistant with WASM sandboxing
+- **GoClaw**: Go-based multi-agent AI gateway with teams and orchestration
+- **Nanobot**: Python-based ultra-lightweight personal AI assistant
 - **Custom**: Any agent with HTTP API
+
+All platforms are available as local git submodules for testing and benchmarking.
 
 ## API Reference
 
