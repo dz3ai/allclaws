@@ -30,6 +30,7 @@
 - **Maxclaw** (Go 写的)：OpenClaw 风格的本地优先 AI 代理，自带桌面 UI，内存占用低，支持 monorepo 上下文发现
 
 **成果展示：**
+- `docs/LATEST_UPDATES.zh-CN.md` - 各项目最新进展和生态趋势（月度更新）
 - `architecture/architecture_comparison.md` - 技术分析报告（8 个平台）
 - `architecture/architecture_comparison.zh-CN.md` - 中文版分析
 - `architecture/multi_agent_coordination_research.md` - 多代理协作趋势分析
@@ -73,6 +74,7 @@ test_framework/
 我们在写一些关于个人 AI 助手的教程和思考：
 
 **已经写好的：**
+- [最新进展：2026 年 3 月](docs/LATEST_UPDATES.zh-CN.md) — 月度生态追踪
 - 八大平台架构对比分析
 - 多代理协作趋势研究
 - AI 代理安全要注意的事儿
