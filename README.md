@@ -23,10 +23,13 @@ Comprehensive analysis of personal AI agent platforms including:
 - **IronClaw** (Rust-based): Secure personal AI assistant with WASM sandboxing and defense-in-depth security
 - **GoClaw** (Go-based): Multi-agent AI gateway with teams, orchestration, and multi-tenant PostgreSQL
 - **Nanobot** (Python-based): Ultra-lightweight personal AI assistant with ~4,000 LOC core code
+- **ClawTeam** (Python-based): Multi-agent swarm coordination with leader-worker orchestration, git worktree isolation, and inter-agent messaging
+- **Maxclaw** (Go-based): OpenClaw-style local-first agent with desktop UI, low memory footprint, and monorepo-aware context discovery
 
 **Key Deliverables:**
-- `architecture/architecture_comparison.md` - Detailed technical analysis
+- `architecture/architecture_comparison.md` - Detailed technical analysis (8 platforms)
 - `architecture/architecture_comparison.zh-CN.md` - Chinese translation
+- `architecture/multi_agent_coordination_research.md` - Multi-agent coordination trend analysis
 - Platform capability matrices and trade-off analysis
 
 ### 2. Personal Agent Test Framework
@@ -36,7 +39,7 @@ A comprehensive testing framework for evaluating personal AI agents across multi
 
 **Framework Features:**
 - **Agent Definition & Validation**: JSON-based configuration with security rules
-- **Multi-Platform Support**: Zeroclaw, Openclaw, NanoClaw, IronClaw, GoClaw, Nanobot, and custom agents
+- **Multi-Platform Support**: Zeroclaw, Openclaw, NanoClaw, IronClaw, GoClaw, Nanobot, ClawTeam, Maxclaw, and custom agents
 - **Security Testing**: Privilege validation, credential encryption, rule enforcement
 - **Benchmark Suite**: Common personal tasks (email, calendar, task management)
 - **Performance Metrics**: Standardized testing across platforms
@@ -67,7 +70,8 @@ test_framework/
 Creating educational content about personal AI assistants:
 
 **Published Content:**
-- Architecture comparison analysis
+- Architecture comparison analysis (8 platforms)
+- Multi-agent coordination trend analysis
 - Security considerations for personal AI agents
 - Framework documentation (English + Chinese)
 
@@ -75,7 +79,8 @@ Creating educational content about personal AI assistants:
 - Performance benchmarking methodologies
 - Security best practices for AI agents
 - Platform selection guides
-- Future trends in personal AI
+- Cross-platform agent federation analysis
+- Multi-agent economics and cost optimization
 
 ## 🏗️ Technical Architecture
 
@@ -122,7 +127,8 @@ bash tests/test_agent_validation.sh
 ## 📊 Current Status & Roadmap
 
 ### ✅ Completed
-- [x] Architecture analysis of 6 major platforms (Zeroclaw, Openclaw, NanoClaw, IronClaw, GoClaw, Nanobot)
+- [x] Architecture analysis of 8 major platforms (Zeroclaw, Openclaw, NanoClaw, IronClaw, GoClaw, Nanobot, ClawTeam, Maxclaw)
+- [x] Multi-agent coordination trend research
 - [x] Core test framework with security validation
 - [x] Agent configuration schema and validation
 - [x] Security privilege and rule enforcement
@@ -166,6 +172,8 @@ This is an active research project. Contributions welcome in:
 - **IronClaw**: https://github.com/nearai/ironclaw
 - **GoClaw**: https://github.com/nextlevelbuilder/goclaw
 - **Nanobot**: https://github.com/HKUDS/nanobot
+- **ClawTeam**: https://github.com/win4r/ClawTeam-OpenClaw
+- **Maxclaw**: https://github.com/Lichas/maxclaw
 
 ## 📞 Contact & Discussion
 
@@ -173,4 +181,4 @@ This project represents ongoing research into personal AI agent architectures. F
 
 ---
 
-*Last updated: February 23, 2026*
+*Last updated: March 29, 2026*
