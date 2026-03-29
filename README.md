@@ -42,7 +42,7 @@ Comprehensive analysis of personal AI agent platforms including:
 - `docs/LATEST_UPDATES.md` - Latest project updates and ecosystem trends (monthly)
 - `architecture/architecture_comparison.md` - Detailed technical analysis (8 platforms)
 - `architecture/architecture_comparison.zh-CN.md` - Chinese translation
-- `architecture/multi_agent_coordination_research.md` - Multi-agent coordination trend analysis
+- `architecture/multi_agent_coordination_research.md` - Multi-agent coordination trend analysis (EN + ZH)
 - Platform capability matrices and trade-off analysis
 
 ### 2. Personal Agent Test Framework

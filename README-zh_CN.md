@@ -43,7 +43,7 @@
 - `docs/LATEST_UPDATES.zh-CN.md` - 各项目最新进展和生态趋势（月度更新）
 - `architecture/architecture_comparison.md` - 技术分析报告（8 个平台）
 - `architecture/architecture_comparison.zh-CN.md` - 中文版分析
-- `architecture/multi_agent_coordination_research.md` - 多代理协作趋势分析
+- `architecture/multi_agent_coordination_research.zh-CN.md` - 多代理协作趋势分析（中文版）
 - 各种平台的优缺点对比表
 
 ### 2. 跨平台测试框架

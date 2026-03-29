@@ -1,5 +1,7 @@
 # Multi-Agent Coordination in Personal AI Systems: 2026 Research Analysis
 
+**[中文](multi_agent_coordination_research.zh-CN.md)** | English
+
 ## Executive Summary
 
 The personal AI agent ecosystem has evolved from single-agent systems to sophisticated multi-agent coordination platforms. This analysis examines the emergence of swarm intelligence, agent orchestration layers, and collaborative AI architectures based on recent developments in the AllClaws research ecosystem.
