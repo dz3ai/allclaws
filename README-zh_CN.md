@@ -24,10 +24,13 @@
 - **IronClaw** (Rust 写的)：安全优先的个人 AI 助手，用 WASM 沙箱和多层防御保护你的数据
 - **GoClaw** (Go 写的)：多代理 AI 网关，支持团队编排和多租户 PostgreSQL
 - **Nanobot** (Python 写的)：超轻量级个人 AI 助手，只有约 4000 行核心代码
+- **ClawTeam** (Python 写的)：多代理群体协作工具，支持领导-工人模式编排、git worktree 隔离和代理间消息传递
+- **Maxclaw** (Go 写的)：OpenClaw 风格的本地优先 AI 代理，自带桌面 UI，内存占用低，支持 monorepo 上下文发现
 
 **成果展示：**
-- `architecture/architecture_comparison.md` - 技术分析报告
+- `architecture/architecture_comparison.md` - 技术分析报告（8 个平台）
 - `architecture/architecture_comparison.zh-CN.md` - 中文版分析
+- `architecture/multi_agent_coordination_research.md` - 多代理协作趋势分析
 - 各种平台的优缺点对比表
 
 ### 2. 个人代理测试框架
@@ -37,7 +40,7 @@
 
 **框架亮点：**
 - **代理配置**：用 JSON 格式定义代理，还带安全规则验证
-- **多平台支持**：Zeroclaw、Openclaw、NanoClaw、IronClaw、GoClaw、Nanobot，甚至你自己写的代理
+- **多平台支持**：Zeroclaw、Openclaw、NanoClaw、IronClaw、GoClaw、Nanobot、ClawTeam、Maxclaw，甚至你自己写的代理
 - **安全测试**：检查权限、加密凭据、规则执行等等
 - **基准测试**：日常任务测试套件（邮件、日历、任务管理）
 - **性能指标**：标准化测试，让不同平台能公平比较
@@ -68,7 +71,8 @@ test_framework/
 我们在写一些关于个人 AI 助手的教程和思考：
 
 **已经写好的：**
-- 各大平台架构对比分析
+- 八大平台架构对比分析
+- 多代理协作趋势研究
 - AI 代理安全要注意的事儿
 - 框架使用文档（中英双语）
 
@@ -76,7 +80,8 @@ test_framework/
 - 性能测试怎么做
 - AI 代理安全最佳实践
 - 怎么选合适的平台
-- 个人 AI 未来的发展趋势
+- 跨平台代理联邦分析
+- 多代理经济学和成本优化
 
 ## 🏗️ 技术架构
 
@@ -121,7 +126,8 @@ bash tests/test_agent_validation.sh
 ## 📊 项目进度
 
 ### ✅ 已经搞定的
-- [x] 六大平台架构深度分析（Zeroclaw、Openclaw、NanoClaw、IronClaw、GoClaw、Nanobot）
+- [x] 八大平台架构深度分析（Zeroclaw、Openclaw、NanoClaw、IronClaw、GoClaw、Nanobot、ClawTeam、Maxclaw）
+- [x] 多代理协作趋势研究
 - [x] 核心测试框架，带安全验证
 - [x] 代理配置规范和验证逻辑
 - [x] 安全权限和规则执行机制
@@ -165,6 +171,8 @@ bash tests/test_agent_validation.sh
 - **IronClaw**：https://github.com/nearai/ironclaw
 - **GoClaw**：https://github.com/nextlevelbuilder/goclaw
 - **Nanobot**：https://github.com/HKUDS/nanobot
+- **ClawTeam**：https://github.com/win4r/ClawTeam-OpenClaw
+- **Maxclaw**：https://github.com/Lichas/maxclaw
 
 ## 📞 聊聊？
 
@@ -172,4 +180,4 @@ bash tests/test_agent_validation.sh
 
 ---
 
-*最后更新：2026 年 2 月 23 日*
+*最后更新：2026 年 3 月 29 日*
