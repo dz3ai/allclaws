@@ -13,6 +13,16 @@
 - **整一个**测试框架，能客观地比较各种 AI 代理
 - **写写分享**技术心得，让更多人了解这个领域
 
+## 🔥 本月生态趋势（2026 年 3 月）
+
+跟踪 8 个平台后，我们发现三大趋势：
+
+1. **安全是头等大事** — OpenClaw 披露了关键 CVE（远程代码执行、沙箱绕过），NanoClaw 与 Docker 合作推出容器优先安全方案，Nanobot 因供应链安全问题移除了 litellm，IronClaw 修复了 5 个关键安全漏洞。
+2. **端到端流式传输已成标配** — 每个活跃项目都实现了从模型到渠道的端到端流式传输。
+3. **多模型提供商持续扩展** — 各项目纷纷接入 Codex OAuth、GitHub Copilot、Gemini、AWS Bedrock 等新后端。
+
+详情请看 [最新进展：2026 年 3 月](docs/LATEST_UPDATES.zh-CN.md)。
+
 ## 📋 现在在忙活啥
 
 ### 1. 架构分析大作战
@@ -36,37 +46,34 @@
 - `architecture/multi_agent_coordination_research.md` - 多代理协作趋势分析
 - 各种平台的优缺点对比表
 
-### 2. 个人代理测试框架
-**状态：** ✅ 核心功能搞定了
+### 2. 跨平台测试框架
+**状态：** ✅ v2.0 — 跨平台静态分析完成
 
-我们整了个测试框架，用来全方位检验个人 AI 代理：
+自动扫描所有 8 个平台子模块，系统化记录测试结果。
 
-**框架亮点：**
-- **代理配置**：用 JSON 格式定义代理，还带安全规则验证
-- **多平台支持**：Zeroclaw、Openclaw、NanoClaw、IronClaw、GoClaw、Nanobot、ClawTeam、Maxclaw，甚至你自己写的代理
-- **安全测试**：检查权限、加密凭据、规则执行等等
-- **基准测试**：日常任务测试套件（邮件、日历、任务管理）
-- **性能指标**：标准化测试，让不同平台能公平比较
-
-**项目结构：**
-```
-architecture/             # 架构分析和对比文档
-test_framework/
-├── agents/                # 代理配置文件放这里
-├── benchmarks/            # 性能测试脚本
-├── security/              # 安全规则和权限设置
-├── scripts/               # 各种验证和执行脚本
-├── tests/                 # 测试用例（我们用 TDD 方法）
-├── credentials/           # 安全凭据管理（加密的）
-├── tmp/                   # 临时文件（不会提交到 git）
-└── docs/                  # API 文档和使用示例
+**跑测试：**
+```bash
+cd test_framework
+bash scripts/run_tests.sh
 ```
 
-**目前测试覆盖：**
-- ✅ 代理配置验证
-- ✅ 安全权限检查
-- 🔄 基准测试执行（快搞定了）
-- 🔄 跨平台性能对比（计划中）
+**最新结果（2026 年 3 月 29 日）：93 通过 / 9 失败 / 102 总计**
+
+| 平台 | 语言 | 文件数 | 结果 |
+|------|------|--------|------|
+| Zeroclaw | Rust | 227 .rs | 14/14 全部通过 |
+| Openclaw | TypeScript | 5941 .ts | 13/13 全部通过 |
+| NanoClaw | TypeScript | 61 .ts | 13/13 全部通过 |
+| IronClaw | Rust | 287 .rs | 14/14 全部通过 |
+| GoClaw | Go | 524 .go | 11/14 |
+| Nanobot | Python | 88 .py | 10/13 |
+| ClawTeam | Python | 75 .py | 12/13 |
+| Maxclaw | Go | 118 .go | 13/14 |
+
+**每个平台测试内容：**
+- **语言层面**：构建清单、锁文件、源文件数、CI 配置、clippy/deny（Rust）、Makefile（Go）
+- **项目健康度**：LICENSE、README、CHANGELOG、CONTRIBUTING、.gitignore、CI 工作流
+- **输出**：带时间戳的 JSON + Markdown 报告，存在 `test_framework/results/` 目录
 
 ### 3. 技术写作与分享
 **状态：** 📝 持续输出中
@@ -114,16 +121,13 @@ test_framework/
 ```bash
 cd test_framework
 
-# 先初始化一下
+# 跑跨平台测试（v2.0）
+bash scripts/run_tests.sh
+
+# 旧版：初始化和验证
 ./scripts/setup.sh
-
-# 验证代理配置
 ./scripts/validate_agent.sh agents/example_agent.json
-
-# 跑安全测试
 bash tests/test_security_privileges.sh
-
-# 跑代理验证测试
 bash tests/test_agent_validation.sh
 ```
 
@@ -132,7 +136,8 @@ bash tests/test_agent_validation.sh
 ### ✅ 已经搞定的
 - [x] 八大平台架构深度分析（Zeroclaw、Openclaw、NanoClaw、IronClaw、GoClaw、Nanobot、ClawTeam、Maxclaw）
 - [x] 多代理协作趋势研究
-- [x] 核心测试框架，带安全验证
+- [x] 月度生态更新追踪（中英文）
+- [x] 跨平台静态分析测试框架（v2.0，93/102 通过）
 - [x] 代理配置规范和验证逻辑
 - [x] 安全权限和规则执行机制
 - [x] 敏感数据保护的 .gitignore 配置

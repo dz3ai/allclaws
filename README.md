@@ -12,6 +12,16 @@ To advance the field of personal AI assistants by:
 - **Developing** testing frameworks for objective comparison
 - **Sharing** insights through technical writing and documentation
 
+## 🔥 Cross-Cutting Trends (March 2026)
+
+Based on tracking 8 platforms, three dominant trends emerged this month:
+
+1. **Security was the top priority** — OpenClaw disclosed critical CVEs (RCE, sandbox bypass), NanoClaw partnered with Docker for container-first security, Nanobot removed litellm over supply chain concerns, IronClaw patched 5 critical vulnerabilities.
+2. **Streaming became table stakes** — every active project shipped end-to-end streaming from provider to channel.
+3. **Multi-provider LLM expansion** — Codex OAuth, GitHub Copilot, Gemini, AWS Bedrock, and more were added across the board.
+
+See [Latest Updates: March 2026](docs/LATEST_UPDATES.md) for full details.
+
 ## 📋 Current Work in Progress
 
 ### 1. Architecture Analysis & Comparison
@@ -36,36 +46,33 @@ Comprehensive analysis of personal AI agent platforms including:
 - Platform capability matrices and trade-off analysis
 
 ### 2. Personal Agent Test Framework
-**Status:** ✅ Core Implementation Complete
+**Status:** ✅ v2.0 — Cross-Platform Static Analysis Complete
 
-A comprehensive testing framework for evaluating personal AI agents across multiple dimensions:
+A testing framework that scans all 8 platform submodules and records results systematically.
 
-**Framework Features:**
-- **Agent Definition & Validation**: JSON-based configuration with security rules
-- **Multi-Platform Support**: Zeroclaw, Openclaw, NanoClaw, IronClaw, GoClaw, Nanobot, ClawTeam, Maxclaw, and custom agents
-- **Security Testing**: Privilege validation, credential encryption, rule enforcement
-- **Benchmark Suite**: Common personal tasks (email, calendar, task management)
-- **Performance Metrics**: Standardized testing across platforms
-
-**Directory Structure:**
-```
-architecture/             # Architecture analysis and comparisons
-test_framework/
-├── agents/                # Agent configuration definitions
-├── benchmarks/            # Performance test suites
-├── security/              # Security rules and privilege definitions
-├── scripts/               # Validation and execution scripts
-├── tests/                 # Test suites (TDD approach)
-├── credentials/           # Secure credential management
-├── tmp/                   # Temporary files (excluded from git)
-└── docs/                  # API documentation and examples
+**Run tests:**
+```bash
+cd test_framework
+bash scripts/run_tests.sh
 ```
 
-**Current Test Coverage:**
-- ✅ Agent configuration validation
-- ✅ Security privilege enforcement
-- 🔄 Benchmark execution (in development)
-- 🔄 Cross-platform performance comparison (planned)
+**Latest Results (March 29, 2026): 93 pass / 9 fail / 102 total**
+
+| Platform | Language | Files | Result |
+|----------|----------|-------|--------|
+| Zeroclaw | Rust | 227 .rs | 14/14 pass |
+| Openclaw | TypeScript | 5941 .ts | 13/13 pass |
+| NanoClaw | TypeScript | 61 .ts | 13/13 pass |
+| IronClaw | Rust | 287 .rs | 14/14 pass |
+| GoClaw | Go | 524 .go | 11/14 pass |
+| Nanobot | Python | 88 .py | 10/13 pass |
+| ClawTeam | Python | 75 .py | 12/13 pass |
+| Maxclaw | Go | 118 .go | 13/14 pass |
+
+**What gets tested per platform:**
+- **Language-level**: build manifest, lockfile, source file count, CI config, clippy/deny (Rust), Makefile (Go)
+- **Project health**: LICENSE, README, CHANGELOG, CONTRIBUTING, .gitignore, CI workflows
+- **Output**: timestamped JSON + Markdown reports in `test_framework/results/`
 
 ### 3. Technical Writing & Thought Leadership
 **Status:** 📝 Active Content Creation
@@ -115,16 +122,13 @@ cat architecture/architecture_comparison.zh-CN.md
 ```bash
 cd test_framework
 
-# Setup the framework
+# Run cross-platform tests (v2.0)
+bash scripts/run_tests.sh
+
+# Legacy: setup and validate
 ./scripts/setup.sh
-
-# Validate an agent configuration
 ./scripts/validate_agent.sh agents/example_agent.json
-
-# Run security tests
 bash tests/test_security_privileges.sh
-
-# Run agent validation tests
 bash tests/test_agent_validation.sh
 ```
 
@@ -133,7 +137,8 @@ bash tests/test_agent_validation.sh
 ### ✅ Completed
 - [x] Architecture analysis of 8 major platforms (Zeroclaw, Openclaw, NanoClaw, IronClaw, GoClaw, Nanobot, ClawTeam, Maxclaw)
 - [x] Multi-agent coordination trend research
-- [x] Core test framework with security validation
+- [x] Monthly ecosystem updates tracking (EN + ZH)
+- [x] Cross-platform static analysis test framework (v2.0, 93/102 pass)
 - [x] Agent configuration schema and validation
 - [x] Security privilege and rule enforcement
 - [x] Comprehensive .gitignore for sensitive data protection
