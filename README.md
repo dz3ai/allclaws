@@ -1,5 +1,7 @@
 # AllClaws: Personal AI Agent Ecosystem Analysis & Testing
 
+**[中文](README-zh_CN.md)** | English
+
 **AllClaws** is a comprehensive research and development project focused on analyzing, comparing, and testing personal AI agent platforms. This umbrella project brings together architecture analysis, performance benchmarking, and thought leadership in the personal AI assistant space.
 
 ## 🎯 Mission
