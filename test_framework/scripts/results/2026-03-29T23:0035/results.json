@@ -1,0 +1,57 @@
+{
+  "timestamp": "2026-03-29T23:0035",
+  "total": 8,
+  "passed": 0,
+  "failed": 0,
+  "skipped": 8,
+  "results": [
+    {
+      "id": "zeroclaw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "openclaw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "nanoclaw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "ironclaw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "goclaw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "nanobot.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "clawteam.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "maxclaw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    }
+  ]
+}

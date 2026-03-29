@@ -1,0 +1,621 @@
+{
+  "timestamp": "2026-03-29T23:0144",
+  "total": 102,
+  "passed": 93,
+  "failed": 9,
+  "skipped": 0,
+  "results": [
+    {
+      "id": "zeroclaw.init",
+      "desc": "Submodule exists and populated",
+      "status": "pass",
+      "detail": "\n"
+    },
+    {
+      "id": "zeroclaw.manifest",
+      "desc": "Has Cargo.toml",
+      "status": "pass",
+      "detail": "pass (Cargo.toml found)\n"
+    },
+    {
+      "id": "zeroclaw.workspace",
+      "desc": "Workspace structure",
+      "status": "pass",
+      "detail": "pass (workspace detected)\n"
+    },
+    {
+      "id": "zeroclaw.source",
+      "desc": "Has Rust source files",
+      "status": "pass",
+      "detail": "pass (227 Rust source files)\n"
+    },
+    {
+      "id": "zeroclaw.lock",
+      "desc": "Has Cargo.lock",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "zeroclaw.clippy",
+      "desc": "Has clippy config",
+      "status": "pass",
+      "detail": "pass (clippy config found)\n"
+    },
+    {
+      "id": "zeroclaw.ci_lang",
+      "desc": "Has Rust CI",
+      "status": "pass",
+      "detail": "pass (4 GitHub Actions workflows)\n"
+    },
+    {
+      "id": "zeroclaw.deny",
+      "desc": "Has cargo-deny",
+      "status": "pass",
+      "detail": "pass (cargo-deny config found)\n"
+    },
+    {
+      "id": "zeroclaw.license",
+      "desc": "Has open-source license",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "zeroclaw.readme",
+      "desc": "Has README",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "zeroclaw.changelog",
+      "desc": "Has CHANGELOG",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "zeroclaw.contributing",
+      "desc": "Has CONTRIBUTING",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "zeroclaw.gitignore",
+      "desc": "Has .gitignore",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "zeroclaw.ci",
+      "desc": "Has CI configuration",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "openclaw.init",
+      "desc": "Submodule exists and populated",
+      "status": "pass",
+      "detail": "\n"
+    },
+    {
+      "id": "openclaw.manifest",
+      "desc": "Has package.json",
+      "status": "pass",
+      "detail": "pass (package.json found)\n"
+    },
+    {
+      "id": "openclaw.source",
+      "desc": "Has TypeScript source",
+      "status": "pass",
+      "detail": "pass (5941 TypeScript files)\n"
+    },
+    {
+      "id": "openclaw.lock",
+      "desc": "Has lockfile",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "openclaw.ci_lang",
+      "desc": "Has TS CI",
+      "status": "pass",
+      "detail": "pass (9 GitHub Actions workflows)\n"
+    },
+    {
+      "id": "openclaw.docker",
+      "desc": "Has Docker",
+      "status": "pass",
+      "detail": "pass (Docker config found)\n"
+    },
+    {
+      "id": "openclaw.license",
+      "desc": "Has open-source license",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "openclaw.readme",
+      "desc": "Has README",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "openclaw.changelog",
+      "desc": "Has CHANGELOG",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "openclaw.contributing",
+      "desc": "Has CONTRIBUTING",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "openclaw.gitignore",
+      "desc": "Has .gitignore",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "openclaw.ci",
+      "desc": "Has CI configuration",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "nanoclaw.init",
+      "desc": "Submodule exists and populated",
+      "status": "pass",
+      "detail": "\n"
+    },
+    {
+      "id": "nanoclaw.manifest",
+      "desc": "Has package.json",
+      "status": "pass",
+      "detail": "pass (package.json found)\n"
+    },
+    {
+      "id": "nanoclaw.source",
+      "desc": "Has TypeScript source",
+      "status": "pass",
+      "detail": "pass (61 TypeScript files)\n"
+    },
+    {
+      "id": "nanoclaw.lock",
+      "desc": "Has lockfile",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "nanoclaw.ci_lang",
+      "desc": "Has TS CI",
+      "status": "pass",
+      "detail": "pass (4 GitHub Actions workflows)\n"
+    },
+    {
+      "id": "nanoclaw.docker",
+      "desc": "Has Docker",
+      "status": "pass",
+      "detail": "WARN: no Dockerfile\n"
+    },
+    {
+      "id": "nanoclaw.license",
+      "desc": "Has open-source license",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "nanoclaw.readme",
+      "desc": "Has README",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "nanoclaw.changelog",
+      "desc": "Has CHANGELOG",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "nanoclaw.contributing",
+      "desc": "Has CONTRIBUTING",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "nanoclaw.gitignore",
+      "desc": "Has .gitignore",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "nanoclaw.ci",
+      "desc": "Has CI configuration",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "ironclaw.init",
+      "desc": "Submodule exists and populated",
+      "status": "pass",
+      "detail": "\n"
+    },
+    {
+      "id": "ironclaw.manifest",
+      "desc": "Has Cargo.toml",
+      "status": "pass",
+      "detail": "pass (Cargo.toml found)\n"
+    },
+    {
+      "id": "ironclaw.workspace",
+      "desc": "Workspace structure",
+      "status": "pass",
+      "detail": "pass (workspace detected)\n"
+    },
+    {
+      "id": "ironclaw.source",
+      "desc": "Has Rust source files",
+      "status": "pass",
+      "detail": "pass (287 Rust source files)\n"
+    },
+    {
+      "id": "ironclaw.lock",
+      "desc": "Has Cargo.lock",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "ironclaw.clippy",
+      "desc": "Has clippy config",
+      "status": "pass",
+      "detail": "pass (clippy config found)\n"
+    },
+    {
+      "id": "ironclaw.ci_lang",
+      "desc": "Has Rust CI",
+      "status": "pass",
+      "detail": "pass (11 GitHub Actions workflows)\n"
+    },
+    {
+      "id": "ironclaw.deny",
+      "desc": "Has cargo-deny",
+      "status": "pass",
+      "detail": "WARN: no cargo-deny config\n"
+    },
+    {
+      "id": "ironclaw.license",
+      "desc": "Has open-source license",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "ironclaw.readme",
+      "desc": "Has README",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "ironclaw.changelog",
+      "desc": "Has CHANGELOG",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "ironclaw.contributing",
+      "desc": "Has CONTRIBUTING",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "ironclaw.gitignore",
+      "desc": "Has .gitignore",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "ironclaw.ci",
+      "desc": "Has CI configuration",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "goclaw.init",
+      "desc": "Submodule exists and populated",
+      "status": "pass",
+      "detail": "\n"
+    },
+    {
+      "id": "goclaw.manifest",
+      "desc": "Has go.mod",
+      "status": "pass",
+      "detail": "pass (go.mod found)\n"
+    },
+    {
+      "id": "goclaw.source",
+      "desc": "Has Go source files",
+      "status": "pass",
+      "detail": "pass (524 Go source files)\n"
+    },
+    {
+      "id": "goclaw.sum",
+      "desc": "Has go.sum",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "goclaw.ci_lang",
+      "desc": "Has Go CI",
+      "status": "pass",
+      "detail": "pass (2 GitHub Actions workflows)\n"
+    },
+    {
+      "id": "goclaw.docker",
+      "desc": "Has Docker",
+      "status": "pass",
+      "detail": "pass (Dockerfile found)\n"
+    },
+    {
+      "id": "goclaw.makefile",
+      "desc": "Has Makefile",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "goclaw.license",
+      "desc": "Has open-source license",
+      "status": "fail",
+      "detail": "FAIL: no file matching 'LICENSE' found\n"
+    },
+    {
+      "id": "goclaw.readme",
+      "desc": "Has README",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "goclaw.changelog",
+      "desc": "Has CHANGELOG",
+      "status": "fail",
+      "detail": "FAIL: no file matching 'CHANGELOG' found\n"
+    },
+    {
+      "id": "goclaw.contributing",
+      "desc": "Has CONTRIBUTING",
+      "status": "fail",
+      "detail": "FAIL: no file matching 'CONTRIBUTING' found\n"
+    },
+    {
+      "id": "goclaw.gitignore",
+      "desc": "Has .gitignore",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "goclaw.ci",
+      "desc": "Has CI configuration",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "nanobot.init",
+      "desc": "Submodule exists and populated",
+      "status": "pass",
+      "detail": "\n"
+    },
+    {
+      "id": "nanobot.manifest",
+      "desc": "Has Python manifest",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "nanobot.source",
+      "desc": "Has Python source",
+      "status": "pass",
+      "detail": "pass (88 Python source files)\n"
+    },
+    {
+      "id": "nanobot.docker",
+      "desc": "Has Docker",
+      "status": "pass",
+      "detail": "pass (Docker config found)\n"
+    },
+    {
+      "id": "nanobot.ci_lang",
+      "desc": "Has Python CI",
+      "status": "pass",
+      "detail": "WARN: no CI detected\n"
+    },
+    {
+      "id": "nanobot.tests_dir",
+      "desc": "Has tests directory",
+      "status": "pass",
+      "detail": "pass (26 test files)\n"
+    },
+    {
+      "id": "nanobot.license",
+      "desc": "Has open-source license",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "nanobot.readme",
+      "desc": "Has README",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "nanobot.changelog",
+      "desc": "Has CHANGELOG",
+      "status": "fail",
+      "detail": "FAIL: no file matching 'CHANGELOG' found\n"
+    },
+    {
+      "id": "nanobot.contributing",
+      "desc": "Has CONTRIBUTING",
+      "status": "fail",
+      "detail": "FAIL: no file matching 'CONTRIBUTING' found\n"
+    },
+    {
+      "id": "nanobot.gitignore",
+      "desc": "Has .gitignore",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "nanobot.ci",
+      "desc": "Has CI configuration",
+      "status": "fail",
+      "detail": "FAIL: no file matching '.github' found\n"
+    },
+    {
+      "id": "clawteam.init",
+      "desc": "Submodule exists and populated",
+      "status": "pass",
+      "detail": "\n"
+    },
+    {
+      "id": "clawteam.manifest",
+      "desc": "Has Python manifest",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "clawteam.source",
+      "desc": "Has Python source",
+      "status": "pass",
+      "detail": "pass (75 Python source files)\n"
+    },
+    {
+      "id": "clawteam.docker",
+      "desc": "Has Docker",
+      "status": "pass",
+      "detail": "WARN: no Dockerfile\n"
+    },
+    {
+      "id": "clawteam.ci_lang",
+      "desc": "Has Python CI",
+      "status": "pass",
+      "detail": "pass (1 GitHub Actions workflows)\n"
+    },
+    {
+      "id": "clawteam.tests_dir",
+      "desc": "Has tests directory",
+      "status": "pass",
+      "detail": "pass (28 test files)\n"
+    },
+    {
+      "id": "clawteam.license",
+      "desc": "Has open-source license",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "clawteam.readme",
+      "desc": "Has README",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "clawteam.changelog",
+      "desc": "Has CHANGELOG",
+      "status": "fail",
+      "detail": "FAIL: no file matching 'CHANGELOG' found\n"
+    },
+    {
+      "id": "clawteam.contributing",
+      "desc": "Has CONTRIBUTING",
+      "status": "fail",
+      "detail": "FAIL: no file matching 'CONTRIBUTING' found\n"
+    },
+    {
+      "id": "clawteam.gitignore",
+      "desc": "Has .gitignore",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "clawteam.ci",
+      "desc": "Has CI configuration",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "maxclaw.init",
+      "desc": "Submodule exists and populated",
+      "status": "pass",
+      "detail": "\n"
+    },
+    {
+      "id": "maxclaw.manifest",
+      "desc": "Has go.mod",
+      "status": "pass",
+      "detail": "pass (go.mod found)\n"
+    },
+    {
+      "id": "maxclaw.source",
+      "desc": "Has Go source files",
+      "status": "pass",
+      "detail": "pass (118 Go source files)\n"
+    },
+    {
+      "id": "maxclaw.sum",
+      "desc": "Has go.sum",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "maxclaw.ci_lang",
+      "desc": "Has Go CI",
+      "status": "pass",
+      "detail": "pass (2 GitHub Actions workflows)\n"
+    },
+    {
+      "id": "maxclaw.docker",
+      "desc": "Has Docker",
+      "status": "pass",
+      "detail": "pass (Dockerfile found)\n"
+    },
+    {
+      "id": "maxclaw.makefile",
+      "desc": "Has Makefile",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "maxclaw.license",
+      "desc": "Has open-source license",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "maxclaw.readme",
+      "desc": "Has README",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "maxclaw.changelog",
+      "desc": "Has CHANGELOG",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "maxclaw.contributing",
+      "desc": "Has CONTRIBUTING",
+      "status": "fail",
+      "detail": "FAIL: no file matching 'CONTRIBUTING' found\n"
+    },
+    {
+      "id": "maxclaw.gitignore",
+      "desc": "Has .gitignore",
+      "status": "pass",
+      "detail": "pass\n"
+    },
+    {
+      "id": "maxclaw.ci",
+      "desc": "Has CI configuration",
+      "status": "pass",
+      "detail": "pass\n"
+    }
+  ]
+}

@@ -1,7 +1,16 @@
 {
-  "framework_version": "1.0.0",
+  "framework_version": "2.0.0",
   "encryption_enabled": true,
-  "supported_platforms": ["zeroclaw", "openclaw", "nanoclaw", "ironclaw", "goclaw", "nanobot"],
+  "supported_platforms": [
+    "zeroclaw",
+    "openclaw",
+    "nanoclaw",
+    "ironclaw",
+    "goclaw",
+    "nanobot",
+    "clawteam",
+    "maxclaw"
+  ],
   "default_privilege_level": "standard",
   "audit_logging": true,
   "platform_paths": {
@@ -10,6 +19,15 @@
     "nanoclaw": "../nanoclaw",
     "ironclaw": "../ironclaw",
     "goclaw": "../goclaw",
-    "nanobot": "../nanobot"
-  }
+    "nanobot": "../nanobot",
+    "clawteam": "../clawteam",
+    "maxclaw": "../maxclaw"
+  },
+  "test_categories": [
+    "static_analysis",
+    "codebase_metrics",
+    "build_check",
+    "security_audit",
+    "documentation"
+  ]
 }

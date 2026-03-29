@@ -1,0 +1,57 @@
+{
+  "timestamp": "2026-03-29T22:5825",
+  "total": 8,
+  "passed": 0,
+  "failed": 8,
+  "skipped": 0,
+  "results": [
+    {
+      "id": "zeroclaw.init",
+      "desc": "Submodule exists",
+      "status": "fail",
+      "detail": "scripts/run_tests.sh: line 46: echo SKIP: submodule not initialized; exit 77: command not found\n"
+    },
+    {
+      "id": "openclaw.init",
+      "desc": "Submodule exists",
+      "status": "fail",
+      "detail": "scripts/run_tests.sh: line 46: echo SKIP: submodule not initialized; exit 77: command not found\n"
+    },
+    {
+      "id": "nanoclaw.init",
+      "desc": "Submodule exists",
+      "status": "fail",
+      "detail": "scripts/run_tests.sh: line 46: echo SKIP: submodule not initialized; exit 77: command not found\n"
+    },
+    {
+      "id": "ironclaw.init",
+      "desc": "Submodule exists",
+      "status": "fail",
+      "detail": "scripts/run_tests.sh: line 46: echo SKIP: submodule not initialized; exit 77: command not found\n"
+    },
+    {
+      "id": "goclaw.init",
+      "desc": "Submodule exists",
+      "status": "fail",
+      "detail": "scripts/run_tests.sh: line 46: echo SKIP: submodule not initialized; exit 77: command not found\n"
+    },
+    {
+      "id": "nanobot.init",
+      "desc": "Submodule exists",
+      "status": "fail",
+      "detail": "scripts/run_tests.sh: line 46: echo SKIP: submodule not initialized; exit 77: command not found\n"
+    },
+    {
+      "id": "clawteam.init",
+      "desc": "Submodule exists",
+      "status": "fail",
+      "detail": "scripts/run_tests.sh: line 46: echo SKIP: submodule not initialized; exit 77: command not found\n"
+    },
+    {
+      "id": "maxclaw.init",
+      "desc": "Submodule exists",
+      "status": "fail",
+      "detail": "scripts/run_tests.sh: line 46: echo SKIP: submodule not initialized; exit 77: command not found\n"
+    }
+  ]
+}
