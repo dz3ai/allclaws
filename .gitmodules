@@ -16,3 +16,9 @@
 [submodule "nanobot"]
 	path = nanobot
 	url = https://github.com/HKUDS/nanobot.git
+[submodule "clawteam"]
+	path = clawteam
+	url = https://github.com/win4r/ClawTeam-OpenClaw.git
+[submodule "maxclaw"]
+	path = maxclaw
+	url = https://github.com/Lichas/maxclaw.git

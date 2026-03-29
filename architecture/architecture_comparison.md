@@ -1,4 +1,4 @@
-# Architecture Comparison: Zeroclaw vs Openclaw vs NanoClaw vs IronClaw vs GoClaw vs Nanobot
+# Architecture Comparison: Zeroclaw vs Openclaw vs NanoClaw vs IronClaw vs GoClaw vs Nanobot vs ClawTeam vs Maxclaw
 
 ## Zeroclaw Architecture Summary
 
@@ -415,25 +415,191 @@ graph TB
     I --> I2[Skill Install]
 ```
 
+## ClawTeam Architecture Summary
+
+**Overview:** ClawTeam is a multi-agent swarm coordination layer that transforms single AI agents into self-organizing teams. It provides leader-worker orchestration, task dependencies, inter-agent messaging, and git worktree isolation for parallel development.
+
+**Key Principles:**
+- Agent self-organization (AI agents orchestrate themselves)
+- Zero-config setup with TOML team templates
+- File-based state with fcntl locking (no database)
+- Git worktree isolation for parallel agents
+- Multi-agent support (OpenClaw, Claude Code, Codex, nanobot, Cursor)
+
+**Core Architecture:**
+- **Language:** Python 3.10+
+- **Entry Point:** `clawteam` CLI commands
+- **Modules:**
+  - Team lifecycle (`team spawn-team`, `team cleanup`)
+  - Agent spawning (`spawn` with tmux backend)
+  - Task management (`task create`, `task update`, `task wait`)
+  - Inter-agent messaging (`inbox send`, `inbox broadcast`)
+  - Monitoring dashboards (`board show`, `board live`, `board serve`)
+  - Workspace management (`workspace checkpoint`, `workspace merge`)
+  - Team templates (TOML-based team definitions)
+- **State Management:** JSON files in `~/.clawteam/`
+  - `teams/` (team configuration)
+  - `tasks/` (task state and dependencies)
+  - `inboxes/` (point-to-point messaging)
+  - `workspaces/` (git worktree references)
+- **Transport Backends:**
+  - File-based (default, local filesystem)
+  - ZeroMQ P2P (optional, cross-machine)
+  - Redis (planned, cross-machine messaging)
+- **Agent Support:**
+  - OpenClaw (default, native integration)
+  - Claude Code (full support)
+  - Codex (full support)
+  - nanobot (full support)
+  - Cursor (experimental)
+  - Custom scripts (full support)
+- **Features:**
+  - Per-agent git worktrees (no merge conflicts)
+  - Task dependency chains with auto-unblock
+  - Kanban board with live updates
+  - Tiled tmux view of all agents
+  - Web UI dashboard
+  - One-command team templates
+  - Per-agent model assignment (preview)
+
+### Architecture Diagram
+
+```mermaid
+graph TB
+    A[Human Prompt] --> B[Leader Agent]
+    B --> C[Task Creation]
+    C --> D{Dependencies}
+    D -->|Blocked| E[Task Queue]
+    D -->|Ready| F[Worker Spawn]
+    F --> F1[Worker Agent 1]
+    F --> F2[Worker Agent 2]
+    F --> F3[Worker Agent N]
+    F1 --> G1[Git Worktree 1]
+    F2 --> G2[Git Worktree 2]
+    F3 --> G3[Git Worktree N]
+    F1 --> H1[Tmux Window 1]
+    F2 --> H2[Tmux Window 2]
+    F3 --> H3[Tmux Window N]
+    F1 -.->|Status Update| C
+    F2 -.->|Status Update| C
+    F3 -.->|Status Update| C
+    F1 -.->|Message| I[Inboxes]
+    F2 -.->|Message| I
+    F3 -.->|Message| I
+    I -.->|Broadcast| F1
+    I -.->|Broadcast| F2
+    I -.->|Broadcast| F3
+    B --> J[Monitoring]
+    J --> J1[Kanban Board]
+    J --> J2[Web UI Dashboard]
+    J --> J3[Tiled Tmux View]
+```
+
+## Maxclaw Architecture Summary
+
+**Overview:** Maxclaw is an OpenClaw-style local-first AI agent written in Go, emphasizing low memory footprint, fully local workflow, and visual interfaces (desktop UI + web UI). It provides autonomous execution, spawn sub-sessions, and monorepo-aware context discovery.
+
+**Key Principles:**
+- Go-native resource efficiency
+- Fully local execution (sessions, memory, logs)
+- Desktop UI + Web UI on same port
+- Monorepo context awareness (AGENTS.md, CLAUDE.md)
+- Autonomous mode with task scheduling
+
+**Core Architecture:**
+- **Language:** Go 1.24+
+- **Entry Point:** `cmd/main.go` (CLI entrypoint)
+- **Modules:**
+  - `cmd/` (CLI commands: onboard, skills, gateway, telegram bind)
+  - `internal/agent/` (agent loop and reasoning)
+  - `internal/tools/` (tool system and execution)
+  - `internal/memory/` (MEMORY.md + HISTORY.md layering)
+  - `internal/channels/` (Telegram, WhatsApp Bridge, Discord, WebSocket)
+  - `internal/scheduler/` (cron/once/every scheduling)
+  - `internal/config/` (config.json management)
+  - `internal/context/` (monorepo discovery)
+- **Execution Modes:**
+  - `safe`: Conservative exploration
+  - `ask`: Default interactive mode
+  - `auto`: Autonomous continuation (no manual approval)
+- **Key Features:**
+  - Low memory footprint (Go native)
+  - Desktop UI + Web UI (same port)
+  - Spawn sub-sessions with independent context
+  - Automatic task titles (session summarization)
+  - Monorepo-aware recursive context discovery
+  - Multi-channel integrations
+  - Cron scheduling + daily memory digest
+- **Binaries:**
+  - `maxclaw`: Full CLI with all commands
+  - `maxclaw-gateway`: Standalone backend for headless use
+- **Memory Layering:**
+  - `MEMORY.md`: Long-term knowledge storage
+  - `HISTORY.md`: Session history
+  - `memory/heartbeat.md`: Active context tracking
+- **Configuration:** `~/.maxclaw/config.json`
+  - Provider settings (Anthropic, OpenAI native SDKs)
+  - Agent defaults (model, workspace, executionMode)
+
+### Architecture Diagram
+
+```mermaid
+graph TB
+    A[CLI Entry: cmd/main.go] --> B[Agent Loop]
+    B --> C[Reasoning Engine]
+    B --> D[Tool Execution]
+    B --> E[Session Manager]
+    B --> F[Memory Layer]
+    B --> G[Scheduler]
+    B --> H[Channel Manager]
+    C --> C1[Tool Registry]
+    D --> D1[Skills]
+    D --> D2[MCP Bridge]
+    D --> D3[Custom Tools]
+    E --> E1[Spawn Sub-Sessions]
+    E --> E2[Independent Context]
+    F --> F1[MEMORY.md]
+    F --> F2[HISTORY.md]
+    F --> F3[memory/heartbeat.md]
+    G --> G1[Cron Jobs]
+    G --> G2[Once Tasks]
+    G --> G3[Every Schedules]
+    H --> H1[Telegram]
+    H --> H2[WhatsApp Bridge]
+    H --> H3[Discord]
+    H --> H4[WebSocket]
+    B --> I[Desktop UI + Web UI]
+    I --> I1[Visual Settings]
+    I --> I2[Streaming Chat]
+    I --> I3[File Preview]
+    I --> I4[Terminal Integration]
+    B --> J[Monorepo Context Discovery]
+    J --> J1[AGENTS.md]
+    J --> J2[CLAUDE.md]
+    J --> J3[Recursive Search]
+```
+
 ## Comparison
 
-| Aspect | Zeroclaw | Openclaw | NanoClaw | IronClaw | GoClaw | Nanobot |
-|--------|----------|----------|----------|-----------|---------|---------|
-| Language | Rust | TypeScript | TypeScript (Node.js) | Rust | Go 1.26 | Python 3.11+ |
-| Focus | High-performance runtime | CLI with channels/plugins | Personal WhatsApp assistant | Secure personal AI assistant | Multi-agent gateway with teams | Ultra-lightweight assistant |
-| Modularity | Trait-based extensions | Plugin-based extensions | Single process + containers | WASM tools + MCP + Docker | Tool registry + hooks | Skill system + MCP |
-| Security | First-class, internet-adjacent | CLI security, redaction | Container isolation | WASM sandbox + defense in depth | 5-layer defense | Security hardening |
-| Platforms | Native (Linux, etc.) | Cross-platform (Mac, Win, Linux, mobile) | macOS (launchctl), containerized agents | Cross-platform (Mac, Win, Linux) | Cross-platform (binary + Docker) | Cross-platform (Python + Docker) |
-| Docs | Local docs/, i18n | Mintlify-hosted, i18n | README + docs/ | README + docs/ | README + docs/ | README + docs/ |
-| Build | Cargo | pnpm/bun | npm + container build | Cargo | Go modules | pip/PyPI |
-| Tests | Rust tests | Vitest | Not specified | Rust tests + integration | go test + race detector | tests/ directory |
-| Channels | Core channels | Core + extensions | WhatsApp only | REPL, HTTP, WASM, Web Gateway | Telegram, Discord, Slack, etc. | Telegram, Discord, Slack, etc. |
-| Integrations/Extensions | Peripherals (GPIO, etc.) | Media pipeline | Browser automation via Bash | WASM tools, MCP, Docker | MCP, custom tools, hooks | ClawHub skills, MCP |
-| Runtime | Native adapters | Node-based | Node + containerized Claude SDK | Native with Docker workers | Native Go binary | Python runtime |
-| Isolation | Module-level | Plugin-level | Per-group containers | WASM sandbox + per-job containers | Per-user workspaces (PostgreSQL) | Session-level |
-| Memory | Markdown/SQLite with embeddings | Not specified | Per-group CLAUDE.md | PostgreSQL with pgvector | PostgreSQL + pgvector | Session history |
-| Database | SQLite | Not specified | SQLite | PostgreSQL (required) | PostgreSQL 15+ (required) | SQLite (local) |
-| LLM Support | Model providers | Web provider | Claude Agent SDK | Multi-provider (NEAR AI, OpenAI-compatible) | 13+ providers (Anthropic native, OpenAI-compat) | Multiple via LiteLLM |
+ | Aspect | Zeroclaw | Openclaw | NanoClaw | IronClaw | GoClaw | Nanobot | ClawTeam | Maxclaw |
+|--------|----------|----------|----------|-----------|---------|---------|-----------|----------|
+| | Language | Rust | TypeScript | TypeScript (Node.js) | Rust | Go 1.26 | Python 3.11+ | Python 3.10+ | Go 1.24+ |
+| | Focus | High-performance runtime | CLI with channels/plugins | Personal WhatsApp assistant | Secure personal AI assistant | Multi-agent gateway with teams | Ultra-lightweight assistant | Multi-agent swarm coordination | Local-first Go agent |
+| | Modularity | Trait-based extensions | Plugin-based extensions | Single process + containers | WASM tools + MCP + Docker | Tool registry + hooks | Skill system + MCP | Any CLI agent integration | Agent loop + tool system |
+| | Security | First-class, internet-adjacent | CLI security, redaction | Container isolation | WASM sandbox + defense in depth | 5-layer defense | Security hardening | Agent isolation (git worktrees) | Local execution only |
+| | Platforms | Native (Linux, etc.) | Cross-platform (Mac, Win, Linux, mobile) | macOS (launchctl), containerized agents | Cross-platform (Mac, Win, Linux) | Cross-platform (binary + Docker) | Cross-platform (Python + Docker) | Multi-platform agents | Cross-platform (Mac, Win, Linux) |
+| | Docs | Local docs/, i18n | Mintlify-hosted, i18n | README + docs/ | README + docs/ | README + docs/ | README + docs/ | Comprehensive docs | README + docs/ (i18n) |
+| | Build | Cargo | pnpm/bun | npm + container build | Cargo | Go modules | pip/PyPI | pip from source | make build |
+| | Tests | Rust tests | Vitest | Not specified | Rust tests + integration | go test + race detector | tests/ directory | Not specified | Go tests |
+| | Channels | Core channels | Core + extensions | WhatsApp only | REPL, HTTP, WASM, Web Gateway | Telegram, Discord, Slack, etc. | Telegram, Discord, Slack, etc. | Agent-dependent | Telegram, WA Bridge, Discord, WS |
+| | Integrations/Extensions | Peripherals (GPIO, etc.) | Media pipeline | Browser automation via Bash | WASM tools, MCP, Docker | MCP, custom tools, hooks | ClawHub skills, MCP | Multi-agent coordination | MCP, monorepo discovery |
+| | Runtime | Native adapters | Node-based | Node + containerized Claude SDK | Native with Docker workers | Native Go binary | Python runtime | Agent-specific | Native Go binary |
+| | Isolation | Module-level | Plugin-level | Per-group containers | WASM sandbox + per-job containers | Per-user workspaces (PostgreSQL) | Session-level | Git worktree per agent | Fully local |
+| | Memory | Markdown/SQLite with embeddings | Not specified | Per-group CLAUDE.md | PostgreSQL with pgvector | PostgreSQL + pgvector | Session history | Inboxes + tasks | MEMORY.md + HISTORY.md |
+| | Database | SQLite | Not specified | SQLite | PostgreSQL (required) | PostgreSQL 15+ (required) | SQLite (local) | JSON files (file-based) | SQLite (local) |
+| | LLM Support | Model providers | Web provider | Claude Agent SDK | Multi-provider (NEAR AI, OpenAI-compatible) | 13+ providers (Anthropic native, OpenAI-compat) | Multiple via LiteLLM | Agent-dependent | Anthropic + OpenAI native SDKs |
+| | Agent Support | Single agent | Single agent | Single agent | Single agent | Multi-agent teams | Single agent | Multi-agent swarms | Spawn sub-sessions |
+| | State Management | Internal structures | Not specified | SQLite | PostgreSQL + pgvector | PostgreSQL multi-tenant | Session-based | File-based JSON | Local filesystem |
 
-All six are autonomous agent projects with distinct focuses: Zeroclaw emphasizes Rust performance and hardware extensibility, Openclaw focuses on TypeScript CLI with extensive channel support, NanoClaw is a containerized WhatsApp-to-Claude bridge with group isolation, IronClaw prioritizes security through WASM sandboxing and multi-layer defense mechanisms, GoClaw focuses on multi-agent orchestration with multi-tenant PostgreSQL and agent teams, and Nanobot prioritizes ultra-lightweight design with minimal footprint and research-ready code.
+All eight are autonomous agent projects with distinct focuses: Zeroclaw emphasizes Rust performance and hardware extensibility, Openclaw focuses on TypeScript CLI with extensive channel support, NanoClaw is a containerized WhatsApp-to-Claude bridge with group isolation, IronClaw prioritizes security through WASM sandboxing and multi-layer defense mechanisms, GoClaw focuses on multi-agent orchestration with multi-tenant PostgreSQL and agent teams, Nanobot prioritizes ultra-lightweight design with minimal footprint and research-ready code, ClawTeam provides multi-agent swarm coordination that transforms single agents into self-organizing teams, and Maxclaw offers an OpenClaw-style local-first experience in Go with desktop UI and resource efficiency.
 
