@@ -1,0 +1,46 @@
+# Site settings
+title: allclaws Blog
+description: Multi-agent AI framework blog
+baseurl: ""
+url: "https://dz3ai.github.io/allclaws"
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - .gitignore
+  - .gitmodules
+
+# Blog settings
+paginate: 5
+paginate_path: "/blog/page/:num/"
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: Blog
+    url: /blog/
+  - title: Documentation
+    url: /README.md
+  - title: Test Framework
+    url: /test_framework/
+  - title: Architecture
+    url: /architecture/
+  - title: GitHub
+    url: https://github.com/dz3ai/allclaws

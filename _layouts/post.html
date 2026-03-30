@@ -1,0 +1,112 @@
+---
+layout: default
+---
+
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
+      {% if page.author %} • {{ page.author }}{% endif %}
+      {% if page.categories %} • Categories: {{ page.categories | array_to_sentence_string }}{% endif %}
+    </p>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  {% if page.tags %}
+  <footer class="post-footer">
+    <p class="post-tags">Tags: {{ page.tags | array_to_sentence_string }}</p>
+  </footer>
+  {% endif %}
+
+  <nav class="post-nav">
+    {% if page.previous %}
+      <a class="prev" href="{{ page.previous.url }}">« {{ page.previous.title }}</a>
+    {% endif %}
+    {% if page.next %}
+      <a class="next" href="{{ page.next.url }}">{{ page.next.title }} »</a>
+    {% endif %}
+  </nav>
+</article>
+
+<style>
+  .post {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .post-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 1rem;
+  }
+
+  .post-title {
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem 0;
+    color: #333;
+  }
+
+  .post-meta {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .post-content {
+    line-height: 1.6;
+    font-size: 1.1rem;
+  }
+
+  .post-content h2 {
+    margin-top: 2rem;
+  }
+
+  .post-content pre {
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+  }
+
+  .post-footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .post-tags {
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .post-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .post-nav a {
+    color: #0066cc;
+    text-decoration: none;
+  }
+
+  .post-nav a:hover {
+    text-decoration: underline;
+  }
+
+  .post-nav .prev {
+    text-align: left;
+  }
+
+  .post-nav .next {
+    text-align: right;
+    margin-left: auto;
+  }
+</style>
