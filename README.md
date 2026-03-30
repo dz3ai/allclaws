@@ -74,7 +74,39 @@ bash scripts/run_tests.sh
 - **Project health**: LICENSE, README, CHANGELOG, CONTRIBUTING, .gitignore, CI workflows
 - **Output**: timestamped JSON + Markdown reports in `test_framework/results/`
 
-### 3. Technical Writing & Thought Leadership
+### 3. Benchmark Engine
+**Status:** ✅ v1.0 — Cross-Platform Metrics Collection Complete
+
+A pure-external benchmark engine that measures repository characteristics across all 8 platforms without requiring builds or runtime dependencies.
+
+**Run benchmarks:**
+```bash
+cd test_framework
+bash scripts/run_benchmarks.sh
+```
+
+**Latest Results (March 30, 2026): 112 metrics across 8 platforms**
+
+| Platform | Repo Size (KB) | Source Files | Source LOC | Dependencies | Test Files |
+|----------|----------------|-------------|-----------|--------------|-----------|
+| Openclaw | 193,592 | 5,760 .ts | 146,967 | 73 npm | 2,227 |
+| ClawTeam | 19,728 | 75 .py | 13,407 | 16 pip | 26 |
+| GoClaw | 21,848 | 501 .go | 92,815 | 149 go | 38 |
+| IronClaw | 23,216 | 362 .rs | 191,946 | 51 cargo | 48 |
+| Maxclaw | 18,880 | 118 .go | 30,499 | 33 go | 45 |
+| NanoClaw | 19,768 | 51 .ts | 10,606 | 14 npm | 17 |
+| Nanobot | 66,200 | 88 .py | 18,960 | 49 pip | 26 |
+| Zeroclaw | 24,640 | 259 .rs | 161,169 | 45 cargo | 18 |
+
+**What gets measured per platform:**
+- **Repository**: repo size (KB), top-level directory count
+- **Source code**: file count, total LOC by language
+- **Dependencies**: npm, pip, go mod, cargo dependency count
+- **Testing**: test file count (*_test.go, test_*.py, *.test.ts, etc.)
+- **Project health**: CI workflows/steps, Dockerfiles, Makefile targets, README length, docs size, i18n files
+- **Output**: timestamped JSON + Markdown reports in `test_framework/benchmark_results/`
+
+### 4. Technical Writing & Thought Leadership
 **Status:** 📝 Active Content Creation
 
 Creating educational content about personal AI assistants:
@@ -125,6 +157,9 @@ cd test_framework
 # Run cross-platform tests (v2.0)
 bash scripts/run_tests.sh
 
+# Run benchmarks (v1.0)
+bash scripts/run_benchmarks.sh
+
 # Legacy: setup and validate
 ./scripts/setup.sh
 ./scripts/validate_agent.sh agents/example_agent.json
@@ -139,14 +174,14 @@ bash tests/test_agent_validation.sh
 - [x] Multi-agent coordination trend research
 - [x] Monthly ecosystem updates tracking (EN + ZH)
 - [x] Cross-platform static analysis test framework (v2.0, 93/102 pass)
+- [x] Benchmark execution engine (v1.0, 112 metrics across 8 platforms)
 - [x] Agent configuration schema and validation
 - [x] Security privilege and rule enforcement
 - [x] Comprehensive .gitignore for sensitive data protection
 - [x] Bilingual documentation (English + Chinese)
 
 ### 🔄 In Progress
-- [ ] Benchmark execution engine
-- [ ] Cross-platform performance metrics
+- [ ] Cross-platform performance metrics (runtime benchmarks)
 - [ ] Extended test coverage (networking, file operations)
 - [ ] Real-world agent integration testing
 
@@ -190,4 +225,4 @@ This project represents ongoing research into personal AI agent architectures. F
 
 ---
 
-*Last updated: March 29, 2026*
+*Last updated: March 30, 2026*

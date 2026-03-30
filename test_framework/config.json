@@ -1,27 +1,27 @@
 {
-  "framework_version": "2.0.0",
+  "framework_version": "2.1.0",
   "encryption_enabled": true,
   "supported_platforms": [
-    "zeroclaw",
     "openclaw",
-    "nanoclaw",
-    "ironclaw",
-    "goclaw",
-    "nanobot",
     "clawteam",
-    "maxclaw"
+    "goclaw",
+    "ironclaw",
+    "maxclaw",
+    "nanoclaw",
+    "nanobot",
+    "zeroclaw"
   ],
   "default_privilege_level": "standard",
   "audit_logging": true,
   "platform_paths": {
-    "zeroclaw": "../zeroclaw",
     "openclaw": "../openclaw",
-    "nanoclaw": "../nanoclaw",
-    "ironclaw": "../ironclaw",
-    "goclaw": "../goclaw",
-    "nanobot": "../nanobot",
     "clawteam": "../clawteam",
-    "maxclaw": "../maxclaw"
+    "goclaw": "../goclaw",
+    "ironclaw": "../ironclaw",
+    "maxclaw": "../maxclaw",
+    "nanoclaw": "../nanoclaw",
+    "nanobot": "../nanobot",
+    "zeroclaw": "../zeroclaw"
   },
   "test_categories": [
     "static_analysis",
@@ -29,5 +29,20 @@
     "build_check",
     "security_audit",
     "documentation"
-  ]
+  ],
+  "benchmark_metrics": {
+    "repo_size": "Total repository size excluding build artifacts (KB)",
+    "source_files": "Number of source files by language",
+    "source_loc": "Total lines of code by language",
+    "dependencies": "Number of declared dependencies",
+    "test_files": "Number of test files (*_test.go, test_*.py, *.test.ts, etc.)",
+    "ci_workflows": "Number of GitHub Actions workflow files",
+    "ci_steps": "Total CI/CD steps across all workflows",
+    "dockerfiles": "Number of Dockerfiles",
+    "makefile_targets": "Number of Makefile targets",
+    "readme_lines": "README file length (lines)",
+    "docs_size": "Documentation directory size (KB)",
+    "i18n_files": "Internationalization file count",
+    "top_level_dirs": "Top-level directory count (complexity indicator)"
+  }
 }

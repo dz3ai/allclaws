@@ -16,14 +16,14 @@ if ! command -v jq >/dev/null 2>&1; then
 fi
 
 PLATFORMS=(
-    zeroclaw:Rust
     openclaw:TypeScript
-    nanoclaw:TypeScript
-    ironclaw:Rust
-    goclaw:Go
-    nanobot:Python
     clawteam:Python
+    goclaw:Go
+    ironclaw:Rust
     maxclaw:Go
+    nanoclaw:TypeScript
+    nanobot:Python
+    zeroclaw:Rust
 )
 
 echo "=========================================="

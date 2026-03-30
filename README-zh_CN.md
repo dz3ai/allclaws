@@ -75,7 +75,39 @@ bash scripts/run_tests.sh
 - **项目健康度**：LICENSE、README、CHANGELOG、CONTRIBUTING、.gitignore、CI 工作流
 - **输出**：带时间戳的 JSON + Markdown 报告，存在 `test_framework/results/` 目录
 
-### 3. 技术写作与分享
+### 3. 基准测试引擎
+**状态：** ✅ v1.0 — 跨平台指标采集完成
+
+纯外部基准测试引擎，无需构建或运行时依赖，直接测量所有 8 个平台的仓库特征。
+
+**跑基准测试：**
+```bash
+cd test_framework
+bash scripts/run_benchmarks.sh
+```
+
+**最新结果（2026 年 3 月 30 日）：8 个平台共 112 项指标**
+
+| 平台 | 仓库大小 (KB) | 源文件数 | 源代码行数 | 依赖数 | 测试文件数 |
+|------|--------------|---------|-----------|--------|-----------|
+| Openclaw | 193,592 | 5,760 .ts | 146,967 | 73 npm | 2,227 |
+| ClawTeam | 19,728 | 75 .py | 13,407 | 16 pip | 26 |
+| GoClaw | 21,848 | 501 .go | 92,815 | 149 go | 38 |
+| IronClaw | 23,216 | 362 .rs | 191,946 | 51 cargo | 48 |
+| Maxclaw | 18,880 | 118 .go | 30,499 | 33 go | 45 |
+| NanoClaw | 19,768 | 51 .ts | 10,606 | 14 npm | 17 |
+| Nanobot | 66,200 | 88 .py | 18,960 | 49 pip | 26 |
+| Zeroclaw | 24,640 | 259 .rs | 161,169 | 45 cargo | 18 |
+
+**每个平台测量内容：**
+- **仓库**：仓库大小（KB）、顶级目录数
+- **源代码**：各语言文件数、总代码行数
+- **依赖**：npm、pip、go mod、cargo 依赖数量
+- **测试**：测试文件数（*_test.go、test_*.py、*.test.ts 等）
+- **项目健康度**：CI 工作流/步骤、Dockerfile、Makefile 目标、README 长度、文档大小、i18n 文件数
+- **输出**：带时间戳的 JSON + Markdown 报告，存在 `test_framework/benchmark_results/` 目录
+
+### 4. 技术写作与分享
 **状态：** 📝 持续输出中
 
 我们在写一些关于个人 AI 助手的教程和思考：
@@ -124,6 +156,9 @@ cd test_framework
 # 跑跨平台测试（v2.0）
 bash scripts/run_tests.sh
 
+# 跑基准测试（v1.0）
+bash scripts/run_benchmarks.sh
+
 # 旧版：初始化和验证
 ./scripts/setup.sh
 ./scripts/validate_agent.sh agents/example_agent.json
@@ -138,14 +173,14 @@ bash tests/test_agent_validation.sh
 - [x] 多代理协作趋势研究
 - [x] 月度生态更新追踪（中英文）
 - [x] 跨平台静态分析测试框架（v2.0，93/102 通过）
+- [x] 基准测试引擎（v1.0，8 个平台 112 项指标）
 - [x] 代理配置规范和验证逻辑
 - [x] 安全权限和规则执行机制
 - [x] 敏感数据保护的 .gitignore 配置
 - [x] 中英双语文档
 
 ### 🔄 正在弄的
-- [ ] 基准测试执行引擎
-- [ ] 跨平台性能指标收集
+- [ ] 跨平台运行时性能指标（启动时间、内存、API 延迟）
 - [ ] 更多测试场景（网络、文件操作）
 - [ ] 真实环境代理集成测试
 
@@ -189,4 +224,4 @@ bash tests/test_agent_validation.sh
 
 ---
 
-*最后更新：2026 年 3 月 29 日*
+*最后更新：2026 年 3 月 30 日*
