@@ -41,7 +41,5 @@ nav:
     url: /
   - title: Blog
     url: /blog/
-  - title: Docs
-    url: /README.md
   - title: GitHub
     url: https://github.com/dz3ai/allclaws

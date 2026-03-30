@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /_posts/
+Disallow: /_layouts/
+Disallow: /_config.yml
+
+Sitemap: https://dz3ai.github.io/allclaws/sitemap.xml
