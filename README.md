@@ -29,14 +29,14 @@ See [Latest Updates: March 2026](docs/LATEST_UPDATES.md) for full details.
 
 Comprehensive analysis of personal AI agent platforms including:
 
-- **Zeroclaw** (Rust-based): High-performance runtime with trait-driven architecture
 - **Openclaw** (TypeScript): Extensible CLI with multi-channel support
-- **NanoClaw** (Node.js): WhatsApp-focused assistant with containerized agents
-- **IronClaw** (Rust-based): Secure personal AI assistant with WASM sandboxing and defense-in-depth security
-- **GoClaw** (Go-based): Multi-agent AI gateway with teams, orchestration, and multi-tenant PostgreSQL
-- **Nanobot** (Python-based): Ultra-lightweight personal AI assistant with ~4,000 LOC core code
 - **ClawTeam** (Python-based): Multi-agent swarm coordination with leader-worker orchestration, git worktree isolation, and inter-agent messaging
+- **GoClaw** (Go-based): Multi-agent AI gateway with teams, orchestration, and multi-tenant PostgreSQL
+- **IronClaw** (Rust-based): Secure personal AI assistant with WASM sandboxing and defense-in-depth security
 - **Maxclaw** (Go-based): OpenClaw-style local-first agent with desktop UI, low memory footprint, and monorepo-aware context discovery
+- **NanoClaw** (Node.js): WhatsApp-focused assistant with containerized agents
+- **Nanobot** (Python-based): Ultra-lightweight personal AI assistant with ~4,000 LOC core code
+- **Zeroclaw** (Rust-based): High-performance runtime with trait-driven architecture
 
 **Key Deliverables:**
 - `docs/LATEST_UPDATES.md` - Latest project updates and ecosystem trends (monthly)
@@ -60,14 +60,14 @@ bash scripts/run_tests.sh
 
 | Platform | Language | Files | Result |
 |----------|----------|-------|--------|
-| Zeroclaw | Rust | 227 .rs | 14/14 pass |
 | Openclaw | TypeScript | 5941 .ts | 13/13 pass |
-| NanoClaw | TypeScript | 61 .ts | 13/13 pass |
-| IronClaw | Rust | 287 .rs | 14/14 pass |
-| GoClaw | Go | 524 .go | 11/14 pass |
-| Nanobot | Python | 88 .py | 10/13 pass |
 | ClawTeam | Python | 75 .py | 12/13 pass |
+| GoClaw | Go | 524 .go | 11/14 pass |
+| IronClaw | Rust | 287 .rs | 14/14 pass |
 | Maxclaw | Go | 118 .go | 13/14 pass |
+| NanoClaw | TypeScript | 61 .ts | 13/13 pass |
+| Nanobot | Python | 88 .py | 10/13 pass |
+| Zeroclaw | Rust | 227 .rs | 14/14 pass |
 
 **What gets tested per platform:**
 - **Language-level**: build manifest, lockfile, source file count, CI config, clippy/deny (Rust), Makefile (Go)
@@ -135,7 +135,7 @@ bash tests/test_agent_validation.sh
 ## 📊 Current Status & Roadmap
 
 ### ✅ Completed
-- [x] Architecture analysis of 8 major platforms (Zeroclaw, Openclaw, NanoClaw, IronClaw, GoClaw, Nanobot, ClawTeam, Maxclaw)
+- [x] Architecture analysis of 8 major platforms (Openclaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, Zeroclaw)
 - [x] Multi-agent coordination trend research
 - [x] Monthly ecosystem updates tracking (EN + ZH)
 - [x] Cross-platform static analysis test framework (v2.0, 93/102 pass)
@@ -175,14 +175,14 @@ This is an active research project. Contributions welcome in:
 
 ## 🔗 Related Projects
 
-- **Zeroclaw**: https://github.com/zeroclaw-labs/zeroclaw
 - **Openclaw**: https://github.com/openclaw/openclaw
-- **NanoClaw**: https://github.com/qwibitai/nanoclaw
-- **IronClaw**: https://github.com/nearai/ironclaw
-- **GoClaw**: https://github.com/nextlevelbuilder/goclaw
-- **Nanobot**: https://github.com/HKUDS/nanobot
 - **ClawTeam**: https://github.com/win4r/ClawTeam-OpenClaw
+- **GoClaw**: https://github.com/nextlevelbuilder/goclaw
+- **IronClaw**: https://github.com/nearai/ironclaw
 - **Maxclaw**: https://github.com/Lichas/maxclaw
+- **NanoClaw**: https://github.com/qwibitai/nanoclaw
+- **Nanobot**: https://github.com/HKUDS/nanobot
+- **Zeroclaw**: https://github.com/zeroclaw-labs/zeroclaw
 
 ## 📞 Contact & Discussion
 

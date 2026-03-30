@@ -30,14 +30,14 @@
 
 我们在深度剖析几个主流的个人 AI 代理平台：
 
-- **Zeroclaw** (Rust 写的)：性能炸裂，用 trait 驱动的架构设计
 - **Openclaw** (TypeScript 写的)：超级灵活的命令行工具，支持各种聊天渠道
-- **NanoClaw** (Node.js 写的)：专攻 WhatsApp 的助手，用容器跑代理
-- **IronClaw** (Rust 写的)：安全优先的个人 AI 助手，用 WASM 沙箱和多层防御保护你的数据
-- **GoClaw** (Go 写的)：多代理 AI 网关，支持团队编排和多租户 PostgreSQL
-- **Nanobot** (Python 写的)：超轻量级个人 AI 助手，只有约 4000 行核心代码
 - **ClawTeam** (Python 写的)：多代理群体协作工具，支持领导-工人模式编排、git worktree 隔离和代理间消息传递
+- **GoClaw** (Go 写的)：多代理 AI 网关，支持团队编排和多租户 PostgreSQL
+- **IronClaw** (Rust 写的)：安全优先的个人 AI 助手，用 WASM 沙箱和多层防御保护你的数据
 - **Maxclaw** (Go 写的)：OpenClaw 风格的本地优先 AI 代理，自带桌面 UI，内存占用低，支持 monorepo 上下文发现
+- **NanoClaw** (Node.js 写的)：专攻 WhatsApp 的助手，用容器跑代理
+- **Nanobot** (Python 写的)：超轻量级个人 AI 助手，只有约 4000 行核心代码
+- **Zeroclaw** (Rust 写的)：性能炸裂，用 trait 驱动的架构设计
 
 **成果展示：**
 - `docs/LATEST_UPDATES.zh-CN.md` - 各项目最新进展和生态趋势（月度更新）
@@ -61,14 +61,14 @@ bash scripts/run_tests.sh
 
 | 平台 | 语言 | 文件数 | 结果 |
 |------|------|--------|------|
-| Zeroclaw | Rust | 227 .rs | 14/14 全部通过 |
 | Openclaw | TypeScript | 5941 .ts | 13/13 全部通过 |
-| NanoClaw | TypeScript | 61 .ts | 13/13 全部通过 |
-| IronClaw | Rust | 287 .rs | 14/14 全部通过 |
-| GoClaw | Go | 524 .go | 11/14 |
-| Nanobot | Python | 88 .py | 10/13 |
 | ClawTeam | Python | 75 .py | 12/13 |
+| GoClaw | Go | 524 .go | 11/14 |
+| IronClaw | Rust | 287 .rs | 14/14 全部通过 |
 | Maxclaw | Go | 118 .go | 13/14 |
+| NanoClaw | TypeScript | 61 .ts | 13/13 全部通过 |
+| Nanobot | Python | 88 .py | 10/13 |
+| Zeroclaw | Rust | 227 .rs | 14/14 全部通过 |
 
 **每个平台测试内容：**
 - **语言层面**：构建清单、锁文件、源文件数、CI 配置、clippy/deny（Rust）、Makefile（Go）
@@ -134,7 +134,7 @@ bash tests/test_agent_validation.sh
 ## 📊 项目进度
 
 ### ✅ 已经搞定的
-- [x] 八大平台架构深度分析（Zeroclaw、Openclaw、NanoClaw、IronClaw、GoClaw、Nanobot、ClawTeam、Maxclaw）
+- [x] 八大平台架构深度分析（Openclaw、ClawTeam、GoClaw、IronClaw、Maxclaw、NanoClaw、Nanobot、Zeroclaw）
 - [x] 多代理协作趋势研究
 - [x] 月度生态更新追踪（中英文）
 - [x] 跨平台静态分析测试框架（v2.0，93/102 通过）
@@ -174,14 +174,14 @@ bash tests/test_agent_validation.sh
 
 ## 🔗 相关项目
 
-- **Zeroclaw**：https://github.com/zeroclaw-labs/zeroclaw
 - **Openclaw**：https://github.com/openclaw/openclaw
-- **NanoClaw**：https://github.com/qwibitai/nanoclaw
-- **IronClaw**：https://github.com/nearai/ironclaw
-- **GoClaw**：https://github.com/nextlevelbuilder/goclaw
-- **Nanobot**：https://github.com/HKUDS/nanobot
 - **ClawTeam**：https://github.com/win4r/ClawTeam-OpenClaw
+- **GoClaw**：https://github.com/nextlevelbuilder/goclaw
+- **IronClaw**：https://github.com/nearai/ironclaw
 - **Maxclaw**：https://github.com/Lichas/maxclaw
+- **NanoClaw**：https://github.com/qwibitai/nanoclaw
+- **Nanobot**：https://github.com/HKUDS/nanobot
+- **Zeroclaw**：https://github.com/zeroclaw-labs/zeroclaw
 
 ## 📞 聊聊？
 
