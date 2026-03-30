@@ -451,7 +451,7 @@ graph TD
     A --> H[数据库：src/db.ts]
     F --> I[容器中的 Claude Agent SDK]
     I --> J[每组隔离文件系统]
-    I --> K[每组内存：groups/{name}/CLAUDE.md]
+    I --> K[每组内存：groups/gruop_name/CLAUDE.md]
     I --> L[浏览器自动化：container/skills/agent-browser.md]
 ```
 
