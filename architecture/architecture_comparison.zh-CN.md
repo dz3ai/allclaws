@@ -1,4 +1,6 @@
-# 架构比较：Zeroclaw vs Openclaw vs NanoClaw vs IronClaw vs GoClaw vs Nanobot
+# 架构比较：Zeroclaw vs Openclaw vs NanoClaw vs IronClaw vs GoClaw vs Nanobot vs ClawTeam vs Maxclaw
+
+**[English](architecture_comparison.md)** | 中文
 
 ## Zeroclaw 架构总结
 
@@ -440,24 +442,190 @@ graph TB
     I --> I2[技能安装]
 ```
 
+## ClawTeam 架构总结
+
+**概述：** ClawTeam 是一个多代理群体协调层，将单一 AI 代理转变为自组织团队。提供领导-工人编排、任务依赖、代理间消息传递和 git worktree 隔离等功能，支持并行开发。
+
+**关键原则：**
+- 代理自组织（AI 代理自行编排）
+- 零配置搭建，基于 TOML 团队模板
+- 基于文件的状态管理，使用 fcntl 锁（无数据库依赖）
+- 按 git worktree 隔离代理
+- 多代理支持（OpenClaw、Claude Code、Codex、nanobot、Cursor）
+
+**核心架构：**
+- **语言：** Python 3.10+
+- **入口点：** `clawteam` CLI 命令
+- **模块：**
+  - 团队生命周期（`team spawn-team`、`team cleanup`）
+  - 代理派生（`spawn`，使用 tmux 后端）
+  - 任务管理（`task create`、`task update`、`task wait`）
+  - 代理间消息（`inbox send`、`inbox broadcast`）
+  - 监控面板（`board show`、`board live`、`board serve`）
+  - 工作空间管理（`workspace checkpoint`、`workspace merge`）
+  - 团队模板（基于 TOML 的团队定义）
+- **状态管理：** `~/.clawteam/` 下的 JSON 文件
+  - `teams/`（团队配置）
+  - `tasks/`（任务状态和依赖）
+  - `inboxes/`（点对点消息传递）
+  - `workspaces/`（git worktree 引用）
+- **传输后端：**
+  - 基于文件（默认，本地文件系统）
+  - ZeroMQ P2P（可选，跨机器）
+  - Redis（计划中，跨机器消息传递）
+- **代理支持：**
+  - OpenClaw（默认，原生集成）
+  - Claude Code（完整支持）
+  - Codex（完整支持）
+  - nanobot（完整支持）
+  - Cursor（实验性）
+  - 自定义脚本（完整支持）
+- **功能：**
+  - 每代理 git worktree（无合并冲突）
+  - 任务依赖链，支持自动解锁
+  - 看板面板，实时更新
+  - tmux 分屏查看所有代理
+  - Web UI 仪表板
+  - 一键团队模板
+  - 按代理模型分配（预览功能）
+
+### 架构图
+
+```mermaid
+graph TB
+    A[人类指令] --> B[领导代理]
+    B --> C[任务创建]
+    C --> D{依赖检查}
+    D -->|已阻塞| E[任务队列]
+    D -->|就绪| F[工人派生]
+    F --> F1[工人代理 1]
+    F --> F2[工人代理 2]
+    F --> F3[工人代理 N]
+    F1 --> G1[Git Worktree 1]
+    F2 --> G2[Git Worktree 2]
+    F3 --> G3[Git Worktree N]
+    F1 --> H1[Tmux 窗口 1]
+    F2 --> H2[Tmux 窗口 2]
+    F3 --> H3[Tmux 窗口 N]
+    F1 -.->|状态更新| C
+    F2 -.->|状态更新| C
+    F3 -.->|状态更新| C
+    F1 -.->|消息| I[收件箱]
+    F2 -.->|消息| I
+    F3 -.->|消息| I
+    I -.->|广播| F1
+    I -.->|广播| F2
+    I -.->|广播| F3
+    B --> J[监控]
+    J --> J1[看板面板]
+    J --> J2[Web UI 仪表板]
+    J --> J3[tmux 分屏视图]
+```
+
+## Maxclaw 架构总结
+
+**概述：** Maxclaw 是一个 OpenClaw 风格的本地优先 AI 代理，使用 Go 编写，强调低内存占用、完全本地化工作流和可视化界面（桌面 UI + Web UI）。提供自主执行、子会话派生和 monorepo 感知上下文发现。
+
+**关键原则：**
+- Go 原生资源效率
+- 完全本地执行（会话、记忆、日志）
+- 桌面 UI + Web UI 同端口运行
+- Monorepo 上下文感知（AGENTS.md、CLAUDE.md）
+- 自主模式，支持任务调度
+
+**核心架构：**
+- **语言：** Go 1.24+
+- **入口点：** `cmd/main.go`（CLI 入口点）
+- **模块：**
+  - `cmd/`（CLI 命令：onboard、skills、gateway、telegram bind）
+  - `internal/agent/`（代理循环和推理）
+  - `internal/tools/`（工具系统和执行）
+  - `internal/memory/`（MEMORY.md + HISTORY.md 分层记忆）
+  - `internal/channels/`（Telegram、WhatsApp Bridge、Discord、WebSocket）
+  - `internal/scheduler/`（cron/once/every 调度）
+  - `internal/config/`（config.json 配置管理）
+  - `internal/context/`（monorepo 上下文发现）
+- **执行模式：**
+  - `safe`：保守探索模式
+  - `ask`：默认交互模式
+  - `auto`：自主继续（无需手动审批）
+- **核心功能：**
+  - 低内存占用（Go 原生）
+  - 桌面 UI + Web UI（同端口）
+  - 派生子会话，独立上下文
+  - 自动任务标题（会话摘要，不覆盖内容）
+  - Monorepo 感知递归上下文发现
+  - 多渠道集成
+  - Cron 调度 + 每日记忆摘要
+- **二进制文件：**
+  - `maxclaw`：完整 CLI，包含所有命令
+  - `maxclaw-gateway`：独立后端，用于无头运行
+- **记忆分层：**
+  - `MEMORY.md`：长期知识存储
+  - `HISTORY.md`：会话历史
+  - `memory/heartbeat.md`：活跃上下文跟踪
+- **配置：** `~/.maxclaw/config.json`
+  - 提供商设置（Anthropic、OpenAI 原生 SDK）
+  - 代理默认配置（模型、工作空间、executionMode）
+
+### 架构图
+
+```mermaid
+graph TB
+    A[CLI 入口：cmd/main.go] --> B[代理循环]
+    B --> C[推理引擎]
+    B --> D[工具执行]
+    B --> E[会话管理器]
+    B --> F[记忆层]
+    B --> G[调度器]
+    B --> H[频道管理器]
+    C --> C1[工具注册表]
+    D --> D1[技能]
+    D --> D2[MCP 桥接]
+    D --> D3[自定义工具]
+    E --> E1[派生子会话]
+    E --> E2[独立上下文]
+    F --> F1[MEMORY.md]
+    F --> F2[HISTORY.md]
+    F --> F3[memory/heartbeat.md]
+    G --> G1[Cron 定时任务]
+    G --> G2[一次性任务]
+    G --> G3[周期性调度]
+    H --> H1[Telegram]
+    H --> H2[WhatsApp Bridge]
+    H --> H3[Discord]
+    H --> H4[WebSocket]
+    B --> I[桌面 UI + Web UI]
+    I --> I1[可视化设置]
+    I --> I2[流式聊天]
+    I --> I3[文件预览]
+    I --> I4[终端集成]
+    B --> J[Monorepo 上下文发现]
+    J --> J1[AGENTS.md]
+    J --> J2[CLAUDE.md]
+    J --> J3[递归搜索]
+```
+
 ## 比较
 
-| 方面 | Zeroclaw | Openclaw | NanoClaw | IronClaw | GoClaw | Nanobot |
-|------|----------|----------|----------|-----------|---------|---------|
-| 语言 | Rust | TypeScript | TypeScript (Node.js) | Rust | Go 1.26 | Python 3.11+ |
-| 重点 | 高性能运行时 | 具有频道/插件的 CLI | 个人 WhatsApp 助手 | 安全个人 AI 助手 | 多代理网关与团队 | 超轻量级助手 |
-| 模块化 | Trait 基础扩展 | 插件基础扩展 | 单进程 + 容器 | WASM 工具 + MCP + Docker | 工具注册表 + 钩子 | 技能系统 + MCP |
-| 安全性 | 首要，互联网邻接 | CLI 安全性，编辑 | 容器隔离 | WASM 沙箱 + 纵深防御 | 5 层防御 | 安全加固 |
-| 平台 | 原生（Linux 等） | 跨平台（Mac、Win、Linux、移动） | macOS (launchctl)，容器化代理 | 跨平台（Mac、Win、Linux） | 跨平台（二进制 + Docker） | 跨平台（Python + Docker） |
-| 文档 | 本地 docs/，i18n | Mintlify 托管，i18n | README + docs/ | README + docs/ | README + docs/ | README + docs/ |
-| 构建 | Cargo | pnpm/bun | npm + 容器构建 | Cargo | Go modules | pip/PyPI |
-| 测试 | Rust 测试 | Vitest | 未指定 | Rust 测试 + 集成 | go test + race 检测 | tests/ 目录 |
-| 频道 | 核心频道 | 核心 + 扩展 | 仅 WhatsApp | REPL、HTTP、WASM、Web Gateway | Telegram、Discord、Slack 等 | Telegram、Discord、Slack 等 |
-| 集成/扩展 | 外围设备（GPIO 等） | 媒体管道 | 通过 Bash 的浏览器自动化 | WASM 工具、MCP、Docker | MCP、自定义工具、钩子 | ClawHub 技能、MCP |
-| 运行时 | 原生适配器 | 基于 Node | Node + 容器化 Claude SDK | 原生 + Docker Workers | 原生 Go 二进制文件 | Python 运行时 |
-| 隔离 | 模块级 | 插件级 | 每组容器 | WASM 沙箱 + 每作业容器 | 每用户工作空间（PostgreSQL） | 会话级别 |
-| 内存 | 具有嵌入的 Markdown/SQLite | 未指定 | 每组 CLAUDE.md | PostgreSQL + pgvector | PostgreSQL + pgvector | 会话历史 |
-| 数据库 | SQLite | 未指定 | SQLite | PostgreSQL（必需） | PostgreSQL 15+（必需） | SQLite（本地） |
-| LLM 支持 | 模型提供者 | Web 提供者 | Claude Agent SDK | 多提供者（NEAR AI、OpenAI 兼容） | 13+ 提供者（Anthropic 原生、OpenAI-compat） | 通过 LiteLLM 多提供者 |
+ | 方面 | Zeroclaw | Openclaw | NanoClaw | IronClaw | GoClaw | Nanobot | ClawTeam | Maxclaw |
+|------|----------|----------|----------|-----------|---------|---------|-----------|----------|
+| | 语言 | Rust | TypeScript | TypeScript (Node.js) | Rust | Go 1.26 | Python 3.11+ | Python 3.10+ | Go 1.24+ |
+| | 重点 | 高性能运行时 | 具有频道/插件的 CLI | 个人 WhatsApp 助手 | 安全个人 AI 助手 | 多代理网关与团队 | 超轻量级助手 | 多代理群体协调 | 本地优先 Go 代理 |
+| | 模块化 | Trait 基础扩展 | 插件基础扩展 | 单进程 + 容器 | WASM 工具 + MCP + Docker | 工具注册表 + 钩子 | 技能系统 + MCP | 任意 CLI 代理集成 | 代理循环 + 工具系统 |
+| | 安全性 | 首要，互联网邻接 | CLI 安全性，编辑 | 容器隔离 | WASM 沙箱 + 纵深防御 | 5 层防御 | 安全加固 | 代理隔离（git worktree） | 仅本地执行 |
+| | 平台 | 原生（Linux 等） | 跨平台（Mac、Win、Linux、移动） | macOS (launchctl)，容器化代理 | 跨平台（Mac、Win、Linux） | 跨平台（二进制 + Docker） | 跨平台（Python + Docker） | 多平台代理 | 跨平台（Mac、Win、Linux） |
+| | 文档 | 本地 docs/，i18n | Mintlify 托管，i18n | README + docs/ | README + docs/ | README + docs/ | README + docs/ | 完整文档 | README + docs/ (i18n) |
+| | 构建 | Cargo | pnpm/bun | npm + 容器构建 | Cargo | Go modules | pip/PyPI | pip 从源码安装 | make build |
+| | 测试 | Rust 测试 | Vitest | 未指定 | Rust 测试 + 集成 | go test + race 检测 | tests/ 目录 | 未指定 | Go 测试 |
+| | 频道 | 核心频道 | 核心 + 扩展 | 仅 WhatsApp | REPL、HTTP、WASM、Web Gateway | Telegram、Discord、Slack 等 | Telegram、Discord、Slack 等 | 依赖代理 | Telegram、WA Bridge、Discord、WS |
+| | 集成/扩展 | 外围设备（GPIO 等） | 媒体管道 | 通过 Bash 的浏览器自动化 | WASM 工具、MCP、Docker | MCP、自定义工具、钩子 | ClawHub 技能、MCP | 多代理协调 | MCP、monorepo 发现 |
+| | 运行时 | 原生适配器 | 基于 Node | Node + 容器化 Claude SDK | 原生 + Docker Workers | 原生 Go 二进制文件 | Python 运行时 | 依赖具体代理 | 原生 Go 二进制文件 |
+| | 隔离 | 模块级 | 插件级 | 每组容器 | WASM 沙箱 + 每作业容器 | 每用户工作空间（PostgreSQL） | 会话级别 | 按代理 git worktree | 完全本地 |
+| | 内存 | 具有嵌入的 Markdown/SQLite | 未指定 | 每组 CLAUDE.md | PostgreSQL + pgvector | PostgreSQL + pgvector | 会话历史 | 收件箱 + 任务 | MEMORY.md + HISTORY.md |
+| | 数据库 | SQLite | 未指定 | SQLite | PostgreSQL（必需） | PostgreSQL 15+（必需） | SQLite（本地） | JSON 文件（基于文件） | SQLite（本地） |
+| | LLM 支持 | 模型提供者 | Web 提供者 | Claude Agent SDK | 多提供者（NEAR AI、OpenAI 兼容） | 13+ 提供者（Anthropic 原生、OpenAI-compat） | 通过 LiteLLM 多提供者 | 依赖具体代理 | Anthropic + OpenAI 原生 SDK |
+| | 代理支持 | 单代理 | 单代理 | 单代理 | 单代理 | 多代理团队 | 单代理 | 多代理群体 | 派生子会话 |
+| | 状态管理 | 内部结构 | 未指定 | SQLite | PostgreSQL + pgvector | PostgreSQL 多租户 | 基于会话 | 基于文件的 JSON | 本地文件系统 |
 
-所有六个都是自主代理项目，各有侧重：Zeroclaw 强调 Rust 性能和硬件扩展性，Openclaw 专注于具有广泛频道支持的 TypeScript CLI，NanoClaw 是具有组隔离的容器化 WhatsApp 到 Claude 桥接，IronClaw 通过 WASM 沙箱和多层防御机制优先考虑安全性，GoClaw 专注于具有多租户 PostgreSQL 和代理团队的多代理编排，而 Nanobot 优先考虑超轻量级设计、最小资源占用和研究就绪的代码。
+所有八个都是自主代理项目，各有侧重：Zeroclaw 强调 Rust 性能和硬件扩展性，Openclaw 专注于具有广泛频道支持的 TypeScript CLI，NanoClaw 是具有组隔离的容器化 WhatsApp 到 Claude 桥接，IronClaw 通过 WASM 沙箱和多层防御机制优先考虑安全性，GoClaw 专注于具有多租户 PostgreSQL 和代理团队的多代理编排，Nanobot 优先考虑超轻量级设计、最小资源占用和研究就绪的代码，ClawTeam 提供将单一代理转变为自组织团队的多代理群体协调，Maxclaw 以 Go 实现本地优先体验并配有桌面 UI 和资源效率。
