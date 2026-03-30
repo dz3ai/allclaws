@@ -1,12 +1,17 @@
 # Site settings
-title: allclaws Blog
-description: Multi-agent AI framework blog
+title: allclaws
+description: Multi-agent AI framework
 baseurl: ""
 url: "https://dz3ai.github.io/allclaws"
 
+# Author
+author:
+  name: Danny Zeng
+  url: https://github.com/dz3ai
+
 # Build settings
 markdown: kramdown
-theme: minima
+theme: null
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
@@ -27,20 +32,16 @@ exclude:
   - .gitmodules
 
 # Blog settings
-paginate: 5
+paginate: 10
 paginate_path: "/blog/page/:num/"
 
 # Navigation
-navigation:
+nav:
   - title: Home
     url: /
   - title: Blog
     url: /blog/
-  - title: Documentation
+  - title: Docs
     url: /README.md
-  - title: Test Framework
-    url: /test_framework/
-  - title: Architecture
-    url: /architecture/
   - title: GitHub
     url: https://github.com/dz3ai/allclaws
