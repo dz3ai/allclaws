@@ -3,7 +3,7 @@ layout: post
 title: "AI Agent Ecosystem Report: March 2026"
 date: 2026-04-07 09:00:00 +0800
 author: Danny Zeng
-categories: [Monthly Report, Ecosystem Analysis]
+categories: [Monthly Report]
 tags: [AI agents, ecosystem, march-2026, security, streaming, multi-provider]
 ---
 
