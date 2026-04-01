@@ -17,10 +17,10 @@ title: Home
 <div class="container">
   <h2 style="text-align: center; margin-bottom: 2rem;">Latest Posts</h2>
 
-  {% assign posts = site.posts | sort: 'date' | reverse | limit: 3 %}
+  {% assign posts = site.posts | sort: 'date' | reverse %}
 
   {% if posts.size > 0 %}
-    {% for post in posts %}
+    {% for post in posts limit:3 %}
       <article class="blog-post">
         <h2 class="blog-post-title">
           <a href="{{ post.url }}">{{ post.title }}</a>
@@ -28,6 +28,7 @@ title: Home
         <div class="blog-post-meta">
           <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>
           {% if post.author %} • {{ post.author }}{% endif %}
+          {% if post.categories %} • {{ post.categories | array_to_sentence_string }}{% endif %}
         </div>
         {% if post.excerpt %}
         <div class="blog-post-excerpt">

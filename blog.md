@@ -41,5 +41,29 @@ permalink: /blog/
         {% endif %}
       </article>
     {% endfor %}
+
+    <!-- Pagination -->
+    {% if paginator.total_pages > 1 %}
+    <div style="text-align: center; margin-top: 3rem;">
+      {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path }}" class="btn btn-secondary">← Previous</a>
+      {% endif %}
+
+      <span style="margin: 0 1rem;">
+        Page {{ paginator.page }} of {{ paginator.total_pages }}
+      </span>
+
+      {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path }}" class="btn btn-secondary">Next →</a>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- View All Posts link (when not on first page) -->
+    {% if page.url != '/blog/' %}
+    <div style="text-align: center; margin-top: 2rem;">
+      <a href="/blog/" class="btn btn-secondary">View All Posts →</a>
+    </div>
+    {% endif %}
   {% endif %}
 </div>
