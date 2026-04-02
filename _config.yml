@@ -1,8 +1,11 @@
 # Site settings
 title: allclaws
 description: Multi-agent AI framework
-baseurl: ""
-url: "https://dz3ai.github.io/allclaws"
+baseurl: "/allclaws"
+url: "https://dz3ai.github.io"
+
+# Permalink settings
+permalink: /blog/:year/:month/:day/:title/
 
 # Timezone
 timezone: Asia/Shanghai
