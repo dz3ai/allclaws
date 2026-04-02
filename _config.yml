@@ -1,7 +1,7 @@
 # Site settings
 title: allclaws
 description: Multi-agent AI framework
-baseurl: "/allclaws"
+baseurl: ""
 url: "https://dz3ai.github.io"
 
 # Permalink settings

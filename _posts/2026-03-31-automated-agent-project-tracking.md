@@ -169,7 +169,7 @@ Mark your calendars! Our first monthly ecosystem update will be published on **A
 
 **Follow the research:**
 - GitHub: [dz3ai/allclaws](https://github.com/dz3ai/allclaws)
-- RSS: [Blog Feed](https://dz3ai.github.io/allclaws/feed.xml)
+- RSS: [Blog Feed](https://dz3ai.github.io/feed.xml)
 - Reports: [docs/reports/](https://github.com/dz3ai/allclaws/tree/main/docs/reports)
 
 **Contribute:**
