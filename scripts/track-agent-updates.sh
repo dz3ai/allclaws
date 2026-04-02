@@ -439,7 +439,7 @@ For comprehensive analysis of each platform, check out the detailed reports in t
 
 ## Stay Updated
 
-Follow our research on [GitHub](https://github.com/dz3ai/allclaws) or subscribe to the [RSS feed](https://dz3ai.github.io/feed.xml).
+Follow our research on [GitHub](https://github.com/dz3ai/allclaws) or subscribe to the [RSS feed](https://dz3ai.github.io/allclaws/feed.xml).
 
 ---
 

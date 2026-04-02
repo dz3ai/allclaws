@@ -371,7 +371,7 @@ March 2026 was a watershed month for the personal AI agent ecosystem. Security b
 
 **Stay Updated:**
 - GitHub: [dz3ai/allclaws](https://github.com/dz3ai/allclaws)
-- RSS: [Blog Feed](https://dz3ai.github.io/feed.xml)
+- RSS: [Blog Feed](https://dz3ai.github.io/allclaws/feed.xml)
 - Detailed Reports: [docs/reports/](https://github.com/dz3ai/allclaws/tree/main/docs/reports)
 
 *Methodology: We track 8 AI agent platforms through automated git analysis, significance filtering, and comprehensive testing. Full research available in our GitHub repository.*
