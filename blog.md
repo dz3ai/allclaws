@@ -20,7 +20,7 @@ permalink: /blog/
     {% for post in posts %}
       <article class="blog-post">
         <h2 class="blog-post-title">
-          <a href="{{ post.url }}">{{ post.title }}</a>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
         </h2>
         <div class="blog-post-meta">
           <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>
