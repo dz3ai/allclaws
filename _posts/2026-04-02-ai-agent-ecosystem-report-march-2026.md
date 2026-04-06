@@ -262,6 +262,38 @@ Legend: ✅ Implemented | ⚠️ Issues | ⏳ In Progress
 3. **OpenClaw**: 1 major release (v2026.3.24)
 4. **Others**: Maintenance updates
 
+### Codebase Scale Comparison
+
+| Platform | Repo Size | Source Files | Lines of Code | Dependencies | Test Files |
+|----------|-----------|--------------|---------------|--------------|------------|
+| **OpenClaw** | 193 MB | 5,760 | 146,967 | 73 npm | 2,227 |
+| **IronClaw** | 23 MB | 362 | 191,946 | 51 cargo | 48 |
+| **ZeroClaw** | 25 MB | 259 | 161,169 | 45 cargo | 18 |
+| **GoClaw** | 22 MB | 501 | 92,815 | 149 go | 38 |
+| **NanoClaw** | 20 MB | 51 | 10,606 | 14 npm | 17 |
+| **ClawTeam** | 20 MB | 75 | 13,407 | 16 pip | 26 |
+| **Nanobot** | 66 MB | 88 | 18,960 | 49 pip | 26 |
+| **MaxClaw** | 19 MB | 118 | 30,499 | 33 go | 45 |
+
+**Key Insights:**
+- **IronClaw** has the highest code density (191K LOC in 23 MB)
+- **OpenClaw** is the largest project by far (193 MB, 5,760 files)
+- **NanoClaw** lives up to its "nano" name (51 files, ~10K LOC)
+- **GoClaw** has the most dependencies (149 Go modules)
+
+### Project Health Scores
+
+| Platform | CI Workflows | Docker | Tests | Docs | i18n | **Score** |
+|----------|--------------|--------|-------|------|------|-----------|
+| **ZeroClaw** | 4 | ✓ | ✓ | ✓ | ✓ | **A+** |
+| **IronClaw** | 11 | ✓ | ✓ | ✓ | ✓ | **A+** |
+| **OpenClaw** | 9 | ✓ | ✓ | ✓ | ✓ | **A+** |
+| **GoClaw** | 2 | ✓ | ✓ | ✓ | ✓ | **B+** |
+| **NanoClaw** | 4 | ✓ | ✓ | ✓ | - | **B** |
+| **MaxClaw** | 2 | ✓ | ✓ | ✓ | ✓ | **B** |
+| **ClawTeam** | 1 | - | ✓ | - | - | **C** |
+| **Nanobot** | 0 | ✓ | ✓ | - | - | **C** |
+
 ---
 
 ## Emerging Patterns

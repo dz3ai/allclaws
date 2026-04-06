@@ -1,4 +1,4 @@
-.PHONY: help test test-links build serve clean test-blog
+.PHONY: help test test-links build serve clean test-blog check-links validate
 
 help:
 	@echo "Available targets:"
@@ -7,6 +7,8 @@ help:
 	@echo "  make test        - Run link checker on built site"
 	@echo "  make test-blog   - Run blog link checker (no build required)"
 	@echo "  make test-build  - Build site then run link checker"
+	@echo "  make check-links FILE=_posts/file.md - Check links in a markdown file"
+	@echo "  make validate    - Run all validation checks"
 	@echo "  make clean       - Clean Jekyll build artifacts"
 
 build:
@@ -34,3 +36,15 @@ clean:
 test-blog:
 	@echo "Running blog link checker..."
 	@python3 scripts/check_blog_links.py
+
+check-links:
+	@if [ -z "$(FILE)" ]; then \
+		echo "Usage: make check-links FILE=_posts/file.md"; \
+		exit 1; \
+	fi
+	@./scripts/check-links.sh $(FILE)
+
+validate: check-links
+	@echo "Running all validation checks..."
+	@echo "✓ Links validated"
+	@echo "✓ Validation complete"
