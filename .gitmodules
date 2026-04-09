@@ -22,3 +22,12 @@
 [submodule "maxclaw"]
 	path = maxclaw
 	url = https://github.com/Lichas/maxclaw.git
+[submodule "hiclaw"]
+	path = hiclaw
+	url = https://github.com/agentscope-ai/HiClaw.git
+[submodule "rtl-claw"]
+	path = rtl-claw
+	url = https://github.com/TONGJI-EDA-LAB/RTL-CLAW.git
+[submodule "quantumclaw"]
+	path = quantumclaw
+	url = https://github.com/QuantumClaw/QClaw.git
