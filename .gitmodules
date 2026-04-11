@@ -31,3 +31,6 @@
 [submodule "quantumclaw"]
 	path = quantumclaw
 	url = https://github.com/QuantumClaw/QClaw.git
+[submodule "claw-ai-lab"]
+	path = claw-ai-lab
+	url = https://github.com/Claw-AI-Lab/Claw-AI-Lab.git
