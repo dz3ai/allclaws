@@ -27,11 +27,11 @@
     "nanoclaw": "../nanoclaw",
     "nanobot": "../nanobot",
     "zeroclaw": "../zeroclaw",
-    "hiclaw": "../hiclaw",
-    "rtl-claw": "../rtl-claw",
-    "quantumclaw": "../quantumclaw",
-    "claw-ai-lab": "../claw-ai-lab",
-    "hermes-agent": "../hermes-agent"
+    "hiclaw": "./hiclaw",
+    "rtl-claw": "./rtl-claw",
+    "quantumclaw": "./quantumclaw",
+    "claw-ai-lab": "./claw-ai-lab",
+    "hermes-agent": "./hermes-agent"
   },
   "test_categories": [
     "static_analysis",
