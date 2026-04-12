@@ -1,0 +1,41 @@
+{
+  "name": "HiClaw Agent",
+  "platform": "hiclaw",
+  "version": "1.0.9",
+  "description": "Matrix-based multi-agent OS with Manager-Workers architecture for enterprise collaboration",
+  "skills": {
+    "required": ["agent_orchestration", "matrix_protocol", "team_management"],
+    "optional": ["worker_templates", "copaw_runtime", "nacos_skills_registry"]
+  },
+  "security": {
+    "rules": ["higress_gateway", "credential_isolation", "mcp_server_management", "matrix_room_visibility"],
+    "privileges": ["create_workers", "manage_teams", "access_shared_filesystem"]
+  },
+  "credentials": {
+    "encrypted": true,
+    "providers": ["anthropic_api", "openai_api", "higress_ai_gateway", "matrix_server"]
+  },
+  "benchmarks": {
+    "enabled": ["multi_agent_collaboration", "worker_orchestration", "file_sharing", "gateway_latency"],
+    "custom": ["manager_heartbeat", "worker_template_deployment"]
+  },
+  "platform_config": {
+    "package_manager": "docker",
+    "install_command": "bash <(curl -sSL https://higress.ai/hiclaw/install.sh)",
+    "build_command": "make build",
+    "container_runtime": "docker",
+    "database_required": true,
+    "database_type": "postgresql",
+    "dependencies": [
+      "higress_ai_gateway",
+      "tuwunel_matrix_server",
+      "minio_object_storage",
+      "element_web_client"
+    ],
+    "supported_worker_runtimes": ["openclaw", "copaw", "zeroclaw", "nanoclaw"],
+    "test_commands": [
+      "make test",
+      "make test-quick"
+    ]
+  }
+}

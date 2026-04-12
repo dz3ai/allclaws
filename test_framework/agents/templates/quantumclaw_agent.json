@@ -1,0 +1,40 @@
+{
+  "name": "QuantumClaw Agent",
+  "platform": "quantumclaw",
+  "version": "1.5.1",
+  "description": "Self-hosted AI agent runtime with persistent memory and multi-agent support",
+  "skills": {
+    "required": ["persistent_memory", "multi_agent_system", "trust_kernel"],
+    "optional": ["knowledge_graph", "voice_transcription", "live_canvas", "scheduled_tasks"]
+  },
+  "security": {
+    "rules": ["aes256gcm_encryption", "agex_protocol", "values_md_rules"],
+    "privileges": ["shell_exec", "file_read_write", "web_fetch", "agent_spawn"]
+  },
+  "credentials": {
+    "encrypted": true,
+    "providers": ["anthropic_api", "openai_api", "groq_api", "openrouter_api", "google_api", "xai_api", "mistral_api", "together_api"]
+  },
+  "benchmarks": {
+    "enabled": ["memory_retrieval", "agent_spawn_performance", "multi_channel_routing"],
+    "custom": ["knowledge_graph_search", "voice_roundtrip", "canvas_rendering"]
+  },
+  "platform_config": {
+    "package_manager": "npm",
+    "install_command": "npm i -g quantumclaw",
+    "build_command": "npm run build",
+    "database_required": true,
+    "database_type": "sqlite",
+    "dependencies": [
+      "nodejs_20+",
+      "cognee_knowledge_graph"
+    ],
+    "supported_channels": ["telegram", "discord", "whatsapp", "slack", "email"],
+    "memory_layers": ["vector_search", "knowledge_store", "knowledge_graph"],
+    "test_commands": [
+      "qclaw onboard",
+      "qclaw start",
+      "qclaw agent list"
+    ]
+  }
+}

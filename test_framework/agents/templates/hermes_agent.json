@@ -1,0 +1,38 @@
+{
+  "name": "Hermes Agent",
+  "platform": "hermes-agent",
+  "version": "0.8.0",
+  "description": "Self-improving AI agent with learning loop and multi-platform support",
+  "skills": {
+    "required": ["learning_loop", "skill_creation", "memory_persistence"],
+    "optional": ["voice_transcription", "cron_scheduling", "subagent_delegation", "mcp_integration"]
+  },
+  "security": {
+    "rules": ["command_approval", "dm_pairing", "honcho_user_modeling"],
+    "privileges": ["tool_execution", "file_operations", "web_search", "rpc_calls"]
+  },
+  "credentials": {
+    "encrypted": true,
+    "providers": ["nous_portal", "openrouter", "zai_glm", "kimi_moonshot", "minimax", "openai_api", "anthropic_api"]
+  },
+  "benchmarks": {
+    "enabled": ["skill_creation_speed", "memory_retention", "context_compression"],
+    "custom": ["cross_session_recall", "autonomous_improvement", "trajectory_generation"]
+  },
+  "platform_config": {
+    "package_manager": "pip",
+    "python_version": "3.11+",
+    "install_command": "curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash",
+    "build_command": "uv pip install -e \".[all,dev]\"",
+    "container_runtime": "docker",
+    "database_required": true,
+    "database_type": "sqlite",
+    "terminal_backends": ["local", "docker", "ssh", "daytona", "singularity", "modal"],
+    "supported_platforms": ["telegram", "discord", "slack", "whatsapp", "signal", "email"],
+    "memory_system": "fts5_session_search",
+    "test_commands": [
+      "hermes doctor",
+      "python -m pytest tests/ -q"
+    ]
+  }
+}

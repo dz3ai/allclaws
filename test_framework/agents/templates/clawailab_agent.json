@@ -1,0 +1,47 @@
+{
+  "name": "Claw AI Lab Agent",
+  "platform": "claw-ai-lab",
+  "version": "1.1.0",
+  "description": "Multi-agent research platform for autonomous AI-driven science",
+  "skills": {
+    "required": ["research_orchestration", "code_harness", "experiment_execution"],
+    "optional": ["multi_agent_discussion", "paper_generation", "figure_generation"]
+  },
+  "security": {
+    "rules": ["sandboxed_python_execution", "hitl_gates", "resource_limits"],
+    "privileges": ["read_codebases", "write_workspace", "access_datasets", "gpu_allocation"]
+  },
+  "credentials": {
+    "encrypted": true,
+    "providers": ["openai_api", "anthropic_api", "gemini_api", "deepseek_api"]
+  },
+  "benchmarks": {
+    "enabled": ["research_pipeline_completion", "code_generation_accuracy", "experiment_success_rate"],
+    "custom": ["literature_review_quality", "paper_writing_speed", "multi_agent_consensus"]
+  },
+  "platform_config": {
+    "package_manager": "mixed",
+    "python_version": "3.11+",
+    "node_version": "18+",
+    "install_command": "pip install -e \".[all]\" && cd frontend && npm install",
+    "build_command": "./start.sh",
+    "container_runtime": "docker",
+    "database_required": true,
+    "database_type": "sqlite",
+    "dependencies": [
+      "torch",
+      "transformers",
+      "diffusers",
+      "matplotlib",
+      "pandas",
+      "datasets",
+      "opencv-python",
+      "huggingface_hub"
+    ],
+    "research_modes": ["explore", "discussion", "reproduce"],
+    "test_commands": [
+      "./start.sh status",
+      "./start.sh fresh"
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "RTL-Claw Agent",
+  "platform": "rtl-claw",
+  "version": "1.0.0",
+  "description": "EDA toolchain for automated IC design flow based on OpenClaw",
+  "skills": {
+    "required": ["rtl_analysis", "verilog_partition", "testbench_generation"],
+    "optional": ["rtl_optimization", "yosys_synthesis", "dreamplace_integration"]
+  },
+  "security": {
+    "rules": ["sandboxed_execution", "eda_tool_isolation"],
+    "privileges": ["read_workspace", "write_workspace", "access_eda_tools"]
+  },
+  "credentials": {
+    "encrypted": true,
+    "providers": ["openclaw_gateway", "llm_api"]
+  },
+  "benchmarks": {
+    "enabled": ["rtl_partition_accuracy", "testbench_generation_quality", "synthesis_success_rate"],
+    "custom": ["verilog_optimization", "asic7syn_flow"]
+  },
+  "platform_config": {
+    "base_image": "openclaw:local",
+    "package_manager": "docker",
+    "install_command": "docker build -t rtl-claw:latest-dev .",
+    "build_command": "docker compose build",
+    "container_runtime": "docker",
+    "database_required": false,
+    "dependencies": [
+      "yosys",
+      "openroad",
+      "dreamplace",
+      "asic7syn_libraries"
+    ],
+    "workspace_mount": "/workspace",
+    "test_commands": [
+      "docker compose run --rm rtl-claw-cli onboard --non-interactive --accept-risk",
+      "docker compose up -d rtl-claw-gateway"
+    ]
+  }
+}
