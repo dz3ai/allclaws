@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git commit -m ':*)",
+      "Bash(curl -s \"https://api.github.com/repos/win4r/ClawTeam-OpenClaw/commits?per_page=10\")",
+      "Bash(curl -s \"https://api.github.com/repos/win4r/ClawTeam-OpenClaw/releases/latest\")",
+      "Bash(curl -s \"https://api.github.com/repos/Lichas/maxclaw/commits?per_page=5\")",
+      "Bash(curl -s \"https://api.github.com/repos/NousResearch/hermes-agent/commits?per_page=5\")",
+      "Bash(python3 -m json.tool /home/dannyz/src/github/allclaws/test_framework/config.json)",
+      "Bash(git commit -m 'feat\\(test\\): add 5 new platforms to test framework config:*)",
+      "Bash([ -d \"../$platform\" ])",
+      "Bash(find /home/dannyz/src/github/allclaws/test_framework/tests -name \"*.sh\" -exec grep -l \"config\" {} \\\\;)",
+      "Read(//home/dannyz/src/github/allclaws/**)",
+      "Bash(ls /home/dannyz/src/github/allclaws/quantumclaw/*.json)",
+      "Bash(ls /home/dannyz/src/github/allclaws/hermes-agent/*.json)",
+      "Bash(find /home/dannyz/src/github/allclaws/hiclaw -maxdepth 2 -name \"Makefile\" -exec head -50 {} \\\\;)",
+      "Bash(bash -c ':*)",
+      "Bash(bash test_framework/scripts/run_tests.sh)",
+      "Bash(timeout 60 bash test_framework/scripts/run_benchmarks.sh)",
+      "Bash(timeout 120 bash test_framework/scripts/run_benchmarks.sh)",
+      "Bash(ls -la /home/dannyz/src/github/allclaws/*.md)",
+      "Bash(git commit -m 'fix: correct script paths in .claude/settings.json:*)"
+    ],
+    "additionalDirectories": [
+      "/home/dannyz/src/github/allclaws/.git/modules"
+    ]
+  }
+}
