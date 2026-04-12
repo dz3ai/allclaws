@@ -581,6 +581,176 @@ graph TB
 
 **Workflow:** Read before write, define scope, implement minimal patch, validate by risk tier, document impact.
 
+## HiClaw Architecture Summary
+
+**Overview:** HiClaw is an enterprise-grade multi-agent runtime that brings Kubernetes-style declarative resources to AI agent orchestration. It provides Manager-Workers architecture with team templates, worker marketplace, and centralized skill registry.
+
+**Key Principles:**
+- Kubernetes-style declarative resources (YAML definitions)
+- Manager-Workers orchestration pattern
+- Enterprise-grade multi-tenant support
+- Worker template marketplace
+- Nacos-based skill discovery
+
+**Core Architecture:**
+- **Language:** Go + Shell scripts
+- **Entry Point:** `hiclaw` CLI with Docker Compose
+- **Modules:**
+  - Worker resources (declarative YAML definitions)
+  - Team resources (multi-agent team configuration)
+  - Human resources (human-in-the-loop agent definitions)
+  - Manager CoPaw runtime (alternative manager implementation)
+  - Nacos skills registry (centralized skill discovery)
+  - Worker template marketplace (community templates)
+- **Deployment:**
+  - Docker Compose for local development
+  - Kubernetes support for production
+  - PostgreSQL for state persistence
+  - MinIO for shared filesystem storage
+- **Features:**
+  - Declarative worker/team/human resources
+  - Manager-Workers orchestration pattern
+  - Template-based worker creation
+  - Centralized credential management
+  - Multi-tenant workspace isolation
+  - Gateway credential isolation
+
+### Architecture Diagram
+
+```mermaid
+graph TB
+    A[CLI Entry: hiclaw] --> B[Resource Manager]
+    B --> C[Worker Resources]
+    B --> D[Team Resources]
+    B --> E[Human Resources]
+    C --> F[Worker Templates]
+    D --> G[Team Definitions]
+    E --> H[Human Agents]
+    B --> I[Manager CoPaw Runtime]
+    I --> J[Nacos Skills Registry]
+    I --> K[PostgreSQL State]
+    I --> L[MinIO File Storage]
+    B --> M[Docker/Kubernetes Deploy]
+```
+
+## QuantumClaw Architecture Summary
+
+**Overview:** QuantumClaw is a self-hosted AGEX (Agent Gateway EXchange) protocol implementation focused on agent identity, trust, and cost-aware orchestration. It provides 3-layer memory, 5-tier cost routing, and ClawHub skill marketplace integration.
+
+**Key Principles:**
+- AGEX protocol for agent identity and trust
+- Cost-aware model routing
+- Three-layer memory architecture
+- Self-hosted with minimal dependencies
+- ClawHub skill marketplace integration
+
+**Core Architecture:**
+- **Language:** Node.js (TypeScript)
+- **Entry Point:** `quantumclaw` CLI
+- **Modules:**
+  - AGEX protocol implementation (identity + trust)
+  - 3-layer memory (vector search + structured knowledge + optional Cognee knowledge graph)
+  - 5-tier cost routing (reflex → simple → standard → complex → expert)
+  - Live Canvas (HTML, SVG, Mermaid diagrams in split-pane dashboard)
+  - ClawHub integration (3,286+ skills)
+  - MCP server support (12 servers)
+- **Memory System:**
+  - Layer 1: Vector search (semantic retrieval)
+  - Layer 2: Structured knowledge (facts, entities)
+  - Layer 3: Knowledge graph (Cognee, optional)
+- **Cost Routing:**
+  - Tier 1 (Reflex): Cheapest models for simple tasks
+  - Tier 2 (Simple): Standard models for routine tasks
+  - Tier 3 (Standard): Balanced models for normal tasks
+  - Tier 4 (Complex): Advanced models for difficult tasks
+  - Tier 5 (Expert): Best models for critical tasks
+- **Features:**
+  - AGEX protocol implementation
+  - Multi-agent spawning
+  - Trust kernel (VALUES.md)
+  - 8+ LLM provider support
+  - 5 communication channels (Telegram, Discord, WhatsApp, Slack, Email)
+  - Split-pane web dashboard
+
+### Architecture Diagram
+
+```mermaid
+graph TB
+    A[CLI Entry: quantumclaw] --> B[AGEX Protocol Layer]
+    B --> C[Agent Identity]
+    B --> D[Trust Kernel]
+    B --> E[Cost Router]
+    E --> F[Tier 1: Reflex]
+    E --> G[Tier 2: Simple]
+    E --> H[Tier 3: Standard]
+    E --> I[Tier 4: Complex]
+    E --> J[Tier 5: Expert]
+    A --> K[3-Layer Memory]
+    K --> K1[Vector Search]
+    K --> K2[Structured Knowledge]
+    K --> K3[Knowledge Graph]
+    A --> L[ClawHub Integration]
+    L --> M[3,286+ Skills]
+    A --> N[Live Canvas Dashboard]
+    N --> O[HTML/SVG/Mermaid]
+```
+
+## Hermes-Agent Architecture Summary
+
+**Overview:** Hermes-Agent is a research-backed personal AI agent that implements advanced context management techniques. It focuses on preventing stale answers through context compaction, resolved questions tracking, and clear context separators.
+
+**Key Principles:**
+- Research-backed prompt engineering
+- Context compaction to prevent stale answers
+- Resolved questions tracking
+- Clear context separators
+- Competitor-inspired techniques (Claude Code, OpenCode, Codex)
+
+**Core Architecture:**
+- **Language:** Python
+- **Entry Point:** `hermes` CLI
+- **Modules:**
+  - Context compaction engine (prevents stale answers)
+  - Resolved questions tracker (avoids re-answering)
+  - Context separator system (distinguishes history from active)
+  - Prompt engineering layer (competitor-inspired techniques)
+  - Conversation manager (session persistence)
+  - Tool executor (MCP + custom tools)
+- **Context Management:**
+  - Enhanced context compaction (prevents model staleness)
+  - Resolved questions tracking (avoids redundant answers)
+  - Clear context separators (distinguishes historical from active)
+  - Conversation history persistence
+- **Features:**
+  - Context-aware prompting
+  - Multi-channel support (Telegram, Discord)
+  - MCP protocol support
+  - Session persistence
+  - Research-backed safety checks
+  - Anthropic, OpenAI, OpenRouter provider support
+
+### Architecture Diagram
+
+```mermaid
+graph TD
+    A[CLI Entry: hermes] --> B[Context Manager]
+    B --> C[Context Compaction]
+    B --> D[Resolved Questions Tracker]
+    B --> E[Context Separators]
+    A --> F[Prompt Engineering Layer]
+    F --> G[Competitor-Inspired Prompts]
+    F --> H[Safety Checks]
+    A --> I[Conversation Manager]
+    I --> J[Session Persistence]
+    I --> K[History Management]
+    A --> L[Tool Executor]
+    L --> M[MCP Servers]
+    L --> N[Custom Tools]
+    A --> O[Channel Manager]
+    O --> P[Telegram]
+    O --> Q[Discord]
+```
+
 ## Comparison
 
 | Aspect | Openclaw | ClawTeam | GoClaw | IronClaw | Maxclaw | NanoClaw | Nanobot | Zeroclaw | HiClaw | QuantumClaw | Hermes-Agent |

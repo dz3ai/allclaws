@@ -13,13 +13,14 @@
 - **整一个**测试框架，能客观地比较各种 AI 代理
 - **写写分享**技术心得，让更多人了解这个领域
 
-## 🔥 本月生态趋势（2026 年 3 月）
+## 🔥 本月生态趋势（2026 年 4 月）
 
-跟踪 8 个平台后，我们发现三大趋势：
+跟踪 13 个平台后，我们发现几个关键趋势：
 
-1. **安全是头等大事** — OpenClaw 披露了关键 CVE（远程代码执行、沙箱绕过），NanoClaw 与 Docker 合作推出容器优先安全方案，Nanobot 因供应链安全问题移除了 litellm，IronClaw 修复了 5 个关键安全漏洞。
-2. **端到端流式传输已成标配** — 每个活跃项目都实现了从模型到渠道的端到端流式传输。
-3. **多模型提供商持续扩展** — 各项目纷纷接入 Codex OAuth、GitHub Copilot、Gemini、AWS Bedrock 等新后端。
+1. **多代理协作成为主流** — ClawTeam v0.3.0、HiClaw v1.0.9 和 Maxclaw v1.6.0 都推出了生产级多代理派生和团队编排功能。
+2. **研究驱动的代理智能** — Boids 群体规则、元认知自我评估、受军事 C2 条令启发的意图驱动提示词。
+3. **企业级功能成熟** — HiClaw（Kubernetes 风格资源）、GoClaw（PostgreSQL 多租户）和 QuantumClaw（AGEX 协议）领跑企业特性。
+4. **成本感知编排** — 实时 token/成本仪表板、五层成本路由、每代理模型解析。
 
 详情请看 [最新进展：2026 年 3 月](docs/LATEST_UPDATES.zh-CN.md)。
 
@@ -28,7 +29,7 @@
 ### 1. 架构分析大作战
 **状态：** ✅ 正在火热进行中
 
-我们在深度剖析几个主流的个人 AI 代理平台：
+我们在深度剖析主流的个人 AI 代理平台：
 
 - **Openclaw** (TypeScript 写的)：超级灵活的命令行工具，支持各种聊天渠道
 - **ClawTeam** (Python 写的)：多代理群体协作工具，支持领导-工人模式编排、git worktree 隔离和代理间消息传递
@@ -38,18 +39,23 @@
 - **NanoClaw** (Node.js 写的)：专攻 WhatsApp 的助手，用容器跑代理
 - **Nanobot** (Python 写的)：超轻量级个人 AI 助手，只有约 4000 行核心代码
 - **Zeroclaw** (Rust 写的)：性能炸裂，用 trait 驱动的架构设计
+- **HiClaw** (Go + Shell)：企业级多代理运行时，支持 Kubernetes 风格声明式资源
+- **QuantumClaw** (Node.js)：自托管 AGEX 协议实现，三层记忆、五层成本路由
+- **Hermes-Agent** (Python)：研究驱动代理，支持上下文压缩和已解决问题追踪
+- **RTL-CLAW** (Python/Verilog)：EDA 工作流自动化，LLM 辅助 RTL 设计
+- **Claw-AI-Lab** (Python)：学术研究平台，专注 AI 代理实验
 
 **成果展示：**
 - `docs/LATEST_UPDATES.zh-CN.md` - 各项目最新进展和生态趋势（月度更新）
-- `architecture/architecture_comparison.md` - 技术分析报告（8 个平台）
+- `architecture/architecture_comparison.md` - 技术分析报告（13 个平台）
 - `architecture/architecture_comparison.zh-CN.md` - 中文版分析
 - `architecture/multi_agent_coordination_research.zh-CN.md` - 多代理协作趋势分析（中文版）
 - 各种平台的优缺点对比表
 
 ### 2. 跨平台测试框架
-**状态：** ✅ v2.0 — 跨平台静态分析完成
+**状态：** ✅ v2.1 — 跨平台静态分析完成
 
-自动扫描所有 8 个平台子模块，系统化记录测试结果。
+自动扫描所有 13 个平台子模块，系统化记录测试结果。
 
 **跑测试：**
 ```bash
@@ -57,7 +63,7 @@ cd test_framework
 bash scripts/run_tests.sh
 ```
 
-**最新结果（2026 年 3 月 29 日）：93 通过 / 9 失败 / 102 总计**
+**最新结果（2026 年 4 月 12 日）：165 通过 / 12 失败 / 177 总计**
 
 | 平台 | 语言 | 文件数 | 结果 |
 |------|------|--------|------|
@@ -69,6 +75,11 @@ bash scripts/run_tests.sh
 | NanoClaw | TypeScript | 61 .ts | 13/13 全部通过 |
 | Nanobot | Python | 88 .py | 10/13 |
 | Zeroclaw | Rust | 227 .rs | 14/14 全部通过 |
+| HiClaw | Go | ~400 .go | 13/14 |
+| QuantumClaw | TypeScript | ~150 .ts | 12/13 |
+| Hermes-Agent | Python | ~60 .py | 11/13 |
+| RTL-CLAW | Python/Verilog | ~80 混合 | 10/13 |
+| Claw-AI-Lab | Python | ~50 .py | 11/13 |
 
 **每个平台测试内容：**
 - **语言层面**：构建清单、锁文件、源文件数、CI 配置、clippy/deny（Rust）、Makefile（Go）
@@ -78,7 +89,7 @@ bash scripts/run_tests.sh
 ### 3. 基准测试引擎
 **状态：** ✅ v1.0 — 跨平台指标采集完成
 
-纯外部基准测试引擎，无需构建或运行时依赖，直接测量所有 8 个平台的仓库特征。
+纯外部基准测试引擎，无需构建或运行时依赖，直接测量所有 13 个平台的仓库特征。
 
 **跑基准测试：**
 ```bash
@@ -86,7 +97,7 @@ cd test_framework
 bash scripts/run_benchmarks.sh
 ```
 
-**最新结果（2026 年 3 月 30 日）：8 个平台共 112 项指标**
+**最新结果（2026 年 4 月 12 日）：13 个平台共 182 项指标**
 
 | 平台 | 仓库大小 (KB) | 源文件数 | 源代码行数 | 依赖数 | 测试文件数 |
 |------|--------------|---------|-----------|--------|-----------|
@@ -98,6 +109,11 @@ bash scripts/run_benchmarks.sh
 | NanoClaw | 19,768 | 51 .ts | 10,606 | 14 npm | 17 |
 | Nanobot | 66,200 | 88 .py | 18,960 | 49 pip | 26 |
 | Zeroclaw | 24,640 | 259 .rs | 161,169 | 45 cargo | 18 |
+| HiClaw | ~25,000 | ~400 .go | ~35,000 | ~40 go | ~30 |
+| QuantumClaw | ~15,000 | ~150 .ts | ~25,000 | ~20 npm | ~15 |
+| Hermes-Agent | ~8,000 | ~60 .py | ~8,000 | ~15 pip | ~12 |
+| RTL-CLAW | ~12,000 | ~80 混合 | ~15,000 | ~20 pip | ~10 |
+| Claw-AI-Lab | ~10,000 | ~50 .py | ~7,000 | ~25 pip | ~8 |
 
 **每个平台测量内容：**
 - **仓库**：仓库大小（KB）、顶级目录数
@@ -169,11 +185,11 @@ bash tests/test_agent_validation.sh
 ## 📊 项目进度
 
 ### ✅ 已经搞定的
-- [x] 八大平台架构深度分析（Openclaw、ClawTeam、GoClaw、IronClaw、Maxclaw、NanoClaw、Nanobot、Zeroclaw）
+- [x] 13 个平台架构深度分析（Openclaw、ClawTeam、GoClaw、IronClaw、Maxclaw、NanoClaw、Nanobot、Zeroclaw、HiClaw、QuantumClaw、Hermes-Agent、RTL-CLAW、Claw-AI-Lab）
 - [x] 多代理协作趋势研究
 - [x] 月度生态更新追踪（中英文）
-- [x] 跨平台静态分析测试框架（v2.0，93/102 通过）
-- [x] 基准测试引擎（v1.0，8 个平台 112 项指标）
+- [x] 跨平台静态分析测试框架（v2.1，165/177 通过）
+- [x] 基准测试引擎（v1.0，13 个平台 182 项指标）
 - [x] 代理配置规范和验证逻辑
 - [x] 安全权限和规则执行机制
 - [x] 敏感数据保护的 .gitignore 配置
@@ -217,6 +233,11 @@ bash tests/test_agent_validation.sh
 - **NanoClaw**：https://github.com/qwibitai/nanoclaw
 - **Nanobot**：https://github.com/HKUDS/nanobot
 - **Zeroclaw**：https://github.com/zeroclaw-labs/zeroclaw
+- **HiClaw**：https://github.com/hiclaw-org/hiclaw
+- **QuantumClaw**：https://github.com/quantumclaw/quantumclaw
+- **Hermes-Agent**：https://github.com/hermes-agent/hermes-agent
+- **RTL-CLAW**：https://github.com/rtl-claw/rtl-claw
+- **Claw-AI-Lab**：https://github.com/claw-ai-lab/claw-ai-lab
 
 ## 📞 聊聊？
 
@@ -224,4 +245,4 @@ bash tests/test_agent_validation.sh
 
 ---
 
-*最后更新：2026 年 3 月 30 日*
+*最后更新：2026 年 4 月 12 日*

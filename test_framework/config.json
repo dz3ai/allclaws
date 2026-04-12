@@ -33,6 +33,21 @@
     "claw-ai-lab": "./claw-ai-lab",
     "hermes-agent": "./hermes-agent"
   },
+  "platform_languages": {
+    "openclaw": "TypeScript",
+    "clawteam": "Python",
+    "goclaw": "Go",
+    "ironclaw": "Rust",
+    "maxclaw": "Go",
+    "nanoclaw": "TypeScript",
+    "nanobot": "Python",
+    "zeroclaw": "Rust",
+    "hiclaw": "Go",
+    "rtl-claw": "Verilog",
+    "quantumclaw": "TypeScript",
+    "claw-ai-lab": "Python",
+    "hermes-agent": "Python"
+  },
   "test_categories": [
     "static_analysis",
     "codebase_metrics",

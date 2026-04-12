@@ -15,16 +15,23 @@ if ! command -v jq >/dev/null 2>&1; then
     exit 1
 fi
 
-PLATFORMS=(
-    openclaw:TypeScript
-    clawteam:Python
-    goclaw:Go
-    ironclaw:Rust
-    maxclaw:Go
-    nanoclaw:TypeScript
-    nanobot:Python
-    zeroclaw:Rust
-)
+# Load platforms dynamically from config.json
+CONFIG_FILE="$FRAMEWORK_DIR/config.json"
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "ERROR: config.json not found at $CONFIG_FILE"
+    exit 1
+fi
+
+# Read platforms and languages from config.json
+SUPPORTED_PLATFORMS=($(jq -r '.supported_platforms[]' "$CONFIG_FILE"))
+PLATFORM_LANGUAGES=()
+for platform in "${SUPPORTED_PLATFORMS[@]}"; do
+    lang=$(jq -r --arg p "$platform" '.platform_languages[$p] // "Unknown"' "$CONFIG_FILE")
+    PLATFORM_LANGUAGES+=("$platform:$lang")
+done
+
+# Build PLATFORMS array in the format "platform:language"
+PLATFORMS=("${PLATFORM_LANGUAGES[@]}")
 
 echo "=========================================="
 echo " AllClaws Test Framework v2.0"
@@ -89,6 +96,22 @@ check_file_exists() {
     fi
 }
 
+test_verilog_source() {
+    local dir="$1"
+    # Check for Verilog source files (.v, .sv, .vhd)
+    count=$(find "$dir" -maxdepth 5 \
+        \( -name ".git" -o -name "node_modules" -o -name "target" -o -name "vendor" \) -prune \
+        -o \( -name "*.v" -o -name "*.sv" -o -name "*.vhd" -o -name "*.vhdl" \) -type f -print 2>/dev/null \
+        | wc -l | tr -d ' ')
+    if [ "${count:-0}" -gt 0 ]; then
+        echo "pass ($count Verilog/HDL source files)"
+        return 0
+    else
+        echo "FAIL: no Verilog/HDL source files found"
+        return 1
+    fi
+}
+
 for entry in "${PLATFORMS[@]}"; do
     platform="${entry%%:*}"
     language="${entry##*:}"
@@ -139,6 +162,16 @@ for entry in "${PLATFORMS[@]}"; do
             run_test "$platform.docker" "Has Docker" test_python_docker "$platform_path"
             run_test "$platform.ci_lang" "Has Python CI" test_python_ci "$platform_path"
             run_test "$platform.tests_dir" "Has tests directory" test_python_tests_dir "$platform_path"
+            ;;
+        Verilog)
+            # Verilog/RTL hardware projects - basic checks only
+            run_test "$platform.readme" "Has README" check_file_exists "$platform_path" README
+            run_test "$platform.source" "Has Verilog source files" test_verilog_source "$platform_path"
+            run_test "$platform.makefile" "Has Makefile" check_file_exists "$platform_path" Makefile
+            run_test "$platform.docker" "Has Docker" check_file_exists "$platform_path" Dockerfile
+            ;;
+        *)
+            echo "  [WARN] Unknown language '$language' for platform '$platform' - skipping language-specific tests"
             ;;
     esac
 

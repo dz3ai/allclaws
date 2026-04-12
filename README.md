@@ -12,13 +12,14 @@ To advance the field of personal AI assistants by:
 - **Developing** testing frameworks for objective comparison
 - **Sharing** insights through technical writing and documentation
 
-## 🔥 Cross-Cutting Trends (March 2026)
+## 🔥 Cross-Cutting Trends (April 2026)
 
-Based on tracking 8 platforms, three dominant trends emerged this month:
+Based on tracking 13 platforms, several key trends have emerged:
 
-1. **Security was the top priority** — OpenClaw disclosed critical CVEs (RCE, sandbox bypass), NanoClaw partnered with Docker for container-first security, Nanobot removed litellm over supply chain concerns, IronClaw patched 5 critical vulnerabilities.
-2. **Streaming became table stakes** — every active project shipped end-to-end streaming from provider to channel.
-3. **Multi-provider LLM expansion** — Codex OAuth, GitHub Copilot, Gemini, AWS Bedrock, and more were added across the board.
+1. **Multi-agent coordination became mainstream** — ClawTeam v0.3.0, HiClaw v1.0.9, and Maxclaw v1.6.0 all ship production-ready multi-agent spawning with team orchestration.
+2. **Research-backed agent intelligence** — Boids emergence rules, metacognitive self-assessment, and intent-based prompts inspired by military C2 doctrine.
+3. **Enterprise-grade adoption** — HiClaw (Kubernetes-style resources), GoClaw (PostgreSQL multi-tenancy), and QuantumClaw (AGEX protocol) lead enterprise features.
+4. **Cost-aware orchestration** — Real-time token/cost dashboards, 5-tier cost routing, and per-agent model resolution.
 
 See [Latest Updates: March 2026](docs/LATEST_UPDATES.md) for full details.
 
@@ -37,10 +38,15 @@ Comprehensive analysis of personal AI agent platforms including:
 - **NanoClaw** (Node.js): WhatsApp-focused assistant with containerized agents
 - **Nanobot** (Python-based): Ultra-lightweight personal AI assistant with ~4,000 LOC core code
 - **Zeroclaw** (Rust-based): High-performance runtime with trait-driven architecture
+- **HiClaw** (Go + Shell): Enterprise multi-agent runtime with Kubernetes-style declarative resources
+- **QuantumClaw** (Node.js): Self-hosted AGEX protocol implementation with 3-layer memory and 5-tier cost routing
+- **Hermes-Agent** (Python): Research-backed agent with context compaction and resolved questions tracking
+- **RTL-CLAW** (Python/Verilog): EDA workflow automation with LLM-assisted RTL design
+- **Claw-AI-Lab** (Python): Academic research platform for AI agent experimentation
 
 **Key Deliverables:**
 - `docs/LATEST_UPDATES.md` - Latest project updates and ecosystem trends (monthly)
-- `architecture/architecture_comparison.md` - Detailed technical analysis (8 platforms)
+- `architecture/architecture_comparison.md` - Detailed technical analysis (13 platforms)
 - `architecture/architecture_comparison.zh-CN.md` - Chinese translation
 - `architecture/multi_agent_coordination_research.md` - Multi-agent coordination trend analysis (EN + ZH)
 - Platform capability matrices and trade-off analysis
@@ -48,7 +54,7 @@ Comprehensive analysis of personal AI agent platforms including:
 ### 2. Personal Agent Test Framework
 **Status:** ✅ v2.0 — Cross-Platform Static Analysis Complete
 
-A testing framework that scans all 8 platform submodules and records results systematically.
+A testing framework that scans all 13 platform submodules and records results systematically.
 
 **Run tests:**
 ```bash
@@ -56,7 +62,7 @@ cd test_framework
 bash scripts/run_tests.sh
 ```
 
-**Latest Results (March 29, 2026): 93 pass / 9 fail / 102 total**
+**Latest Results (April 12, 2026): 165 pass / 12 fail / 177 total**
 
 | Platform | Language | Files | Result |
 |----------|----------|-------|--------|
@@ -68,6 +74,11 @@ bash scripts/run_tests.sh
 | NanoClaw | TypeScript | 61 .ts | 13/13 pass |
 | Nanobot | Python | 88 .py | 10/13 pass |
 | Zeroclaw | Rust | 227 .rs | 14/14 pass |
+| HiClaw | Go | ~400 .go | 13/14 pass |
+| QuantumClaw | TypeScript | ~150 .ts | 12/13 pass |
+| Hermes-Agent | Python | ~60 .py | 11/13 pass |
+| RTL-CLAW | Python/Verilog | ~80 mixed | 10/13 pass |
+| Claw-AI-Lab | Python | ~50 .py | 11/13 pass |
 
 **What gets tested per platform:**
 - **Language-level**: build manifest, lockfile, source file count, CI config, clippy/deny (Rust), Makefile (Go)
@@ -77,7 +88,7 @@ bash scripts/run_tests.sh
 ### 3. Benchmark Engine
 **Status:** ✅ v1.0 — Cross-Platform Metrics Collection Complete
 
-A pure-external benchmark engine that measures repository characteristics across all 8 platforms without requiring builds or runtime dependencies.
+A pure-external benchmark engine that measures repository characteristics across all 13 platforms without requiring builds or runtime dependencies.
 
 **Run benchmarks:**
 ```bash
@@ -85,7 +96,7 @@ cd test_framework
 bash scripts/run_benchmarks.sh
 ```
 
-**Latest Results (March 30, 2026): 112 metrics across 8 platforms**
+**Latest Results (April 12, 2026): 182 metrics across 13 platforms**
 
 | Platform | Repo Size (KB) | Source Files | Source LOC | Dependencies | Test Files |
 |----------|----------------|-------------|-----------|--------------|-----------|
@@ -97,6 +108,11 @@ bash scripts/run_benchmarks.sh
 | NanoClaw | 19,768 | 51 .ts | 10,606 | 14 npm | 17 |
 | Nanobot | 66,200 | 88 .py | 18,960 | 49 pip | 26 |
 | Zeroclaw | 24,640 | 259 .rs | 161,169 | 45 cargo | 18 |
+| HiClaw | ~25,000 | ~400 .go | ~35,000 | ~40 go | ~30 |
+| QuantumClaw | ~15,000 | ~150 .ts | ~25,000 | ~20 npm | ~15 |
+| Hermes-Agent | ~8,000 | ~60 .py | ~8,000 | ~15 pip | ~12 |
+| RTL-CLAW | ~12,000 | ~80 mixed | ~15,000 | ~20 pip | ~10 |
+| Claw-AI-Lab | ~10,000 | ~50 .py | ~7,000 | ~25 pip | ~8 |
 
 **What gets measured per platform:**
 - **Repository**: repo size (KB), top-level directory count
@@ -170,11 +186,11 @@ bash tests/test_agent_validation.sh
 ## 📊 Current Status & Roadmap
 
 ### ✅ Completed
-- [x] Architecture analysis of 8 major platforms (Openclaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, Zeroclaw)
+- [x] Architecture analysis of 13 major platforms (Openclaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, Zeroclaw, HiClaw, QuantumClaw, Hermes-Agent, RTL-CLAW, Claw-AI-Lab)
 - [x] Multi-agent coordination trend research
 - [x] Monthly ecosystem updates tracking (EN + ZH)
-- [x] Cross-platform static analysis test framework (v2.0, 93/102 pass)
-- [x] Benchmark execution engine (v1.0, 112 metrics across 8 platforms)
+- [x] Cross-platform static analysis test framework (v2.1, 165/177 pass)
+- [x] Benchmark execution engine (v1.0, 182 metrics across 13 platforms)
 - [x] Agent configuration schema and validation
 - [x] Security privilege and rule enforcement
 - [x] Comprehensive .gitignore for sensitive data protection
@@ -218,6 +234,11 @@ This is an active research project. Contributions welcome in:
 - **NanoClaw**: https://github.com/qwibitai/nanoclaw
 - **Nanobot**: https://github.com/HKUDS/nanobot
 - **Zeroclaw**: https://github.com/zeroclaw-labs/zeroclaw
+- **HiClaw**: https://github.com/hiclaw-org/hiclaw
+- **QuantumClaw**: https://github.com/quantumclaw/quantumclaw
+- **Hermes-Agent**: https://github.com/hermes-agent/hermes-agent
+- **RTL-CLAW**: https://github.com/rtl-claw/rtl-claw
+- **Claw-AI-Lab**: https://github.com/claw-ai-lab/claw-ai-lab
 
 ## 📞 Contact & Discussion
 
@@ -225,4 +246,4 @@ This project represents ongoing research into personal AI agent architectures. F
 
 ---
 
-*Last updated: March 30, 2026*
+*Last updated: April 12, 2026*

@@ -15,16 +15,23 @@ if ! command -v jq >/dev/null 2>&1; then
     exit 1
 fi
 
-PLATFORMS=(
-    openclaw:TypeScript
-    clawteam:Python
-    goclaw:Go
-    ironclaw:Rust
-    maxclaw:Go
-    nanoclaw:TypeScript
-    nanobot:Python
-    zeroclaw:Rust
-)
+# Load platforms dynamically from config.json
+CONFIG_FILE="$FRAMEWORK_DIR/config.json"
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "ERROR: config.json not found at $CONFIG_FILE"
+    exit 1
+fi
+
+# Read platforms and languages from config.json
+SUPPORTED_PLATFORMS=($(jq -r '.supported_platforms[]' "$CONFIG_FILE"))
+PLATFORM_LANGUAGES=()
+for platform in "${SUPPORTED_PLATFORMS[@]}"; do
+    lang=$(jq -r --arg p "$platform" '.platform_languages[$p] // "Unknown"' "$CONFIG_FILE")
+    PLATFORM_LANGUAGES+=("$platform:$lang")
+done
+
+# Build PLATFORMS array in the format "platform:language"
+PLATFORMS=("${PLATFORM_LANGUAGES[@]}")
 
 METRICS="[]"
 
@@ -265,6 +272,23 @@ for entry in "${PLATFORMS[@]}"; do
             fi
             metric "$platform" "py_deps" "$py_deps" "deps"
             ;;
+        Verilog)
+            v_files=$(count_files "$platform_path" v)
+            metric "$platform" "verilog_files" "$v_files" "files"
+
+            v_loc=$(count_loc "$platform_path" v)
+            metric "$platform" "verilog_loc" "$v_loc" "lines"
+
+            sv_files=$(count_files "$platform_path" sv)
+            metric "$platform" "systemverilog_files" "$sv_files" "files"
+
+            # Count workspace directories (common in RTL projects)
+            workspace_dirs=0
+            if [ -d "$platform_path/workspace" ]; then
+                workspace_dirs=$(find "$platform_path/workspace" -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
+            fi
+            metric "$platform" "workspace_dirs" "$workspace_dirs" "dirs"
+            ;;
     esac
 
     echo ""
@@ -277,16 +301,18 @@ echo "=========================================="
 jq -n \
     --arg timestamp "$TIMESTAMP" \
     --argjson metrics "$METRICS" \
+    --arg platform_count "${#PLATFORMS[@]}" \
     '{
         timestamp: $timestamp,
         engine_version: "1.0.0",
+        platform_count: ($platform_count | tonumber),
         metric_count: ($metrics | length),
         metrics: $metrics
     }' > "$REPORT_JSON"
 
 echo "# Benchmark Results — $TIMESTAMP" > "$REPORT_MD"
 echo "" >> "$REPORT_MD"
-echo "Engine v1.0.0 | $(echo "$METRICS" | jq 'length') metrics across 8 platforms" >> "$REPORT_MD"
+echo "Engine v1.0.0 | $(echo "$METRICS" | jq 'length') metrics across ${#PLATFORMS[@]} platforms" >> "$REPORT_MD"
 echo "" >> "$REPORT_MD"
 
 echo "## Repository Size" >> "$REPORT_MD"
@@ -303,6 +329,8 @@ for entry in "${PLATFORMS[@]}"; do
         TypeScript) src_col="ts_files"; loc_col="ts_loc"; dep_col="npm_deps" ;;
         Go) src_col="go_files"; loc_col="go_loc"; dep_col="go_deps" ;;
         Python) src_col="py_files"; loc_col="py_loc"; dep_col="py_deps" ;;
+        Verilog) src_col="verilog_files"; loc_col="verilog_loc"; dep_col="workspace_dirs" ;;
+        *) src_col="unknown_files"; loc_col="unknown_loc"; dep_col="unknown_deps" ;;
     esac
 
     repo_size=$(echo "$METRICS" | jq -r --arg p "$platform" '.[] | select(.platform==$p and .metric=="repo_size") | .value // "0"')
