@@ -583,25 +583,36 @@ graph TB
 
 ## Comparison
 
- | Aspect | Openclaw | ClawTeam | GoClaw | IronClaw | Maxclaw | NanoClaw | Nanobot | Zeroclaw |
-|--------|----------|----------|---------|-----------|---------|----------|---------|----------|
-| | Language | TypeScript | Python 3.10+ | Go 1.26 | Rust | Go 1.24+ | TypeScript (Node.js) | Python 3.11+ | Rust |
-| | Focus | CLI with channels/plugins | Multi-agent swarm coordination | Multi-agent gateway with teams | Secure personal AI assistant | Local-first Go agent | Personal WhatsApp assistant | Ultra-lightweight assistant | High-performance runtime |
-| | Modularity | Plugin-based extensions | Any CLI agent integration | Tool registry + hooks | WASM tools + MCP + Docker | Agent loop + tool system | Single process + containers | Skill system + MCP | Trait-based extensions |
-| | Security | CLI security, redaction | Agent isolation (git worktrees) | 5-layer defense | WASM sandbox + defense in depth | Local execution only | Container isolation | Security hardening | First-class, internet-adjacent |
-| | Platforms | Cross-platform (Mac, Win, Linux, mobile) | Multi-platform agents | Cross-platform (binary + Docker) | Cross-platform (Mac, Win, Linux) | Cross-platform (Mac, Win, Linux) | macOS (launchctl), containerized agents | Cross-platform (Python + Docker) | Native (Linux, etc.) |
-| | Docs | Mintlify-hosted, i18n | Comprehensive docs | README + docs/ | README + docs/ | README + docs/ (i18n) | README + docs/ | README + docs/ | Local docs/, i18n |
-| | Build | pnpm/bun | pip from source | Go modules | Cargo | make build | npm + container build | pip/PyPI | Cargo |
-| | Tests | Vitest | Not specified | go test + race detector | Rust tests + integration | Go tests | Not specified | tests/ directory | Rust tests |
-| | Channels | Core + extensions | Agent-dependent | Telegram, Discord, Slack, etc. | REPL, HTTP, WASM, Web Gateway | Telegram, WA Bridge, Discord, WS | WhatsApp only | Telegram, Discord, Slack, etc. | Core channels |
-| | Integrations/Extensions | Media pipeline | Multi-agent coordination | MCP, custom tools, hooks | WASM tools, MCP, Docker | MCP, monorepo discovery | Browser automation via Bash | ClawHub skills, MCP | Peripherals (GPIO, etc.) |
-| | Runtime | Node-based | Agent-specific | Native Go binary | Native with Docker workers | Native Go binary | Node + containerized Claude SDK | Python runtime | Native adapters |
-| | Isolation | Plugin-level | Git worktree per agent | Per-user workspaces (PostgreSQL) | WASM sandbox + per-job containers | Fully local | Per-group containers | Session-level | Module-level |
-| | Memory | Not specified | Inboxes + tasks | PostgreSQL + pgvector | PostgreSQL with pgvector | MEMORY.md + HISTORY.md | Per-group CLAUDE.md | Session history | Markdown/SQLite with embeddings |
-| | Database | Not specified | JSON files (file-based) | PostgreSQL 15+ (required) | PostgreSQL (required) | SQLite (local) | SQLite | SQLite (local) | SQLite |
-| | LLM Support | Web provider | Agent-dependent | 13+ providers (Anthropic native, OpenAI-compat) | Multi-provider (NEAR AI, OpenAI-compatible) | Anthropic + OpenAI native SDKs | Claude Agent SDK | Multiple via LiteLLM | Model providers |
-| | Agent Support | Single agent | Multi-agent swarms | Multi-agent teams | Single agent | Spawn sub-sessions | Single agent | Single agent | Single agent |
-| | State Management | Not specified | File-based JSON | PostgreSQL multi-tenant | PostgreSQL + pgvector | Local filesystem | SQLite | Session-based | Internal structures |
+| Aspect | Openclaw | ClawTeam | GoClaw | IronClaw | Maxclaw | NanoClaw | Nanobot | Zeroclaw | HiClaw | QuantumClaw | Hermes-Agent |
+|--------|----------|----------|---------|-----------|---------|----------|---------|----------|---------|-------------|--------------|
+| | Language | TypeScript | Python 3.10+ | Go 1.26 | Rust | Go 1.24+ | TypeScript (Node.js) | Python 3.11+ | Rust | Go + Shell | Node.js | Python |
+| | Focus | CLI with channels/plugins | Multi-agent swarm coordination | Multi-agent gateway with teams | Secure personal AI assistant | Local-first Go agent | Personal WhatsApp assistant | Ultra-lightweight assistant | High-performance runtime | Enterprise multi-agent runtime | Self-hosted AGEX agent | Research-backed agent |
+| | Modularity | Plugin-based extensions | Any CLI agent integration | Tool registry + hooks | WASM tools + MCP + Docker | Agent loop + tool system | Single process + containers | Skill system + MCP | Trait-based extensions | Manager-Workers + Templates | Agent spawning + ClawHub | Open source extension |
+| | Security | CLI security, redaction | Agent isolation (git worktrees) | 5-layer defense | WASM sandbox + defense in depth | Local execution only | Container isolation | Security hardening | First-class, internet-adjacent | Gateway credential isolation | Trust kernel (VALUES.md) | Safety checks |
+| | Platforms | Cross-platform (Mac, Win, Linux, mobile) | Multi-platform agents | Cross-platform (binary + Docker) | Cross-platform (Mac, Win, Linux) | Cross-platform (Mac, Win, Linux) | macOS (launchctl), containerized agents | Cross-platform (Python + Docker) | Native (Linux, etc.) | Docker (all platforms) | Linux, VPS, RPi, Android | Linux, macOS, cloud |
+| | Docs | Mintlify-hosted, i18n | Comprehensive docs | README + docs/ | README + docs/ | README + docs/ (i18n) | README + docs/ | README + docs/ | Local docs/, i18n | README + blog | README | README + docs/ |
+| | Build | pnpm/bun | pip from source | Go modules | Cargo | make build | npm + container build | pip/PyPI | Cargo | Docker compose | npm | pip |
+| | Tests | Vitest | 453 tests pass | go test + race detector | Rust tests + integration | Go tests | Not specified | tests/ directory | Rust tests | Not specified | Not specified | pytest |
+| | Channels | 37+ (core + extensions) | Agent-dependent | 7+ (Telegram, Discord, Slack, etc.) | REPL, HTTP, WASM, Web Gateway | Telegram, WA Bridge, Discord, WS | WhatsApp only | 8+ (Telegram, Discord, Slack, etc.) | 15+ | Matrix (built-in server) | 5 (Telegram, Discord, WhatsApp, Slack, Email) | Telegram, Discord |
+| | Integrations/Extensions | Media pipeline | Multi-agent coordination | MCP, custom tools, hooks | WASM tools, MCP, Docker | MCP, monorepo discovery | Browser automation via Bash | ClawHub skills, MCP | Peripherals (GPIO, etc.) | CoPaw, OpenClaw, custom | 12 MCP servers, 3,286+ skills | MCP, various tools |
+| | Runtime | Node-based | Agent-specific | Native Go binary | Native with Docker workers | Native Go binary | Node + containerized Claude SDK | Python runtime | Native adapters | Docker + Kubernetes | Node.js | Python |
+| | Isolation | Plugin-level | Git worktree per agent | Per-user workspaces (PostgreSQL) | WASM sandbox + per-job containers | Fully local | Per-group containers | Session-level | Module-level | Per-worker containers | Per-agent isolation | Per-session |
+| | Memory | Not specified | Inboxes + tasks | PostgreSQL + pgvector | PostgreSQL with pgvector | MEMORY.md + HISTORY.md | Per-group CLAUDE.md | Session history | Markdown/SQLite with embeddings | MinIO shared filesystem | 3-layer (vector + knowledge + graph) | Conversation + file-based |
+| | Database | Not specified | JSON files (file-based) | PostgreSQL 15+ (required) | PostgreSQL (required) | SQLite (local) | SQLite | SQLite (local) | SQLite | PostgreSQL + MinIO | SQLite | SQLite |
+| | LLM Support | Web provider | Agent-dependent | 13+ providers (Anthropic native, OpenAI-compat) | Multi-provider (NEAR AI, OpenAI-compatible) | Anthropic + OpenAI native SDKs | Claude Agent SDK | Multiple via LiteLLM | 8 native + 29 compat | Gateway-managed | 8+ (Anthropic, OpenAI, Groq, etc.) | Anthropic, OpenAI, OpenRouter |
+| | Agent Support | Single agent | Multi-agent swarms | Multi-agent teams | Single agent | Spawn sub-sessions | Single agent + Agent Swarms | Single agent + subagent | Single agent | Manager-Workers | Multi-agent spawning | Single agent |
+| | State Management | Gateway-based | File-based JSON | PostgreSQL multi-tenant | PostgreSQL + pgvector | Local filesystem | SQLite | Session-based | Internal structures | PostgreSQL + Nacos | SQLite | Session files |
 
-All eight are autonomous agent projects with distinct focuses: Openclaw focuses on TypeScript CLI with extensive channel support, ClawTeam provides multi-agent swarm coordination that transforms single agents into self-organizing teams, GoClaw focuses on multi-agent orchestration with multi-tenant PostgreSQL and agent teams, IronClaw prioritizes security through WASM sandboxing and multi-layer defense mechanisms, Maxclaw offers an OpenClaw-style local-first experience in Go with desktop UI and resource efficiency, NanoClaw is a containerized WhatsApp-to-Claude bridge with group isolation, Nanobot prioritizes ultra-lightweight design with minimal footprint and research-ready code, and Zeroclaw emphasizes Rust performance and hardware extensibility.
+### Additional Platforms
+
+| Platform | Language | Focus | Latest Release | Key Innovation |
+|----------|----------|---------|----------------|----------------|
+| **RTL-CLAW** | Python | EDA workflow automation | 2026-03 | LLM-assisted RTL design |
+| **Claw-AI-Lab** | Python | Research and experimentation | 2026-04 | Academic AI agent research |
+| **Maxclaw** | Go 1.24+ | Local-first agent | v1.6.0 | Native multi-agent spawning + team presets |
+| **HiClaw** | Go + Shell | Enterprise multi-agent | v1.0.9 | Kubernetes-style YAML resources |
+| **QuantumClaw** | Node.js | Self-hosted AGEX | v1.5.1 | Reference AGEX protocol implementation |
+| **Hermes-Agent** | Python | Research-backed | 2026-04 | Context compaction improvements |
+
+All platforms are autonomous agent projects with distinct focuses: Openclaw focuses on TypeScript CLI with extensive channel support, ClawTeam provides multi-agent swarm coordination that transforms single agents into self-organizing teams, GoClaw focuses on multi-agent orchestration with multi-tenant PostgreSQL and agent teams, IronClaw prioritizes security through WASM sandboxing and multi-layer defense mechanisms, Maxclaw offers an OpenClaw-style local-first experience in Go with desktop UI and resource efficiency, NanoClaw is a containerized WhatsApp-to-Claude bridge with group isolation, Nanobot prioritizes ultra-lightweight design with minimal footprint and research-ready code, Zeroclaw emphasizes Rust performance and hardware extensibility, HiClaw brings enterprise-grade multi-agent orchestration with Manager-Workers architecture, QuantumClaw implements the AGEX protocol for agent identity and trust, and Hermes-Agent provides research-backed context management improvements.
 

@@ -320,6 +320,81 @@ clawteam launch hedge-fund --team fund1 \
 4. **Security Models**: Multi-agent threat models (rogue agents, collusion detection)
 5. **Performance Benchmarks**: Standardized metrics for comparing multi-agent systems
 
+## 2026 Q1 Platform Updates (March-April)
+
+### ClawTeam v0.3.0 (April 2026)
+
+**Research-Backed Multi-Agent Intelligence:**
+- **Max 4 Workers Warning** — Based on Google/MIT empirical research (arXiv:2512.08296)
+- **Intent-Based Prompts** — Military C2 Auftragstaktik: intent + end_state + constraints
+- **Boids Emergence Rules** — Reynolds 1986 flocking rules adapted for LLM agent coordination
+- **Metacognitive Self-Assessment** — Agents tag their confidence levels
+
+**Reliability + Cost Dashboard:**
+- **Cost Dashboard MVP** — Real-time token/cost aggregation by agent, model, and task
+- **Circuit Breaker** — Healthy → Degraded → Open tri-state with half-open probing
+- **Retry with Exponential Backoff** — Resilient agent spawning via `spawn_with_retry()`
+- **Idempotency Keys** — Deduplication for `create()` and `send()`
+
+**Per-Agent Model Resolution:**
+- 7-level priority chain: CLI > agent model > agent tier > template strategy > template model > config default > None
+- Mix Claude, GPT, Qwen, and other models in the same team
+- `spawn --model`, `launch --model-strategy` CLI support
+
+### HiClaw v1.0.9 (April 2026)
+
+**Enterprise Multi-Agent Runtime:**
+- **Kubernetes-Style Declarative Resources** — Worker, Team, and Human resources defined via YAML
+- **Worker Template Marketplace** — Create workers based on community templates
+- **Manager CoPaw Runtime** — Alternative manager agent implementation
+- **Nacos Skills Registry** — Centralized skill discovery and management
+
+### Maxclaw v1.6.0 (April 2026)
+
+**Native Multi-Agent Spawning:**
+- **Agent & Team Performance Metrics** — Ratings, leaderboard, AGEX export
+- **Team/Department Grouping** — Dashboard UI, API, CLI, presets
+- **15 Department Presets** — AI-suggested custom teams
+- **Native Multi-Agent Spawning** — `delegate_to`, team presets, lifecycle management
+- **Chat History Persistence** — WAL checkpoint, pagination across restarts
+
+### QuantumClaw v1.5.1 (March 2026)
+
+**AGEX Protocol Implementation:**
+- **Reference AGEX Implementation** — Agent identity and trust protocol
+- **3-Layer Memory** — Vector search + structured knowledge + optional Cognee knowledge graph
+- **5-Tier Cost Routing** — Automatic model selection (reflex → simple → standard → complex → expert)
+- **Live Canvas** — HTML, SVG, Mermaid diagrams in split-pane dashboard
+
+### Hermes-Agent (April 2026)
+
+**Context Management Improvements:**
+- **Enhanced Context Compaction** — Prevents model answering stale questions
+- **Resolved Questions Tracking** — Avoids re-answering already-addressed questions
+- **Competitor-Inspired Prompts** — Techniques from Claude Code, OpenCode, Codex
+- **Clear Context Separators** — Distinguishes between historical context and active user messages
+
+### Zeroclaw (April 2026)
+
+**Performance & Security:**
+- **<5MB RAM Footprint** — 99% less memory than OpenClaw
+- **<10ms Startup Time** — Near-instant cold starts
+- **Subscription Auth Support** — OpenAI Codex OAuth, Anthropic setup-token
+- **AIEOS v1.1 Support** — Portable AI identity specification
+- **Trait-Driven Architecture** — All subsystems swappable via traits
+
+## Updated Platform Landscape (April 2026)
+
+| Platform | Multi-Agent | Isolation | Cost Tracking | Enterprise |
+|----------|-------------|-----------|---------------|------------|
+| ClawTeam | Leader-Worker Swarms | Git Worktrees | Real-time Dashboard | Growing |
+| GoClaw | Agent Teams + Delegation | PostgreSQL Workspaces | Per-User | Yes |
+| HiClaw | Manager-Workers | Per-Worker Containers | Gateway-Managed | Yes |
+| Maxclaw | Native Spawning | Sub-Sessions | Performance Metrics | No |
+| QuantumClaw | Agent Spawning | Per-Agent | 5-Tier Routing | No |
+| OpenClaw | Single-Agent | Workspace | No | No |
+| Zeroclaw | Single-Agent | Module-Level | No | No |
+
 ## Conclusion
 
 The personal AI agent ecosystem is undergoing a fundamental transformation from isolated assistants to collaborative multi-agent systems. This evolution is driven by:
@@ -329,15 +404,17 @@ The personal AI agent ecosystem is undergoing a fundamental transformation from 
 3. **Resilience**: Multiple agents provide fault tolerance
 4. **Scalability**: Teams can grow with task complexity
 
-**ClawTeam-OpenClaw** represents the current state-of-the-art, demonstrating that multi-agent coordination can be implemented with:
-- Zero-config setup
-- Simple file-based state
-- Familiar tools (git, tmux)
-- Multiple agent platform support
+**ClawTeam-OpenClaw v0.3.0** represents the current state-of-the-art, demonstrating that multi-agent coordination can be implemented with:
+- Research-backed intelligence features
+- Production-grade reliability primitives
+- Cost-aware orchestration
+- Per-agent model resolution
+
+**Enterprise Adoption**: HiClaw and GoClaw are leading enterprise adoption with PostgreSQL multi-tenancy, Kubernetes-style resources, and centralized credential management.
 
 **Next Steps:**
-- Standardize inter-agent communication protocols
-- Develop best practices for team composition
+- Standardize inter-agent communication protocols (AGEX, MCP)
+- Develop best practices for team composition (4-worker optimal from research)
 - Create benchmarks for comparing multi-agent approaches
 - Build enterprise-grade security and compliance features
 
