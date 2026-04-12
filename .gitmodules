@@ -34,3 +34,6 @@
 [submodule "claw-ai-lab"]
 	path = claw-ai-lab
 	url = https://github.com/Claw-AI-Lab/Claw-AI-Lab.git
+[submodule "hermes-agent"]
+	path = hermes-agent
+	url = https://github.com/NousResearch/hermes-agent.git
