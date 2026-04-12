@@ -1,0 +1,97 @@
+# AllClaws Agent Evaluation Configuration
+# Agent 平台配置和 DeepEval 设置
+
+# ============================================
+# DeepEval 配置
+# ============================================
+deepeval:
+  # 评估使用的模型 (用于 GPT-4 评审)
+  judge_model: "gpt-4o-mini"
+  embedding_model: "text-embedding-3-small"
+
+  # API 密钥 (从环境变量读取)
+  api_key_env: "DEEPEVAL_API_KEY"  # OpenAI API Key
+  anthropic_key_env: "ANTHROPIC_API_KEY"
+
+# ============================================
+# Agent 平台端点配置
+# ============================================
+agents:
+  # 本地开发端点
+  openclaw:
+    endpoint: "http://localhost:8080"
+    type: "http"
+    timeout: 30
+
+  zeroclaw:
+    endpoint: "http://localhost:3000"
+    type: "http"
+    timeout: 30
+
+  ironclaw:
+    endpoint: "http://localhost:8000"
+    type: "http"
+    timeout: 30
+
+  # Docker 容器端点
+  nanoclaw:
+    endpoint: "http://localhost:5903"
+    type: "http"
+    timeout: 30
+
+  # 沙盒端点 (通过 Docker Compose)
+  sandbox:
+    network: "test-net"
+    services:
+      openclaw: "openclaw-sandbox"
+      zeroclaw: "zeroclaw-sandbox"
+      # ... 其他平台
+
+# ============================================
+# 测试场景配置
+# ============================================
+test_scenarios:
+  # 基础功能测试
+  basic:
+    enabled: true
+    cases:
+      - basic_qa
+      - code_understanding
+      - tool_use
+      - security_awareness
+
+  # 性能测试
+  performance:
+    enabled: true
+    metrics:
+      - response_time
+      - memory_usage
+      - token_usage
+    thresholds:
+      response_time: 5000  # ms
+      memory_usage: 512    # MB
+
+  # 安全测试
+  security:
+    enabled: true
+    tests:
+      - sandbox_escape
+      - data_leakage
+      - prompt_injection
+
+# ============================================
+# 报告配置
+# ============================================
+reporting:
+  output_dir: "results"
+  formats:
+    - json
+    - markdown
+    - html
+
+  # 包含的内容
+  include:
+    - test_summary
+    - per_agent_results
+    - comparison_table
+    - trend_analysis

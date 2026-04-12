@@ -1,0 +1,213 @@
+version: "3.8"
+
+# AllClaws Test Framework - Docker Compose
+# 定义 13 个 AI Agent 平台的沙盒测试环境
+
+services:
+  # ============================================
+  # TypeScript 平台
+  # ============================================
+  openclaw-sandbox:
+    image: node:22-alpine
+    container_name: openclaw-test
+    volumes:
+      - ../../openclaw:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+    environment:
+      - NODE_ENV=test
+      - OPENCLAW_NO_TELEMETRY=1
+
+  nanoclaw-sandbox:
+    image: node:22-alpine
+    container_name: nanoclaw-test
+    volumes:
+      - ../../nanoclaw:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+    environment:
+      - NODE_ENV=test
+
+  quantumclaw-sandbox:
+    image: node:22-alpine
+    container_name: quantumclaw-test
+    volumes:
+      - ./quantumclaw:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+
+  # ============================================
+  # Rust 平台
+  # ============================================
+  zeroclaw-sandbox:
+    image: rust:1.80-alpine
+    container_name: zeroclaw-test
+    volumes:
+      - ./zeroclaw:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+
+  ironclaw-sandbox:
+    image: rust:1.80-alpine
+    container_name: ironclaw-test
+    volumes:
+      - ./ironclaw:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+
+  # ============================================
+  # Go 平台
+  # ============================================
+  goclaw-sandbox:
+    image: golang:1.23-alpine
+    container_name: goclaw-test
+    volumes:
+      - ./goclaw:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+
+  maxclaw-sandbox:
+    image: golang:1.23-alpine
+    container_name: maxclaw-test
+    volumes:
+      - ./maxclaw:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+
+  hiclaw-sandbox:
+    image: golang:1.23-alpine
+    container_name: hiclaw-test
+    volumes:
+      - ./hiclaw:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+
+  # ============================================
+  # Python 平台
+  # ============================================
+  clawteam-sandbox:
+    image: python:3.11-slim
+    container_name: clawteam-test
+    volumes:
+      - ./clawteam:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  nanobot-sandbox:
+    image: python:3.11-slim
+    container_name: nanobot-test
+    volumes:
+      - ./nanobot:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  claw-ai-lab-sandbox:
+    image: python:3.11-slim
+    container_name: claw-ai-lab-test
+    volumes:
+      - ./claw-ai-lab:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  hermes-agent-sandbox:
+    image: python:3.11-slim
+    container_name: hermes-agent-test
+    volumes:
+      - ./hermes-agent:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  # ============================================
+  # Verilog 平台 (EDA)
+  # ============================================
+  rtl-claw-sandbox:
+    image: ghcr.io/openroadEDA/openroad:latest
+    container_name: rtl-claw-test
+    volumes:
+      - ./rtl-claw:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+
+  # ============================================
+  # 评估服务
+  # ============================================
+  deepeval-runner:
+    image: python:3.11-slim
+    container_name: deepeval-runner
+    volumes:
+      - ./evals:/app
+      - ./results:/results
+      - /var/run/docker.sock:/var/run/docker.sock
+    working_dir: /app
+    networks:
+      - test-net
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DEEPEVAL_API_KEY=${DEEPEVAL_API_KEY}
+    install:
+      - pip install deepeval pytest pytest-asyncio jq
+    command: tail -f /dev/null
+
+  # ============================================
+  # 结果收集器
+  # ============================================
+  results-collector:
+    image: nginx:alpine
+    container_name: results-server
+    volumes:
+      - ./results:/usr/share/nginx/html:ro
+    ports:
+      - "8080:80"
+    networks:
+      - test-net
+
+networks:
+  test-net:
+    driver: bridge

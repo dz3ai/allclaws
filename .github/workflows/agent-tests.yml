@@ -1,0 +1,206 @@
+name: Agent Platform Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # 每周日 UTC 00:00 运行完整测试
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+env:
+  DOCKER_BUILDKIT: 1
+
+jobs:
+  # ============================================
+  # 静态分析测试
+  # ============================================
+  static-analysis:
+    name: Static Analysis (13 Platforms)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        platform:
+          - openclaw
+          - clawteam
+          - goclaw
+          - ironclaw
+          - maxclaw
+          - nanoclaw
+          - nanobot
+          - zeroclaw
+          - hiclaw
+          - rtl-claw
+          - quantumclaw
+          - claw-ai-lab
+          - hermes-agent
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Test ${{ matrix.platform }}
+        run: |
+          cd test_framework
+          bash scripts/run_tests.sh 2>&1 | tee test_output.log
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.platform }}
+          path: test_framework/results/
+          retention-days: 30
+
+  # ============================================
+  # 基准测试
+  # ============================================
+  benchmarks:
+    name: Benchmarks (13 Platforms)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    needs: static-analysis
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Run benchmarks
+        run: |
+          cd test_framework
+          bash scripts/run_benchmarks.sh 2>&1 | tee benchmark_output.log
+
+      - name: Generate summary
+        run: |
+          cd test_framework
+          echo "## Benchmark Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          jq -r '"|\(.platform)| \(.metric)| \(.value) \(.unit)|"' \
+            benchmark_results/latest/benchmark_results.json >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: test_framework/benchmark_results/
+          retention-days: 30
+
+  # ============================================
+  # 沙盒化测试 (可选)
+  # ============================================
+  sandboxed-tests:
+    name: Sandboxed Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    needs: benchmarks
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Start sandbox environments
+        run: |
+          cd test_framework
+          docker-compose up -d
+          docker-compose ps
+
+      - name: Run DeepEval tests
+        run: |
+          cd test_framework
+          docker-compose exec -T deepeval-runner python evals/agent_eval.py
+
+      - name: Collect results
+        run: |
+          cd test_framework
+          docker-compose exec -T deepeval-runner \
+            python -c "
+import json
+import os
+results_dir = 'results'
+for file in os.listdir(results_dir):
+    if file.endswith('.json'):
+        with open(os.path.join(results_dir, file)) as f:
+            data = json.load(f)
+            print(f'{file}: {len(data)} results')
+            "
+
+      - name: Cleanup
+        if: always()
+        run: |
+          cd test_framework
+          docker-compose down
+
+  # ============================================
+  # 生成综合报告
+  # ============================================
+  report:
+    name: Generate Report
+    runs-on: ubuntu-latest
+    needs: [static-analysis, benchmarks]
+    if: always()
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate test report
+        run: |
+          cd test_framework
+
+          # 找到最新的结果目录
+          TEST_LATEST=$(ls -t results/ | head -1)
+          BENCH_LATEST=$(ls -t benchmark_results/ | head -1)
+
+          echo "# AllClaws 测试报告" > test_report.md
+          echo "" >> test_report.md
+          echo "**生成时间:** $(date '+%Y-%m-%d %H:%M:%S UTC')" >> test_report.md
+          echo "" >> test_report.md
+
+          echo "## 测试结果摘要" >> test_report.md
+          cat "$TEST_LATEST/results.md" >> test_report.md
+          echo "" >> test_report.md
+
+          echo "## 基准测试摘要" >> test_report.md
+          cat "$BENCH_LATEST/benchmark_results.md" >> test_report.md
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: test_framework/test_report.md
+          retention-days: 90
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('test_framework/test_report.md', 'utf8');
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.name,
+              issue_number: context.issue.number,
+              body: report.slice(0, 65000) + '\n\n...(truncated)'
+            });
