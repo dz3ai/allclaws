@@ -19,7 +19,10 @@
       "Bash(timeout 60 bash test_framework/scripts/run_benchmarks.sh)",
       "Bash(timeout 120 bash test_framework/scripts/run_benchmarks.sh)",
       "Bash(ls -la /home/dannyz/src/github/allclaws/*.md)",
-      "Bash(git commit -m 'fix: correct script paths in .claude/settings.json:*)"
+      "Bash(git commit -m 'fix: correct script paths in .claude/settings.json:*)",
+      "Bash(bash scripts/run_benchmarks.sh)",
+      "Bash(bash /home/dannyz/src/github/allclaws/test_framework/scripts/run_benchmarks.sh)",
+      "Bash(bash scripts/run_tests.sh)"
     ],
     "additionalDirectories": [
       "/home/dannyz/src/github/allclaws/.git/modules"

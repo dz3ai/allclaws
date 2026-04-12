@@ -1,0 +1,938 @@
+{
+  "timestamp": "2026-04-12T23:2637",
+  "engine_version": "1.0.0",
+  "platform_count": 13,
+  "metric_count": 155,
+  "metrics": [
+    {
+      "platform": "openclaw",
+      "metric": "repo_size",
+      "value": 100456,
+      "unit": "KB"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "readme_lines",
+      "value": 559,
+      "unit": "lines"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "docs_size",
+      "value": 15712,
+      "unit": "KB"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "ci_workflows",
+      "value": 9,
+      "unit": "files"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "ci_steps",
+      "value": 12,
+      "unit": "steps"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "dockerfiles",
+      "value": 10,
+      "unit": "files"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "makefile_targets",
+      "value": 0,
+      "unit": "targets"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "test_files",
+      "value": 2227,
+      "unit": "files"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "i18n_files",
+      "value": 1,
+      "unit": "files"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "top_level_dirs",
+      "value": 229,
+      "unit": "dirs"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "ts_files",
+      "value": 5760,
+      "unit": "files"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "ts_loc",
+      "value": 146361,
+      "unit": "lines"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "tsx_files",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "tsx_loc",
+      "value": 0,
+      "unit": "lines"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "json_files",
+      "value": 97,
+      "unit": "files"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "npm_deps",
+      "value": 73,
+      "unit": "deps"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "repo_size",
+      "value": 11488,
+      "unit": "KB"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "readme_lines",
+      "value": 962,
+      "unit": "lines"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "docs_size",
+      "value": 276,
+      "unit": "KB"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "ci_workflows",
+      "value": 2,
+      "unit": "files"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "ci_steps",
+      "value": 10,
+      "unit": "steps"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "dockerfiles",
+      "value": 3,
+      "unit": "files"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "makefile_targets",
+      "value": 16,
+      "unit": "targets"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "test_files",
+      "value": 38,
+      "unit": "files"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "i18n_files",
+      "value": 1,
+      "unit": "files"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "top_level_dirs",
+      "value": 43,
+      "unit": "dirs"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "go_files",
+      "value": 501,
+      "unit": "files"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "go_loc",
+      "value": 92815,
+      "unit": "lines"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "go_deps",
+      "value": 149,
+      "unit": "deps"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "repo_size",
+      "value": 12048,
+      "unit": "KB"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "readme_lines",
+      "value": 325,
+      "unit": "lines"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "docs_size",
+      "value": 120,
+      "unit": "KB"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "ci_workflows",
+      "value": 11,
+      "unit": "files"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "ci_steps",
+      "value": 41,
+      "unit": "steps"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "dockerfiles",
+      "value": 3,
+      "unit": "files"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "makefile_targets",
+      "value": 0,
+      "unit": "targets"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "test_files",
+      "value": 48,
+      "unit": "files"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "i18n_files",
+      "value": 1,
+      "unit": "files"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "top_level_dirs",
+      "value": 72,
+      "unit": "dirs"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "rust_files",
+      "value": 362,
+      "unit": "files"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "rust_loc",
+      "value": 191946,
+      "unit": "lines"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "toml_files",
+      "value": 18,
+      "unit": "files"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "cargo_deps",
+      "value": 51,
+      "unit": "deps"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "repo_size",
+      "value": 10088,
+      "unit": "KB"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "readme_lines",
+      "value": 213,
+      "unit": "lines"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "docs_size",
+      "value": 180,
+      "unit": "KB"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "ci_workflows",
+      "value": 4,
+      "unit": "files"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "ci_steps",
+      "value": 11,
+      "unit": "steps"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "dockerfiles",
+      "value": 1,
+      "unit": "files"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "makefile_targets",
+      "value": 0,
+      "unit": "targets"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "test_files",
+      "value": 17,
+      "unit": "files"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "i18n_files",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "top_level_dirs",
+      "value": 22,
+      "unit": "dirs"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "ts_files",
+      "value": 51,
+      "unit": "files"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "ts_loc",
+      "value": 10606,
+      "unit": "lines"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "tsx_files",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "tsx_loc",
+      "value": 0,
+      "unit": "lines"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "json_files",
+      "value": 8,
+      "unit": "files"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "npm_deps",
+      "value": 14,
+      "unit": "deps"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "repo_size",
+      "value": 33220,
+      "unit": "KB"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "readme_lines",
+      "value": 1229,
+      "unit": "lines"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "docs_size",
+      "value": 0,
+      "unit": "KB"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "ci_workflows",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "ci_steps",
+      "value": 0,
+      "unit": "steps"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "dockerfiles",
+      "value": 1,
+      "unit": "files"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "makefile_targets",
+      "value": 0,
+      "unit": "targets"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "test_files",
+      "value": 26,
+      "unit": "files"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "i18n_files",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "top_level_dirs",
+      "value": 18,
+      "unit": "dirs"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "py_files",
+      "value": 88,
+      "unit": "files"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "py_loc",
+      "value": 18960,
+      "unit": "lines"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "py_deps",
+      "value": 49,
+      "unit": "deps"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "repo_size",
+      "value": 12820,
+      "unit": "KB"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "readme_lines",
+      "value": 179,
+      "unit": "lines"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "docs_size",
+      "value": 4220,
+      "unit": "KB"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "ci_workflows",
+      "value": 4,
+      "unit": "files"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "ci_steps",
+      "value": 47,
+      "unit": "steps"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "dockerfiles",
+      "value": 3,
+      "unit": "files"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "makefile_targets",
+      "value": 0,
+      "unit": "targets"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "test_files",
+      "value": 18,
+      "unit": "files"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "i18n_files",
+      "value": 4,
+      "unit": "files"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "top_level_dirs",
+      "value": 78,
+      "unit": "dirs"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "rust_files",
+      "value": 259,
+      "unit": "files"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "rust_loc",
+      "value": 161169,
+      "unit": "lines"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "toml_files",
+      "value": 16,
+      "unit": "files"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "cargo_deps",
+      "value": 45,
+      "unit": "deps"
+    },
+    {
+      "platform": "hiclaw",
+      "metric": "repo_size",
+      "value": 9404,
+      "unit": "KB"
+    },
+    {
+      "platform": "hiclaw",
+      "metric": "readme_lines",
+      "value": 260,
+      "unit": "lines"
+    },
+    {
+      "platform": "hiclaw",
+      "metric": "docs_size",
+      "value": 5524,
+      "unit": "KB"
+    },
+    {
+      "platform": "hiclaw",
+      "metric": "ci_workflows",
+      "value": 7,
+      "unit": "files"
+    },
+    {
+      "platform": "hiclaw",
+      "metric": "ci_steps",
+      "value": 2,
+      "unit": "steps"
+    },
+    {
+      "platform": "hiclaw",
+      "metric": "dockerfiles",
+      "value": 8,
+      "unit": "files"
+    },
+    {
+      "platform": "hiclaw",
+      "metric": "makefile_targets",
+      "value": 41,
+      "unit": "targets"
+    },
+    {
+      "platform": "hiclaw",
+      "metric": "test_files",
+      "value": 4,
+      "unit": "files"
+    },
+    {
+      "platform": "hiclaw",
+      "metric": "i18n_files",
+      "value": 1,
+      "unit": "files"
+    },
+    {
+      "platform": "hiclaw",
+      "metric": "top_level_dirs",
+      "value": 38,
+      "unit": "dirs"
+    },
+    {
+      "platform": "hiclaw",
+      "metric": "go_files",
+      "value": 23,
+      "unit": "files"
+    },
+    {
+      "platform": "hiclaw",
+      "metric": "go_loc",
+      "value": 6859,
+      "unit": "lines"
+    },
+    {
+      "platform": "hiclaw",
+      "metric": "go_deps",
+      "value": 0,
+      "unit": "deps"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "repo_size",
+      "value": 3704,
+      "unit": "KB"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "readme_lines",
+      "value": 221,
+      "unit": "lines"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "docs_size",
+      "value": 0,
+      "unit": "KB"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "ci_workflows",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "ci_steps",
+      "value": 0,
+      "unit": "steps"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "dockerfiles",
+      "value": 1,
+      "unit": "files"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "makefile_targets",
+      "value": 0,
+      "unit": "targets"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "test_files",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "i18n_files",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "top_level_dirs",
+      "value": 14,
+      "unit": "dirs"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "verilog_files",
+      "value": 27,
+      "unit": "files"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "verilog_loc",
+      "value": 1726,
+      "unit": "lines"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "systemverilog_files",
+      "value": 1,
+      "unit": "files"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "workspace_dirs",
+      "value": 6,
+      "unit": "dirs"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "repo_size",
+      "value": 2464,
+      "unit": "KB"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "readme_lines",
+      "value": 139,
+      "unit": "lines"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "docs_size",
+      "value": 424,
+      "unit": "KB"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "ci_workflows",
+      "value": 2,
+      "unit": "files"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "ci_steps",
+      "value": 3,
+      "unit": "steps"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "dockerfiles",
+      "value": 1,
+      "unit": "files"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "makefile_targets",
+      "value": 0,
+      "unit": "targets"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "test_files",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "i18n_files",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "top_level_dirs",
+      "value": 25,
+      "unit": "dirs"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "ts_files",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "ts_loc",
+      "value": 0,
+      "unit": "lines"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "tsx_files",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "tsx_loc",
+      "value": 0,
+      "unit": "lines"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "json_files",
+      "value": 2,
+      "unit": "files"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "npm_deps",
+      "value": 12,
+      "unit": "deps"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "metric": "repo_size",
+      "value": 25704,
+      "unit": "KB"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "metric": "readme_lines",
+      "value": 325,
+      "unit": "lines"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "metric": "docs_size",
+      "value": 0,
+      "unit": "KB"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "metric": "ci_workflows",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "metric": "ci_steps",
+      "value": 0,
+      "unit": "steps"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "metric": "dockerfiles",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "metric": "makefile_targets",
+      "value": 0,
+      "unit": "targets"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "metric": "test_files",
+      "value": 59,
+      "unit": "files"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "metric": "i18n_files",
+      "value": 1,
+      "unit": "files"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "metric": "top_level_dirs",
+      "value": 10,
+      "unit": "dirs"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "metric": "py_files",
+      "value": 152,
+      "unit": "files"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "metric": "py_loc",
+      "value": 67633,
+      "unit": "lines"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "metric": "py_deps",
+      "value": 0,
+      "unit": "deps"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "repo_size",
+      "value": 33836,
+      "unit": "KB"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "readme_lines",
+      "value": 177,
+      "unit": "lines"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "docs_size",
+      "value": 112,
+      "unit": "KB"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "ci_workflows",
+      "value": 6,
+      "unit": "files"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "ci_steps",
+      "value": 9,
+      "unit": "steps"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "dockerfiles",
+      "value": 1,
+      "unit": "files"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "makefile_targets",
+      "value": 0,
+      "unit": "targets"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "test_files",
+      "value": 504,
+      "unit": "files"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "i18n_files",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "top_level_dirs",
+      "value": 102,
+      "unit": "dirs"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "py_files",
+      "value": 807,
+      "unit": "files"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "py_loc",
+      "value": 363275,
+      "unit": "lines"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "py_deps",
+      "value": 54,
+      "unit": "deps"
+    }
+  ]
+}
