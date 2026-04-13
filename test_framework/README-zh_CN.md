@@ -1,116 +1,256 @@
-# 个人代理测试框架
+# AllClaws 测试框架
 
-此框架允许用户跨不同平台（Zeroclaw、Openclaw、NanoClaw、IronClaw、GoClaw、Nanobot 等）定义、配置和基准测试个人 AI 代理。它强调安全性、技能验证和性能测试。
+一个涵盖 13 个 AI Agent 平台的综合测试和基准测试框架，支持多种编程语言（Rust、Go、Python、TypeScript、Verilog）。
 
 ## 概述
 
 该框架提供：
-- **代理定义**：指定所需技能、安全规则、系统权限和凭据
-- **安全验证**：确保代理在批准的边界内运行
-- **基准套件**：用于性能比较的常见个人任务
-- **多平台支持**：在 Zeroclaw (Rust)、Openclaw (TypeScript)、NanoClaw (Node.js)、IronClaw (Rust)、GoClaw (Go)、Nanobot (Python) 或自定义代理上运行基准测试
+- **沙盒化测试**：通过 Docker/Podman 容器进行隔离的平台测试
+- **静态分析**：项目健康检查（LICENSE、README、CI、依赖）
+- **基准测试**：代码库指标（代码行数、依赖、测试数量）
+- **运行时测试**：容器内实际执行测试
+- **DeepEval 集成**：基于 LLM 的 Agent 能力评估
+
+## 支持的平台（13个）
+
+| 平台 | 语言 | 容器镜像 |
+|------|------|---------|
+| openclaw | TypeScript | node:22-alpine |
+| nanoclaw | TypeScript | node:22-alpine |
+| quantumclaw | TypeScript | node:22-alpine |
+| zeroclaw | Rust | rust:alpine |
+| ironclaw | Rust | rust:alpine |
+| goclaw | Go | golang:1.23-alpine |
+| maxclaw | Go | golang:1.23-alpine |
+| hiclaw | Go | golang:1.23-alpine |
+| clawteam | Python | python:3.11-slim |
+| nanobot | Python | python:3.11-slim |
+| claw-ai-lab | Python | python:3.11-slim |
+| hermes-agent | Python | python:3.11-slim |
+| rtl-claw | Verilog | localhost/openclaw:local |
 
 ## 目录结构
 
 ```
 test_framework/
-├── README.md              # 此文件
-├── agents/                # 代理定义
-│   ├── example_agent.json # 示例代理配置
-│   └── templates/         # 配置模板
-├── benchmarks/            # 基准任务
-│   ├── common_tasks.json  # 标准个人任务
-│   ├── custom_tasks/      # 用户定义任务
-│   └── results/           # 基准测试结果
-├── security/              # 安全配置
-│   ├── rules.json         # 安全规则
-│   └── privileges.json    # 系统权限
-├── credentials/           # 安全凭据存储（加密）
-│   └── .encrypted/        # 加密凭据文件
-├── scripts/               # 执行脚本
-│   ├── run_benchmark.sh   # 主要基准测试运行器
-│   ├── validate_agent.sh  # 代理验证
-│   └── setup.sh           # 框架设置
-├── tmp/                   # 临时文件目录
-└── docs/                  # 文档
-    ├── api.md             # API 参考
-    └── examples.md        # 使用示例
+├── README.md                       # 本文件
+├── README-zh_CN.md                 # 中文版
+├── docker-compose.yml              # 沙盒环境定义
+├── scripts/
+│   ├── run_sandboxed_tests.sh      # 主编排脚本
+│   ├── run_sandbox_runtime_tests.sh # 运行时测试
+│   ├── run_tests.sh                # 静态分析
+│   ├── run_benchmarks.sh           # 基准指标
+│   ├── setup.sh                    # 框架设置
+│   ├── setup_platforms.sh          # 子模块初始化
+│   ├── run_benchmark.sh            # 遗留基准运行器
+│   └── validate_agent.sh           # Agent 验证
+├── results/                        # 测试结果（带时间戳）
+│   └── latest/                     # 指向最新结果的符号链接
+├── benchmark_results/              # 基准指标
+│   └── latest/                     # 指向最新基准的符号链接
+├── evals/                          # DeepEval 评估
+├── docs/
+│   ├── api.md                      # API 参考
+│   ├── examples.md                 # 使用示例
+│   ├── sandboxed-testing-guide.md  # 沙盒测试指南
+│   ├── platform_compatibility.md   # 平台兼容性
+│   └── FAQ.md                      # 常见问题
+└── config.json                     # 平台配置
 ```
 
 ## 快速开始
 
-1. **设置**：运行 `./scripts/setup.sh` 初始化框架
-2. **定义代理**：在 `agents/` 中创建代理配置
-3. **验证**：运行 `./scripts/validate_agent.sh <agent_config>`
-4. **基准测试**：运行 `./scripts/run_benchmark.sh <agent_config> <platform>` (平台: zeroclaw, openclaw, nanoclaw, ironclaw, goclaw, nanobot)
+### 1. 设置
+
+```bash
+cd test_framework
+
+# 初始化子模块（如果尚未完成）
+bash scripts/setup_platforms.sh
+
+# 安装依赖
+sudo apt install jq docker-compose  # 或 podman-compose
+```
+
+### 2. 运行所有测试
+
+```bash
+# 测试所有 13 个平台
+bash scripts/run_sandboxed_tests.sh
+
+# 仅测试指定平台
+bash scripts/run_sandboxed_tests.sh openclaw zeroclaw goclaw
+```
+
+### 3. 查看结果
+
+```bash
+# 测试结果
+cat results/latest/results.md
+
+# 基准指标
+cat benchmark_results/latest/benchmark_results.md
+
+# 沙盒运行时发现
+cat results/latest/sandbox_findings.md
+
+# 或通过 Web 服务器（如果正在运行）
+http://localhost:8080
+```
+
+## 测试类型
+
+### 1. 静态分析
+
+不运行代码检查项目健康状况：
+- 源文件存在（按语言计数）
+- 锁定文件（package-lock.json、Cargo.lock、go.sum）
+- CI/CD 配置（.github/workflows）
+- 文档（README、LICENSE、CHANGELOG、CONTRIBUTING）
+- Docker 配置
+
+### 2. 基准测试
+
+测量代码库规模：
+- 代码行数（按语言）
+- 依赖数量
+- 测试文件数量
+- 仓库大小
+
+### 3. 沙盒运行时测试
+
+在容器中运行应用程序并检测：
+- 版本不匹配（Rust edition2024、Go 版本）
+- 构建失败（cargo check、go build）
+- 缺失依赖
+- 配置问题
 
 ## 先决条件
 
-- **jq**：用于配置验证的 JSON 处理器
-  - Ubuntu/Debian: `sudo apt install jq`
-  - macOS: `brew install jq`
-  - 其他系统：从 [stedolan.github.io/jq](https://stedolan.github.io/jq/) 下载
+- **Docker** 或 **Podman**：容器运行时
+- **docker-compose** 或 **podman-compose**：多容器编排
+- **jq**：JSON 处理器
 
-## 代理配置
+```bash
+# Ubuntu/Debian
+sudo apt install jq docker.io docker-compose
 
-代理以 JSON 格式定义，具有以下结构：
+# macOS
+brew install jq docker docker-compose
 
-```json
-{
-  "name": "MyPersonalAgent",
-  "version": "1.0.0",
-  "skills": {
-    "required": ["task_management", "email_processing", "calendar_integration"],
-    "optional": ["web_scraping", "data_analysis"]
-  },
-  "security": {
-    "rules": ["no_external_network", "read_only_filesystem"],
-    "privileges": ["read_home_dir", "execute_safe_commands"]
-  },
-  "credentials": {
-    "encrypted": true,
-    "providers": ["gmail_api", "calendar_api"]
-  },
-  "benchmarks": {
-    "enabled": ["email_sorting", "schedule_optimization"],
-    "custom": []
-  }
-}
+# 使用 Podman
+sudo apt install jq podman podman-compose
 ```
 
-## 安全特性
+## 容器运行时
 
-- **权限级别**：定义代理具有的系统访问权限
-- **凭据加密**：使用 AES-256 的安全存储
-- **规则执行**：运行时验证安全边界
-- **审计日志**：跟踪所有代理操作
+框架自动检测您的容器运行时：
+- 优先使用 `podman`（如果可用）
+- 否则回退到 `docker`
+- 使用相应的 compose 命令（`podman-compose` 或 `docker-compose`）
 
-## 基准套件
+## 配置
 
-常见个人任务包括：
-- 电子邮件处理和优先级排序
-- 日历安排和冲突解决
-- 任务管理和提醒
-- 文档摘要
-- 网络研究（有安全限制）
-- 数据组织
+### Docker Compose 服务
 
-## 支持的平台
+| 服务 | 描述 | 挂载卷 |
+|------|------|--------|
+| `*-sandbox` | 平台测试容器 | 源码（只读）、构建输出（可写） |
+| `deepeval-runner` | 评估运行器 | evals/、results/、Docker 套接字 |
+| `results-collector` | Nginx 结果服务器 | results/（端口 8080） |
 
-- **Zeroclaw**：基于 Rust 的高性能运行时，具有 trait 驱动的架构
-- **Openclaw**：具有广泛渠道和插件的 TypeScript CLI
-- **NanoClaw**：具有容器化代理的 Node.js WhatsApp 助手
-- **IronClaw**：基于 Rust 的安全个人 AI 助手，具有 WASM 沙箱
-- **GoClaw**：基于 Go 的多代理 AI 网关，支持团队和编排
-- **Nanobot**：基于 Python 的超轻量级个人 AI 助手
-- **自定义**：任何具有 HTTP API 的代理
+### 环境变量
 
-所有平台都可以作为本地 git 子模块用于测试和基准测试。
+```bash
+# DeepEval（可选）
+DEEPEVAL_API_KEY=your_key
 
-## API 参考
+# 用于评估的 LLM API
+OPENAI_API_KEY=sk-...
+ANTHROPIC_API_KEY=sk-...
+```
 
-有关详细的 API 文档，请参见 `docs/api.md`。
+## 独立测试脚本
 
-## 示例
+```bash
+# 仅静态分析
+bash scripts/run_tests.sh
 
-有关使用示例和示例配置，请参见 `docs/examples.md`。
+# 仅基准测试
+bash scripts/run_benchmarks.sh
+
+# 仅运行时测试
+bash scripts/run_sandbox_runtime_tests.sh [平台...]
+
+# 单个平台测试
+bash scripts/run_tests.sh openclaw
+bash scripts/run_benchmarks.sh zeroclaw
+```
+
+## 清理
+
+```bash
+# 停止所有容器
+docker-compose down
+
+# 删除卷
+docker-compose down -v
+
+# 清理旧结果（保留最新 5 个）
+ls -t results/ | tail -n +6 | xargs -I {} rm -rf results/{}
+```
+
+## GitHub Actions
+
+该框架包含 CI/CD 工作流：
+- **推送到 main**：完整测试套件
+- **Pull requests**：静态分析 + 基准测试
+- **每周计划**：完整沙盒测试
+- **手动触发**：按需测试
+
+```bash
+# 手动触发
+gh workflow run agent-tests.yml
+```
+
+## 故障排除
+
+### 容器无法启动
+
+```bash
+# 查看日志
+docker-compose logs [服务名]
+
+# 验证卷路径
+docker-compose config
+```
+
+### 子模块未找到
+
+```bash
+git submodule update --init --recursive
+```
+
+### 权限被拒绝
+
+```bash
+# 将用户添加到 docker 组
+sudo usermod -aG docker $USER
+newgrp docker
+
+# 或使用 sudo
+sudo docker-compose up -d
+```
+
+## 文档
+
+- [沙盒测试指南](docs/sandboxed-testing-guide.md) - 详细的沙盒测试说明
+- [API 参考](docs/api.md) - 框架 API
+- [示例](docs/examples.md) - 使用示例
+- [平台兼容性](docs/platform_compatibility.md) - 平台特定说明
+- [FAQ](docs/FAQ.md) - 常见问题
+
+## 许可证
+
+MIT

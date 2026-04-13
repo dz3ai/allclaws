@@ -132,26 +132,35 @@ else
     echo ""
 fi
 
-# 步骤 2: 初始化 DeepEval
-echo -e "${YELLOW}步骤 2/$([ "$ALL_PLATFORMS" = true ] && echo "4" || echo "3"): 初始化评估框架...${NC}"
+# 步骤 2: 运行沙盒运行时测试
+echo -e "${YELLOW}步骤 2/$([ "$ALL_PLATFORMS" = true ] && echo "5" || echo "4"): 运行沙盒运行时测试...${NC}"
+if [ -f "$SCRIPT_DIR/run_sandbox_runtime_tests.sh" ]; then
+    bash "$SCRIPT_DIR/run_sandbox_runtime_tests.sh" "${PLATFORMS[@]:-}"
+else
+    echo -e "${YELLOW}  ⚠ run_sandbox_runtime_tests.sh 未找到，跳过${NC}"
+fi
+echo ""
+
+# 步骤 3: 初始化 DeepEval
+echo -e "${YELLOW}步骤 3/$([ "$ALL_PLATFORMS" = true ] && echo "5" || echo "4"): 初始化评估框架...${NC}"
 if ! docker exec deepeval-runner pip list 2>/dev/null | grep -q deepeval; then
     docker exec deepeval-runner pip install deepeval pytest pytest-asyncio jq > /dev/null 2>&1
 fi
 echo -e "${GREEN}✓ DeepEval 已初始化${NC}"
 echo ""
 
-# 步骤 3: 运行测试
+# 步骤 4: 运行测试
 if [ "$ALL_PLATFORMS" = true ]; then
-    echo -e "${YELLOW}步骤 3/4: 运行静态分析测试...${NC}"
+    echo -e "${YELLOW}步骤 4/5: 运行静态分析测试...${NC}"
     bash "$SCRIPT_DIR/run_tests.sh" 2>&1 | grep -E "PASS|FAIL|Total" | tail -5
     echo -e "${GREEN}✓ 静态分析完成${NC}"
     echo ""
 
-    echo -e "${YELLOW}步骤 4/4: 运行基准测试...${NC}"
+    echo -e "${YELLOW}步骤 5/5: 运行基准测试...${NC}"
     bash "$SCRIPT_DIR/run_benchmarks.sh" 2>&1 | grep -E "pass|fail|Total" | tail -3
     echo -e "${GREEN}✓ 基准测试完成${NC}"
 else
-    echo -e "${YELLOW}步骤 3/3: 运行指定平台测试...${NC}"
+    echo -e "${YELLOW}步骤 4/4: 运行指定平台测试...${NC}"
     for platform in "${PLATFORMS[@]}"; do
         run_platform_tests "$platform"
     done
@@ -165,6 +174,7 @@ echo ""
 echo "查看结果:"
 echo "  - 测试报告: cat results/latest/results.md"
 echo "  - 基准报告: cat benchmark_results/latest/benchmark_results.md"
+echo "  - 沙盒运行时发现: cat results/latest/sandbox_findings.md"
 echo "  - 结果服务器: http://localhost:8080 (如果已启动)"
 echo ""
 echo -e "${BLUE}清理沙盒环境:${NC}"

@@ -11,7 +11,7 @@ services:
     image: node:22-alpine
     container_name: openclaw-test
     volumes:
-      - ../../openclaw:/workspace:ro
+      - ../openclaw:/workspace:ro
       - ./evals:/evals
     working_dir: /workspace
     command: tail -f /dev/null
@@ -25,7 +25,7 @@ services:
     image: node:22-alpine
     container_name: nanoclaw-test
     volumes:
-      - ../../nanoclaw:/workspace:ro
+      - ../nanoclaw:/workspace:ro
       - ./evals:/evals
     working_dir: /workspace
     command: tail -f /dev/null
@@ -38,7 +38,7 @@ services:
     image: node:22-alpine
     container_name: quantumclaw-test
     volumes:
-      - ./quantumclaw:/workspace:ro
+      - ../quantumclaw:/workspace:ro
       - ./evals:/evals
     working_dir: /workspace
     command: tail -f /dev/null
@@ -49,22 +49,24 @@ services:
   # Rust 平台
   # ============================================
   zeroclaw-sandbox:
-    image: rust:1.80-alpine
+    image: rust:alpine
     container_name: zeroclaw-test
     volumes:
-      - ./zeroclaw:/workspace:ro
+      - ../zeroclaw:/workspace:ro
       - ./evals:/evals
+      - zeroclaw-target:/workspace/target
     working_dir: /workspace
     command: tail -f /dev/null
     networks:
       - test-net
 
   ironclaw-sandbox:
-    image: rust:1.80-alpine
+    image: rust:alpine
     container_name: ironclaw-test
     volumes:
-      - ./ironclaw:/workspace:ro
+      - ../ironclaw:/workspace:ro
       - ./evals:/evals
+      - ironclaw-target:/workspace/target
     working_dir: /workspace
     command: tail -f /dev/null
     networks:
@@ -77,7 +79,7 @@ services:
     image: golang:1.23-alpine
     container_name: goclaw-test
     volumes:
-      - ./goclaw:/workspace:ro
+      - ../goclaw:/workspace:ro
       - ./evals:/evals
     working_dir: /workspace
     command: tail -f /dev/null
@@ -88,7 +90,7 @@ services:
     image: golang:1.23-alpine
     container_name: maxclaw-test
     volumes:
-      - ./maxclaw:/workspace:ro
+      - ../maxclaw:/workspace:ro
       - ./evals:/evals
     working_dir: /workspace
     command: tail -f /dev/null
@@ -99,7 +101,7 @@ services:
     image: golang:1.23-alpine
     container_name: hiclaw-test
     volumes:
-      - ./hiclaw:/workspace:ro
+      - ../hiclaw:/workspace:ro
       - ./evals:/evals
     working_dir: /workspace
     command: tail -f /dev/null
@@ -113,7 +115,7 @@ services:
     image: python:3.11-slim
     container_name: clawteam-test
     volumes:
-      - ./clawteam:/workspace:ro
+      - ../clawteam:/workspace:ro
       - ./evals:/evals
     working_dir: /workspace
     command: tail -f /dev/null
@@ -126,7 +128,7 @@ services:
     image: python:3.11-slim
     container_name: nanobot-test
     volumes:
-      - ./nanobot:/workspace:ro
+      - ../nanobot:/workspace:ro
       - ./evals:/evals
     working_dir: /workspace
     command: tail -f /dev/null
@@ -139,7 +141,7 @@ services:
     image: python:3.11-slim
     container_name: claw-ai-lab-test
     volumes:
-      - ./claw-ai-lab:/workspace:ro
+      - ../claw-ai-lab:/workspace:ro
       - ./evals:/evals
     working_dir: /workspace
     command: tail -f /dev/null
@@ -152,7 +154,7 @@ services:
     image: python:3.11-slim
     container_name: hermes-agent-test
     volumes:
-      - ./hermes-agent:/workspace:ro
+      - ../hermes-agent:/workspace:ro
       - ./evals:/evals
     working_dir: /workspace
     command: tail -f /dev/null
@@ -165,10 +167,10 @@ services:
   # Verilog 平台 (EDA)
   # ============================================
   rtl-claw-sandbox:
-    image: ghcr.io/openroadEDA/openroad:latest
-    container_name: rtl-claw-test
+    image: localhost/openclaw:local
+    container_name: rtlclaw-test
     volumes:
-      - ./rtl-claw:/workspace:ro
+      - ../rtl-claw:/workspace:ro
       - ./evals:/evals
     working_dir: /workspace
     command: tail -f /dev/null
@@ -211,3 +213,7 @@ services:
 networks:
   test-net:
     driver: bridge
+
+volumes:
+  zeroclaw-target:
+  ironclaw-target:

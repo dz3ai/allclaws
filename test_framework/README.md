@@ -1,116 +1,256 @@
-# Personal Agent Test Framework
+# AllClaws Test Framework
 
-This framework allows users to define, configure, and benchmark personal AI agents across different platforms (Zeroclaw, Openclaw, NanoClaw, IronClaw, GoClaw, Nanobot, and others). It emphasizes security, skill validation, and performance testing.
+A comprehensive testing and benchmarking framework for 13 AI Agent platforms across multiple programming languages (Rust, Go, Python, TypeScript, Verilog).
 
 ## Overview
 
 The framework provides:
-- **Agent Definition**: Specify required skills, security rules, system privileges, and credentials
-- **Security Validation**: Ensure agents operate within approved boundaries
-- **Benchmark Suite**: Common personal tasks for performance comparison
-- **Multi-Platform Support**: Run benchmarks on Zeroclaw (Rust), Openclaw (TypeScript), NanoClaw (Node.js), IronClaw (Rust), GoClaw (Go), Nanobot (Python), or custom agents
+- **Sandboxed Testing**: Docker/Podman containers for isolated platform testing
+- **Static Analysis**: Project health checks (LICENSE, README, CI, dependencies)
+- **Benchmarks**: Codebase metrics (LOC, dependencies, test counts)
+- **Runtime Testing**: Real execution tests inside containers
+- **DeepEval Integration**: LLM-based agent capability evaluation
+
+## Supported Platforms (13)
+
+| Platform | Language | Container Image |
+|----------|----------|-----------------|
+| openclaw | TypeScript | node:22-alpine |
+| nanoclaw | TypeScript | node:22-alpine |
+| quantumclaw | TypeScript | node:22-alpine |
+| zeroclaw | Rust | rust:alpine |
+| ironclaw | Rust | rust:alpine |
+| goclaw | Go | golang:1.23-alpine |
+| maxclaw | Go | golang:1.23-alpine |
+| hiclaw | Go | golang:1.23-alpine |
+| clawteam | Python | python:3.11-slim |
+| nanobot | Python | python:3.11-slim |
+| claw-ai-lab | Python | python:3.11-slim |
+| hermes-agent | Python | python:3.11-slim |
+| rtl-claw | Verilog | localhost/openclaw:local |
 
 ## Directory Structure
 
 ```
 test_framework/
-├── README.md              # This file
-├── agents/                # Agent definitions
-│   ├── example_agent.json # Sample agent config
-│   └── templates/         # Config templates
-├── benchmarks/            # Benchmark tasks
-│   ├── common_tasks.json  # Standard personal tasks
-│   ├── custom_tasks/      # User-defined tasks
-│   └── results/           # Benchmark results
-├── security/              # Security configurations
-│   ├── rules.json         # Security rules
-│   └── privileges.json    # System privileges
-├── credentials/           # Secure credential storage (encrypted)
-│   └── .encrypted/        # Encrypted credential files
-├── scripts/               # Execution scripts
-│   ├── run_benchmark.sh   # Main benchmark runner
-│   ├── validate_agent.sh  # Agent validation
-│   └── setup.sh           # Framework setup
-├── tmp/                   # Temporary files directory
-└── docs/                  # Documentation
-    ├── api.md             # API reference
-    └── examples.md        # Usage examples
+├── README.md                       # This file
+├── README-zh_CN.md                 # Chinese version
+├── docker-compose.yml              # Sandbox environment definitions
+├── scripts/
+│   ├── run_sandboxed_tests.sh      # Main orchestrator
+│   ├── run_sandbox_runtime_tests.sh # Runtime testing
+│   ├── run_tests.sh                # Static analysis
+│   ├── run_benchmarks.sh           # Benchmark metrics
+│   ├── setup.sh                    # Framework setup
+│   ├── setup_platforms.sh          # Submodule initialization
+│   ├── run_benchmark.sh            # Legacy benchmark runner
+│   └── validate_agent.sh           # Agent validation
+├── results/                        # Test results (timestamped)
+│   └── latest/                     # Symlink to latest results
+├── benchmark_results/              # Benchmark metrics
+│   └── latest/                     # Symlink to latest benchmarks
+├── evals/                          # DeepEval evaluations
+├── docs/
+│   ├── api.md                      # API reference
+│   ├── examples.md                 # Usage examples
+│   ├── sandboxed-testing-guide.md  # Sandbox testing guide
+│   ├── platform_compatibility.md   # Platform compatibility
+│   └── FAQ.md                      # Frequently asked questions
+└── config.json                     # Platform configurations
 ```
 
 ## Quick Start
 
-1. **Setup**: Run `./scripts/setup.sh` to initialize the framework
-2. **Define Agent**: Create an agent config in `agents/`
-3. **Validate**: Run `./scripts/validate_agent.sh <agent_config>`
-4. **Benchmark**: Run `./scripts/run_benchmark.sh <agent_config> <platform>` (platforms: zeroclaw, openclaw, nanoclaw, ironclaw, goclaw, nanobot)
+### 1. Setup
+
+```bash
+cd test_framework
+
+# Initialize submodules (if not already done)
+bash scripts/setup_platforms.sh
+
+# Install dependencies
+sudo apt install jq docker-compose  # or podman-compose
+```
+
+### 2. Run All Tests
+
+```bash
+# Test all 13 platforms
+bash scripts/run_sandboxed_tests.sh
+
+# Test specific platforms only
+bash scripts/run_sandboxed_tests.sh openclaw zeroclaw goclaw
+```
+
+### 3. View Results
+
+```bash
+# Test results
+cat results/latest/results.md
+
+# Benchmark metrics
+cat benchmark_results/latest/benchmark_results.md
+
+# Sandbox runtime findings
+cat results/latest/sandbox_findings.md
+
+# Or via web server (if running)
+http://localhost:8080
+```
+
+## Test Types
+
+### 1. Static Analysis
+
+Checks project health without running code:
+- Source files present (count by language)
+- Lockfiles (package-lock.json, Cargo.lock, go.sum)
+- CI/CD configuration (.github/workflows)
+- Documentation (README, LICENSE, CHANGELOG, CONTRIBUTING)
+- Docker configuration
+
+### 2. Benchmarks
+
+Measures codebase scale:
+- Lines of code (by language)
+- Dependency counts
+- Test file counts
+- Repository size
+
+### 3. Sandbox Runtime Tests
+
+Runs applications in containers and detects:
+- Version mismatches (Rust edition2024, Go version)
+- Build failures (cargo check, go build)
+- Missing dependencies
+- Configuration issues
 
 ## Prerequisites
 
-- **jq**: JSON processor for configuration validation
-  - Ubuntu/Debian: `sudo apt install jq`
-  - macOS: `brew install jq`
-  - Other systems: Download from [stedolan.github.io/jq](https://stedolan.github.io/jq/)
+- **Docker** or **Podman**: Container runtime
+- **docker-compose** or **podman-compose**: Multi-container orchestration
+- **jq**: JSON processor
 
-## Agent Configuration
+```bash
+# Ubuntu/Debian
+sudo apt install jq docker.io docker-compose
 
-Agents are defined in JSON format with the following structure:
+# macOS
+brew install jq docker docker-compose
 
-```json
-{
-  "name": "MyPersonalAgent",
-  "version": "1.0.0",
-  "skills": {
-    "required": ["task_management", "email_processing", "calendar_integration"],
-    "optional": ["web_scraping", "data_analysis"]
-  },
-  "security": {
-    "rules": ["no_external_network", "read_only_filesystem"],
-    "privileges": ["read_home_dir", "execute_safe_commands"]
-  },
-  "credentials": {
-    "encrypted": true,
-    "providers": ["gmail_api", "calendar_api"]
-  },
-  "benchmarks": {
-    "enabled": ["email_sorting", "schedule_optimization"],
-    "custom": []
-  }
-}
+# With Podman
+sudo apt install jq podman podman-compose
 ```
 
-## Security Features
+## Container Runtime
 
-- **Privilege Levels**: Define what system access the agent has
-- **Credential Encryption**: Secure storage using AES-256
-- **Rule Enforcement**: Runtime validation of security boundaries
-- **Audit Logging**: Track all agent actions
+The framework auto-detects your container runtime:
+- Prefers `podman` if available
+- Falls back to `docker` otherwise
+- Uses corresponding compose command (`podman-compose` or `docker-compose`)
 
-## Benchmark Suite
+## Configuration
 
-Common personal tasks include:
-- Email processing and prioritization
-- Calendar scheduling and conflict resolution
-- Task management and reminders
-- Document summarization
-- Web research (with safety limits)
-- Data organization
+### Docker Compose Services
 
-## Supported Platforms
+| Service | Description | Volumes |
+|---------|-------------|---------|
+| `*-sandbox` | Platform test container | Source (read-only), build output (writable) |
+| `deepeval-runner` | Evaluation runner | evals/, results/, Docker socket |
+| `results-collector` | Nginx result server | results/ (port 8080) |
 
-- **Zeroclaw**: Rust-based, high-performance runtime with trait-driven architecture
-- **Openclaw**: TypeScript CLI with extensive channels and plugins
-- **NanoClaw**: Node.js WhatsApp assistant with containerized agents
-- **IronClaw**: Rust-based secure personal AI assistant with WASM sandboxing
-- **GoClaw**: Go-based multi-agent AI gateway with teams and orchestration
-- **Nanobot**: Python-based ultra-lightweight personal AI assistant
-- **Custom**: Any agent with HTTP API
+### Environment Variables
 
-All platforms are available as local git submodules for testing and benchmarking.
+```bash
+# DeepEval (optional)
+DEEPEVAL_API_KEY=your_key
 
-## API Reference
+# LLM APIs for evaluation
+OPENAI_API_KEY=sk-...
+ANTHROPIC_API_KEY=sk-...
+```
 
-See `docs/api.md` for detailed API documentation.
+## Individual Test Scripts
 
-## Examples
+```bash
+# Static analysis only
+bash scripts/run_tests.sh
 
-See `docs/examples.md` for usage examples and sample configurations.
+# Benchmarks only
+bash scripts/run_benchmarks.sh
+
+# Runtime testing only
+bash scripts/run_sandbox_runtime_tests.sh [platform...]
+
+# Single platform tests
+bash scripts/run_tests.sh openclaw
+bash scripts/run_benchmarks.sh zeroclaw
+```
+
+## Cleanup
+
+```bash
+# Stop all containers
+docker-compose down
+
+# Remove volumes
+docker-compose down -v
+
+# Clean up old results (keep latest 5)
+ls -t results/ | tail -n +6 | xargs -I {} rm -rf results/{}
+```
+
+## GitHub Actions
+
+The framework includes CI/CD workflows:
+- **Push to main**: Full test suite
+- **Pull requests**: Static analysis + benchmarks
+- **Weekly schedule**: Complete sandboxed testing
+- **Manual trigger**: On-demand testing
+
+```bash
+# Trigger manually
+gh workflow run agent-tests.yml
+```
+
+## Troubleshooting
+
+### Container not starting
+
+```bash
+# Check logs
+docker-compose logs [service-name]
+
+# Verify volume paths
+docker-compose config
+```
+
+### Submodule not found
+
+```bash
+git submodule update --init --recursive
+```
+
+### Permission denied
+
+```bash
+# Add user to docker group
+sudo usermod -aG docker $USER
+newgrp docker
+
+# Or use sudo
+sudo docker-compose up -d
+```
+
+## Documentation
+
+- [Sandboxed Testing Guide](docs/sandboxed-testing-guide.md) - Detailed sandbox testing
+- [API Reference](docs/api.md) - Framework API
+- [Examples](docs/examples.md) - Usage examples
+- [Platform Compatibility](docs/platform_compatibility.md) - Platform-specific notes
+- [FAQ](docs/FAQ.md) - Common questions
+
+## License
+
+MIT
