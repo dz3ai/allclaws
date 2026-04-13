@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "AllClaws Expands to 13 Platforms: April 2026 Ecosystem Update"
-date: 2026-04-13 10:00:00 +0800
+date: 2026-04-12 09:00:00 +0800
 author: Danny Zeng
 categories: [Project Update]
 tags: [AllClaws, 13-platforms, multi-agent, ecosystem, April-2026]

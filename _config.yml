@@ -18,7 +18,7 @@ author:
 # Build settings
 markdown: kramdown
 theme: null
-future: true
+future: false
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
