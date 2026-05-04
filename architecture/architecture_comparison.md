@@ -1,6 +1,15 @@
-# Architecture Comparison: Openclaw vs ClawTeam vs GoClaw vs IronClaw vs Maxclaw vs NanoClaw vs Nanobot vs Zeroclaw
+# Architecture Comparison: Platform Overview
 
 **[中文](architecture_comparison.zh-CN.md)** | English
+
+> **Note:** This document covers all 13 claw ecosystem platforms with full architecture analysis. For comprehensive coverage of all 20 platforms (13 claw + 7 external frameworks), see:
+> - **[external_frameworks.md](external_frameworks.md)** — Deep-dive on 7 external frameworks
+> - **[Latest Updates](../docs/LATEST_UPDATES.md)** — Monthly ecosystem tracking
+> - **[Platform Categories](../README.md#architecture-analysis--comparison)** — Full 20-platform list
+
+---
+
+# Architecture Comparison: Openclaw vs ClawTeam vs GoClaw vs IronClaw vs Maxclaw vs NanoClaw vs Nanobot vs Zeroclaw vs HiClaw vs QuantumClaw vs Hermes-Agent vs RTL-CLAW vs Claw-AI-Lab
 
 ## Openclaw Architecture Summary
 
@@ -751,38 +760,159 @@ graph TD
     O --> Q[Discord]
 ```
 
+## RTL-CLAW Architecture Summary
+
+**Overview:** RTL-CLAW is an AI-agent-driven framework for automated IC design flow, developed collaboratively by Tongji EDA Lab and The Chinese University of Hong Kong. Built on top of the OpenClaw framework, it demonstrates AI-driven workflows for RTL design automation, verification, and synthesis.
+
+**Key Principles:**
+- Research-oriented EDA toolchain on OpenClaw foundation
+- Layered design: Interaction → Agent Core → Tool/Data Flow
+- Modular plugin architecture for extensibility
+- Integration of open-source and commercial EDA tools
+- Front-end IC design focus with back-end roadmap
+
+**Core Architecture:**
+- **Language:** Python (with Verilog)
+- **Entry Point:** Docker Compose (`rtl-claw-cli`, `rtl-claw-gateway`)
+- **Modules:**
+  - **Interaction Layer:** User instructions and workflow control
+  - **Agent Core Layer:** Task planning and execution
+  - **Tool and Data Flow Layer:** RTL analysis, verification, optimization, synthesis
+- **Key Components:**
+  - Verilog partition module
+  - Partition-Opt-Merge optimization
+  - Testbench generation
+  - Yosys synthesis integration
+- **Target Technology:** ASAP7nm PDK for research
+- **Roadmap Items:**
+  - DreamPlace + OpenROAD back-end flow
+  - 3D IC-oriented design flows
+- **Build/Deploy:** Docker-based, requires `openclaw:local` base image
+
+### Architecture Diagram
+
+```mermaid
+graph TB
+    A[Docker Compose Entry] --> B[RTL-CLAW CLI]
+    A --> C[RTL-CLAW Gateway]
+    B --> D[Interaction Layer]
+    C --> E[Web UI]
+    D --> F[Agent Core Layer]
+    F --> G[Task Planning]
+    F --> H[Task Execution]
+    F --> I[Tool & Data Flow Layer]
+    I --> J[RTL Analysis]
+    I --> K[Verilog Partition]
+    I --> L[Optimization]
+    I --> M[Testbench Generation]
+    I --> N[Yosys Synthesis]
+    I --> O[Open-Source EDA Tools]
+    I --> P[Commercial EDA Tools]
+```
+
+## Claw-AI-Lab Architecture Summary
+
+**Overview:** Claw-AI-Lab is a lab-native multi-agent research platform for interactive and scalable AI-driven science. It enables users to create a full AI research lab from a single prompt, with customizable roles, research directions, and collaborative workflows through FIFO-based scheduling.
+
+**Key Principles:**
+- Lab-native multi-agent research platform
+- FIFO-based scheduling framework for parallel execution
+- Human-in-the-loop with intervention capabilities
+- Cross-project knowledge sharing
+- Three research modes: Explore, Discussion, Reproduce
+
+**Core Architecture:**
+- **Language:** Python 3.11+ (backend), Node.js 18+ (frontend)
+- **Entry Point:** `start.sh` script
+- **Modules:**
+  - **Backend:** `backend/agent/` (multi-agent orchestration)
+  - **Frontend:** React-based web dashboard (localhost:5903)
+  - **Claw Code Harness:** Reads/writes local codebases and datasets
+  - **Sandbox:** Local Python execution environment
+  - **Knowledge Base:** Markdown/Obsidian storage
+- **Research Modes:**
+  - **Explore:** Full autonomous research pipeline
+  - **Discussion:** Multi-agent debate and consensus
+  - **Reproduce:** Paper reproduction workflow
+- **Pipeline Stages:** Topic → Literature Review → Experiment Design → Code Generation → Execution → Paper Writing
+- **Features:**
+  - Real-time web dashboard with event stream
+  - Checkpoint & resume capability
+  - Dynamic GPU allocation
+  - Multi-model LLM support with fallback chain
+  - Auto-generated figures and LaTeX papers
+
+### Architecture Diagram
+
+```mermaid
+graph TB
+    A[start.sh Entry] --> B[Backend Python]
+    A --> C[Frontend Node.js]
+    B --> D[Multi-Agent Orchestrator]
+    D --> E[Claw Code Harness]
+    D --> F[Sandbox Executor]
+    D --> G[Knowledge Base]
+    D --> H[LLM Provider Manager]
+    E --> I[Local Codebases]
+    E --> J[Datasets]
+    E --> K[Checkpoints]
+    F --> L[Experiment Runner]
+    C --> M[Web Dashboard]
+    M --> N[Event Stream]
+    M --> O[Multi-Project Monitor]
+    M --> P[Artifact Inspector]
+    M --> Q[Rollback & Resume]
+    H --> R[Primary Model]
+    H --> S[Coding Model]
+    H --> T[Image Model]
+    H --> U[Fallback Chain]
+```
+
 ## Comparison
 
-| Aspect | Openclaw | ClawTeam | GoClaw | IronClaw | Maxclaw | NanoClaw | Nanobot | Zeroclaw | HiClaw | QuantumClaw | Hermes-Agent |
+| Aspect | Openclaw | ClawTeam | GoClaw | IronClaw | Maxclaw | NanoClaw | Nanobot | Zeroclaw | HiClaw | QuantumClaw | Hermes-Agent | RTL-CLAW | Claw-AI-Lab |
 |--------|----------|----------|---------|-----------|---------|----------|---------|----------|---------|-------------|--------------|
-| | Language | TypeScript | Python 3.10+ | Go 1.26 | Rust | Go 1.24+ | TypeScript (Node.js) | Python 3.11+ | Rust | Go + Shell | Node.js | Python |
-| | Focus | CLI with channels/plugins | Multi-agent swarm coordination | Multi-agent gateway with teams | Secure personal AI assistant | Local-first Go agent | Personal WhatsApp assistant | Ultra-lightweight assistant | High-performance runtime | Enterprise multi-agent runtime | Self-hosted AGEX agent | Research-backed agent |
-| | Modularity | Plugin-based extensions | Any CLI agent integration | Tool registry + hooks | WASM tools + MCP + Docker | Agent loop + tool system | Single process + containers | Skill system + MCP | Trait-based extensions | Manager-Workers + Templates | Agent spawning + ClawHub | Open source extension |
-| | Security | CLI security, redaction | Agent isolation (git worktrees) | 5-layer defense | WASM sandbox + defense in depth | Local execution only | Container isolation | Security hardening | First-class, internet-adjacent | Gateway credential isolation | Trust kernel (VALUES.md) | Safety checks |
-| | Platforms | Cross-platform (Mac, Win, Linux, mobile) | Multi-platform agents | Cross-platform (binary + Docker) | Cross-platform (Mac, Win, Linux) | Cross-platform (Mac, Win, Linux) | macOS (launchctl), containerized agents | Cross-platform (Python + Docker) | Native (Linux, etc.) | Docker (all platforms) | Linux, VPS, RPi, Android | Linux, macOS, cloud |
-| | Docs | Mintlify-hosted, i18n | Comprehensive docs | README + docs/ | README + docs/ | README + docs/ (i18n) | README + docs/ | README + docs/ | Local docs/, i18n | README + blog | README | README + docs/ |
-| | Build | pnpm/bun | pip from source | Go modules | Cargo | make build | npm + container build | pip/PyPI | Cargo | Docker compose | npm | pip |
-| | Tests | Vitest | 453 tests pass | go test + race detector | Rust tests + integration | Go tests | Not specified | tests/ directory | Rust tests | Not specified | Not specified | pytest |
-| | Channels | 37+ (core + extensions) | Agent-dependent | 7+ (Telegram, Discord, Slack, etc.) | REPL, HTTP, WASM, Web Gateway | Telegram, WA Bridge, Discord, WS | WhatsApp only | 8+ (Telegram, Discord, Slack, etc.) | 15+ | Matrix (built-in server) | 5 (Telegram, Discord, WhatsApp, Slack, Email) | Telegram, Discord |
-| | Integrations/Extensions | Media pipeline | Multi-agent coordination | MCP, custom tools, hooks | WASM tools, MCP, Docker | MCP, monorepo discovery | Browser automation via Bash | ClawHub skills, MCP | Peripherals (GPIO, etc.) | CoPaw, OpenClaw, custom | 12 MCP servers, 3,286+ skills | MCP, various tools |
-| | Runtime | Node-based | Agent-specific | Native Go binary | Native with Docker workers | Native Go binary | Node + containerized Claude SDK | Python runtime | Native adapters | Docker + Kubernetes | Node.js | Python |
-| | Isolation | Plugin-level | Git worktree per agent | Per-user workspaces (PostgreSQL) | WASM sandbox + per-job containers | Fully local | Per-group containers | Session-level | Module-level | Per-worker containers | Per-agent isolation | Per-session |
-| | Memory | Not specified | Inboxes + tasks | PostgreSQL + pgvector | PostgreSQL with pgvector | MEMORY.md + HISTORY.md | Per-group CLAUDE.md | Session history | Markdown/SQLite with embeddings | MinIO shared filesystem | 3-layer (vector + knowledge + graph) | Conversation + file-based |
-| | Database | Not specified | JSON files (file-based) | PostgreSQL 15+ (required) | PostgreSQL (required) | SQLite (local) | SQLite | SQLite (local) | SQLite | PostgreSQL + MinIO | SQLite | SQLite |
-| | LLM Support | Web provider | Agent-dependent | 13+ providers (Anthropic native, OpenAI-compat) | Multi-provider (NEAR AI, OpenAI-compatible) | Anthropic + OpenAI native SDKs | Claude Agent SDK | Multiple via LiteLLM | 8 native + 29 compat | Gateway-managed | 8+ (Anthropic, OpenAI, Groq, etc.) | Anthropic, OpenAI, OpenRouter |
-| | Agent Support | Single agent | Multi-agent swarms | Multi-agent teams | Single agent | Spawn sub-sessions | Single agent + Agent Swarms | Single agent + subagent | Single agent | Manager-Workers | Multi-agent spawning | Single agent |
-| | State Management | Gateway-based | File-based JSON | PostgreSQL multi-tenant | PostgreSQL + pgvector | Local filesystem | SQLite | Session-based | Internal structures | PostgreSQL + Nacos | SQLite | Session files |
+| | Language | TypeScript | Python 3.10+ | Go 1.26 | Rust | Go 1.24+ | TypeScript (Node.js) | Python 3.11+ | Rust | Go + Shell | Node.js | Python | Python + Verilog | Python 3.11+ + Node.js 18+ |
+| | Focus | CLI with channels/plugins | Multi-agent swarm coordination | Multi-agent gateway with teams | Secure personal AI assistant | Local-first Go agent | Personal WhatsApp assistant | Ultra-lightweight assistant | High-performance runtime | Enterprise multi-agent runtime | Self-hosted AGEX agent | Research-backed agent | EDA workflow automation | Lab-native research platform |
+| | Modularity | Plugin-based extensions | Any CLI agent integration | Tool registry + hooks | WASM tools + MCP + Docker | Agent loop + tool system | Single process + containers | Skill system + MCP | Trait-based extensions | Manager-Workers + Templates | Agent spawning + ClawHub | Open source extension | Layered plugin architecture | Claw Code Harness + modular agents |
+| | Security | CLI security, redaction | Agent isolation (git worktrees) | 5-layer defense | WASM sandbox + defense in depth | Local execution only | Container isolation | Security hardening | First-class, internet-adjacent | Gateway credential isolation | Trust kernel (VALUES.md) | Safety checks | Docker-based isolation | HITL gates + sandboxed execution |
+| | Platforms | Cross-platform (Mac, Win, Linux, mobile) | Multi-platform agents | Cross-platform (binary + Docker) | Cross-platform (Mac, Win, Linux) | Cross-platform (Mac, Win, Linux) | macOS (launchctl), containerized agents | Cross-platform (Python + Docker) | Native (Linux, etc.) | Docker (all platforms) | Linux, VPS, RPi, Android | Linux, macOS, cloud | Docker-based | Cross-platform (Python + Node.js) |
+| | Docs | Mintlify-hosted, i18n | Comprehensive docs | README + docs/ | README + docs/ | README + docs/ (i18n) | README + docs/ | README + docs/ | Local docs/, i18n | README + blog | README | README + docs/ | Technical report PDF | README + showcase examples |
+| | Build | pnpm/bun | pip from source | Go modules | Cargo | make build | npm + container build | pip/PyPI | Cargo | Docker compose | npm | pip | Docker build | npm + pip (frontend + backend) |
+| | Tests | Vitest | 453 tests pass | go test + race detector | Rust tests + integration | Go tests | Not specified | tests/ directory | Rust tests | Not specified | Not specified | pytest | Not specified | End-to-end pipeline testing |
+| | Channels | 37+ (core + extensions) | Agent-dependent | 7+ (Telegram, Discord, Slack, etc.) | REPL, HTTP, WASM, Web Gateway | Telegram, WA Bridge, Discord, WS | WhatsApp only | 8+ (Telegram, Discord, Slack, etc.) | 15+ | Matrix (built-in server) | 5 (Telegram, Discord, WhatsApp, Slack, Email) | Telegram, Discord | Web UI gateway | Web UI (localhost:5903) |
+| | Integrations/Extensions | Media pipeline | Multi-agent coordination | MCP, custom tools, hooks | WASM tools, MCP, Docker | MCP, monorepo discovery | Browser automation via Bash | ClawHub skills, MCP | Peripherals (GPIO, etc.) | CoPaw, OpenClaw, custom | 12 MCP servers, 3,286+ skills | MCP, various tools | Yosys, EDA tools | Claw Code Harness, knowledge base |
+| | Runtime | Node-based | Agent-specific | Native Go binary | Native with Docker workers | Native Go binary | Node + containerized Claude SDK | Python runtime | Native adapters | Docker + Kubernetes | Node.js | Python | Docker + OpenClaw | Python + Node.js (web UI) |
+| | Isolation | Plugin-level | Git worktree per agent | Per-user workspaces (PostgreSQL) | WASM sandbox + per-job containers | Fully local | Per-group containers | Session-level | Module-level | Per-worker containers | Per-agent isolation | Per-session | Docker containers | Per-project sandbox |
+| | Memory | Not specified | Inboxes + tasks | PostgreSQL + pgvector | PostgreSQL with pgvector | MEMORY.md + HISTORY.md | Per-group CLAUDE.md | Session history | Markdown/SQLite with embeddings | MinIO shared filesystem | 3-layer (vector + knowledge + graph) | Conversation + file-based | Workspace-based | Knowledge base (Markdown/Obsidian) |
+| | Database | Not specified | JSON files (file-based) | PostgreSQL 15+ (required) | PostgreSQL (required) | SQLite (local) | SQLite | SQLite (local) | SQLite | PostgreSQL + MinIO | SQLite | SQLite | Not specified | Project-based storage |
+| | LLM Support | Web provider | Agent-dependent | 13+ providers (Anthropic native, OpenAI-compat) | Multi-provider (NEAR AI, OpenAI-compatible) | Anthropic + OpenAI native SDKs | Claude Agent SDK | Multiple via LiteLLM | 8 native + 29 compat | Gateway-managed | 8+ (Anthropic, OpenAI, Groq, etc.) | Anthropic, OpenAI, OpenRouter | OpenClaw provider | Multi-model with fallback chain |
+| | Agent Support | Single agent | Multi-agent swarms | Multi-agent teams | Single agent | Spawn sub-sessions | Single agent + Agent Swarms | Single agent + subagent | Single agent | Manager-Workers | Multi-agent spawning | Single agent | Single AI agent | Multi-agent research team |
+| | State Management | Gateway-based | File-based JSON | PostgreSQL multi-tenant | PostgreSQL + pgvector | Local filesystem | SQLite | Session-based | Internal structures | PostgreSQL + Nacos | SQLite | Session files | OpenClaw state | FIFO scheduling + checkpoints |
 
 ### Additional Platforms
 
 | Platform | Language | Focus | Latest Release | Key Innovation |
 |----------|----------|---------|----------------|----------------|
-| **RTL-CLAW** | Python | EDA workflow automation | 2026-03 | LLM-assisted RTL design |
-| **Claw-AI-Lab** | Python | Research and experimentation | 2026-04 | Academic AI agent research |
 | **Maxclaw** | Go 1.24+ | Local-first agent | v1.6.0 | Native multi-agent spawning + team presets |
 | **HiClaw** | Go + Shell | Enterprise multi-agent | v1.0.9 | Kubernetes-style YAML resources |
 | **QuantumClaw** | Node.js | Self-hosted AGEX | v1.5.1 | Reference AGEX protocol implementation |
 | **Hermes-Agent** | Python | Research-backed | 2026-04 | Context compaction improvements |
+| **RTL-CLAW** | Python + Verilog | EDA workflow automation | 2026-03 | AI-driven RTL design on OpenClaw |
+| **Claw-AI-Lab** | Python + Node.js | Lab research platform | 2026-04 | FIFO-scheduled multi-agent research |
 
-All platforms are autonomous agent projects with distinct focuses: Openclaw focuses on TypeScript CLI with extensive channel support, ClawTeam provides multi-agent swarm coordination that transforms single agents into self-organizing teams, GoClaw focuses on multi-agent orchestration with multi-tenant PostgreSQL and agent teams, IronClaw prioritizes security through WASM sandboxing and multi-layer defense mechanisms, Maxclaw offers an OpenClaw-style local-first experience in Go with desktop UI and resource efficiency, NanoClaw is a containerized WhatsApp-to-Claude bridge with group isolation, Nanobot prioritizes ultra-lightweight design with minimal footprint and research-ready code, Zeroclaw emphasizes Rust performance and hardware extensibility, HiClaw brings enterprise-grade multi-agent orchestration with Manager-Workers architecture, QuantumClaw implements the AGEX protocol for agent identity and trust, and Hermes-Agent provides research-backed context management improvements.
+All platforms are autonomous agent projects with distinct focuses: Openclaw focuses on TypeScript CLI with extensive channel support, ClawTeam provides multi-agent swarm coordination that transforms single agents into self-organizing teams, GoClaw focuses on multi-agent orchestration with multi-tenant PostgreSQL and agent teams, IronClaw prioritizes security through WASM sandboxing and multi-layer defense mechanisms, Maxclaw offers an OpenClaw-style local-first experience in Go with desktop UI and resource efficiency, NanoClaw is a containerized WhatsApp-to-Claude bridge with group isolation, Nanobot prioritizes ultra-lightweight design with minimal footprint and research-ready code, Zeroclaw emphasizes Rust performance and hardware extensibility, HiClaw brings enterprise-grade multi-agent orchestration with Manager-Workers architecture, QuantumClaw implements the AGEX protocol for agent identity and trust, Hermes-Agent provides research-backed context management improvements, RTL-CLAW delivers AI-driven IC design automation on the OpenClaw framework, and Claw-AI-Lab enables lab-native multi-agent research with FIFO scheduling and human-in-the-loop capabilities.
 
+
+---
+
+## Updated Platform Coverage (May 2026)
+
+AllClaws now tracks **20 platforms** across both claw ecosystem and external frameworks:
+
+**This document** (13 platforms): OpenClaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, ZeroClaw, HiClaw, QuantumClaw, Hermes-Agent, RTL-CLAW, Claw-AI-Lab
+
+**See also:**
+- **[external_frameworks.md](external_frameworks.md)** — SmolAgents, LangGraph, mcp-agent, CrewAI, AutoGen, Swarms, OpenAgents
+
+For the latest ecosystem analysis, see the [Monthly Report](../_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md).

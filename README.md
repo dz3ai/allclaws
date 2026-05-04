@@ -6,20 +6,20 @@
 
 ## 🎯 Mission
 
-To advance the field of personal AI assistants by:
-- **Analyzing** existing platforms' architectures and design decisions
-- **Benchmarking** functionality and performance across different implementations
-- **Developing** testing frameworks for objective comparison
-- **Sharing** insights through technical writing and documentation
+AllClaws conducts independent research on AI agent architectures and deployment models, with emphasis on understanding the emerging distinction between **personal-force-multiplier** and **enterprise-automation** paradigms. We track 20 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
 
-## 🔥 Cross-Cutting Trends (April 2026)
+**Full Mission:** [docs/MISSION.md](docs/MISSION.md)
 
-Based on tracking 13 platforms, several key trends have emerged:
+## 🔥 Key Insights (May 2026)
 
-1. **Multi-agent coordination became mainstream** — ClawTeam v0.3.0, HiClaw v1.0.9, and Maxclaw v1.6.0 all ship production-ready multi-agent spawning with team orchestration.
-2. **Research-backed agent intelligence** — Boids emergence rules, metacognitive self-assessment, and intent-based prompts inspired by military C2 doctrine.
-3. **Enterprise-grade adoption** — HiClaw (Kubernetes-style resources), GoClaw (PostgreSQL multi-tenancy), and QuantumClaw (AGEX protocol) lead enterprise features.
-4. **Cost-aware orchestration** — Real-time token/cost dashboards, 5-tier cost routing, and per-agent model resolution.
+Based on tracking **20 platforms**, several key trends have emerged:
+
+1. **The Personal vs Enterprise Fork** — Clear divergence between personal-force-multiplier (1PC) and enterprise-automation paradigms
+2. **MCP Debate Intensifies** — Model Context Protocol gaining enterprise adoption but facing resistance from local-first agents over token overhead
+3. **"Self-Improving" Claims Scrutiny** — After Hermes-Agent source code analysis, distinction between procedural memory and autonomous learning is critical
+4. **External Framework Integration** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, mcp-agent tracked for ecosystem comparison
+
+See [AI Agent Ecosystem Report: April-May 2026](_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md) for full details.
 
 See [Latest Updates: March 2026](docs/LATEST_UPDATES.md) for full details.
 
@@ -28,33 +28,43 @@ See [Latest Updates: March 2026](docs/LATEST_UPDATES.md) for full details.
 ### 1. Architecture Analysis & Comparison
 **Status:** ✅ Active Development
 
-Comprehensive analysis of personal AI agent platforms including:
+Comprehensive analysis of AI agent platforms across 20 tracked frameworks:
 
+**Claw Ecosystem (13 platforms):**
 - **Openclaw** (TypeScript): Extensible CLI with multi-channel support
-- **ClawTeam** (Python-based): Multi-agent swarm coordination with leader-worker orchestration, git worktree isolation, and inter-agent messaging
-- **GoClaw** (Go-based): Multi-agent AI gateway with teams, orchestration, and multi-tenant PostgreSQL
-- **IronClaw** (Rust-based): Secure personal AI assistant with WASM sandboxing and defense-in-depth security
-- **Maxclaw** (Go-based): OpenClaw-style local-first agent with desktop UI, low memory footprint, and monorepo-aware context discovery
-- **NanoClaw** (Node.js): WhatsApp-focused assistant with containerized agents
-- **Nanobot** (Python-based): Ultra-lightweight personal AI assistant with ~4,000 LOC core code
-- **Zeroclaw** (Rust-based): High-performance runtime with trait-driven architecture
-- **HiClaw** (Go + Shell): Enterprise multi-agent runtime with Kubernetes-style declarative resources
-- **QuantumClaw** (Node.js): Self-hosted AGEX protocol implementation with 3-layer memory and 5-tier cost routing
-- **Hermes-Agent** (Python): Research-backed agent with context compaction and resolved questions tracking
-- **RTL-CLAW** (Python/Verilog): EDA workflow automation with LLM-assisted RTL design
-- **Claw-AI-Lab** (Python): Academic research platform for AI agent experimentation
+- **ClawTeam** (Python): Multi-agent swarm coordination with leader-worker orchestration
+- **GoClaw** (Go): Multi-agent AI gateway with PostgreSQL multi-tenancy
+- **IronClaw** (Rust): Secure personal AI assistant with WASM sandboxing
+- **Maxclaw** (Go): Local-first agent with desktop UI
+- **NanoClaw** (TypeScript): Container-first WhatsApp assistant
+- **Nanobot** (Python): Ultra-lightweight assistant (~4,000 LOC core)
+- **Zeroclaw** (Rust): High-performance runtime (<5MB RAM)
+- **HiClaw** (Go + Shell): Enterprise multi-agent runtime with Kubernetes-style resources
+- **QuantumClaw** (TypeScript): Self-hosted AGEX protocol implementation
+- **Hermes-Agent** (Python): Research-backed agent with context compaction
+- **RTL-CLAW** (Python/Verilog): EDA workflow automation
+- **Claw-AI-Lab** (Python): Academic research platform
+
+**External Frameworks (7 platforms):**
+- **SmolAgents** (Python): Hugging Face's ~1K LOC code-agent framework
+- **LangGraph** (Python/TS): Graph-based stateful multi-agent workflows
+- **mcp-agent** (Python): MCP-native agent framework
+- **CrewAI** (Python): Role-playing autonomous agents
+- **AutoGen** (Python): Microsoft's multi-agent conversation framework
+- **Swarms** (Python): Enterprise orchestration framework
+- **OpenAgents** (TypeScript): Distributed agent networks
 
 **Key Deliverables:**
-- `docs/LATEST_UPDATES.md` - Latest project updates and ecosystem trends (monthly)
-- `architecture/architecture_comparison.md` - Detailed technical analysis (13 platforms)
-- `architecture/architecture_comparison.zh-CN.md` - Chinese translation
-- `architecture/multi_agent_coordination_research.md` - Multi-agent coordination trend analysis (EN + ZH)
-- Platform capability matrices and trade-off analysis
+- `docs/MISSION.md` - Research mission and position statements
+- `docs/LATEST_UPDATES.md` - Monthly ecosystem updates
+- `architecture/external_frameworks.md` - External frameworks deep-dive
+- `architecture/architecture_comparison.md` - Claw ecosystem analysis (redirect to new comparison)
+- `architecture/multi_agent_coordination_research.md` - Multi-agent coordination trend analysis
 
 ### 2. Personal Agent Test Framework
 **Status:** ✅ v2.0 — Cross-Platform Static Analysis Complete
 
-A testing framework that scans all 13 platform submodules and records results systematically.
+A testing framework that scans all 13 claw ecosystem platform submodules and records results systematically. **Note:** External frameworks are analyzed via documentation and source code review, not automated testing.
 
 **Run tests:**
 ```bash
@@ -186,7 +196,14 @@ bash tests/test_agent_validation.sh
 ## 📊 Current Status & Roadmap
 
 ### ✅ Completed
-- [x] Architecture analysis of 13 major platforms (Openclaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, Zeroclaw, HiClaw, QuantumClaw, Hermes-Agent, RTL-CLAW, Claw-AI-Lab)
+- [x] Architecture analysis of 20 platforms (13 claw ecosystem + 7 external frameworks)
+- [x] External frameworks integration (SmolAgents, LangGraph, mcp-agent, CrewAI, AutoGen, Swarms, OpenAgents)
+- [x] Multi-agent coordination trend research
+- [x] Monthly ecosystem updates tracking (EN + ZH)
+- [x] Cross-platform static analysis test framework (v2.1, 165/177 pass for 13 claw platforms)
+- [x] Benchmark execution engine (v1.0, 182 metrics across 13 claw platforms)
+- [x] Refined mission statement (personal vs enterprise paradigm analysis)
+- [x] Claims verification (Hermes-Agent "self-improving" analysis)
 - [x] Multi-agent coordination trend research
 - [x] Monthly ecosystem updates tracking (EN + ZH)
 - [x] Cross-platform static analysis test framework (v2.1, 165/177 pass)
@@ -197,16 +214,15 @@ bash tests/test_agent_validation.sh
 - [x] Bilingual documentation (English + Chinese)
 
 ### 🔄 In Progress
-- [ ] Cross-platform performance metrics (runtime benchmarks)
-- [ ] Extended test coverage (networking, file operations)
-- [ ] Real-world agent integration testing
+- [ ] Unified platform comparison (all 20 platforms in single document)
+- [ ] Chinese translations (external_frameworks.zh-CN.md, MISSION.zh-CN.md, ROADMAP.zh-CN.md)
 
 ### 📋 Planned
-- [ ] Web-based dashboard for test results
-- [ ] Automated CI/CD pipeline for testing
-- [ ] Additional platform support (custom agents)
-- [ ] Performance regression detection
-- [ ] Security vulnerability testing
+- [ ] Cross-platform performance metrics (runtime benchmarks)
+- [ ] MCP ecosystem deep-dive report
+- [ ] Enterprise governance framework analysis
+- [ ] 1PC (one-person company) case studies
+- [ ] Runtime performance benchmarking extension
 
 ## 🤝 Contributing
 
@@ -226,6 +242,7 @@ This is an active research project. Contributions welcome in:
 
 ## 🔗 Related Projects
 
+**Claw Ecosystem (13 platforms):**
 - **Openclaw**: https://github.com/openclaw/openclaw
 - **ClawTeam**: https://github.com/win4r/ClawTeam-OpenClaw
 - **GoClaw**: https://github.com/nextlevelbuilder/goclaw
@@ -236,14 +253,29 @@ This is an active research project. Contributions welcome in:
 - **Zeroclaw**: https://github.com/zeroclaw-labs/zeroclaw
 - **HiClaw**: https://github.com/hiclaw-org/hiclaw
 - **QuantumClaw**: https://github.com/quantumclaw/quantumclaw
-- **Hermes-Agent**: https://github.com/hermes-agent/hermes-agent
+- **Hermes-Agent**: https://github.com/NousResearch/hermes-agent
 - **RTL-CLAW**: https://github.com/rtl-claw/rtl-claw
-- **Claw-AI-Lab**: https://github.com/claw-ai-lab/claw-ai-lab
+- **Claw-AI-Lab**: https://github.com/Claw-AI-Lab/Claw-AI-Lab
+
+**External Frameworks (7 platforms):**
+- **SmolAgents**: https://github.com/huggingface/smolagents
+- **LangGraph**: https://github.com/langchain-ai/langgraph
+- **mcp-agent**: https://github.com/lastmile-ai/mcp-agent
+- **CrewAI**: https://github.com/crewaiinc/crewai
+- **AutoGen**: https://github.com/microsoft/autogen
+- **Swarms**: https://github.com/kyegomez/swarms
+- **OpenAgents**: https://github.com/openagents-org/openagents
 
 ## 📞 Contact & Discussion
 
-This project represents ongoing research into personal AI agent architectures. For discussions, questions, or collaboration opportunities, please refer to the individual platform repositories or create issues in this analysis repository.
+This project represents ongoing research into AI agent architectures. For discussions, questions, or collaboration opportunities, please refer to the individual platform repositories or create issues in this analysis repository.
+
+**Full Documentation:**
+- Mission: [docs/MISSION.md](docs/MISSION.md)
+- Roadmap: [docs/ROADMAP.md](docs/ROADMAP.md)
+- External Frameworks: [architecture/external_frameworks.md](architecture/external_frameworks.md)
+- Latest Updates: [docs/LATEST_UPDATES.md](docs/LATEST_UPDATES.md)
 
 ---
 
-*Last updated: April 12, 2026*
+*Last updated: May 5, 2026*
