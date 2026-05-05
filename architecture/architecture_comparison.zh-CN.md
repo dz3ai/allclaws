@@ -1,6 +1,15 @@
-# 架构比较：Openclaw vs ClawTeam vs GoClaw vs IronClaw vs Maxclaw vs NanoClaw vs Nanobot vs Zeroclaw
+# 架构比较：平台概览
 
 **[English](architecture_comparison.md)** | 中文
+
+> **注意：** 本文档涵盖全部 13 个 claw 生态平台的完整架构分析。如需查看全部 20 个平台（13 个 claw 生态 + 7 个外部框架）的综合覆盖，请参阅：
+> - **[external_frameworks.md](external_frameworks.md)** — 7 个外部框架深度分析
+> - **[Latest Updates](../docs/LATEST_UPDATES.md)** — 每月生态系统跟踪
+> - **[Platform Categories](../README.md#architecture-analysis--comparison)** — 完整 20 平台列表
+
+---
+
+# 架构比较：Openclaw vs ClawTeam vs GoClaw vs IronClaw vs Maxclaw vs NanoClaw vs Nanobot vs Zeroclaw vs HiClaw vs QuantumClaw vs Hermes-Agent vs RTL-CLAW vs Claw-AI-Lab
 
 ## Openclaw 架构总结
 
@@ -776,37 +785,157 @@ graph TD
     O --> Q[Discord]
 ```
 
+## RTL-CLAW 架构总结
+
+**概述：** RTL-CLAW 是一个 AI 驱动的 IC 设计流程自动化框架，由同济大学 EDA 实验室和香港中文大学合作开发。基于 OpenClaw 框架构建，展示了 AI 驱动的工作流程用于 RTL 设计自动化、验证和综合。
+
+**关键原则：**
+- 基于 OpenClaw 基础的研究导向 EDA 工具链
+- 分层设计：交互层 → 代理核心层 → 工具/数据流层
+- 模块化插件架构，支持扩展
+- 集成开源和商业 EDA 工具
+- 前端 IC 设计重点，后端路线图
+
+**核心架构：**
+- **语言：** Python (with Verilog)
+- **入口点：** Docker Compose (`rtl-claw-cli`, `rtl-claw-gateway`)
+- **模块：**
+  - **交互层：** 用户指令和工作流控制
+  - **代理核心层：** 任务规划和执行
+  - **工具和数据流层：** RTL 分析、验证、优化、综合
+- **关键组件：**
+  - Verilog 分区模块
+  - 分区-优化-合并（Partition-Opt-Merge）
+  - 测试台生成
+  - Yosys 综合集成
+- **目标工艺：** ASAP7nm PDK 用于研究
+- **路线图项目：**
+  - DreamPlace + OpenROAD 后端流程
+  - 3D IC 导向设计流程
+- **构建/部署：** 基于 Docker，需要 `openclaw:local` 基础镜像
+
+### 架构图
+
+```mermaid
+graph TB
+    A[Docker Compose 入口] --> B[RTL-CLAW CLI]
+    A --> C[RTL-CLAW Gateway]
+    B --> D[交互层]
+    C --> E[Web UI]
+    D --> F[代理核心层]
+    F --> G[任务规划]
+    F --> H[任务执行]
+    F --> I[工具和数据流层]
+    I --> J[RTL 分析]
+    I --> K[Verilog 分区]
+    I --> L[优化]
+    I --> M[测试台生成]
+    I --> N[Yosys 综合]
+    I --> O[开源 EDA 工具]
+    I --> P[商业 EDA 工具]
+```
+
+## Claw-AI-Lab 架构总结
+
+**概述：** Claw-AI-Lab 是一个实验室原生多代理研究平台，用于交互式和可扩展的 AI 驱动科学研究。它允许用户从单个提示创建完整的 AI 研究实验室，具有可定制的角色、研究方向和协作工作流程，通过基于 FIFO 的调度框架实现。
+
+**关键原则：**
+- 实验室原生多代理研究平台
+- 基于 FIFO 的调度框架，支持并行执行
+- 人在环路，具有干预能力
+- 跨项目知识共享
+- 三种研究模式：探索、讨论、复现
+
+**核心架构：**
+- **语言：** Python 3.11+ (backend), Node.js 18+ (frontend)
+- **入口点：** `start.sh` 脚本
+- **模块：**
+  - **Backend：** `backend/agent/` (多代理编排)
+  - **Frontend：** 基于 React 的 Web 面板 (localhost:5903)
+  - **Claw Code Harness：** 读取/写入本地代码库和数据集
+  - **Sandbox：** 本地 Python 执行环境
+  - **Knowledge Base：** Markdown/Obsidian 存储
+- **研究模式：**
+  - **Explore：** 完全自主研究流程
+  - **Discussion：** 多代理辩论和共识
+  - **Reproduce：** 论文复现工作流
+- **流程阶段：** 主题 → 文献综述 → 实验设计 → 代码生成 → 执行 → 论文撰写
+- **功能：**
+  - 实时 Web 面板，带事件流
+  - 检查点和恢复能力
+  - 动态 GPU 分配
+  - 多模型 LLM 支持和回退链
+  - 自动生成图表和 LaTeX 论文
+
+### 架构图
+
+```mermaid
+graph TB
+    A[start.sh 入口] --> B[Backend Python]
+    A --> C[Frontend Node.js]
+    B --> D[多代理编排器]
+    D --> E[Claw Code Harness]
+    D --> F[Sandbox 执行器]
+    D --> G[Knowledge Base]
+    D --> H[LLM 提供商管理器]
+    E --> I[本地代码库]
+    E --> J[数据集]
+    E --> K[检查点]
+    F --> L[实验运行器]
+    C --> M[Web 面板]
+    M --> N[事件流]
+    M --> O[多项目监控]
+    M --> P[Artifact 检查器]
+    M --> Q[回滚和恢复]
+    H --> R[主要模型]
+    H --> S[编码模型]
+    H --> T[图像模型]
+    H --> U[回退链]
+```
+
 ## 比较
 
-| 方面 | Openclaw | ClawTeam | GoClaw | IronClaw | Maxclaw | NanoClaw | Nanobot | Zeroclaw | HiClaw | QuantumClaw | Hermes-Agent |
+| 方面 | Openclaw | ClawTeam | GoClaw | IronClaw | Maxclaw | NanoClaw | Nanobot | Zeroclaw | HiClaw | QuantumClaw | Hermes-Agent | RTL-CLAW | Claw-AI-Lab |
 |------|----------|----------|---------|-----------|---------|----------|---------|----------|---------|-------------|--------------|
-| | 语言 | TypeScript | Python 3.10+ | Go 1.26 | Rust | Go 1.24+ | TypeScript (Node.js) | Python 3.11+ | Rust | Go + Shell | Node.js | Python |
-| | 重点 | 具有频道/插件的 CLI | 多代理群体协调 | 多代理网关与团队 | 安全个人 AI 助手 | 本地优先 Go 代理 | 个人 WhatsApp 助手 | 超轻量级助手 | 高性能运行时 | 企业级多代理运行时 | 自托管 AGEX 代理 | 研究驱动代理 |
-| | 模块化 | 插件基础扩展 | 任意 CLI 代理集成 | 工具注册表 + 钩子 | WASM 工具 + MCP + Docker | 代理循环 + 工具系统 | 单进程 + 容器 | 技能系统 + MCP | Trait 基础扩展 | 管理-工人 + 模板 | 代理派生 + ClawHub | 开源扩展 |
-| | 安全性 | CLI 安全性，编辑 | 代理隔离（git worktree） | 5 层防御 | WASM 沙箱 + 纵深防御 | 仅本地执行 | 容器隔离 | 安全加固 | 首要，互联网邻接 | 网关凭证隔离 | 信任内核（VALUES.md） | 安全检查 |
-| | 平台 | 跨平台（Mac、Win、Linux、移动） | 多平台代理 | 跨平台（二进制 + Docker） | 跨平台（Mac、Win、Linux） | 跨平台（Mac、Win、Linux） | macOS (launchctl)，容器化代理 | 跨平台（Python + Docker） | 原生（Linux 等） | Docker（所有平台） | Linux、VPS、RPi、Android | Linux、macOS、云 |
-| | 文档 | Mintlify 托管，i18n | 完整文档 | README + docs/ | README + docs/ | README + docs/ (i18n) | README + docs/ | README + docs/ | 本地 docs/，i18n | README + blog | README | README + docs/ |
-| | 构建 | pnpm/bun | pip 从源码安装 | Go modules | Cargo | make build | npm + 容器构建 | pip/PyPI | Cargo | Docker compose | npm | pip |
-| | 测试 | Vitest | 453 测试通过 | go test + race 检测 | Rust 测试 + 集成 | Go 测试 | 未指定 | tests/ 目录 | Rust 测试 | 未指定 | 未指定 | pytest |
-| | 频道 | 37+（核心 + 扩展） | 依赖代理 | 7+（Telegram、Discord、Slack 等） | REPL、HTTP、WASM、Web Gateway | Telegram、WA Bridge、Discord、WS | 仅 WhatsApp | 8+（Telegram、Discord、Slack 等） | 15+ | Matrix（内置服务器） | 5（Telegram、Discord、WhatsApp、Slack、Email） | Telegram、Discord |
-| | 集成/扩展 | 媒体管道 | 多代理协调 | MCP、自定义工具、钩子 | WASM 工具、MCP、Docker | MCP、monorepo 发现 | 通过 Bash 的浏览器自动化 | ClawHub 技能、MCP | 外围设备（GPIO 等） | CoPaw、OpenClaw、自定义 | 12 MCP 服务器、3286+ 技能 | MCP、各种工具 |
-| | 运行时 | 基于 Node | 依赖具体代理 | 原生 Go 二进制文件 | 原生 + Docker Workers | 原生 Go 二进制文件 | Node + 容器化 Claude SDK | Python 运行时 | 原生适配器 | Docker + Kubernetes | Node.js | Python |
-| | 隔离 | 插件级 | 按代理 git worktree | 每用户工作空间（PostgreSQL） | WASM 沙箱 + 每作业容器 | 完全本地 | 每组容器 | 会话级别 | 模块级 | 按 Worker 容器 | 按代理隔离 | 按会话 |
-| | 内存 | 未指定 | 收件箱 + 任务 | PostgreSQL + pgvector | PostgreSQL + pgvector | MEMORY.md + HISTORY.md | 每组 CLAUDE.md | 会话历史 | 具有嵌入的 Markdown/SQLite | MinIO 共享文件系统 | 三层（向量 + 知识 + 图谱） | 会话 + 基于文件 |
-| | 数据库 | 未指定 | JSON 文件（基于文件） | PostgreSQL 15+（必需） | PostgreSQL（必需） | SQLite（本地） | SQLite | SQLite（本地） | SQLite | PostgreSQL + MinIO | SQLite | SQLite |
-| | LLM 支持 | Web 提供者 | 依赖具体代理 | 13+ 提供者（Anthropic 原生、OpenAI-compat） | 多提供者（NEAR AI、OpenAI 兼容） | Anthropic + OpenAI 原生 SDK | Claude Agent SDK | 通过 LiteLLM 多提供者 | 8 原生 + 29 兼容 | 网关管理 | 8+（Anthropic、OpenAI、Groq 等） | Anthropic、OpenAI、OpenRouter |
-| | 代理支持 | 单代理 | 多代理群体 | 多代理团队 | 单代理 | 派生子会话 | 单代理 + 代理群体 | 单代理 + 子代理 | 单代理 | 管理-工人 | 多代理派生 | 单代理 |
-| | 状态管理 | 基于网关 | 基于文件的 JSON | PostgreSQL 多租户 | PostgreSQL + pgvector | 本地文件系统 | SQLite | 基于会话 | 内部结构 | PostgreSQL + Nacos | SQLite | 会话文件 |
+| | 语言 | TypeScript | Python 3.10+ | Go 1.26 | Rust | Go 1.24+ | TypeScript (Node.js) | Python 3.11+ | Rust | Go + Shell | Node.js | Python | Python + Verilog | Python 3.11+ + Node.js 18+ |
+| | 重点 | 具有频道/插件的 CLI | 多代理群体协调 | 多代理网关与团队 | 安全个人 AI 助手 | 本地优先 Go 代理 | 个人 WhatsApp 助手 | 超轻量级助手 | 高性能运行时 | 企业级多代理运行时 | 自托管 AGEX 代理 | 研究驱动代理 | EDA 工作流自动化 | 实验室原生研究平台 |
+| | 模块化 | 插件基础扩展 | 任意 CLI 代理集成 | 工具注册表 + 钩子 | WASM 工具 + MCP + Docker | 代理循环 + 工具系统 | 单进程 + 容器 | 技能系统 + MCP | Trait 基础扩展 | 管理-工人 + 模板 | 代理派生 + ClawHub | 开源扩展 | 分层插件架构 | Claw Code Harness + 模块化代理 |
+| | 安全性 | CLI 安全性，编辑 | 代理隔离（git worktree） | 5 层防御 | WASM 沙箱 + 纵深防御 | 仅本地执行 | 容器隔离 | 安全加固 | 首要，互联网邻接 | 网关凭证隔离 | 信任内核（VALUES.md） | 安全检查 | 基于 Docker 的隔离 | HITL 门控 + 沙箱执行 |
+| | 平台 | 跨平台（Mac、Win、Linux、移动） | 多平台代理 | 跨平台（二进制 + Docker） | 跨平台（Mac、Win、Linux） | 跨平台（Mac、Win、Linux） | macOS (launchctl)，容器化代理 | 跨平台（Python + Docker） | 原生（Linux 等） | Docker（所有平台） | Linux、VPS、RPi、Android | Linux、macOS、云 | 基于 Docker | 跨平台（Python + Node.js） |
+| | 文档 | Mintlify 托管，i18n | 完整文档 | README + docs/ | README + docs/ | README + docs/ (i18n) | README + docs/ | README + docs/ | 本地 docs/，i18n | README + blog | README | README + docs/ | 技术报告 PDF | README + 展示示例 |
+| | 构建 | pnpm/bun | pip 从源码安装 | Go modules | Cargo | make build | npm + 容器构建 | pip/PyPI | Cargo | Docker compose | npm | pip | Docker 构建 | npm + pip（前端 + 后端） |
+| | 测试 | Vitest | 453 测试通过 | go test + race 检测 | Rust 测试 + 集成 | Go 测试 | 未指定 | tests/ 目录 | Rust 测试 | 未指定 | 未指定 | pytest | 未指定 | 端到端流程测试 |
+| | 频道 | 37+（核心 + 扩展） | 依赖代理 | 7+（Telegram、Discord、Slack 等） | REPL、HTTP、WASM、Web Gateway | Telegram、WA Bridge、Discord、WS | 仅 WhatsApp | 8+（Telegram、Discord、Slack 等） | 15+ | Matrix（内置服务器） | 5（Telegram、Discord、WhatsApp、Slack、Email） | Telegram、Discord | Web UI 网关 | Web UI（localhost:5903） |
+| | 集成/扩展 | 媒体管道 | 多代理协调 | MCP、自定义工具、钩子 | WASM 工具、MCP、Docker | MCP、monorepo 发现 | 通过 Bash 的浏览器自动化 | ClawHub 技能、MCP | 外围设备（GPIO 等） | CoPaw、OpenClaw、自定义 | 12 MCP 服务器、3286+ 技能 | MCP、各种工具 | Yosys、EDA 工具 | Claw Code Harness、知识库 |
+| | 运行时 | 基于 Node | 依赖具体代理 | 原生 Go 二进制文件 | 原生 + Docker Workers | 原生 Go 二进制文件 | Node + 容器化 Claude SDK | Python 运行时 | 原生适配器 | Docker + Kubernetes | Node.js | Python | Docker + OpenClaw | Python + Node.js（Web UI） |
+| | 隔离 | 插件级 | 按代理 git worktree | 每用户工作空间（PostgreSQL） | WASM 沙箱 + 每作业容器 | 完全本地 | 每组容器 | 会话级别 | 模块级 | 按 Worker 容器 | 按代理隔离 | 按会话 | Docker 容器 | 按项目沙箱 |
+| | 内存 | 未指定 | 收件箱 + 任务 | PostgreSQL + pgvector | PostgreSQL + pgvector | MEMORY.md + HISTORY.md | 每组 CLAUDE.md | 会话历史 | 具有嵌入的 Markdown/SQLite | MinIO 共享文件系统 | 三层（向量 + 知识 + 图谱） | 会话 + 基于文件 | 基于工作区 | 知识库（Markdown/Obsidian） |
+| | 数据库 | 未指定 | JSON 文件（基于文件） | PostgreSQL 15+（必需） | PostgreSQL（必需） | SQLite（本地） | SQLite | SQLite（本地） | SQLite | PostgreSQL + MinIO | SQLite | SQLite | 未指定 | 基于项目的存储 |
+| | LLM 支持 | Web 提供者 | 依赖具体代理 | 13+ 提供者（Anthropic 原生、OpenAI-compat） | 多提供者（NEAR AI、OpenAI 兼容） | Anthropic + OpenAI 原生 SDK | Claude Agent SDK | 通过 LiteLLM 多提供者 | 8 原生 + 29 兼容 | 网关管理 | 8+（Anthropic、OpenAI、Groq 等） | Anthropic、OpenAI、OpenRouter | OpenClaw 提供者 | 多模型回退链 |
+| | 代理支持 | 单代理 | 多代理群体 | 多代理团队 | 单代理 | 派生子会话 | 单代理 + 代理群体 | 单代理 + 子代理 | 单代理 | 管理-工人 | 多代理派生 | 单代理 | 单一 AI 代理 | 多代理研究团队 |
+| | 状态管理 | 基于网关 | 基于文件的 JSON | PostgreSQL 多租户 | PostgreSQL + pgvector | 本地文件系统 | SQLite | 基于会话 | 内部结构 | PostgreSQL + Nacos | SQLite | 会话文件 | OpenClaw 状态 | FIFO 调度 + 检查点 |
 
 ### 其他平台
 
 | 平台 | 语言 | 重点 | 最新版本 | 核心创新 |
 |------|------|------|---------|---------|
-| **RTL-CLAW** | Python | EDA 工作流自动化 | 2026-03 | LLM 辅助 RTL 设计 |
-| **Claw-AI-Lab** | Python | 研究与实验 | 2026-04 | 学术 AI 代理研究 |
 | **Maxclaw** | Go 1.24+ | 本地优先代理 | v1.6.0 | 原生多代理派生 + 团队预设 |
 | **HiClaw** | Go + Shell | 企业级多代理 | v1.0.9 | Kubernetes 风格 YAML 资源 |
 | **QuantumClaw** | Node.js | 自托管 AGEX | v1.5.1 | 参考 AGEX 协议实现 |
 | **Hermes-Agent** | Python | 研究驱动 | 2026-04 | 上下文压缩改进 |
+| **RTL-CLAW** | Python + Verilog | EDA 工作流自动化 | 2026-03 | OpenClaw 上的 AI 驱动 RTL 设计 |
+| **Claw-AI-Lab** | Python + Node.js | 实验室研究平台 | 2026-04 | FIFO 调度多代理研究 |
 
-所有平台都是自主代理项目，各有侧重：Openclaw 专注于具有广泛频道支持的 TypeScript CLI，ClawTeam 提供将单一代理转变为自组织团队的多代理群体协调，GoClaw 专注于具有多租户 PostgreSQL 和代理团队的多代理编排，IronClaw 通过 WASM 沙箱和多层防御机制优先考虑安全性，Maxclaw 以 Go 实现本地优先体验并配有桌面 UI 和资源效率，NanoClaw 是具有组隔离的容器化 WhatsApp 到 Claude 桥接，Nanobot 优先考虑超轻量级设计、最小资源占用和研究就绪的代码，Zeroclaw 强调 Rust 性能和硬件扩展性，HiClaw 提供企业级多代理编排和管理-工人架构，QuantumClaw 实现 AGEX 协议用于代理身份和信任，Hermes-Agent 提供研究驱动的上下文管理改进。
+所有平台都是自主代理项目，各有侧重：Openclaw 专注于具有广泛频道支持的 TypeScript CLI，ClawTeam 提供将单一代理转变为自组织团队的多代理群体协调，GoClaw 专注于具有多租户 PostgreSQL 和代理团队的多代理编排，IronClaw 通过 WASM 沙箱和多层防御机制优先考虑安全性，Maxclaw 以 Go 实现本地优先体验并配有桌面 UI 和资源效率，NanoClaw 是具有组隔离的容器化 WhatsApp 到 Claude 桥接，Nanobot 优先考虑超轻量级设计、最小资源占用和研究就绪的代码，Zeroclaw 强调 Rust 性能和硬件扩展性，HiClaw 提供企业级多代理编排和管理-工人架构，QuantumClaw 实现 AGEX 协议用于代理身份和信任，Hermes-Agent 提供研究驱动的上下文管理改进，RTL-CLAW 在 OpenClaw 框架上提供 AI 驱动的 IC 设计自动化，Claw-AI-Lab 通过 FIFO 调度和人在环路实现实验室原生多代理研究。
+
+
+---
+
+## 更新平台覆盖（2026 年 5 月）
+
+AllClaws 现在跟踪 **20 个平台**，涵盖 claw 生态和外部框架：
+
+**本文档**（13 个平台）：OpenClaw、ClawTeam、GoClaw、IronClaw、Maxclaw、NanoClaw、Nanobot、ZeroClaw、HiClaw、QuantumClaw、Hermes-Agent、RTL-CLAW、Claw-AI-Lab
+
+**另请参阅：**
+- **[external_frameworks.md](external_frameworks.md)** — SmolAgents、LangGraph、mcp-agent、CrewAI、AutoGen、Swarms、OpenAgents

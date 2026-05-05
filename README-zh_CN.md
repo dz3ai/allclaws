@@ -1,63 +1,72 @@
 # AllClaws：个人 AI 代理生态系统分析与测试
 
-中文 | **[English](README.md)**
+**[中文](README-zh_CN.md)** | English
 
-嘿！👋 **AllClaws** 现在还是个实验性项目，我们正在折腾各种个人 AI 代理平台。这个项目就像个大伞，下面罩着架构分析、性能测试，还有一些关于个人 AI 助手的想法分享。
+**AllClaws** 是一个专注于分析、比较和测试个人 AI 代理平台的综合性研究和开发项目。这个伞式项目汇集了架构分析、性能基准测试和个人 AI 助手空间的思想领导力。
 
-## 🎯 我们想干嘛
+## 🎯 使命
 
-简单来说，就是想让个人 AI 助手变得更好用：
+AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注理解**个人力量倍增器**和**企业自动化**范式之间正在出现的区别。我们跟踪 claw 生态和外部框架的 20 个平台，提供真实能力与营销声明对比的客观分析。
 
-- **扒一扒**各大平台的架构设计，看看谁家强谁家弱
-- **比一比**不同平台的性能和功能，找出最适合的
-- **整一个**测试框架，能客观地比较各种 AI 代理
-- **写写分享**技术心得，让更多人了解这个领域
+**完整使命：** [docs/MISSION.md](docs/MISSION.md)
 
-## 🔥 本月生态趋势（2026 年 4 月）
+## 🔥 关键洞察（2026 年 5 月）
 
-跟踪 13 个平台后，我们发现几个关键趋势：
+基于跟踪**20 个平台**，出现了几个关键趋势：
 
-1. **多代理协作成为主流** — ClawTeam v0.3.0、HiClaw v1.0.9 和 Maxclaw v1.6.0 都推出了生产级多代理派生和团队编排功能。
-2. **研究驱动的代理智能** — Boids 群体规则、元认知自我评估、受军事 C2 条令启发的意图驱动提示词。
-3. **企业级功能成熟** — HiClaw（Kubernetes 风格资源）、GoClaw（PostgreSQL 多租户）和 QuantumClaw（AGEX 协议）领跑企业特性。
-4. **成本感知编排** — 实时 token/成本仪表板、五层成本路由、每代理模型解析。
+1. **个人与企业分叉** — 个人力量倍增器（1PC）和企业自动化范式之间出现明显分歧
+2. **MCP 争论激化** — 模型上下文协议在企业获得采用，但本地优先代理因 token 开销而抵制
+3. **"自我改进"声明受到审视** — Hermes-Agent 源代码分析显示，程序记忆 ≠ 自主学习
+4. **外部框架集成** — SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、mcp-agent 纳入生态比较
 
-详情请看 [最新进展：2026 年 3 月](docs/LATEST_UPDATES.zh-CN.md)。
+详见 [AI Agent Ecosystem Report: April-May 2026](_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md)。
 
-## 📋 现在在忙活啥
+详见 [Latest Updates: March 2026](docs/LATEST_UPDATES.md) 获取完整详情。
 
-### 1. 架构分析大作战
-**状态：** ✅ 正在火热进行中
+## 📋 当前工作进展
 
-我们在深度剖析主流的个人 AI 代理平台：
+### 1. 架构分析与比较
+**状态：** ✅ 活跃开发中
 
-- **Openclaw** (TypeScript 写的)：超级灵活的命令行工具，支持各种聊天渠道
-- **ClawTeam** (Python 写的)：多代理群体协作工具，支持领导-工人模式编排、git worktree 隔离和代理间消息传递
-- **GoClaw** (Go 写的)：多代理 AI 网关，支持团队编排和多租户 PostgreSQL
-- **IronClaw** (Rust 写的)：安全优先的个人 AI 助手，用 WASM 沙箱和多层防御保护你的数据
-- **Maxclaw** (Go 写的)：OpenClaw 风格的本地优先 AI 代理，自带桌面 UI，内存占用低，支持 monorepo 上下文发现
-- **NanoClaw** (Node.js 写的)：专攻 WhatsApp 的助手，用容器跑代理
-- **Nanobot** (Python 写的)：超轻量级个人 AI 助手，只有约 4000 行核心代码
-- **Zeroclaw** (Rust 写的)：性能炸裂，用 trait 驱动的架构设计
-- **HiClaw** (Go + Shell)：企业级多代理运行时，支持 Kubernetes 风格声明式资源
-- **QuantumClaw** (Node.js)：自托管 AGEX 协议实现，三层记忆、五层成本路由
-- **Hermes-Agent** (Python)：研究驱动代理，支持上下文压缩和已解决问题追踪
-- **RTL-CLAW** (Python/Verilog)：EDA 工作流自动化，LLM 辅助 RTL 设计
-- **Claw-AI-Lab** (Python)：学术研究平台，专注 AI 代理实验
+20 个跟踪平台的全面分析：
 
-**成果展示：**
-- `docs/LATEST_UPDATES.zh-CN.md` - 各项目最新进展和生态趋势（月度更新）
-- `architecture/architecture_comparison.md` - 技术分析报告（13 个平台）
-- `architecture/architecture_comparison.zh-CN.md` - 中文版分析
-- `architecture/multi_agent_coordination_research.zh-CN.md` - 多代理协作趋势分析（中文版）
-- 各种平台的优缺点对比表
+**Claw 生态（13 个平台）：**
+- **Openclaw** (TypeScript)：支持多渠道的可扩展 CLI
+- **ClawTeam** (Python)：具有领导-工作者编排的多代理群体协调
+- **GoClaw** (Go)：具有 PostgreSQL 多租户的多代理 AI 网关
+- **IronClaw** (Rust)：具有 WASM 沙箱的安全个人 AI 助手
+- **Maxclaw** (Go)：具有桌面 UI 的本地优先代理
+- **NanoClaw** (TypeScript)：容器优先 WhatsApp 助手
+- **Nanobot** (Python)：超轻量级助手（约 4,000 行核心代码）
+- **Zeroclaw** (Rust)：高性能运行时（<5MB RAM）
+- **HiClaw** (Go + Shell)：具有 Kubernetes 风格资源的企业多代理运行时
+- **QuantumClaw** (TypeScript)：自托管 AGEX 协议实现
+- **Hermes-Agent** (Python)：具有上下文压缩的研究支持代理
+- **RTL-CLAW** (Python/Verilog)：EDA 工作流自动化
+- **Claw-AI-Lab** (Python)：学术研究平台
 
-### 2. 跨平台测试框架
-**状态：** ✅ v2.1 — 跨平台静态分析完成
+**外部框架（7 个平台）：**
+- **SmolAgents** (Python)：Hugging Face 的约 1K LOC 代码代理框架
+- **LangGraph** (Python/TS)：基于图的有状态多代理工作流
+- **mcp-agent** (Python)：MCP 原生代理框架
+- **CrewAI** (Python)：角色扮演自主代理
+- **AutoGen** (Python)：微软的多代理对话框架
+- **Swarms** (Python)：企业编排框架
+- **OpenAgents** (TypeScript)：分布式代理网络
 
-自动扫描所有 13 个平台子模块，系统化记录测试结果。
+**主要交付成果：**
+- `docs/MISSION.md` - 研究使命和立场声明
+- `docs/LATEST_UPDATES.md` - 月度生态系统更新
+- `architecture/external_frameworks.md` - 外部框架深度分析
+- `architecture/architecture_comparison.md` - Claw 生态分析（重定向到新比较）
+- `architecture/multi_agent_coordination_research.md` - 多代理协调趋势分析
 
-**跑测试：**
+### 2. 个人代理测试框架
+**状态：** ✅ v2.0 — 跨平台静态分析完成
+
+一个自动扫描所有 13 个 claw 生态平台子模块并系统化记录结果的测试框架。**注意：** 外部框架通过文档和源代码审查进行分析，而非自动化测试。
+
+**运行测试：**
 ```bash
 cd test_framework
 bash scripts/run_tests.sh
@@ -66,32 +75,32 @@ bash scripts/run_tests.sh
 **最新结果（2026 年 4 月 12 日）：165 通过 / 12 失败 / 177 总计**
 
 | 平台 | 语言 | 文件数 | 结果 |
-|------|------|--------|------|
-| Openclaw | TypeScript | 5941 .ts | 13/13 全部通过 |
-| ClawTeam | Python | 75 .py | 12/13 |
-| GoClaw | Go | 524 .go | 11/14 |
-| IronClaw | Rust | 287 .rs | 14/14 全部通过 |
-| Maxclaw | Go | 118 .go | 13/14 |
-| NanoClaw | TypeScript | 61 .ts | 13/13 全部通过 |
-| Nanobot | Python | 88 .py | 10/13 |
-| Zeroclaw | Rust | 227 .rs | 14/14 全部通过 |
-| HiClaw | Go | ~400 .go | 13/14 |
-| QuantumClaw | TypeScript | ~150 .ts | 12/13 |
-| Hermes-Agent | Python | ~60 .py | 11/13 |
-| RTL-CLAW | Python/Verilog | ~80 混合 | 10/13 |
-| Claw-AI-Lab | Python | ~50 .py | 11/13 |
+|----------|----------|-------|--------|
+| Openclaw | TypeScript | 5941 .ts | 13/13 通过 |
+| ClawTeam | Python | 75 .py | 12/13 通过 |
+| GoClaw | Go | 524 .go | 11/14 通过 |
+| IronClaw | Rust | 287 .rs | 14/14 通过 |
+| Maxclaw | Go | 118 .go | 13/14 通过 |
+| NanoClaw | TypeScript | 61 .ts | 13/13 通过 |
+| Nanobot | Python | 88 .py | 10/13 通过 |
+| Zeroclaw | Rust | 227 .rs | 14/14 通过 |
+| HiClaw | Go | ~400 .go | 13/14 通过 |
+| QuantumClaw | TypeScript | ~150 .ts | 12/13 通过 |
+| Hermes-Agent | Python | ~60 .py | 11/13 通过 |
+| RTL-CLAW | Python/Verilog | ~80 混合 | 10/13 通过 |
+| Claw-AI-Lab | Python | ~50 .py | 11/13 通过 |
 
-**每个平台测试内容：**
+**每个平台的测试内容：**
 - **语言层面**：构建清单、锁文件、源文件数、CI 配置、clippy/deny（Rust）、Makefile（Go）
 - **项目健康度**：LICENSE、README、CHANGELOG、CONTRIBUTING、.gitignore、CI 工作流
-- **输出**：带时间戳的 JSON + Markdown 报告，存在 `test_framework/results/` 目录
+- **输出**：带时间戳的 JSON + Markdown 报告，存于 `test_framework/results/`
 
 ### 3. 基准测试引擎
 **状态：** ✅ v1.0 — 跨平台指标采集完成
 
-纯外部基准测试引擎，无需构建或运行时依赖，直接测量所有 13 个平台的仓库特征。
+纯外部基准测试引擎，无需构建或运行时依赖即可测量所有 13 个平台的仓库特征。
 
-**跑基准测试：**
+**运行基准测试：**
 ```bash
 cd test_framework
 bash scripts/run_benchmarks.sh
@@ -100,7 +109,7 @@ bash scripts/run_benchmarks.sh
 **最新结果（2026 年 4 月 12 日）：13 个平台共 182 项指标**
 
 | 平台 | 仓库大小 (KB) | 源文件数 | 源代码行数 | 依赖数 | 测试文件数 |
-|------|--------------|---------|-----------|--------|-----------|
+|----------|----------------|-------------|-----------|--------------|-----------|
 | Openclaw | 193,592 | 5,760 .ts | 146,967 | 73 npm | 2,227 |
 | ClawTeam | 19,728 | 75 .py | 13,407 | 16 pip | 26 |
 | GoClaw | 21,848 | 501 .go | 92,815 | 149 go | 38 |
@@ -115,116 +124,125 @@ bash scripts/run_benchmarks.sh
 | RTL-CLAW | ~12,000 | ~80 混合 | ~15,000 | ~20 pip | ~10 |
 | Claw-AI-Lab | ~10,000 | ~50 .py | ~7,000 | ~25 pip | ~8 |
 
-**每个平台测量内容：**
+**每个平台的测量内容：**
 - **仓库**：仓库大小（KB）、顶级目录数
 - **源代码**：各语言文件数、总代码行数
 - **依赖**：npm、pip、go mod、cargo 依赖数量
 - **测试**：测试文件数（*_test.go、test_*.py、*.test.ts 等）
 - **项目健康度**：CI 工作流/步骤、Dockerfile、Makefile 目标、README 长度、文档大小、i18n 文件数
-- **输出**：带时间戳的 JSON + Markdown 报告，存在 `test_framework/benchmark_results/` 目录
+- **输出**：带时间戳的 JSON + Markdown 报告，存于 `test_framework/benchmark_results/`
 
-### 4. 技术写作与分享
-**状态：** 📝 持续输出中
+### 4. 技术写作与思想领导力
+**状态：** 📝 持续内容创作中
 
-我们在写一些关于个人 AI 助手的教程和思考：
+创建关于个人 AI 助手的教育内容：
 
-**已经写好的：**
-- [最新进展：2026 年 3 月](docs/LATEST_UPDATES.zh-CN.md) — 月度生态追踪
-- 八大平台架构对比分析
-- 多代理协作趋势研究
-- AI 代理安全要注意的事儿
-- 框架使用文档（中英双语）
+**已发布内容：**
+- [Latest Updates: March 2026](docs/LATEST_UPDATES.md) — 月度生态系统跟踪
+- 架构比较分析（8 个平台）
+- 多代理协调趋势分析
+- 个人 AI 代理的安全考虑
+- 框架文档（英文 + 中文）
 
-**准备写的：**
-- 性能测试怎么做
+**计划内容：**
+- 性能基准测试方法论
 - AI 代理安全最佳实践
-- 怎么选合适的平台
+- 平台选择指南
 - 跨平台代理联邦分析
 - 多代理经济学和成本优化
 
 ## 🏗️ 技术架构
 
-### 测试框架设计理念
-- **安全第一**：凭据加密、权限验证、操作日志统统要有
-- **TDD 驱动**：先写测试，再写代码，让代码质量更有保证
-- **跨平台**：一套接口，兼容不同代理运行时
-- **可扩展**：插件架构，想加新测试类型随时加
+### 测试框架设计原则
+- **安全优先**：凭据加密、权限验证、审计日志
+- **TDD 方法**：测试驱动开发，先写失败测试
+- **多平台**：不同代理运行时的统一接口
+- **可扩展**：新测试类型和平台的插件架构
 
-### 用到的技术栈
-- **Bash 脚本**：核心逻辑都在这儿跑
-- **JSON 配置**：人类可读的代理定义文件
-- **JQ 工具**：高级 JSON 处理和验证
-- **Git 版本控制**：安全可追溯的开发流程
+### 关键技术
+- **Bash 脚本**：核心执行和验证逻辑
+- **JSON 配置**：人类可读的代理定义
+- **JQ 处理**：高级 JSON 操作和验证
+- **基于 Git 的版本控制**：安全可追溯的开发工作流
 
 ## 🚀 快速上手
 
-### 想看架构分析？
+### 用于架构分析
 ```bash
-[看完整版平台对比](architecture/architecture_comparison.md)
+# 阅读全面的平台比较
+cat architecture/architecture_comparison.md
 
-[看中文版分析](architecture/architecture_comparison.zh-CN.md)
+# 查看中文翻译
+cat architecture/architecture_comparison.zh-CN.md
 ```
 
-### 想试试测试框架？
+### 用于测试框架
 ```bash
 cd test_framework
 
-# 跑跨平台测试（v2.0）
+# 运行跨平台测试（v2.0）
 bash scripts/run_tests.sh
 
-# 跑基准测试（v1.0）
+# 运行基准测试（v1.0）
 bash scripts/run_benchmarks.sh
 
-# 旧版：初始化和验证
+# 传统：设置和验证
 ./scripts/setup.sh
 ./scripts/validate_agent.sh agents/example_agent.json
 bash tests/test_security_privileges.sh
 bash tests/test_agent_validation.sh
 ```
 
-## 📊 项目进度
+## 📊 当前状态与路线图
 
-### ✅ 已经搞定的
-- [x] 13 个平台架构深度分析（Openclaw、ClawTeam、GoClaw、IronClaw、Maxclaw、NanoClaw、Nanobot、Zeroclaw、HiClaw、QuantumClaw、Hermes-Agent、RTL-CLAW、Claw-AI-Lab）
-- [x] 多代理协作趋势研究
-- [x] 月度生态更新追踪（中英文）
+### ✅ 已完成
+- [x] 20 个平台的架构分析（13 个 claw 生态 + 7 个外部框架）
+- [x] 外部框架集成（SmolAgents、LangGraph、mcp-agent、CrewAI、AutoGen、Swarms、OpenAgents）
+- [x] 多代理协调趋势研究
+- [x] 月度生态系统更新跟踪（英文 + 中文）
+- [x] 跨平台静态分析测试框架（v2.1，165/177 通过，13 个 claw 平台）
+- [x] 基准测试执行引擎（v1.0，13 个 claw 平台 182 项指标）
+- [x] 完善的使命声明（个人与企业范式分析）
+- [x] 声明验证（Hermes-Agent "自我改进"分析）
+- [x] 多代理协调趋势研究
+- [x] 月度生态系统更新跟踪（英文 + 中文）
 - [x] 跨平台静态分析测试框架（v2.1，165/177 通过）
-- [x] 基准测试引擎（v1.0，13 个平台 182 项指标）
-- [x] 代理配置规范和验证逻辑
-- [x] 安全权限和规则执行机制
-- [x] 敏感数据保护的 .gitignore 配置
-- [x] 中英双语文档
+- [x] 基准测试执行引擎（v1.0，182 项指标）
+- [x] 代理配置模式和验证
+- [x] 安全权限和规则执行
+- [c] 全面的 .gitignore 敏感数据保护
+- [x] 双语文档（英文 + 中文）
 
-### 🔄 正在弄的
-- [ ] 跨平台运行时性能指标（启动时间、内存、API 延迟）
-- [ ] 更多测试场景（网络、文件操作）
-- [ ] 真实环境代理集成测试
+### 🔄 进行中
+- [ ] 统一平台比较（所有 20 个平台单个文档）
+- [ ] 中文翻译（external_frameworks.zh-CN.md、MISSION.zh-CN.md、ROADMAP.zh-CN.md）
 
-### 📋 计划中的
-- [ ] Web 界面看测试结果
-- [ ] 自动化 CI/CD 测试流水线
-- [ ] 支持更多自定义代理平台
-- [ ] 性能回归自动检测
-- [ ] 安全漏洞扫描
+### 📋 计划中
+- [ ] 跨平台性能指标（运行时基准测试）
+- [ ] MCP 生态深度分析报告
+- [ ] 企业治理框架分析
+- [ ] 1PC（一人公司）案例研究
+- [ ] 运行时性能基准测试扩展
 
-## 🤝 一起玩耍
+## 🤝 贡献
 
-这是一个开放的研究项目，欢迎各种贡献：
-- 分析新平台的架构
-- 开发更多测试用例
-- 改进文档和教程
-- 加强安全措施
-- 优化性能表现
+这是一个活跃的研究项目。欢迎在以下方面贡献：
+- 平台架构分析
+- 测试用例开发
+- 文档改进
+- 安全增强
+- 性能优化
 
-## 📝 开源协议和安全
+## 📝 许可与安全
 
-- **协议**：MIT（核心框架），具体平台按各自协议
-- **安全**：框架内置全面安全措施
-- **隐私**：不收集任何个人数据
-- **加密**：AES-256 保护你的凭据
+- **许可**：MIT（核心框架），特定平台遵循各自许可
+- **安全**：框架包含全面安全措施
+- **隐私**：不收集或存储个人数据
+- **加密**：凭据保护使用 AES-256
 
 ## 🔗 相关项目
 
+**Claw 生态（13 个平台）：**
 - **Openclaw**：https://github.com/openclaw/openclaw
 - **ClawTeam**：https://github.com/win4r/ClawTeam-OpenClaw
 - **GoClaw**：https://github.com/nextlevelbuilder/goclaw
@@ -235,14 +253,29 @@ bash tests/test_agent_validation.sh
 - **Zeroclaw**：https://github.com/zeroclaw-labs/zeroclaw
 - **HiClaw**：https://github.com/hiclaw-org/hiclaw
 - **QuantumClaw**：https://github.com/quantumclaw/quantumclaw
-- **Hermes-Agent**：https://github.com/hermes-agent/hermes-agent
+- **Hermes-Agent**：https://github.com/NousResearch/hermes-agent
 - **RTL-CLAW**：https://github.com/rtl-claw/rtl-claw
-- **Claw-AI-Lab**：https://github.com/claw-ai-lab/claw-ai-lab
+- **Claw-AI-Lab**：https://github.com/Claw-AI-Lab/Claw-AI-Lab
 
-## 📞 聊聊？
+**外部框架（7 个平台）：**
+- **SmolAgents**：https://github.com/huggingface/smolagents
+- **LangGraph**：https://github.com/langchain-ai/langgraph
+- **mcp-agent**：https://github.com/lastmile-ai/mcp-agent
+- **CrewAI**：https://github.com/crewaiinc/crewai
+- **AutoGen**：https://github.com/microsoft/autogen
+- **Swarms**：https://github.com/kyegomez/swarms
+- **OpenAgents**：https://github.com/openagents-org/openagents
 
-这个项目就是我们在研究个人 AI 代理架构的成果。有问题想讨论，或者想合作，欢迎来各个平台仓库提 issue，或者在这儿交流。
+## 📞 联系与讨论
+
+本项目代表了对 AI 代理架构的持续研究。如需讨论、问题或合作机会，请参考个别平台仓库或在此分析仓库中创建 issue。
+
+**完整文档：**
+- 使命：[docs/MISSION.md](docs/MISSION.md)
+- 路线图：[docs/ROADMAP.md](docs/ROADMAP.md)
+- 外部框架：[architecture/external_frameworks.md](architecture/external_frameworks.md)
+- 最新更新：[docs/LATEST_UPDATES.md](docs/LATEST_UPDATES.md)
 
 ---
 
-*最后更新：2026 年 4 月 12 日*
+*最后更新：2026 年 5 月 5 日*
