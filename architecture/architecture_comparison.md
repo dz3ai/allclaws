@@ -2,10 +2,7 @@
 
 **[中文](architecture_comparison.zh-CN.md)** | English
 
-> **Note:** This document covers all 13 claw ecosystem platforms with full architecture analysis. For comprehensive coverage of all 20 platforms (13 claw + 7 external frameworks), see:
-> - **[external_frameworks.md](external_frameworks.md)** — Deep-dive on 7 external frameworks
-> - **[Latest Updates](../docs/LATEST_UPDATES.md)** — Monthly ecosystem tracking
-> - **[Platform Categories](../README.md#architecture-analysis--comparison)** — Full 20-platform list
+> **Note:** This document has been superseded by **[platform_comparison.md](platform_comparison.md)** — the unified architecture comparison covering all 20 platforms (13 claw ecosystem + 7 external frameworks) in a standardized format with cross-platform matrices. This file is retained for historical reference and detailed module-level information.
 
 ---
 

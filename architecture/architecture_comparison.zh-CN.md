@@ -2,10 +2,7 @@
 
 **[English](architecture_comparison.md)** | 中文
 
-> **注意：** 本文档涵盖全部 13 个 claw 生态平台的完整架构分析。如需查看全部 20 个平台（13 个 claw 生态 + 7 个外部框架）的综合覆盖，请参阅：
-> - **[external_frameworks.md](external_frameworks.md)** — 7 个外部框架深度分析
-> - **[Latest Updates](../docs/LATEST_UPDATES.md)** — 每月生态系统跟踪
-> - **[Platform Categories](../README.md#architecture-analysis--comparison)** — 完整 20 平台列表
+> **注意：** 本文档已被 **[platform_comparison.zh-CN.md](platform_comparison.zh-CN.md)** 取代 — 统一架构比较文档，以标准化格式涵盖全部 20 个平台（13 个 claw 生态 + 7 个外部框架），并包含跨平台比较矩阵。本文档保留作为历史参考。
 
 ---
 

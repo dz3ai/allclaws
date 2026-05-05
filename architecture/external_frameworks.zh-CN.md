@@ -1,6 +1,8 @@
 # 外部 AI 代理框架：比较分析
 
-**[中文](external_frameworks.zh-CN.md)** | English
+**[English](external_frameworks.md)** | 中文
+
+> **注意：** 本文档已被 **[platform_comparison.zh-CN.md](platform_comparison.zh-CN.md)** 取代 — 统一架构比较文档，以标准化格式涵盖全部 20 个平台（13 个 claw 生态 + 7 个外部框架），并包含跨平台比较矩阵。本文档保留作为历史参考。
 
 > AllClaws 跟踪的主要外部 AI 代理框架分析，用于生态系统比较。这些框架代表行业标准，与 claw 生态平台互补。
 

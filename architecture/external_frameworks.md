@@ -2,6 +2,8 @@
 
 **[中文](external_frameworks.zh-CN.md)** | English
 
+> **Note:** This document has been superseded by **[platform_comparison.md](platform_comparison.md)** — the unified architecture comparison covering all 20 platforms (13 claw ecosystem + 7 external frameworks) in a standardized format with cross-platform matrices. This file is retained for historical reference.
+
 > Analysis of major external AI agent frameworks tracked by AllClaws for ecosystem comparison. These frameworks represent industry standards and reference implementations that complement the claw ecosystem platforms.
 
 ---
