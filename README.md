@@ -54,10 +54,18 @@ Comprehensive analysis of AI agent platforms across 20 tracked frameworks:
 - **Swarms** (Python): Enterprise orchestration framework
 - **OpenAgents** (TypeScript): Distributed agent networks
 
+**Agent Harnesses & Toolchains:**
+- **UltraWorkers Toolchain** — Rust + Node.js autonomous development system
+  - **claw-code** (Rust): CLI agent harness, clean-room Claude Code rewrite
+  - **oh-my-codex** (Node.js): Workflow layer with canonical execution patterns
+  - **clawhip** (Rust): Event routing daemon with Discord/Slack delivery
+  - **oh-my-openagent** (Node.js): Multi-agent coordination layer
+
 **Key Deliverables:**
 - `docs/MISSION.md` - Research mission and position statements
 - `docs/LATEST_UPDATES.md` - Monthly ecosystem updates
 - `architecture/external_frameworks.md` - External frameworks deep-dive
+- `architecture/agent_harnesses.md` - Agent harnesses and toolchains analysis
 - `architecture/architecture_comparison.md` - Claw ecosystem analysis (redirect to new comparison)
 - `architecture/multi_agent_coordination_research.md` - Multi-agent coordination trend analysis
 

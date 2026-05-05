@@ -14,6 +14,40 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 2. **"Self-Improving" Claims Under Scrutiny** — Hermes-Agent source code analysis revealed procedural memory ≠ autonomous learning; distinction now widely recognized
 3. **Enterprise vs 1PC Fork** — Clear divergence between enterprise-automation (governance, cloud, MCP) and personal-force-multiplier (speed, local, CLI) paradigms
 4. **External Framework Recognition** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, mcp-agent added for ecosystem comparison
+5. **Agent Harnesses Category Added** — UltraWorkers toolchain (claw-code, oh-my-codex, clawhip, oh-my-openagent) recognized as distinct infrastructure layer
+
+---
+
+## Agent Harnesses & Toolchains
+
+> **New Category:** Agent harnesses sit below agent platforms, providing execution runtime, coordination, and observability.
+
+### UltraWorkers Toolchain
+
+**Philosophy:** *"Humans set direction; claws perform the labor."*
+
+#### claw-code (Rust)
+- **Repository:** [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code)
+- **Status:** Active (~100K stars claimed)
+- **Overview:** Clean-room rewrite of Claude Code agent harness architecture
+- **Key Stats:** 48,599 LOC Rust, 9 crates, 40 tool specs (April 2026)
+- **9-Lane Parity:** Bash validation, file-tool, TaskRegistry, team/cron, MCP lifecycle, LSP client, permission enforcement
+
+#### oh-my-codex (Node.js)
+- **Repository:** [Yeachan-Heo/oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex)
+- **Role:** Workflow layer for OpenAI Codex CLI
+- **Canonical Workflows:** `$deep-interview`, `$ralplan`, `$team`, `$ralph`
+
+#### clawhip (Rust)
+- **Repository:** [Yeachan-Heo/clawhip](https://github.com/Yeachan-Heo/clawhip)
+- **Role:** Event and notification router (v0.3.0)
+- **Key Features:** Typed event model, multi-delivery router, source extraction
+
+#### oh-my-openagent (Node.js)
+- **Repository:** [code-yeongyu/oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent)
+- **Role:** Multi-agent coordination (Architect → Executor → Reviewer convergence)
+
+**Full Analysis:** [architecture/agent_harnesses.md](../architecture/agent_harnesses.md)
 
 ---
 

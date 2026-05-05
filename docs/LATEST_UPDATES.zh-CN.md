@@ -14,6 +14,40 @@
 2. **"自我改进"声明受质疑** — Hermes-Agent 源代码分析揭示程序记忆 ≠ 自主学习；这一区别现在被广泛认可
 3. **企业 vs 一人公司分叉** — 企业自动化（治理、云、MCP）与个人力量倍增器（速度、本地、CLI）模式之间出现明显分歧
 4. **外部框架纳入跟踪** — SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、mcp-agent 加入生态系统比较
+5. **Agent 框架类别添加** — UltraWorkers 工具链（claw-code、oh-my-codex、clawhip、oh-my-openagent）被认可为独特的基础设施层
+
+---
+
+## Agent 框架与工具链
+
+> **新类别：** Agent 框架位于代理平台下方，提供执行运行时、协调和可观测性。
+
+### UltraWorkers 工具链
+
+**哲学：** *"人类设定方向；claws 执行工作。"*
+
+#### claw-code (Rust)
+- **仓库：** [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code)
+- **状态：** 活跃（声称约 100K stars）
+- **概述：** Claude Code agent harness 架构的 clean-room 重写
+- **关键数据：** 48,599 行 Rust 代码，9 个 crates，40 个工具规范（2026 年 4 月）
+- **9 车道 Parity：** Bash 验证、文件工具、TaskRegistry、team/cron、MCP 生命周期、LSP 客户端、权限执行
+
+#### oh-my-codex (Node.js)
+- **仓库：** [Yeachan-Heo/oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex)
+- **角色：** OpenAI Codex CLI 的工作流层
+- **规范工作流：** `$deep-interview`、`$ralplan`、`$team`、`$ralph`
+
+#### clawhip (Rust)
+- **仓库：** [Yeachan-Heo/clawhip](https://github.com/Yeachan-Heo/clawhip)
+- **角色：** 事件和通知路由器 (v0.3.0)
+- **关键特性：** 类型化事件模型、多交付路由器、源提取
+
+#### oh-my-openagent (Node.js)
+- **仓库：** [code-yeongyu/oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent)
+- **角色：** 多代理协调（Architect → Executor → Reviewer 收敛）
+
+**完整分析：** [architecture/agent_harnesses.zh-CN.md](../architecture/agent_harnesses.zh-CN.md)
 
 ---
 
