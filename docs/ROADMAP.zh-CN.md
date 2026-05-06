@@ -24,14 +24,14 @@
 
 ### 1. 完成统一平台比较
 
-**状态：** 进行中
+**状态：** 已完成 ✅
 **目标：** 完成所有 20 个平台的架构文档
 
 **交付成果：**
-- [ ] `architecture/platform_comparison.md` — 所有 20 个平台的统一比较
-- [ ] 每个平台的标准格式（分类、架构、图表）
-- [ ] 跨平台比较矩阵
-- [ ] 中文翻译（`platform_comparison.zh-CN.md`）
+- [x] `architecture/platform_comparison.md` — 所有 20 个平台的统一比较
+- [x] 每个平台的标准格式（分类、架构、图表）
+- [x] 跨平台比较矩阵
+- [x] 中文翻译（`platform_comparison.zh-CN.md`）
 
 **范围：**
 - **Claw 生态（13 个）：** OpenClaw、ClawTeam、GoClaw、IronClaw、Maxclaw、NanoClaw、Nanobot、ZeroClaw、HiClaw、QuantumClaw、Hermes-Agent、RTL-CLAW、Claw-AI-Lab
@@ -224,4 +224,4 @@
 
 ---
 
-*最后更新：2026 年 5 月 5 日*
+*最后更新：2026 年 5 月 6 日*

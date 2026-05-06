@@ -1,0 +1,87 @@
+{
+  "timestamp": "2026-05-06T10:0542",
+  "total": 13,
+  "passed": 0,
+  "failed": 0,
+  "skipped": 13,
+  "results": [
+    {
+      "id": "openclaw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "clawteam.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "goclaw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "ironclaw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "maxclaw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "nanoclaw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "nanobot.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "zeroclaw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "hiclaw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "rtl-claw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "quantumclaw.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "claw-ai-lab.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    },
+    {
+      "id": "hermes-agent.init",
+      "desc": "Submodule exists",
+      "status": "skip",
+      "detail": "\n"
+    }
+  ]
+}
