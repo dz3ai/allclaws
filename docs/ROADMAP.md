@@ -25,16 +25,18 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 ### 1. Complete Unified Platform Comparison
 
 **Status:** In Progress
-**Target:** Complete architecture documentation for all 20 platforms
+**Target:** Complete architecture documentation for all 23 platforms
 
 **Deliverables:**
-- [ ] `architecture/platform_comparison.md` — Unified comparison of all 20 platforms
+- [ ] `architecture/platform_comparison.md` — Unified comparison of all 23 platforms
 - [ ] Standardized format for each platform (classification, architecture, diagrams)
 - [ ] Cross-platform comparison matrices
 - [ ] Chinese translation (`platform_comparison.zh-CN.md`)
 
 **Scope:**
 - **Claw Ecosystem (13):** OpenClaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, ZeroClaw, HiClaw, QuantumClaw, Hermes-Agent, RTL-CLAW, Claw-AI-Lab
+- **CLI Coding Agents (2):** aider, copilot-cli
+- **Human Digital Twin (1):** openhuman
 - **External Frameworks (7):** SmolAgents, LangGraph, mcp-agent, CrewAI, AutoGen, Swarms, OpenAgents
 
 ### 2. MCP Ecosystem Deep-Dive
@@ -46,7 +48,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 - What is the actual token overhead of MCP in production deployments?
 - Which MCP servers are most widely adopted?
 - How do MCP-native frameworks (mcp-agent) differ from MCP-adapter approaches?
-- What is the rate of MCP adoption across the 20 tracked platforms?
+- What is the rate of MCP adoption across the 23 tracked platforms?
 
 **Deliverables:**
 - MCP adoption report (native vs adapter vs resistant)
@@ -106,7 +108,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 - Token efficiency (output/input ratio)
 
 **Deliverables:**
-- Performance comparison across 20 platforms
+- Performance comparison across 23 platforms
 - Benchmark methodology documentation
 - Performance regression detection
 
@@ -154,6 +156,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 **Frequency:** Weekly
 **Activities:**
 - Run test suite on all 13 claw ecosystem platforms
+- CLI Coding Agents (aider, copilot-cli) are tracked via documentation review rather than automated tests, as they are external frameworks without local test targets
 - Track test pass/fail rates
 - Investigate failures
 - Update test cases as platforms evolve
@@ -191,6 +194,22 @@ New platforms may be added based on:
 
 ---
 
+## Stale / Inactive Projects
+
+The following projects have had no recent activity and may be archived or re-evaluated:
+
+| Project | Last Activity | Notes |
+|---------|--------------|-------|
+| RTL-CLAW | Apr 2, 2026 | No activity since Apr 2 |
+| Claw-AI-Lab | — | No tags released |
+| ClawTeam | Apr 14, 2026 | No commits since Apr 14 |
+| GoClaw | Apr 27, 2026 | No commits since Apr 27 |
+| QuantumClaw | Apr 30, 2026 | No commits since Apr 30 |
+
+These projects remain tracked for historical comparison but may not receive active updates in architecture documentation.
+
+---
+
 ## Non-Goals
 
 To maintain focus, AllClaws explicitly does **not** plan to:
@@ -224,4 +243,4 @@ For discussions, questions, or collaboration opportunities:
 
 ---
 
-*Last updated: May 5, 2026*
+*Last updated: May 20, 2026*

@@ -1,19 +1,21 @@
-# Unified Platform Comparison: All 20 AI Agent Platforms
+# Unified Platform Comparison: All 23 AI Agent Platforms
 
 **[中文](platform_comparison.zh-CN.md)** | English
 
-> Standardized architecture comparison across all 20 platforms tracked by AllClaws — 13 claw ecosystem platforms and 7 external frameworks. Updated May 2026.
+> Standardized architecture comparison across all 23 platforms tracked by AllClaws — 13 claw ecosystem platforms, 7 external frameworks, 2 CLI coding agents, and 1 human digital twin platform. Updated May 2026.
 
 ---
 
 ## Overview
 
-This document provides a standardized, side-by-side architecture comparison of all 20 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
+This document provides a standardized, side-by-side architecture comparison of all 23 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
 
-The 20 platforms divide into two groups:
+The 23 platforms divide into four groups:
 
 - **Claw Ecosystem (13):** Platforms originating within or closely associated with the Claw/OpenClaw ecosystem.
 - **External Frameworks (7):** Industry-reference frameworks tracked for ecosystem comparison.
+- **CLI Coding Agents (2):** AI-powered terminal-based coding assistants (aider, copilot-cli).
+- **Human Digital Twin (1):** Academic/research platform (openhuman).
 
 ### Key Cross-Cutting Patterns (May 2026)
 
@@ -39,10 +41,10 @@ The 20 platforms divide into two groups:
 
 | Field | Description | Examples |
 |-------|-------------|----------|
-| **Personal-Force-Multiplier** | Single user or small team; CLI-first; local deployment | OpenClaw, Nanobot, SmolAgents, Maxclaw, ZeroClaw, NanoClaw |
+| **Personal-Force-Multiplier** | Single user or small team; CLI-first; local deployment | OpenClaw, Nanobot, SmolAgents, Maxclaw, ZeroClaw, NanoClaw, aider, copilot-cli |
 | **Enterprise-Automation** | Multi-user; cloud-deployed; governance focus | GoClaw, LangGraph, Swarms, HiClaw, CrewAI, AutoGen |
 | **Personal/Enterprise (Hybrid)** | Spans both paradigms | IronClaw |
-| **Academic** | Research and education focused | RTL-CLAW, Claw-AI-Lab |
+| **Academic** | Research and education focused | RTL-CLAW, Claw-AI-Lab, openhuman |
 
 ### By MCP Relationship
 
@@ -1085,7 +1087,158 @@ TypeScript-based framework for distributed AI agent networks. Philosophy: "Your 
 
 ---
 
-## Part 3: Cross-Platform Comparison Matrices
+## Part 3: CLI Coding Agents (2 Platforms)
+
+---
+
+## aider
+
+**Classification:** Python | ~68K stars | Personal-Force-Multiplier
+**Repository:** [github.com/paul-gauthier/aider](https://github.com/paul-gauthier/aider)
+**Status:** Active (v0.86.3.dev)
+
+### Overview
+
+aider is an AI pair programming tool that works in your terminal, enabling developers to pair-program with LLMs to edit code in local git repositories. The most popular open-source AI coding assistant with ~68K GitHub stars.
+
+### Key Principles
+
+- Git-aware — automatically creates commits with sensible messages
+- Multi-model — supports Claude, GPT-4, DeepSeek, and 20+ LLMs
+- Code-gen paradigm — AI edits code directly in your repo
+- Whole-repo context — map mode for large codebases
+- Cost-effective architecture strategies (map, architect modes)
+
+### Core Architecture
+
+- **Language:** Python
+- **Entry Point:** `aider` CLI
+- **Architecture Pattern:** REPL pair-programming with git integration
+- **Key Modules:** LLM client, repo map, git integration, chat session, edit modes (whole, diff, architect)
+- **MCP Status:** None
+- **Deployment:** Local (pip install)
+- **LLM Support:** 20+ providers (Anthropic, OpenAI, OpenRouter, local via ollama)
+- **Memory:** Session-based (git history as context)
+- **Database:** None (filesystem)
+- **Security:** Local-only execution
+- **Testing:** pytest
+
+### Architecture Diagram
+
+```mermaid
+graph TD
+    A[CLI Entry: aider] --> B[LLM Client]
+    B --> C[Anthropic]
+    B --> D[OpenAI]
+    B --> E[Local Models]
+    A --> F[Repo Map]
+    A --> G[Git Integration]
+    A --> H[Chat Session]
+    H --> I[Whole Edit Mode]
+    H --> J[Diff Edit Mode]
+    H --> K[Architect Mode]
+    A --> L[Session Memory]
+```
+
+---
+
+## copilot-cli
+
+**Classification:** TypeScript | GitHub-native | Personal-Force-Multiplier
+**Repository:** [github.com/githubnext/copilot-cli](https://github.com/githubnext/copilot-cli)
+**Status:** Active (v1.0.49)
+
+### Overview
+
+copilot-cli is GitHub's Copilot-powered terminal agent that brings AI assistance directly to the command line. Built with ACP (Agent Communication Protocol) for structured interactions within the GitHub ecosystem.
+
+### Key Principles
+
+- GitHub-native — deep integration with GitHub workflows
+- ACP protocol — Agent Communication Protocol for structured terminal interactions
+- Terminal-first — works natively in shell environments
+- GitHub Copilot infrastructure — leverages existing Copilot AI models
+
+### Core Architecture
+
+- **Language:** TypeScript
+- **Entry Point:** CLI
+- **Architecture Pattern:** Terminal agent with ACP protocol
+- **Key Modules:** ACP client, GitHub integration, terminal UI, command parser
+- **MCP Status:** GitHub-native (ACP protocol)
+- **Deployment:** npm install
+- **LLM Support:** GitHub Copilot (OpenAI-based)
+- **Memory:** Session-based
+- **Database:** None
+- **Security:** GitHub auth
+- **Testing:** Not specified
+
+### Architecture Diagram
+
+```mermaid
+graph TD
+    A[CLI Entry] --> B[ACP Client]
+    B --> C[GitHub Copilot API]
+    B --> D[Terminal UI]
+    A --> E[Command Parser]
+    A --> F[GitHub Integration]
+    F --> G[Repo Context]
+    F --> H[PR/Issue Context]
+```
+
+---
+
+## Part 4: Human Digital Twin (1 Platform)
+
+---
+
+## openhuman
+
+**Classification:** Rust | Academic | Academic
+**Status:** Active (v0.53.49-staging)
+
+### Overview
+
+openhuman is a Rust-based Human Digital Twin platform (人类数字孪生) designed for creating digital representations of humans for research and simulation purposes. An academic/research platform exploring the intersection of AI and human modeling.
+
+### Key Principles
+
+- Human Digital Twin paradigm — digital representation of humans
+- Rust-native — high performance and memory safety
+- Academic/research focus — scientific simulation and modeling
+- Interdisciplinary — bridges AI, biology, and social sciences
+
+### Core Architecture
+
+- **Language:** Rust
+- **Entry Point:** Application binary
+- **Architecture Pattern:** Digital twin simulation platform
+- **Key Modules:** Twin model engine, simulation core, data ingestion, visualization
+- **MCP Status:** N/A
+- **Deployment:** Local
+- **LLM Support:** Not specified
+- **Memory:** Twin state persistence
+- **Database:** Not specified
+- **Security:** Not specified
+- **Testing:** Not specified
+
+### Architecture Diagram
+
+```mermaid
+graph TD
+    A[Application Entry] --> B[Twin Model Engine]
+    B --> C[Simulation Core]
+    B --> D[Data Ingestion]
+    B --> E[Visualization]
+    C --> F[Behavioral Models]
+    C --> G[Physiological Models]
+    D --> H[Sensor Data]
+    D --> I[Historical Data]
+```
+
+---
+
+## Part 5: Cross-Platform Comparison Matrices
 
 ### Language & Field Matrix
 
@@ -1111,6 +1264,9 @@ TypeScript-based framework for distributed AI agent networks. Philosophy: "Your 
 | AutoGen | Python | Enterprise-Automation | N/A |
 | Swarms | Python | Enterprise-Automation | ~5K |
 | OpenAgents | TypeScript | Enterprise-Automation | N/A |
+| aider | Python | Personal-Force-Multiplier | ~68K |
+| copilot-cli | TypeScript | Personal-Force-Multiplier | N/A |
+| openhuman | Rust | Academic | N/A |
 
 ### MCP Adoption Matrix
 
@@ -1120,7 +1276,7 @@ TypeScript-based framework for distributed AI agent networks. Philosophy: "Your 
 | **Adapter** | OpenClaw, GoClaw, IronClaw, ZeroClaw, HiClaw |
 | **Resistant** | NanoClaw |
 | **None** | ClawTeam, Maxclaw, Nanobot, QuantumClaw |
-| **N/A** | RTL-CLAW, Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents |
+| **N/A** | RTL-CLAW, Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, aider, openhuman |
 
 ### Architecture Pattern Matrix
 
@@ -1140,6 +1296,8 @@ TypeScript-based framework for distributed AI agent networks. Philosophy: "Your 
 | **Code generation** | SmolAgents |
 | **Layered pipeline** | RTL-CLAW |
 | **Research pipeline** | Claw-AI-Lab |
+| **Pair-programming (REPL)** | aider |
+| **Terminal agent (ACP)** | copilot-cli |
 
 ### Deployment & Database Matrix
 
@@ -1165,8 +1323,11 @@ TypeScript-based framework for distributed AI agent networks. Philosophy: "Your 
 | AutoGen | Cloud | Not specified | Docker |
 | Swarms | Cloud | Not specified | Not specified |
 | OpenAgents | Cloud (distributed) | Not specified | Not specified |
+| aider | Local CLI | SQLite | None |
+| copilot-cli | Local CLI | GitHub API | None |
+| openhuman | Local / Self-hosted | SQLite | Docker |
 
-### Full 20-Platform Comparison Table
+### Full 23-Platform Comparison Table
 
 | Platform | Language | Stars | MCP | Architecture | Deployment | Field |
 |----------|----------|-------|-----|-------------|------------|-------|
@@ -1204,5 +1365,5 @@ TypeScript-based framework for distributed AI agent networks. Philosophy: "Your 
 ---
 
 *Last updated: May 2026*
-*Platforms tracked: 20 (13 claw ecosystem + 7 external frameworks)*
+*Platforms tracked: 23 (13 claw ecosystem + 7 external frameworks + 2 CLI coding agents + 1 human digital twin)*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*

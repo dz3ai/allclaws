@@ -341,7 +341,7 @@ clawteam launch hedge-fund --team fund1 \
 - 同一团队中混合使用 Claude、GPT、Qwen 等模型
 - `spawn --model`、`launch --model-strategy` CLI 支持
 
-### HiClaw v1.0.9（2026 年 4 月）
+### HiClaw v1.1.1（2026 年 4 月）
 
 **企业级多代理运行时：**
 - **Kubernetes 风格声明式资源** — 通过 YAML 定义 Worker、Team 和 Human 资源

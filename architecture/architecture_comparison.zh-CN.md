@@ -917,7 +917,7 @@ graph TB
 | 平台 | 语言 | 重点 | 最新版本 | 核心创新 |
 |------|------|------|---------|---------|
 | **Maxclaw** | Go 1.24+ | 本地优先代理 | v1.6.0 | 原生多代理派生 + 团队预设 |
-| **HiClaw** | Go + Shell | 企业级多代理 | v1.0.9 | Kubernetes 风格 YAML 资源 |
+| **HiClaw** | Go + Shell | 企业级多代理 | v1.1.1 | Kubernetes 风格 YAML 资源 |
 | **QuantumClaw** | Node.js | 自托管 AGEX | v1.5.1 | 参考 AGEX 协议实现 |
 | **Hermes-Agent** | Python | 研究驱动 | 2026-04 | 上下文压缩改进 |
 | **RTL-CLAW** | Python + Verilog | EDA 工作流自动化 | 2026-03 | OpenClaw 上的 AI 驱动 RTL 设计 |

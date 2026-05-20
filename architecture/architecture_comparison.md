@@ -892,7 +892,7 @@ graph TB
 | Platform | Language | Focus | Latest Release | Key Innovation |
 |----------|----------|---------|----------------|----------------|
 | **Maxclaw** | Go 1.24+ | Local-first agent | v1.6.0 | Native multi-agent spawning + team presets |
-| **HiClaw** | Go + Shell | Enterprise multi-agent | v1.0.9 | Kubernetes-style YAML resources |
+| **HiClaw** | Go + Shell | Enterprise multi-agent | v1.1.1 | Kubernetes-style YAML resources |
 | **QuantumClaw** | Node.js | Self-hosted AGEX | v1.5.1 | Reference AGEX protocol implementation |
 | **Hermes-Agent** | Python | Research-backed | 2026-04 | Context compaction improvements |
 | **RTL-CLAW** | Python + Verilog | EDA workflow automation | 2026-03 | AI-driven RTL design on OpenClaw |

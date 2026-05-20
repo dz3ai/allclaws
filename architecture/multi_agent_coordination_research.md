@@ -341,7 +341,7 @@ clawteam launch hedge-fund --team fund1 \
 - Mix Claude, GPT, Qwen, and other models in the same team
 - `spawn --model`, `launch --model-strategy` CLI support
 
-### HiClaw v1.0.9 (April 2026)
+### HiClaw v1.1.1 (April 2026)
 
 **Enterprise Multi-Agent Runtime:**
 - **Kubernetes-Style Declarative Resources** — Worker, Team, and Human resources defined via YAML

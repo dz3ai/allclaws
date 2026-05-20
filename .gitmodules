@@ -37,3 +37,12 @@
 [submodule "hermes-agent"]
 	path = hermes-agent
 	url = https://github.com/NousResearch/hermes-agent.git
+[submodule "coding-agents/cli-agents/aider"]
+	path = coding-agents/cli-agents/aider
+	url = https://github.com/Aider-AI/aider.git
+[submodule "coding-agents/cli-agents/copilot-cli"]
+	path = coding-agents/cli-agents/copilot-cli
+	url = https://github.com/github/copilot-cli.git
+[submodule "openhuman"]
+	path = openhuman
+	url = https://github.com/tinyhumansai/openhuman.git

@@ -7,28 +7,30 @@
 ## 🎯 Mission
 
 AllClaws conducts independent research on AI agent architectures and deployment models, with emphasis on understanding the emerging distinction between **personal-force-multiplier** and **enterprise-automation** paradigms. We track 20 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
+We track 23 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
 
 **Full Mission:** [docs/MISSION.md](docs/MISSION.md)
 
 ## 🔥 Key Insights (May 2026)
 
-Based on tracking **20 platforms**, several key trends have emerged:
+Based on tracking **23 platforms**, several key trends have emerged:
 
 1. **The Personal vs Enterprise Fork** — Clear divergence between personal-force-multiplier (1PC) and enterprise-automation paradigms
 2. **MCP Debate Intensifies** — Model Context Protocol gaining enterprise adoption but facing resistance from local-first agents over token overhead
 3. **"Self-Improving" Claims Scrutiny** — After Hermes-Agent source code analysis, distinction between procedural memory and autonomous learning is critical
 4. **External Framework Integration** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, mcp-agent tracked for ecosystem comparison
+5. **CLI Coding Agents & Human Digital Twin** — aider (~68K stars, git-aware AI pair programming), copilot-cli (GitHub Copilot terminal agent), openhuman (Rust human digital twin platform) added
 
 See [AI Agent Ecosystem Report: April-May 2026](_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md) for full details.
 
-See [Latest Updates: March 2026](docs/LATEST_UPDATES.md) for full details.
+See [Latest Updates: April-May 2026](docs/LATEST_UPDATES.md) for full details.
 
 ## 📋 Current Work in Progress
 
 ### 1. Architecture Analysis & Comparison
 **Status:** ✅ Active Development
 
-Comprehensive analysis of AI agent platforms across 20 tracked frameworks:
+Comprehensive analysis of AI agent platforms across 23 tracked frameworks:
 
 **Claw Ecosystem (13 platforms):**
 - **Openclaw** (TypeScript): Extensible CLI with multi-channel support
@@ -53,6 +55,13 @@ Comprehensive analysis of AI agent platforms across 20 tracked frameworks:
 - **AutoGen** (Python): Microsoft's multi-agent conversation framework
 - **Swarms** (Python): Enterprise orchestration framework
 - **OpenAgents** (TypeScript): Distributed agent networks
+
+**CLI Coding Agents (2 platforms):**
+- **aider** (Python): AI pair programming CLI with git-aware multi-model support (~68K stars)
+- **copilot-cli** (TypeScript): GitHub Copilot terminal agent with ACP protocol support
+
+**Human Digital Twin (1 platform):**
+- **openhuman** (Rust): Human digital twin platform (人类数字孪生), academic/research
 
 **Agent Harnesses & Toolchains:**
 - **UltraWorkers Toolchain** — Rust + Node.js autonomous development system
@@ -146,7 +155,7 @@ bash scripts/run_benchmarks.sh
 Creating educational content about personal AI assistants:
 
 **Published Content:**
-- [Latest Updates: March 2026](docs/LATEST_UPDATES.md) — Monthly ecosystem tracking
+- [Latest Updates: April-May 2026](docs/LATEST_UPDATES.md) — Monthly ecosystem tracking
 - Architecture comparison analysis (8 platforms)
 - Multi-agent coordination trend analysis
 - Security considerations for personal AI agents
@@ -204,7 +213,7 @@ bash tests/test_agent_validation.sh
 ## 📊 Current Status & Roadmap
 
 ### ✅ Completed
-- [x] Architecture analysis of 20 platforms (13 claw ecosystem + 7 external frameworks)
+- [x] Architecture analysis of 23 platforms (13 claw ecosystem + 7 external frameworks + 3 new categories)
 - [x] External frameworks integration (SmolAgents, LangGraph, mcp-agent, CrewAI, AutoGen, Swarms, OpenAgents)
 - [x] Multi-agent coordination trend research
 - [x] Monthly ecosystem updates tracking (EN + ZH)
@@ -222,7 +231,7 @@ bash tests/test_agent_validation.sh
 - [x] Bilingual documentation (English + Chinese)
 
 ### 🔄 In Progress
-- [ ] Unified platform comparison (all 20 platforms in single document)
+- [ ] Unified platform comparison (all 23 platforms in single document)
 - [ ] Chinese translations (external_frameworks.zh-CN.md, MISSION.zh-CN.md, ROADMAP.zh-CN.md)
 
 ### 📋 Planned
@@ -274,6 +283,13 @@ This is an active research project. Contributions welcome in:
 - **Swarms**: https://github.com/kyegomez/swarms
 - **OpenAgents**: https://github.com/openagents-org/openagents
 
+**CLI Coding Agents:**
+- **aider**: https://github.com/paul-gauthier/aider
+- **copilot-cli**: https://github.com/githubnext/copilot-cli
+
+**Human Digital Twin:**
+- **openhuman**: https://github.com/openhuman/openhuman
+
 ## 📞 Contact & Discussion
 
 This project represents ongoing research into AI agent architectures. For discussions, questions, or collaboration opportunities, please refer to the individual platform repositories or create issues in this analysis repository.
@@ -286,4 +302,4 @@ This project represents ongoing research into AI agent architectures. For discus
 
 ---
 
-*Last updated: May 5, 2026*
+*Last updated: May 20, 2026*

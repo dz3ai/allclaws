@@ -2,7 +2,7 @@
 
 English | **[中文](LATEST_UPDATES.zh-CN.md)**
 
-> Tracking major changes across 13 claw ecosystem platforms and 7 external frameworks — architecture innovations, MCP adoption debates, enterprise vs personal patterns, and security developments from April to May 2026.
+> Tracking major changes across 13 claw ecosystem platforms, 7 external frameworks, 2 CLI coding agents, and 1 human digital twin platform — architecture innovations, MCP adoption debates, enterprise vs personal patterns, and security developments from April to May 2026.
 
 ---
 
@@ -15,6 +15,8 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 3. **Enterprise vs 1PC Fork** — Clear divergence between enterprise-automation (governance, cloud, MCP) and personal-force-multiplier (speed, local, CLI) paradigms
 4. **External Framework Recognition** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, mcp-agent added for ecosystem comparison
 5. **Agent Harnesses Category Added** — UltraWorkers toolchain (claw-code, oh-my-codex, clawhip, oh-my-openagent) recognized as distinct infrastructure layer
+6. **CLI Coding Agents Added** — aider (~68K stars, git-aware AI pair programming) and copilot-cli (GitHub Copilot terminal agent) added as new category
+7. **Human Digital Twin Added** — openhuman (Rust, 人类数字孪生) added as academic/research platform
 
 ---
 
@@ -76,7 +78,7 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 
 ## ZeroClaw
 
-**Rust | ~29K stars | v0.6.x — May 2026**
+**Rust | ~29K stars | v0.7.5 — May 2026**
 
 ### Status: Performance Leader
 - **<5MB RAM, <10ms cold start** benchmark maintained
@@ -91,7 +93,7 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 
 ## IronClaw
 
-**Rust | Rapid growth | v0.23.x+ — May 2026**
+**Rust | Rapid growth | v0.28.2 — May 2026**
 
 **Status:** Most active claw platform
 
@@ -114,7 +116,7 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 
 ## GoClaw
 
-**Go | ~1.3K stars | v2.43.x+ — May 2026**
+**Go | ~1.3K stars | lite-v3.9.1 — May 2026**
 
 ### Architecture Evolution
 - Agent Teams coordination maturity
@@ -134,7 +136,7 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 
 ## NanoClaw
 
-**Python | Active dev | Docker Partnership — March-May 2026**
+**TypeScript | Active dev | Docker Partnership — March-May 2026**
 
 ### Status: MCP Skeptic
 - Explicitly avoiding MCP overhead
@@ -150,7 +152,7 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 
 ## Nanobot
 
-**Python | ~37K stars | v0.1.4.x+ — May 2026**
+**Python | ~37K stars | v0.2.0 — May 2026**
 
 ### Architecture Evolution
 - Agent runtime decomposition maturity
@@ -202,7 +204,7 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 
 ## HiClaw
 
-**Go + Shell | Active dev | v1.0.9 — April 2026**
+**Go + Shell | Active dev | v1.1.1 — April 2026**
 
 **Status:** Enterprise multi-agent runtime
 
@@ -238,7 +240,7 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 
 ## Hermes-Agent
 
-**Python | Research-backed | v1.x — May 2026**
+**Python | Research-backed | v2026.5.16 — May 2026**
 
 **Status:** Claims Verification Complete
 
@@ -281,6 +283,84 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 - AI agent education
 - Research experimentation
 - Academic collaboration
+
+---
+
+## CLI Coding Agents
+
+> **New Category:** AI-powered terminal-based coding assistants that pair-program with developers directly in the CLI.
+
+### aider
+
+**Python | ~68K stars | v0.86.3.dev — May 2026**
+
+**Status:** Active — Most popular AI pair programming tool
+
+### Overview
+aider is an AI pair programming tool that works in your terminal, enabling developers to pair-program with LLMs to edit code in local git repositories. It supports Claude, GPT-4, and other models.
+
+### Key Features
+- **Git-aware** — Automatically creates commits with sensible messages
+- **Multi-model** — Supports Claude, GPT-4, DeepSeek, and 20+ LLMs via API or local models
+- **Code-gen paradigm** — AI edits code directly in your repo
+- **Whole-repo context** — Can understand entire codebase
+- **Map/Architecture modes** — Cost-effective strategies for large codebases
+
+### Architecture
+- **Language:** Python
+- **Entry Point:** `aider` CLI
+- **Architecture Pattern:** REPL pair-programming with git integration
+- **MCP Status:** None
+- **Deployment:** Local (pip install)
+- **LLM Support:** 20+ providers (Claude, GPT-4, DeepSeek, local via ollama)
+
+---
+
+### copilot-cli
+
+**TypeScript | GitHub-native | v1.0.49 — May 2026**
+
+**Status:** Active — GitHub's official CLI agent
+
+### Overview
+copilot-cli is GitHub's Copilot-powered terminal agent that brings AI assistance directly to the command line. Built with ACP (Agent Communication Protocol) for structured interactions.
+
+### Key Features
+- **GitHub-native** — Deep integration with GitHub workflows
+- **ACP protocol** — Agent Communication Protocol for structured terminal interactions
+- **Terminal integration** — Works natively in shell environments
+- **GitHub ecosystem** — Leverages GitHub Copilot infrastructure
+
+### Architecture
+- **Language:** TypeScript
+- **Entry Point:** CLI
+- **Architecture Pattern:** Terminal agent with ACP protocol
+- **MCP Status:** GitHub-native (ACP protocol)
+- **Deployment:** npm install
+
+---
+
+## openhuman
+
+**Rust | Academic/Research | v0.53.49-staging — May 2026**
+
+**Status:** Active — Research platform
+
+### Overview
+openhuman is a Rust-based Human Digital Twin platform (人类数字孪生) designed for creating digital representations of humans for research and simulation purposes.
+
+### Key Features
+- **Human Digital Twin** — Digital representation paradigm
+- **Rust-native** — High performance and memory safety
+- **Academic/research focus** — Scientific simulation and modeling
+- **Staging branch active** — Active development on staging
+
+### Architecture
+- **Language:** Rust
+- **Entry Point:** Application binary
+- **Architecture Pattern:** Digital twin simulation platform
+- **MCP Status:** N/A
+- **Deployment:** Local
 
 ---
 
@@ -357,7 +437,7 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 | IronClaw | Growing | Rust | Adapter | Personal/Enterprise |
 | GoClaw | ~1.3K | Go | Adapter | Enterprise |
 | Nanobot | ~37K | Python | None | Personal |
-| NanoClaw | N/A | Python | Resistant | Personal |
+| NanoClaw | N/A | TypeScript | Resistant | Personal |
 | ClawTeam | ~884 | Python | None | Personal |
 | Maxclaw | ~189 | Go+TS | None | Personal |
 | HiClaw | N/A | Go+Shell | Adapter | Enterprise |
@@ -372,10 +452,13 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 | AutoGen | N/A | Python | N/A | Enterprise |
 | Swarms | ~5K | Python | N/A | Enterprise |
 | OpenAgents | N/A | TypeScript | N/A | Enterprise |
+| aider | ~68K | Python | None | Personal |
+| copilot-cli | N/A | TypeScript | ACP | Personal |
+| openhuman | N/A | Rust | N/A | Academic |
 
 ---
 
-*Last updated: May 5, 2026*
+*Last updated: May 20, 2026*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*
-*Platforms tracked: 20 (13 claw ecosystem + 7 external frameworks)*
+*Platforms tracked: 23 (13 claw ecosystem + 7 external frameworks + 2 CLI coding agents + 1 human digital twin)*
 *Next update: June 2026*
