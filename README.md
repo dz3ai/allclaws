@@ -76,6 +76,8 @@ Comprehensive analysis of AI agent platforms across 23 tracked frameworks:
 - `architecture/external_frameworks.md` - External frameworks deep-dive
 - `architecture/agent_harnesses.md` - Agent harnesses and toolchains analysis
 - `architecture/architecture_comparison.md` - Claw ecosystem analysis (redirect to new comparison)
+- `architecture/platform_comparison.md` - Unified 20-platform comparison (EN + ZH)
+- `architecture/agent_harnesses.md` - Agent harnesses & toolchains analysis
 - `architecture/multi_agent_coordination_research.md` - Multi-agent coordination trend analysis
 
 ### 2. Personal Agent Test Framework
@@ -156,7 +158,11 @@ Creating educational content about personal AI assistants:
 
 **Published Content:**
 - [Latest Updates: April-May 2026](docs/LATEST_UPDATES.md) — Monthly ecosystem tracking
-- Architecture comparison analysis (8 platforms)
+- [Getting Started: Personal Harness System](_posts/2026-05-06-getting-started-personal-harness-system.md) — Build a harness in 4 steps
+- [The AI Agent Fork: Enterprise vs 1PC](_posts/2026-05-06-ai-agent-fork-enterprise-vs-1pc.md) — Why both sides are right
+- [AI Agent Ecosystem Report: April-May 2026](_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md) — Monthly report
+- [Agent Harnesses & Toolchains](architecture/agent_harnesses.md) — UltraWorkers stack analysis
+- [Unified Platform Comparison](architecture/platform_comparison.md) — All 23 platforms
 - Multi-agent coordination trend analysis
 - Security considerations for personal AI agents
 - Framework documentation (English + Chinese)
@@ -187,10 +193,10 @@ Creating educational content about personal AI assistants:
 ### For Architecture Analysis
 ```bash
 # Read the comprehensive platform comparison
-cat architecture/architecture_comparison.md
+cat architecture/platform_comparison.md
 
 # View Chinese translation
-cat architecture/architecture_comparison.zh-CN.md
+cat architecture/platform_comparison.zh-CN.md
 ```
 
 ### For Testing Framework
@@ -229,9 +235,11 @@ bash tests/test_agent_validation.sh
 - [x] Security privilege and rule enforcement
 - [x] Comprehensive .gitignore for sensitive data protection
 - [x] Bilingual documentation (English + Chinese)
+- [x] Unified platform comparison (all 23 platforms, EN + ZH)
+- [x] Agent harnesses & toolchains analysis (EN + ZH)
+- [x] Blog: personal harness tutorial, enterprise vs 1PC fork analysis
 
 ### 🔄 In Progress
-- [ ] Unified platform comparison (all 23 platforms in single document)
 - [ ] Chinese translations (external_frameworks.zh-CN.md, MISSION.zh-CN.md, ROADMAP.zh-CN.md)
 
 ### 📋 Planned
