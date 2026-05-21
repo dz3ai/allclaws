@@ -25,10 +25,10 @@
 ### 1. 完成统一平台比较
 
 **状态：** 已完成 ✅
-**目标：** 完成所有 23 个平台的架构文档
+**目标：** 完成所有 24 个平台的架构文档
 
 **交付成果：**
-- [x] `architecture/platform_comparison.md` — 所有 23 个平台的统一比较
+- [x] `architecture/platform_comparison.md` — 所有 24 个平台的统一比较
 - [x] 每个平台的标准格式（分类、架构、图表）
 - [x] 跨平台比较矩阵
 - [x] 中文翻译（`platform_comparison.zh-CN.md`）
@@ -37,7 +37,7 @@
 - **Claw 生态（13 个）：** OpenClaw、ClawTeam、GoClaw、IronClaw、Maxclaw、NanoClaw、Nanobot、ZeroClaw、HiClaw、QuantumClaw、Hermes-Agent、RTL-CLAW、Claw-AI-Lab
 - **CLI 编程代理（2 个）：** aider、copilot-cli
 - **人类数字孪生（1 个）：** openhuman
-- **外部框架（7 个）：** SmolAgents、LangGraph、mcp-agent、CrewAI、AutoGen、Swarms、OpenAgents
+- **外部框架（8 个）：** SmolAgents、LangGraph、mcp-agent、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang
 
 ### 2. MCP 生态系统深度分析
 
@@ -48,7 +48,7 @@
 - MCP 在生产部署中的实际 token 开销是多少？
 - 哪些 MCP 服务器被广泛采用？
 - MCP 原生框架（mcp-agent）与 MCP 适配器方法有何不同？
-- 23 个跟踪平台的 MCP 采用率是多少？
+- 24 个跟踪平台的 MCP 采用率是多少？
 
 **交付成果：**
 - MCP 采用报告（原生 vs 适配器 vs 抵制）
@@ -108,7 +108,7 @@
 - Token 效率（输出/输入比率）
 
 **交付成果：**
-- 23 个平台的性能比较
+- 24 个平台的性能比较
 - 基准测试方法文档
 - 性能回归检测
 

@@ -1,19 +1,19 @@
-# Unified Platform Comparison: All 23 AI Agent Platforms
+# Unified Platform Comparison: All 24 AI Agent Platforms
 
 **[中文](platform_comparison.zh-CN.md)** | English
 
-> Standardized architecture comparison across all 23 platforms tracked by AllClaws — 13 claw ecosystem platforms, 7 external frameworks, 2 CLI coding agents, and 1 human digital twin platform. Updated May 2026.
+> Standardized architecture comparison across all 24 platforms tracked by AllClaws — 13 claw ecosystem platforms, 8 external frameworks, 2 CLI coding agents, and 1 human digital twin platform. Updated May 2026.
 
 ---
 
 ## Overview
 
-This document provides a standardized, side-by-side architecture comparison of all 23 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
+This document provides a standardized, side-by-side architecture comparison of all 24 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
 
-The 23 platforms divide into four groups:
+The 24 platforms divide into four groups:
 
 - **Claw Ecosystem (13):** Platforms originating within or closely associated with the Claw/OpenClaw ecosystem.
-- **External Frameworks (7):** Industry-reference frameworks tracked for ecosystem comparison.
+- **External Frameworks (8):** Industry-reference frameworks tracked for ecosystem comparison.
 - **CLI Coding Agents (2):** AI-powered terminal-based coding assistants (aider, copilot-cli).
 - **Human Digital Twin (1):** Academic/research platform (openhuman).
 
@@ -785,7 +785,7 @@ graph TB
 
 ---
 
-## Part 2: External Frameworks (7 Platforms)
+## Part 2: External Frameworks (8 Platforms)
 
 ---
 
@@ -1087,6 +1087,64 @@ TypeScript-based framework for distributed AI agent networks. Philosophy: "Your 
 
 ---
 
+## OpenFang
+
+**Classification:** Rust | ~17.6K stars | Personal-Force-Multiplier
+**Repository:** [github.com/RightNow-AI/openfang](https://github.com/RightNow-AI/openfang)
+**Status:** Active
+
+### Overview
+
+OpenFang is a Rust-based personal AI agent platform that emphasizes hands-on tool execution and a lightweight operating system abstraction for AI agents. Built for speed and safety, it compiles to a single binary and supports multi-provider LLM integration with an extensible hand/tool system.
+
+### Key Principles
+
+- Rust-native performance and memory safety
+- Single-binary deployment with zero runtime dependencies
+- Hands-first architecture — agents act through structured tool calls
+- Extensible provider support via trait-based abstraction
+- Local-first with optional remote configuration
+
+### Core Architecture
+
+- **Language:** Rust
+- **Entry Point:** CLI via `src/main.rs`
+- **Architecture Pattern:** Agent OS (Hands) — agent loop dispatches structured hand/tool calls
+- **Key Modules:** agent core, hand registry, provider abstraction (OpenAI, Anthropic, local), session management, config loader
+- **MCP Status:** Adapter — MCP servers supported via integration adapter
+- **Deployment:** Cross-platform (single binary, zero dependencies)
+- **LLM Support:** Multi-provider (OpenAI, Anthropic, Ollama, OpenRouter, custom endpoints)
+- **Memory:** SQLite-backed session persistence
+- **Database:** SQLite
+- **Security:** Local-first execution, no telemetry, sandboxed tool execution
+- **Testing:** `cargo test`, integration tests
+
+### Architecture Diagram
+
+```mermaid
+graph TD
+    A[CLI Entry: main.rs] --> B[Config Loader]
+    B --> C[Agent Core]
+    C --> D[Provider Abstraction]
+    D --> D1[OpenAI]
+    D --> D2[Anthropic]
+    D --> D3[Ollama / Local]
+    D --> D4[OpenRouter]
+    C --> E[Session Manager]
+    E --> F[SQLite Persistence]
+    C --> G[Hand Registry]
+    G --> G1[Built-in Hands]
+    G --> G2[Custom Hands]
+    G --> G3[MCP Adapter]
+    C --> H[Agent Loop]
+    H --> I[Intent Router]
+    I --> J[Hand Dispatch]
+    J --> K[Tool Execution]
+    C --> L[Safety Layer]
+```
+
+---
+
 ## Part 3: CLI Coding Agents (2 Platforms)
 
 ---
@@ -1267,13 +1325,14 @@ graph TD
 | aider | Python | Personal-Force-Multiplier | ~68K |
 | copilot-cli | TypeScript | Personal-Force-Multiplier | N/A |
 | openhuman | Rust | Academic | N/A |
+| OpenFang | Rust | Personal-Force-Multiplier | ~17.6K |
 
 ### MCP Adoption Matrix
 
 | MCP Status | Platforms |
 |------------|-----------|
 | **Native** | mcp-agent, Hermes-Agent |
-| **Adapter** | OpenClaw, GoClaw, IronClaw, ZeroClaw, HiClaw |
+| **Adapter** | OpenClaw, GoClaw, IronClaw, ZeroClaw, HiClaw, OpenFang |
 | **Resistant** | NanoClaw |
 | **None** | ClawTeam, Maxclaw, Nanobot, QuantumClaw |
 | **N/A** | RTL-CLAW, Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, aider, openhuman |
@@ -1298,6 +1357,7 @@ graph TD
 | **Research pipeline** | Claw-AI-Lab |
 | **Pair-programming (REPL)** | aider |
 | **Terminal agent (ACP)** | copilot-cli |
+| **Agent OS (Hands)** | OpenFang |
 
 ### Deployment & Database Matrix
 
@@ -1326,8 +1386,9 @@ graph TD
 | aider | Local CLI | SQLite | None |
 | copilot-cli | Local CLI | GitHub API | None |
 | openhuman | Local / Self-hosted | SQLite | Docker |
+| OpenFang | Cross-platform (single binary) | SQLite | None |
 
-### Full 23-Platform Comparison Table
+### Full 24-Platform Comparison Table
 
 | Platform | Language | Stars | MCP | Architecture | Deployment | Field |
 |----------|----------|-------|-----|-------------|------------|-------|
@@ -1351,6 +1412,7 @@ graph TD
 | AutoGen | Python | N/A | N/A | Conversational | Cloud | Enterprise |
 | Swarms | Python | ~5K | N/A | Async orchestration | Cloud | Enterprise |
 | OpenAgents | TypeScript | N/A | N/A | Distributed | Cloud | Enterprise |
+| OpenFang | Rust | ~17.6K | Adapter | Agent OS | Single binary | Personal |
 
 ---
 
@@ -1365,5 +1427,5 @@ graph TD
 ---
 
 *Last updated: May 2026*
-*Platforms tracked: 23 (13 claw ecosystem + 7 external frameworks + 2 CLI coding agents + 1 human digital twin)*
+*Platforms tracked: 24 (13 claw ecosystem + 8 external frameworks + 2 CLI coding agents + 1 human digital twin)*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*

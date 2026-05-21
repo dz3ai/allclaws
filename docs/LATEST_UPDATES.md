@@ -2,7 +2,7 @@
 
 English | **[中文](LATEST_UPDATES.zh-CN.md)**
 
-> Tracking major changes across 13 claw ecosystem platforms, 7 external frameworks, 2 CLI coding agents, and 1 human digital twin platform — architecture innovations, MCP adoption debates, enterprise vs personal patterns, and security developments from April to May 2026.
+> Tracking major changes across 13 claw ecosystem platforms, 8 external frameworks, 2 CLI coding agents, and 1 human digital twin platform — architecture innovations, MCP adoption debates, enterprise vs personal patterns, and security developments from April to May 2026.
 
 ---
 
@@ -13,7 +13,7 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 1. **The MCP Debate Intensified** — Model Context Protocol gained enterprise adoption (mcp-agent, IronClaw, GoClaw, ZeroClaw) but faced resistance from local-first agents (NanoClaw) over 20-30% token overhead
 2. **"Self-Improving" Claims Under Scrutiny** — Hermes-Agent source code analysis revealed procedural memory ≠ autonomous learning; distinction now widely recognized
 3. **Enterprise vs 1PC Fork** — Clear divergence between enterprise-automation (governance, cloud, MCP) and personal-force-multiplier (speed, local, CLI) paradigms
-4. **External Framework Recognition** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, mcp-agent added for ecosystem comparison
+4. **External Framework Recognition** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, mcp-agent, OpenFang added for ecosystem comparison
 5. **Agent Harnesses Category Added** — UltraWorkers toolchain (claw-code, oh-my-codex, clawhip, oh-my-openagent) recognized as distinct infrastructure layer
 6. **CLI Coding Agents Added** — aider (~68K stars, git-aware AI pair programming) and copilot-cli (GitHub Copilot terminal agent) added as new category
 7. **Human Digital Twin Added** — openhuman (Rust, 人类数字孪生) added as academic/research platform
@@ -415,6 +415,32 @@ openhuman is a Rust-based Human Digital Twin platform (人类数字孪生) desig
 - Cloud-native design
 - Network-based coordination
 
+### OpenFang
+**Rust | ~17.6K stars | v0.6.9 — May 2026**
+
+**Status:** Active — Agent OS
+
+### Overview
+OpenFang is a Rust-based Agent OS deployed as a single binary (~32MB, 137K LOC across 14 crates). It uses a "Hands" architecture — autonomous capability packages for specific tasks — and supports 27 LLM providers with 123+ models. OpenClaw-compatible (SKILL.md, ClawHub).
+
+### Key Features
+- **7 pre-built Hands** — Lead, Clip, Researcher, Collector, Predictor, Twitter, Browser
+- **Single binary** — Cross-platform deployment (macOS, Linux, Windows)
+- **27 LLM providers, 123+ models** — Broadest provider coverage
+- **Web dashboard** — Built-in management UI
+- **WhatsApp gateway** — Native messaging integration
+- **OpenClaw-compatible** — SKILL.md format, ClawHub, `migrate --from openclaw`
+- **Guardrails** — Purchase approval gates for sensitive actions
+
+### Architecture
+- **Language:** Rust
+- **Entry Point:** Single binary
+- **Architecture Pattern:** Agent OS with Hands (autonomous capability packages)
+- **MCP Status:** Adapter (topic tagged)
+- **Deployment:** Cross-platform single binary (~32MB)
+- **LLM Support:** 27 providers, 123+ models
+- **Database:** SQLite
+
 ---
 
 ## Fork Analysis: Personal vs Enterprise
@@ -452,6 +478,7 @@ openhuman is a Rust-based Human Digital Twin platform (人类数字孪生) desig
 | AutoGen | N/A | Python | N/A | Enterprise |
 | Swarms | ~5K | Python | N/A | Enterprise |
 | OpenAgents | N/A | TypeScript | N/A | Enterprise |
+| OpenFang | ~17.6K | Rust | Adapter | Personal |
 | aider | ~68K | Python | None | Personal |
 | copilot-cli | N/A | TypeScript | ACP | Personal |
 | openhuman | N/A | Rust | N/A | Academic |
@@ -460,5 +487,5 @@ openhuman is a Rust-based Human Digital Twin platform (人类数字孪生) desig
 
 *Last updated: May 20, 2026*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*
-*Platforms tracked: 23 (13 claw ecosystem + 7 external frameworks + 2 CLI coding agents + 1 human digital twin)*
+*Platforms tracked: 24 (13 claw ecosystem + 8 external frameworks + 2 CLI coding agents + 1 human digital twin)*
 *Next update: June 2026*

@@ -6,19 +6,18 @@
 
 ## 🎯 Mission
 
-AllClaws conducts independent research on AI agent architectures and deployment models, with emphasis on understanding the emerging distinction between **personal-force-multiplier** and **enterprise-automation** paradigms. We track 20 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
-We track 23 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
+AllClaws conducts independent research on AI agent architectures and deployment models, with emphasis on understanding the emerging distinction between **personal-force-multiplier** and **enterprise-automation** paradigms. We track 24 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
 
 **Full Mission:** [docs/MISSION.md](docs/MISSION.md)
 
 ## 🔥 Key Insights (May 2026)
 
-Based on tracking **23 platforms**, several key trends have emerged:
+Based on tracking **24 platforms**, several key trends have emerged:
 
 1. **The Personal vs Enterprise Fork** — Clear divergence between personal-force-multiplier (1PC) and enterprise-automation paradigms
 2. **MCP Debate Intensifies** — Model Context Protocol gaining enterprise adoption but facing resistance from local-first agents over token overhead
 3. **"Self-Improving" Claims Scrutiny** — After Hermes-Agent source code analysis, distinction between procedural memory and autonomous learning is critical
-4. **External Framework Integration** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, mcp-agent tracked for ecosystem comparison
+4. **External Framework Integration** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, mcp-agent, OpenFang tracked for ecosystem comparison
 5. **CLI Coding Agents & Human Digital Twin** — aider (~68K stars, git-aware AI pair programming), copilot-cli (GitHub Copilot terminal agent), openhuman (Rust human digital twin platform) added
 
 See [AI Agent Ecosystem Report: April-May 2026](_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md) for full details.
@@ -30,7 +29,7 @@ See [Latest Updates: April-May 2026](docs/LATEST_UPDATES.md) for full details.
 ### 1. Architecture Analysis & Comparison
 **Status:** ✅ Active Development
 
-Comprehensive analysis of AI agent platforms across 23 tracked frameworks:
+Comprehensive analysis of AI agent platforms across 24 tracked frameworks:
 
 **Claw Ecosystem (13 platforms):**
 - **Openclaw** (TypeScript): Extensible CLI with multi-channel support
@@ -47,7 +46,7 @@ Comprehensive analysis of AI agent platforms across 23 tracked frameworks:
 - **RTL-CLAW** (Python/Verilog): EDA workflow automation
 - **Claw-AI-Lab** (Python): Academic research platform
 
-**External Frameworks (7 platforms):**
+**External Frameworks (8 platforms):**
 - **SmolAgents** (Python): Hugging Face's ~1K LOC code-agent framework
 - **LangGraph** (Python/TS): Graph-based stateful multi-agent workflows
 - **mcp-agent** (Python): MCP-native agent framework
@@ -55,6 +54,7 @@ Comprehensive analysis of AI agent platforms across 23 tracked frameworks:
 - **AutoGen** (Python): Microsoft's multi-agent conversation framework
 - **Swarms** (Python): Enterprise orchestration framework
 - **OpenAgents** (TypeScript): Distributed agent networks
+- **OpenFang** (Rust): Agent OS with Hands capability packages (~17.6K stars)
 
 **CLI Coding Agents (2 platforms):**
 - **aider** (Python): AI pair programming CLI with git-aware multi-model support (~68K stars)
@@ -76,7 +76,7 @@ Comprehensive analysis of AI agent platforms across 23 tracked frameworks:
 - `architecture/external_frameworks.md` - External frameworks deep-dive
 - `architecture/agent_harnesses.md` - Agent harnesses and toolchains analysis
 - `architecture/architecture_comparison.md` - Claw ecosystem analysis (redirect to new comparison)
-- `architecture/platform_comparison.md` - Unified 20-platform comparison (EN + ZH)
+- `architecture/platform_comparison.md` - Unified 24-platform comparison (EN + ZH)
 - `architecture/agent_harnesses.md` - Agent harnesses & toolchains analysis
 - `architecture/multi_agent_coordination_research.md` - Multi-agent coordination trend analysis
 
@@ -162,7 +162,7 @@ Creating educational content about personal AI assistants:
 - [The AI Agent Fork: Enterprise vs 1PC](_posts/2026-05-06-ai-agent-fork-enterprise-vs-1pc.md) — Why both sides are right
 - [AI Agent Ecosystem Report: April-May 2026](_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md) — Monthly report
 - [Agent Harnesses & Toolchains](architecture/agent_harnesses.md) — UltraWorkers stack analysis
-- [Unified Platform Comparison](architecture/platform_comparison.md) — All 23 platforms
+- [Unified Platform Comparison](architecture/platform_comparison.md) — All 24 platforms
 - Multi-agent coordination trend analysis
 - Security considerations for personal AI agents
 - Framework documentation (English + Chinese)
@@ -219,8 +219,8 @@ bash tests/test_agent_validation.sh
 ## 📊 Current Status & Roadmap
 
 ### ✅ Completed
-- [x] Architecture analysis of 23 platforms (13 claw ecosystem + 7 external frameworks + 3 new categories)
-- [x] External frameworks integration (SmolAgents, LangGraph, mcp-agent, CrewAI, AutoGen, Swarms, OpenAgents)
+- [x] Architecture analysis of 24 platforms (13 claw ecosystem + 8 external frameworks + 3 new categories)
+- [x] External frameworks integration (SmolAgents, LangGraph, mcp-agent, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang)
 - [x] Multi-agent coordination trend research
 - [x] Monthly ecosystem updates tracking (EN + ZH)
 - [x] Cross-platform static analysis test framework (v2.1, 165/177 pass for 13 claw platforms)
@@ -235,7 +235,7 @@ bash tests/test_agent_validation.sh
 - [x] Security privilege and rule enforcement
 - [x] Comprehensive .gitignore for sensitive data protection
 - [x] Bilingual documentation (English + Chinese)
-- [x] Unified platform comparison (all 23 platforms, EN + ZH)
+- [x] Unified platform comparison (all 24 platforms, EN + ZH)
 - [x] Agent harnesses & toolchains analysis (EN + ZH)
 - [x] Blog: personal harness tutorial, enterprise vs 1PC fork analysis
 
@@ -282,7 +282,7 @@ This is an active research project. Contributions welcome in:
 - **RTL-CLAW**: https://github.com/rtl-claw/rtl-claw
 - **Claw-AI-Lab**: https://github.com/Claw-AI-Lab/Claw-AI-Lab
 
-**External Frameworks (7 platforms):**
+**External Frameworks (8 platforms):**
 - **SmolAgents**: https://github.com/huggingface/smolagents
 - **LangGraph**: https://github.com/langchain-ai/langgraph
 - **mcp-agent**: https://github.com/lastmile-ai/mcp-agent
@@ -290,6 +290,7 @@ This is an active research project. Contributions welcome in:
 - **AutoGen**: https://github.com/microsoft/autogen
 - **Swarms**: https://github.com/kyegomez/swarms
 - **OpenAgents**: https://github.com/openagents-org/openagents
+- **OpenFang**: https://github.com/RightNow-AI/openfang
 
 **CLI Coding Agents:**
 - **aider**: https://github.com/paul-gauthier/aider
