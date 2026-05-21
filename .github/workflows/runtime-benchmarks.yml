@@ -1,0 +1,188 @@
+name: Runtime Benchmarks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'test_framework/**'
+      - '.github/workflows/runtime-benchmarks.yml'
+  pull_request:
+    paths:
+      - 'test_framework/**'
+      - '.github/workflows/runtime-benchmarks.yml'
+  schedule:
+    # 每周日 UTC 02:00 (北京时间 10:00)
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+
+jobs:
+  runtime-benchmarks:
+    name: Runtime Benchmarks (All Platforms)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      # ── Toolchain Setup ──────────────────────────────────
+
+      - name: Install system deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq /usr/bin/time
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+
+      # ── Rust Builds ──────────────────────────────────────
+
+      - name: Cache Rust (ironclaw)
+        uses: actions/cache@v4
+        with:
+          path: ironclaw/target
+          key: rust-ironclaw-${{ hashFiles('ironclaw/Cargo.lock') }}
+          restore-keys: rust-ironclaw-
+
+      - name: Cache Rust (zeroclaw)
+        uses: actions/cache@v4
+        with:
+          path: zeroclaw/target
+          key: rust-zeroclaw-${{ hashFiles('zeroclaw/Cargo.lock') }}
+          restore-keys: rust-zeroclaw-
+
+      - name: Build ironclaw (Rust)
+        run: cd ironclaw && cargo build --release 2>&1 | tail -5
+        timeout-minutes: 10
+
+      - name: Build zeroclaw (Rust)
+        run: cd zeroclaw && cargo build --release 2>&1 | tail -5
+        timeout-minutes: 15
+
+      # ── Go Builds ────────────────────────────────────────
+
+      - name: Cache Go modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: go-${{ hashFiles('goclaw/go.sum', 'maxclaw/go.sum', 'hiclaw/go.sum') }}
+          restore-keys: go-
+
+      - name: Build goclaw (Go)
+        run: |
+          cd goclaw
+          go mod download
+          go build -o bin/goclaw ./...
+        timeout-minutes: 5
+
+      - name: Build maxclaw (Go)
+        run: |
+          cd maxclaw
+          go mod download
+          go build -o bin/maxclaw ./...
+        timeout-minutes: 5
+
+      - name: Build hiclaw (Go)
+        run: |
+          cd hiclaw
+          if [ -f go.mod ]; then
+            go mod download
+            go build -o bin/hiclaw ./...
+          else
+            echo "SKIP: no go.mod"
+          fi
+        timeout-minutes: 5
+
+      # ── TypeScript Builds ────────────────────────────────
+
+      - name: Cache node_modules (openclaw)
+        uses: actions/cache@v4
+        with:
+          path: openclaw/node_modules
+          key: npm-openclaw-${{ hashFiles('openclaw/package-lock.json') }}
+
+      - name: Cache node_modules (nanoclaw)
+        uses: actions/cache@v4
+        with:
+          path: nanoclaw/node_modules
+          key: npm-nanoclaw-${{ hashFiles('nanoclaw/package-lock.json') }}
+
+      - name: Cache node_modules (quantumclaw)
+        uses: actions/cache@v4
+        with:
+          path: quantumclaw/node_modules
+          key: npm-quantumclaw-${{ hashFiles('quantumclaw/package-lock.json') }}
+
+      - name: Build openclaw (TypeScript)
+        run: |
+          cd openclaw
+          npm install 2>&1 | tail -3
+          npm run build 2>&1 | tail -3 || echo "WARN: build script failed"
+        timeout-minutes: 5
+
+      - name: Build nanoclaw (TypeScript)
+        run: |
+          cd nanoclaw
+          npm install 2>&1 | tail -3
+          npm run build 2>&1 | tail -3 || echo "WARN: build script failed"
+        timeout-minutes: 5
+
+      - name: Build quantumclaw (TypeScript)
+        run: |
+          cd quantumclaw
+          npm install 2>&1 | tail -3
+          npm run build 2>&1 | tail -3 || echo "WARN: build script failed"
+        timeout-minutes: 5
+
+      # ── Python ───────────────────────────────────────────
+      # Python platforms are import-only benchmarks (no build needed).
+
+      # ── Run Benchmarks ───────────────────────────────────
+
+      - name: Run runtime benchmarks
+        run: |
+          cd test_framework
+          bash scripts/run_agent_runtime_benchmarks.sh 2>&1 | tee benchmark_run.log
+
+      # ── Summary ──────────────────────────────────────────
+
+      - name: Generate step summary
+        run: |
+          cd test_framework
+          LATEST=$(ls -td benchmark_results/*-agent-runtime/ | head -1)
+          echo "## Runtime Benchmark Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f "${LATEST}agent_runtime_benchmark_results.md" ]; then
+            cat "${LATEST}agent_runtime_benchmark_results.md" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No results found" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # ── Upload ───────────────────────────────────────────
+
+      - name: Upload benchmark results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: runtime-benchmark-results-${{ github.sha }}
+          path: test_framework/benchmark_results/
+          retention-days: 60
