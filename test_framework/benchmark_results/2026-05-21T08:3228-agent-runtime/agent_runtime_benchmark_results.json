@@ -1,0 +1,405 @@
+{
+  "timestamp": "2026-05-21T08:3228",
+  "engine_version": "2.0.0-agent-runtime",
+  "metric_count": 55,
+  "skipped_count": 3,
+  "toolchain": {
+    "time_v": true,
+    "cargo": true,
+    "node": true,
+    "go": false,
+    "python3": true
+  },
+  "metrics": [
+    {
+      "platform": "ironclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no target/release (not built)\n"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "install_footprint",
+      "value": 4,
+      "unit": "KB",
+      "notes": "target/ directory\n"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "build_proxy_time",
+      "value": 188304,
+      "unit": "ms",
+      "notes": "cargo check\n"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "cold_start_time",
+      "value": 0,
+      "unit": "ms",
+      "notes": "binary not built\n"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no target/release (not built)\n"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "install_footprint",
+      "value": 4,
+      "unit": "KB",
+      "notes": "target/ directory\n"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "build_proxy_time",
+      "value": 75374,
+      "unit": "ms",
+      "notes": "cargo check\n"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "cold_start_time",
+      "value": 0,
+      "unit": "ms",
+      "notes": "binary not built\n"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "not built\n"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "install_footprint",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no vendor/; go mod download proxy\n"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "build_proxy_time",
+      "value": 0,
+      "unit": "ms",
+      "notes": "go toolchain not available\n"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "mod_download_time",
+      "value": 0,
+      "unit": "ms",
+      "notes": "go toolchain not available\n"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "cold_start_time",
+      "value": 0,
+      "unit": "ms",
+      "notes": "binary not built\n"
+    },
+    {
+      "platform": "maxclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "not built\n"
+    },
+    {
+      "platform": "maxclaw",
+      "metric": "install_footprint",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no vendor/; go mod download proxy\n"
+    },
+    {
+      "platform": "maxclaw",
+      "metric": "build_proxy_time",
+      "value": 0,
+      "unit": "ms",
+      "notes": "go toolchain not available\n"
+    },
+    {
+      "platform": "maxclaw",
+      "metric": "mod_download_time",
+      "value": 0,
+      "unit": "ms",
+      "notes": "go toolchain not available\n"
+    },
+    {
+      "platform": "maxclaw",
+      "metric": "cold_start_time",
+      "value": 0,
+      "unit": "ms",
+      "notes": "binary not built\n"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "install_footprint",
+      "value": 0,
+      "unit": "KB",
+      "notes": "node_modules/ not installed\n"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "npm_deps",
+      "value": 73,
+      "unit": "deps"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no dist/ or build/ directory\n"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "cold_start_time",
+      "value": 66,
+      "unit": "ms",
+      "notes": "node parse time (no runtime init)\n"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "response_latency_ms",
+      "value": 19,
+      "unit": "ms",
+      "notes": "echo benchmark\n"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "memory_idle_mb",
+      "value": 38.7,
+      "unit": "MB"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "install_footprint",
+      "value": 0,
+      "unit": "KB",
+      "notes": "node_modules/ not installed\n"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "npm_deps",
+      "value": 19,
+      "unit": "deps"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no dist/ or build/ directory\n"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "cold_start_time",
+      "value": 41,
+      "unit": "ms",
+      "notes": "node parse time (no runtime init)\n"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "response_latency_ms",
+      "value": 22,
+      "unit": "ms",
+      "notes": "echo benchmark\n"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "memory_idle_mb",
+      "value": 38.7,
+      "unit": "MB"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "install_footprint",
+      "value": 0,
+      "unit": "KB",
+      "notes": "node_modules/ not installed\n"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "npm_deps",
+      "value": 12,
+      "unit": "deps"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no dist/ or build/ directory\n"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "cold_start_time",
+      "value": 71,
+      "unit": "ms",
+      "notes": "node parse time (no runtime init)\n"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "response_latency_ms",
+      "value": 20,
+      "unit": "ms",
+      "notes": "echo benchmark\n"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "memory_idle_mb",
+      "value": 38.7,
+      "unit": "MB"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "py_deps",
+      "value": 19,
+      "unit": "deps"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "install_footprint",
+      "value": 38912,
+      "unit": "KB",
+      "notes": "estimated (19 deps x ~2MB)\n"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "cold_start_time",
+      "value": 41,
+      "unit": "ms",
+      "notes": "python import clawteam\n"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "response_latency_ms",
+      "value": 12,
+      "unit": "ms",
+      "notes": "echo benchmark\n"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "memory_idle_mb",
+      "value": 9.9,
+      "unit": "MB",
+      "notes": "bare python process\n"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "memory_active_mb",
+      "value": 18.2,
+      "unit": "MB",
+      "notes": "python + stdlib modules\n"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "py_deps",
+      "value": 84,
+      "unit": "deps"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "install_footprint",
+      "value": 172032,
+      "unit": "KB",
+      "notes": "estimated (84 deps x ~2MB)\n"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "cold_start_time",
+      "value": 90,
+      "unit": "ms",
+      "notes": "python import nanobot\n"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "response_latency_ms",
+      "value": 12,
+      "unit": "ms",
+      "notes": "echo benchmark\n"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "memory_idle_mb",
+      "value": 9.9,
+      "unit": "MB",
+      "notes": "bare python process\n"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "memory_active_mb",
+      "value": 18.2,
+      "unit": "MB",
+      "notes": "python + stdlib modules\n"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "py_deps",
+      "value": 49,
+      "unit": "deps"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "install_footprint",
+      "value": 100352,
+      "unit": "KB",
+      "notes": "estimated (49 deps x ~2MB)\n"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "cold_start_time",
+      "value": 921,
+      "unit": "ms",
+      "notes": "python import run_agent\n"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "response_latency_ms",
+      "value": 12,
+      "unit": "ms",
+      "notes": "echo benchmark\n"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "memory_idle_mb",
+      "value": 9.9,
+      "unit": "MB",
+      "notes": "bare python process\n"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "memory_active_mb",
+      "value": 18.2,
+      "unit": "MB",
+      "notes": "python + stdlib modules\n"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "runtime_benchmarks",
+      "value": 0,
+      "unit": "N/A",
+      "notes": "hardware description language, no runtime\n"
+    }
+  ],
+  "skipped": [
+    {
+      "platform": "hiclaw",
+      "reason": "no go.mod found"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "reason": "no pyproject.toml or requirements.txt"
+    },
+    {
+      "platform": "rtl-claw",
+      "reason": "build-tool only — no runtime agent metrics applicable"
+    }
+  ]
+}
