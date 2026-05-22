@@ -53,7 +53,8 @@
     "codebase_metrics",
     "build_check",
     "security_audit",
-    "documentation"
+    "documentation",
+    "runtime_performance"
   ],
   "benchmark_metrics": {
     "repo_size": "Total repository size excluding build artifacts (KB)",
@@ -69,5 +70,16 @@
     "docs_size": "Documentation directory size (KB)",
     "i18n_files": "Internationalization file count",
     "top_level_dirs": "Top-level directory count (complexity indicator)"
+  },
+  "runtime_benchmark_metrics": {
+    "cold_start_time_ms": "Time from CLI invocation to first response (ms)",
+    "memory_idle_mb": "Peak RSS of idle process (MB)",
+    "memory_active_mb": "Peak RSS of active process with loaded modules (MB)",
+    "response_latency_ms": "Time-to-first-token for echo benchmark (ms)",
+    "token_efficiency_ratio": "Output tokens / input tokens ratio",
+    "binary_size_kb": "Compiled binary size (KB)",
+    "install_size_kb": "Installation footprint — node_modules/vendor/target/venv size (KB)",
+    "build_proxy_time_ms": "Build check time as proxy for compilation (cargo check / go vet)",
+    "mod_download_time_ms": "Dependency download time (go mod download / npm install dry-run)"
   }
 }
