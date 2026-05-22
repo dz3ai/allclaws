@@ -1,183 +1,113 @@
 name: Runtime Benchmarks
 
 on:
+  schedule:
+    # Every Monday at 09:00 UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
-      - 'test_framework/**'
+      - 'test_framework/scripts/run_agent_runtime_benchmarks.sh'
       - '.github/workflows/runtime-benchmarks.yml'
-  pull_request:
-    paths:
-      - 'test_framework/**'
-      - '.github/workflows/runtime-benchmarks.yml'
-  schedule:
-    # 每周日 UTC 02:00 (北京时间 10:00)
-    - cron: '0 2 * * 0'
-  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   runtime-benchmarks:
-    name: Runtime Benchmarks (All Platforms)
+    name: Runtime Benchmarks
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 10
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: false
 
-      # ── Toolchain Setup ──────────────────────────────────
-
-      - name: Install system deps
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq /usr/bin/time
-
-      - name: Setup Python
+      - name: Setup Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
+      - name: Install system deps
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq jq
 
-      - name: Setup Rust
+      - name: Setup Rust toolchain
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Setup Go
-        uses: actions/setup-go@v5
+      - name: Setup Node.js 20 LTS
+        uses: actions/setup-node@v4
         with:
-          go-version: '1.24'
-
-      # ── Rust Builds ──────────────────────────────────────
-
-      - name: Cache Rust (ironclaw)
-        uses: actions/cache@v4
-        with:
-          path: ironclaw/target
-          key: rust-ironclaw-${{ hashFiles('ironclaw/Cargo.lock') }}
-          restore-keys: rust-ironclaw-
-
-      - name: Cache Rust (zeroclaw)
-        uses: actions/cache@v4
-        with:
-          path: zeroclaw/target
-          key: rust-zeroclaw-${{ hashFiles('zeroclaw/Cargo.lock') }}
-          restore-keys: rust-zeroclaw-
-
-      - name: Build ironclaw (Rust)
-        run: cd ironclaw && cargo build --release 2>&1 | tail -5
-        timeout-minutes: 10
-
-      - name: Build zeroclaw (Rust)
-        run: cd zeroclaw && cargo build --release 2>&1 | tail -5
-        timeout-minutes: 15
-
-      # ── Go Builds ────────────────────────────────────────
-
-      - name: Cache Go modules
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/go/pkg/mod
-            ~/.cache/go-build
-          key: go-${{ hashFiles('goclaw/go.sum', 'maxclaw/go.sum', 'hiclaw/go.sum') }}
-          restore-keys: go-
-
-      - name: Build goclaw (Go)
-        run: |
-          cd goclaw
-          go mod download
-          go build -o bin/goclaw ./...
-        timeout-minutes: 5
-
-      - name: Build maxclaw (Go)
-        run: |
-          cd maxclaw
-          go mod download
-          go build -o bin/maxclaw ./...
-        timeout-minutes: 5
-
-      - name: Build hiclaw (Go)
-        run: |
-          cd hiclaw
-          if [ -f go.mod ]; then
-            go mod download
-            go build -o bin/hiclaw ./...
-          else
-            echo "SKIP: no go.mod"
-          fi
-        timeout-minutes: 5
-
-      # ── TypeScript Builds ────────────────────────────────
-
-      - name: Cache node_modules (openclaw)
-        uses: actions/cache@v4
-        with:
-          path: openclaw/node_modules
-          key: npm-openclaw-${{ hashFiles('openclaw/package-lock.json') }}
-
-      - name: Cache node_modules (nanoclaw)
-        uses: actions/cache@v4
-        with:
-          path: nanoclaw/node_modules
-          key: npm-nanoclaw-${{ hashFiles('nanoclaw/package-lock.json') }}
-
-      - name: Cache node_modules (quantumclaw)
-        uses: actions/cache@v4
-        with:
-          path: quantumclaw/node_modules
-          key: npm-quantumclaw-${{ hashFiles('quantumclaw/package-lock.json') }}
-
-      - name: Build openclaw (TypeScript)
-        run: |
-          cd openclaw
-          npm install 2>&1 | tail -3
-          npm run build 2>&1 | tail -3 || echo "WARN: build script failed"
-        timeout-minutes: 5
-
-      - name: Build nanoclaw (TypeScript)
-        run: |
-          cd nanoclaw
-          npm install 2>&1 | tail -3
-          npm run build 2>&1 | tail -3 || echo "WARN: build script failed"
-        timeout-minutes: 5
-
-      - name: Build quantumclaw (TypeScript)
-        run: |
-          cd quantumclaw
-          npm install 2>&1 | tail -3
-          npm run build 2>&1 | tail -3 || echo "WARN: build script failed"
-        timeout-minutes: 5
-
-      # ── Python ───────────────────────────────────────────
-      # Python platforms are import-only benchmarks (no build needed).
-
-      # ── Run Benchmarks ───────────────────────────────────
+          node-version: '20'
 
       - name: Run runtime benchmarks
         run: |
           cd test_framework
-          bash scripts/run_agent_runtime_benchmarks.sh 2>&1 | tee benchmark_run.log
+          chmod +x scripts/run_agent_runtime_benchmarks.sh
+          ./scripts/run_agent_runtime_benchmarks.sh 2>&1 | tee benchmark_run.log
 
-      # ── Summary ──────────────────────────────────────────
-
-      - name: Generate step summary
+      - name: Generate job summary
+        if: always()
         run: |
           cd test_framework
-          LATEST=$(ls -td benchmark_results/*-agent-runtime/ | head -1)
-          echo "## Runtime Benchmark Results" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          if [ -f "${LATEST}agent_runtime_benchmark_results.md" ]; then
-            cat "${LATEST}agent_runtime_benchmark_results.md" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "No results found" >> $GITHUB_STEP_SUMMARY
+          LATEST=$(ls -td benchmark_results/*-agent-runtime/ 2>/dev/null | head -1)
+
+          echo "## Runtime Benchmark Results" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -z "$LATEST" ]; then
+            echo "_No benchmark results directory found._" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
           fi
 
-      # ── Upload ───────────────────────────────────────────
+          JSON_FILE="${LATEST}agent_runtime_benchmark_results.json"
+
+          if [ -f "$JSON_FILE" ] && command -v jq &>/dev/null; then
+            # ── Cold Start Comparison Table (sorted by cold_start_time) ──
+            echo "### Cold Start Comparison" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Platform | Cold Start (ms) | Idle Mem (MB) | Active Mem (MB) | Install (KB) |" >> "$GITHUB_STEP_SUMMARY"
+            echo "|----------|-----------------|---------------|-----------------|-------------|" >> "$GITHUB_STEP_SUMMARY"
+
+            jq -r '\
+              [.metrics[] | select(.metric == "cold_start_time" or .metric == "memory_idle_mb" or .metric == "memory_active_mb" or .metric == "install_footprint")]\
+              | group_by(.platform)\
+              | map({\
+                  platform: .[0].platform,\
+                  cold_start: ((map(select(.metric == "cold_start_time")) | .[0].value) // 0),\
+                  idle_mem:   ((map(select(.metric == "memory_idle_mb"))   | .[0].value) // "-"),\
+                  active_mem: ((map(select(.metric == "memory_active_mb")) | .[0].value) // "-"),\
+                  install:    ((map(select(.metric == "install_footprint")) | .[0].value) // 0)\
+                })\
+              | sort_by(.cold_start)\
+              | .[]\
+              | "| \(.platform) | \(.cold_start) | \(.idle_mem) | \(.active_mem) | \(.install) |"\
+            ' "$JSON_FILE" >> "$GITHUB_STEP_SUMMARY"
+
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+
+            # ── Full Markdown Report (appended) ──
+            MD_FILE="${LATEST}agent_runtime_benchmark_results.md"
+            if [ -f "$MD_FILE" ]; then
+              echo "<details>" >> "$GITHUB_STEP_SUMMARY"
+              echo "<summary>Full Report</summary>" >> "$GITHUB_STEP_SUMMARY"
+              echo "" >> "$GITHUB_STEP_SUMMARY"
+              cat "$MD_FILE" >> "$GITHUB_STEP_SUMMARY"
+              echo "" >> "$GITHUB_STEP_SUMMARY"
+              echo "</details>" >> "$GITHUB_STEP_SUMMARY"
+            fi
+          else
+            echo "_JSON results not available — skipping summary table._" >> "$GITHUB_STEP_SUMMARY"
+            MD_FILE="${LATEST}agent_runtime_benchmark_results.md"
+            if [ -f "$MD_FILE" ]; then
+              echo "" >> "$GITHUB_STEP_SUMMARY"
+              cat "$MD_FILE" >> "$GITHUB_STEP_SUMMARY"
+            fi
+          fi
 
       - name: Upload benchmark results
         if: always()

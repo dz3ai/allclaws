@@ -168,8 +168,11 @@ CONFIG_FILE="$FRAMEWORK_DIR/config.json"
 if [ -f "$CONFIG_FILE" ] && [ "$HAS_JQ" = true ]; then
     SUPPORTED_PLATFORMS=($(jq -r '.supported_platforms[]' "$CONFIG_FILE"))
 else
-    SUPPORTED_PLATFORMS=(ironclaw zeroclaw openclaw nanoclaw quantumclaw goclaw maxclaw hiclaw clawteam nanobot hermes-agent claw-ai-lab rtl-claw)
+    SUPPORTED_PLATFORMS=(ironclaw zeroclaw openfang openhuman openclaw nanoclaw quantumclaw openagents copilot-cli goclaw maxclaw hiclaw clawteam nanobot hermes-agent claw-ai-lab smolagents langgraph mcp-agent crewai autogen swarms aider rtl-claw)
 fi
+
+# Full ordered list for report tables (all 24 platforms)
+ALL_PLATFORMS=(ironclaw zeroclaw openfang openhuman openclaw nanoclaw quantumclaw openagents copilot-cli goclaw maxclaw hiclaw clawteam nanobot hermes-agent claw-ai-lab smolagents langgraph mcp-agent crewai autogen swarms aider rtl-claw)
 
 # ============================================================
 # Rust Platforms: ironclaw, zeroclaw
@@ -247,6 +250,89 @@ for platform in ironclaw zeroclaw; do
         fi
     elif [ "$HAS_PYTHON3" = false ] && [ "$HAS_TIME_V" = false ]; then
         metric "$platform" "memory_idle_mb" "0" "MB" "/usr/bin/time -v not available"
+    fi
+
+    echo ""
+done
+
+# ============================================================
+# Rust Platforms (External): openfang, openhuman
+# ============================================================
+
+for platform in openfang openhuman; do
+    # External frameworks live at ../PLATFORM relative to allclaws (except openhuman which is inside)
+    if [ "$platform" = "openhuman" ]; then
+        platform_path="$ALLCLAWS_DIR/$platform"
+    else
+        platform_path="$(dirname "$ALLCLAWS_DIR")/$platform"
+    fi
+    echo "--- $platform (Rust) ---"
+
+    if [ ! -d "$platform_path" ] || [ ! -f "$platform_path/Cargo.toml" ]; then
+        skip_platform "$platform" "not checked out — tracked via documentation only"
+        echo ""
+        continue
+    fi
+
+    # --- Binary size ---
+    if [ -d "$platform_path/target/release" ]; then
+        for bin in "$platform_path"/target/release/*; do
+            if [ -f "$bin" ] && [ -x "$bin" ]; then
+                bname=$(basename "$bin")
+                size=$(du -k "$bin" | awk '{print $1}')
+                metric "$platform" "binary_${bname}_size" "$size" "KB"
+            fi
+        done
+    else
+        metric "$platform" "binary_size" "0" "KB" "no target/release (not built)"
+    fi
+
+    # --- Installation footprint (target/ size) ---
+    target_size=$(size_kb_of "$platform_path/target")
+    metric "$platform" "install_footprint" "$target_size" "KB" "target/ directory"
+
+    # --- Cargo check time (build proxy) ---
+    if [ "$HAS_CARGO" = true ]; then
+        result=$(cd "$platform_path" && time_ms cargo check 2>&1)
+        rc=$(echo "$result" | cut -d: -f1)
+        duration_ms=$(echo "$result" | cut -d: -f2)
+        if [ "$rc" = "0" ]; then
+            metric "$platform" "build_proxy_time" "$duration_ms" "ms" "cargo check"
+        else
+            metric "$platform" "build_proxy_time" "$duration_ms" "ms" "cargo check failed (rc=$rc)"
+        fi
+    else
+        metric "$platform" "build_proxy_time" "0" "ms" "cargo not available"
+    fi
+
+    # --- Cold start time ---
+    if [ -d "$platform_path/target/release" ]; then
+        main_bin=$(ls "$platform_path/target/release/$platform" "$platform_path/target/release/main" 2>/dev/null | head -1)
+        if [ -n "$main_bin" ] && [ -x "$main_bin" ]; then
+            result=$(time_ms timeout 5 "$main_bin" --help 2>&1)
+            rc=$(echo "$result" | cut -d: -f1)
+            duration_ms=$(echo "$result" | cut -d: -f2)
+            metric "$platform" "cold_start_time" "$duration_ms" "ms" "$main_bin --help"
+        else
+            metric "$platform" "cold_start_time" "0" "ms" "no executable binary found"
+        fi
+    else
+        metric "$platform" "cold_start_time" "0" "ms" "binary not built"
+    fi
+
+    # --- Memory measurement ---
+    if [ "$HAS_TIME_V" = true ] && [ -d "$platform_path/target/release" ]; then
+        main_bin=$(ls "$platform_path/target/release/$platform" "$platform_path/target/release/main" 2>/dev/null | head -1)
+        if [ -n "$main_bin" ] && [ -x "$main_bin" ]; then
+            mem_result=$(measure_memory_wrapper timeout 5 "$main_bin" --help 2>&1)
+            peak_kb=$(echo "$mem_result" | cut -d: -f2)
+            if [ "$peak_kb" -gt 0 ] 2>/dev/null; then
+                peak_mb=$(echo "$peak_kb" | awk '{printf "%.1f", $1/1024}')
+                metric "$platform" "memory_idle_mb" "$peak_mb" "MB"
+            else
+                metric "$platform" "memory_idle_mb" "0" "MB" "measurement failed"
+            fi
+        fi
     fi
 
     echo ""
@@ -458,6 +544,105 @@ for platform in openclaw nanoclaw quantumclaw; do
 done
 
 # ============================================================
+# TypeScript Platforms (External): openagents, copilot-cli
+# ============================================================
+
+for platform in openagents copilot-cli; do
+    # openagents: external at ../openagents; copilot-cli: inside allclaws
+    if [ "$platform" = "copilot-cli" ]; then
+        platform_path="$ALLCLAWS_DIR/coding-agents/cli-agents/$platform"
+    else
+        platform_path="$(dirname "$ALLCLAWS_DIR")/$platform"
+    fi
+    echo "--- $platform (TypeScript) ---"
+
+    if [ ! -d "$platform_path" ] || [ ! -f "$platform_path/package.json" ]; then
+        skip_platform "$platform" "not checked out — tracked via documentation only"
+        echo ""
+        continue
+    fi
+
+    # --- node_modules size ---
+    if [ -d "$platform_path/node_modules" ]; then
+        nm_size=$(size_kb_of "$platform_path/node_modules")
+        metric "$platform" "install_footprint" "$nm_size" "KB" "node_modules/"
+    else
+        metric "$platform" "install_footprint" "0" "KB" "node_modules/ not installed"
+    fi
+
+    # --- Dependency count ---
+    npm_deps=$(jq '[.dependencies // {}, .devDependencies // {}] | add | keys | length' "$platform_path/package.json" 2>/dev/null || echo "0")
+    metric "$platform" "npm_deps" "$npm_deps" "deps"
+
+    # --- Binary size ---
+    if [ -d "$platform_path/dist" ]; then
+        dist_size=$(size_kb_of "$platform_path/dist")
+        metric "$platform" "binary_size" "$dist_size" "KB" "dist/ directory"
+    elif [ -d "$platform_path/build" ]; then
+        build_size=$(size_kb_of "$platform_path/build")
+        metric "$platform" "binary_size" "$build_size" "KB" "build/ directory"
+    else
+        metric "$platform" "binary_size" "0" "KB" "no dist/ or build/ directory"
+    fi
+
+    # --- Cold start time ---
+    if [ "$HAS_NODE" = true ]; then
+        main_entry=""
+        for candidate in src/index.ts src/index.js src/main.ts src/main.js src/cli.ts src/cli.js; do
+            if [ -f "$platform_path/$candidate" ]; then
+                main_entry="$platform_path/$candidate"
+                break
+            fi
+        done
+
+        if [ -n "$main_entry" ]; then
+            result=$(cd "$platform_path" && time_ms timeout 10 node -e "
+                try {
+                    require('${main_entry}');
+                } catch(e) {
+                    // Expected without build
+                }
+                process.exit(0);
+            " 2>&1)
+            rc=$(echo "$result" | cut -d: -f1)
+            duration_ms=$(echo "$result" | cut -d: -f2)
+            metric "$platform" "cold_start_time" "$duration_ms" "ms" "node parse time (no runtime init)"
+        else
+            result=$(time_ms node -e "process.exit(0)" 2>&1)
+            duration_ms=$(echo "$result" | cut -d: -f2)
+            metric "$platform" "cold_start_time" "$duration_ms" "ms" "bare node startup (no entry found)"
+        fi
+    else
+        metric "$platform" "cold_start_time" "0" "ms" "node not available"
+    fi
+
+    # --- Response latency proxy ---
+    if [ "$HAS_NODE" = true ]; then
+        result=$(time_ms timeout 10 node -e "console.log('READY'); process.exit(0)" 2>&1)
+        duration_ms=$(echo "$result" | cut -d: -f2)
+        metric "$platform" "response_latency_ms" "$duration_ms" "ms" "echo benchmark"
+    fi
+
+    # --- Memory measurement ---
+    if [ "$HAS_TIME_V" = true ] && [ "$HAS_NODE" = true ]; then
+        mem_result=$(measure_memory_wrapper node -e "
+            const fs = require('fs');
+            const path = require('path');
+            process.exit(0);
+        " 2>&1)
+        peak_kb=$(echo "$mem_result" | cut -d: -f2)
+        if [ "$peak_kb" -gt 0 ] 2>/dev/null; then
+            peak_mb=$(echo "$peak_kb" | awk '{printf "%.1f", $1/1024}')
+            metric "$platform" "memory_idle_mb" "$peak_mb" "MB"
+        else
+            metric "$platform" "memory_idle_mb" "0" "MB" "measurement failed"
+        fi
+    fi
+
+    echo ""
+done
+
+# ============================================================
 # Python Platforms: clawteam, nanobot, hermes-agent, claw-ai-lab
 # ============================================================
 
@@ -516,32 +701,77 @@ for platform in clawteam nanobot hermes-agent claw-ai-lab; do
 
     # --- Cold start time (python -c import test) ---
     if [ "$HAS_PYTHON3" = true ]; then
-        # Find the main package module
-        main_module=""
-        if [ -f "$platform_path/run_agent.py" ]; then
-            main_module="run_agent"
-        elif [ -f "$platform_path/__main__.py" ]; then
-            main_module="__main__"
-        elif [ -d "$platform_path/clawteam" ] && [ -f "$platform_path/clawteam/__init__.py" ]; then
-            main_module="clawteam"
-        elif [ -d "$platform_path/nanobot" ] && [ -f "$platform_path/nanobot/__init__.py" ]; then
-            main_module="nanobot"
-        elif [ -d "$platform_path/hermes_agent" ] || [ -d "$platform_path/hermes-cli" ]; then
-            main_module="hermes_agent"
+        # Determine the real package import for each platform.
+        # These must match the actual installable package names.
+        # Platform -> (import_statement, venv_python_path, package_description)
+        case "$platform" in
+            clawteam)
+                import_stmt="import clawteam"
+                import_desc="import clawteam"
+                ;;
+            nanobot)
+                import_stmt="import nanobot"
+                import_desc="import nanobot"
+                ;;
+            hermes-agent)
+                import_stmt="from run_agent import main"
+                import_desc="from run_agent import main"
+                ;;
+            claw-ai-lab)
+                import_stmt="import researchclaw"
+                import_desc="import researchclaw"
+                ;;
+            *)
+                import_stmt=""
+                import_desc=""
+                ;;
+        esac
+
+        # Try the platform's venv first, fall back to system python3
+        venv_python=""
+        if [ -x "$platform_path/.venv/bin/python3" ]; then
+            venv_python="$platform_path/.venv/bin/python3"
+        elif [ -x "$platform_path/venv/bin/python3" ]; then
+            venv_python="$platform_path/venv/bin/python3"
         fi
 
-        if [ -n "$main_module" ]; then
-            result=$(cd "$platform_path" && PYTHONPATH=. time_ms timeout 10 python3 -c "
+        if [ -n "$import_stmt" ]; then
+            # Try with venv python first (where package is actually installed)
+            import_ok=false
+            if [ -n "$venv_python" ]; then
+                result=$(cd "$platform_path" && PYTHONPATH=. time_ms timeout 10 "$venv_python" -c "
 import sys
 try:
-    import $main_module
-except Exception:
-    pass
+    $import_stmt
+except Exception as e:
+    sys.exit(2)
 sys.exit(0)
 " 2>&1)
-            rc=$(echo "$result" | cut -d: -f1)
+                rc=$(echo "$result" | cut -d: -f1)
+                if [ "$rc" != "2" ]; then
+                    import_ok=true
+                fi
+            fi
+
+            # Fall back to system python3 with PYTHONPATH
+            if [ "$import_ok" = false ]; then
+                result=$(cd "$platform_path" && PYTHONPATH=. time_ms timeout 10 python3 -c "
+import sys
+try:
+    $import_stmt
+except Exception as e:
+    sys.exit(2)
+sys.exit(0)
+" 2>&1)
+                rc=$(echo "$result" | cut -d: -f1)
+            fi
+
             duration_ms=$(echo "$result" | cut -d: -f2)
-            metric "$platform" "cold_start_time" "$duration_ms" "ms" "python import $main_module"
+            if [ "$rc" = "2" ]; then
+                metric "$platform" "cold_start_time" "$duration_ms" "ms" "import failed ($import_desc) — package not installed"
+            else
+                metric "$platform" "cold_start_time" "$duration_ms" "ms" "python $import_desc"
+            fi
         else
             # Fallback: baseline Python startup
             result=$(time_ms python3 -c "pass" 2>&1)
@@ -584,23 +814,202 @@ time.sleep(0.5)
             metric "$platform" "memory_idle_mb" "0" "MB" "measurement failed"
         fi
 
-        # --- Memory: active (with import attempt) ---
-        mem_result=$(measure_memory_wrapper timeout 10 python3 -c "
-import sys
+        # --- Memory: active (with real platform package import) ---
+        # Try venv python first (where the package is installed), then system python
+        mem_python="${venv_python:-python3}"
+        if [ -n "$import_stmt" ] && [ -x "$mem_python" ]; then
+            mem_result=$(measure_memory_wrapper timeout 10 "$mem_python" -c "
+import sys, time
 sys.path.insert(0, '${platform_path}')
 try:
-    import json, os, time, subprocess, hashlib, re, pathlib, typing, collections, itertools, functools, dataclasses, datetime, logging
-except:
+    $import_stmt
+except Exception:
     pass
-import time
 time.sleep(0.3)
+" 2>&1)
+            peak_kb=$(echo "$mem_result" | cut -d: -f2)
+            if [ "$peak_kb" -gt 0 ] 2>/dev/null; then
+                peak_mb=$(echo "$peak_kb" | awk '{printf "%.1f", $1/1024}')
+                metric "$platform" "memory_active_mb" "$peak_mb" "MB" "python $import_desc ($([ -n \"$venv_python\" ] && echo 'venv' || echo 'system'))"
+            else
+                metric "$platform" "memory_active_mb" "0" "MB" "package not importable (not installed)"
+            fi
+        else
+            metric "$platform" "memory_active_mb" "0" "MB" "package not importable (no venv or module unknown)"
+        fi
+    fi
+
+    echo ""
+done
+
+# ============================================================
+# Python Platforms (External): smolagents, langgraph, mcp-agent,
+#   crewai, autogen, swarms, aider
+# ============================================================
+
+for platform in smolagents langgraph mcp-agent crewai autogen swarms aider; do
+    # External frameworks at ../PLATFORM; aider inside coding-agents/
+    if [ "$platform" = "aider" ]; then
+        platform_path="$ALLCLAWS_DIR/coding-agents/cli-agents/$platform"
+    else
+        platform_path="$(dirname "$ALLCLAWS_DIR")/$platform"
+    fi
+    echo "--- $platform (Python) ---"
+
+    if [ ! -d "$platform_path" ]; then
+        skip_platform "$platform" "not checked out — tracked via documentation only"
+        echo ""
+        continue
+    fi
+
+    # --- Determine if installable ---
+    has_pyproject=false
+    has_requirements=false
+    if [ -f "$platform_path/pyproject.toml" ]; then
+        has_pyproject=true
+    fi
+    if [ -f "$platform_path/requirements.txt" ]; then
+        has_requirements=true
+    fi
+
+    if [ "$has_pyproject" = false ] && [ "$has_requirements" = false ]; then
+        skip_platform "$platform" "no pyproject.toml or requirements.txt"
+        echo ""
+        continue
+    fi
+
+    # --- Dependency count ---
+    if [ "$has_pyproject" = true ]; then
+        dep_count=$(grep -cE '^\s+"[a-zA-Z]' "$platform_path/pyproject.toml" 2>/dev/null | tr -d ' ')
+        metric "$platform" "py_deps" "$dep_count" "deps"
+    elif [ "$has_requirements" = true ]; then
+        dep_count=$(grep -cvE '^\s*$|^\s*#' "$platform_path/requirements.txt" 2>/dev/null | tr -d ' ')
+        metric "$platform" "py_deps" "$dep_count" "deps"
+    fi
+
+    # --- Installation footprint estimate ---
+    if [ -d "$platform_path/.venv" ]; then
+        site_size=$(size_kb_of "$platform_path/.venv")
+        metric "$platform" "install_footprint" "$site_size" "KB" ".venv/"
+    elif [ -d "$platform_path/venv" ]; then
+        site_size=$(size_kb_of "$platform_path/venv")
+        metric "$platform" "install_footprint" "$site_size" "KB" "venv/"
+    else
+        metric "$platform" "install_footprint" "0" "KB" "no venv found"
+    fi
+
+    # --- Cold start time (python -c import test) ---
+    if [ "$HAS_PYTHON3" = true ]; then
+        case "$platform" in
+            smolagents) import_stmt="import smolagents"; import_desc="import smolagents" ;;
+            langgraph)  import_stmt="import langgraph";  import_desc="import langgraph" ;;
+            mcp-agent)  import_stmt="import mcp_agent";   import_desc="import mcp_agent" ;;
+            crewai)     import_stmt="import crewai";      import_desc="import crewai" ;;
+            autogen)    import_stmt="import autogen";     import_desc="import autogen" ;;
+            swarms)     import_stmt="import swarms";      import_desc="import swarms" ;;
+            aider)      import_stmt="import aider";       import_desc="import aider" ;;
+            *)          import_stmt=""; import_desc="" ;;
+        esac
+
+        # Try venv first, fall back to system python3
+        venv_python=""
+        if [ -x "$platform_path/.venv/bin/python3" ]; then
+            venv_python="$platform_path/.venv/bin/python3"
+        elif [ -x "$platform_path/venv/bin/python3" ]; then
+            venv_python="$platform_path/venv/bin/python3"
+        fi
+
+        if [ -n "$import_stmt" ]; then
+            import_ok=false
+            if [ -n "$venv_python" ]; then
+                result=$(cd "$platform_path" && PYTHONPATH=. time_ms timeout 10 "$venv_python" -c "
+import sys
+try:
+    $import_stmt
+except Exception as e:
+    sys.exit(2)
+sys.exit(0)
+" 2>&1)
+                rc=$(echo "$result" | cut -d: -f1)
+                if [ "$rc" != "2" ]; then
+                    import_ok=true
+                fi
+            fi
+
+            if [ "$import_ok" = false ]; then
+                result=$(cd "$platform_path" && PYTHONPATH=. time_ms timeout 10 python3 -c "
+import sys
+try:
+    $import_stmt
+except Exception as e:
+    sys.exit(2)
+sys.exit(0)
+" 2>&1)
+                rc=$(echo "$result" | cut -d: -f1)
+            fi
+
+            duration_ms=$(echo "$result" | cut -d: -f2)
+            if [ "$rc" = "2" ]; then
+                metric "$platform" "cold_start_time" "$duration_ms" "ms" "import failed ($import_desc) — package not installed"
+            else
+                metric "$platform" "cold_start_time" "$duration_ms" "ms" "python $import_desc"
+            fi
+        else
+            result=$(time_ms python3 -c "pass" 2>&1)
+            duration_ms=$(echo "$result" | cut -d: -f2)
+            metric "$platform" "cold_start_time" "$duration_ms" "ms" "bare python startup (no module found)"
+        fi
+    else
+        metric "$platform" "cold_start_time" "0" "ms" "python3 not available"
+    fi
+
+    # --- Response latency proxy ---
+    if [ "$HAS_PYTHON3" = true ]; then
+        result=$(cd "$platform_path" && time_ms timeout 10 python3 -c "
+import sys
+sys.stdout.write('READY\n')
+sys.stdout.flush()
+" 2>&1)
+        duration_ms=$(echo "$result" | cut -d: -f2)
+        metric "$platform" "response_latency_ms" "$duration_ms" "ms" "echo benchmark"
+    fi
+
+    # --- Memory: idle Python process ---
+    if [ "$HAS_TIME_V" = true ] && [ "$HAS_PYTHON3" = true ]; then
+        mem_result=$(measure_memory_wrapper timeout 10 python3 -c "
+import sys, os
+sys.path.insert(0, '${platform_path}')
+time.sleep(0.5)
 " 2>&1)
         peak_kb=$(echo "$mem_result" | cut -d: -f2)
         if [ "$peak_kb" -gt 0 ] 2>/dev/null; then
             peak_mb=$(echo "$peak_kb" | awk '{printf "%.1f", $1/1024}')
-            metric "$platform" "memory_active_mb" "$peak_mb" "MB" "python + stdlib modules"
+            metric "$platform" "memory_idle_mb" "$peak_mb" "MB" "bare python process"
         else
-            metric "$platform" "memory_active_mb" "0" "MB" "measurement failed"
+            metric "$platform" "memory_idle_mb" "0" "MB" "measurement failed"
+        fi
+
+        # --- Memory: active (with platform package import) ---
+        mem_python="${venv_python:-python3}"
+        if [ -n "$import_stmt" ] && [ -x "$mem_python" ]; then
+            mem_result=$(measure_memory_wrapper timeout 10 "$mem_python" -c "
+import sys, time
+sys.path.insert(0, '${platform_path}')
+try:
+    $import_stmt
+except Exception:
+    pass
+time.sleep(0.3)
+" 2>&1)
+            peak_kb=$(echo "$mem_result" | cut -d: -f2)
+            if [ "$peak_kb" -gt 0 ] 2>/dev/null; then
+                peak_mb=$(echo "$peak_kb" | awk '{printf "%.1f", $1/1024}')
+                metric "$platform" "memory_active_mb" "$peak_mb" "MB" "python $import_desc ($([ -n "$venv_python" ] && echo 'venv' || echo 'system'))"
+            else
+                metric "$platform" "memory_active_mb" "0" "MB" "package not importable (not installed)"
+            fi
+        else
+            metric "$platform" "memory_active_mb" "0" "MB" "package not importable (no venv or module unknown)"
         fi
     fi
 
@@ -677,7 +1086,7 @@ if [ "$HAS_JQ" = true ]; then
         echo ""
         echo "| Platform | Cold Start (ms) | Notes |"
         echo "|----------|-----------------|-------|"
-        for plat in ironclaw zeroclaw goclaw maxclaw hiclaw openclaw nanoclaw quantumclaw clawteam nanobot hermes-agent claw-ai-lab; do
+        for plat in "${ALL_PLATFORMS[@]}"; do
             val=$(echo "$METRICS" | jq -r --arg p "$plat" '.[] | select(.platform==$p and .metric=="cold_start_time") | .value // "0"' 2>/dev/null)
             notes=$(echo "$METRICS" | jq -r --arg p "$plat" '.[] | select(.platform==$p and .metric=="cold_start_time") | .notes // ""' 2>/dev/null)
             if [ -n "$val" ] && [ "$val" != "null" ]; then
@@ -690,7 +1099,7 @@ if [ "$HAS_JQ" = true ]; then
         echo ""
         echo "| Platform | Idle (MB) | Active (MB) | Notes |"
         echo "|----------|-----------|-------------|-------|"
-        for plat in ironclaw zeroclaw goclaw maxclaw hiclaw openclaw nanoclaw quantumclaw clawteam nanobot hermes-agent claw-ai-lab; do
+        for plat in "${ALL_PLATFORMS[@]}"; do
             idle=$(echo "$METRICS" | jq -r --arg p "$plat" '.[] | select(.platform==$p and .metric=="memory_idle_mb") | .value // "0"' 2>/dev/null)
             active=$(echo "$METRICS" | jq -r --arg p "$plat" '.[] | select(.platform==$p and .metric=="memory_active_mb") | .value // "0"' 2>/dev/null)
             notes=$(echo "$METRICS" | jq -r --arg p "$plat" '.[] | select(.platform==$p and .metric=="memory_idle_mb") | .notes // ""' 2>/dev/null)
@@ -704,7 +1113,7 @@ if [ "$HAS_JQ" = true ]; then
         echo ""
         echo "| Platform | Binary Size (KB) | Install Footprint (KB) | Notes |"
         echo "|----------|------------------|------------------------|-------|"
-        for plat in ironclaw zeroclaw goclaw maxclaw hiclaw openclaw nanoclaw quantumclaw clawteam nanobot hermes-agent claw-ai-lab; do
+        for plat in "${ALL_PLATFORMS[@]}"; do
             bin_size=$(echo "$METRICS" | jq -r --arg p "$plat" '.[] | select(.platform==$p and (.metric | startswith("binary"))) | .value // "0"' 2>/dev/null | head -1)
             inst_size=$(echo "$METRICS" | jq -r --arg p "$plat" '.[] | select(.platform==$p and .metric=="install_footprint") | .value // "0"' 2>/dev/null)
             notes=$(echo "$METRICS" | jq -r --arg p "$plat" '.[] | select(.platform==$p and .metric=="install_footprint") | .notes // ""' 2>/dev/null)
@@ -718,7 +1127,7 @@ if [ "$HAS_JQ" = true ]; then
         echo ""
         echo "| Platform | Latency (ms) | Notes |"
         echo "|----------|--------------|-------|"
-        for plat in openclaw nanoclaw quantumclaw clawteam nanobot hermes-agent claw-ai-lab; do
+        for plat in "${ALL_PLATFORMS[@]}"; do
             val=$(echo "$METRICS" | jq -r --arg p "$plat" '.[] | select(.platform==$p and .metric=="response_latency_ms") | .value // "0"' 2>/dev/null)
             notes=$(echo "$METRICS" | jq -r --arg p "$plat" '.[] | select(.platform==$p and .metric=="response_latency_ms") | .notes // ""' 2>/dev/null)
             if [ -n "$val" ] && [ "$val" != "null" ]; then
@@ -731,7 +1140,7 @@ if [ "$HAS_JQ" = true ]; then
         echo ""
         echo "| Platform | Build Time (ms) | Notes |"
         echo "|----------|----------------|-------|"
-        for plat in ironclaw zeroclaw goclaw maxclaw hiclaw openclaw nanoclaw quantumclaw; do
+        for plat in "${ALL_PLATFORMS[@]}"; do
             val=$(echo "$METRICS" | jq -r --arg p "$plat" '.[] | select(.platform==$p and .metric=="build_proxy_time") | .value // "0"' 2>/dev/null)
             notes=$(echo "$METRICS" | jq -r --arg p "$plat" '.[] | select(.platform==$p and .metric=="build_proxy_time") | .notes // ""' 2>/dev/null)
             if [ -n "$val" ] && [ "$val" != "null" ]; then
