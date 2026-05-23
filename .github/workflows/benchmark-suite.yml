@@ -1,0 +1,220 @@
+name: Benchmark Suite
+
+on:
+  schedule:
+    # Mon-Fri 09:00 UTC — daily benchmarks
+    - cron: '0 9 * * 1-5'
+    # Saturday 09:00 UTC — weekly report
+    - cron: '0 9 * * 6'
+    # Sunday 09:00 UTC — submodule updates
+    - cron: '0 9 * * 0'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Benchmark mode'
+        required: false
+        default: 'daily'
+        type: choice
+        options:
+          - daily
+          - report
+          - submodules
+      runs:
+        description: 'Sample count for timing metrics (daily mode only)'
+        required: false
+        default: '5'
+        type: string
+  push:
+    branches: [main]
+    paths:
+      - 'test_framework/benchmark/**'
+      - 'test_framework/config.json'
+      - '.github/workflows/benchmark-suite.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  # ── Mon-Fri: Daily runtime benchmarks ──────────────────────
+  daily-benchmarks:
+    name: Daily Benchmarks (N=${{ inputs.runs || '5' }})
+    if: |
+      github.event.schedule == '0 9 * * 1-5' ||
+      (github.event_name == 'workflow_dispatch' && inputs.mode == 'daily') ||
+      (github.event_name == 'workflow_dispatch' && inputs.mode == '') ||
+      github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: false
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Setup Node.js 20 LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run runtime benchmarks
+        run: |
+          cd test_framework
+          python3 -m benchmark.cli runtime --runs ${{ inputs.runs || '5' }} 2>&1 | tee benchmark_run.log
+
+      - name: Generate job summary
+        if: always()
+        run: |
+          cd test_framework
+          LATEST=$(ls -td benchmark_results/*/runtime/ 2>/dev/null | head -1)
+
+          echo "## Runtime Benchmark Results" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -z "$LATEST" ]; then
+            echo "_No benchmark results found._" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          SUMMARY_FILE="${LATEST}summary.md"
+          if [ -f "$SUMMARY_FILE" ]; then
+            cat "$SUMMARY_FILE" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "_Summary not available._" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "<details>" >> "$GITHUB_STEP_SUMMARY"
+          echo "<summary>Full Report</summary>" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          cat "${LATEST}runtime_benchmark_results.md" 2>/dev/null >> "$GITHUB_STEP_SUMMARY" || echo "_No report._"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "</details>" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload benchmark results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-daily-${{ github.run_number }}
+          path: test_framework/benchmark_results/
+          retention-days: 60
+
+  # ── Saturday: Weekly report ────────────────────────────────
+  weekly-report:
+    name: Weekly Report
+    if: |
+      github.event.schedule == '0 9 * * 6' ||
+      (github.event_name == 'workflow_dispatch' && inputs.mode == 'report')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download recent benchmark artifacts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Download artifacts from last 7 successful daily runs
+          RUN_IDS=$(gh run list \
+            --workflow=benchmark-suite.yml \
+            --limit 20 \
+            --json databaseId,status,conclusion \
+            --jq '[.[] | select(.status=="completed" and .conclusion=="success") | .databaseId] | .[0:7][]' \
+          )
+
+          COUNT=0
+          for RUN_ID in $RUN_IDS; do
+            echo "Downloading artifacts from run $RUN_ID..."
+            if gh run download "$RUN_ID" --dir "artifacts/run-${RUN_ID}" 2>/dev/null; then
+              # Copy results into benchmark_results for report.py to find
+              cp -r artifacts/run-${RUN_ID}/*/runtime/ test_framework/benchmark_results/ 2>/dev/null || true
+              cp -r artifacts/run-${RUN_ID}/*/*/runtime/ test_framework/benchmark_results/ 2>/dev/null || true
+              COUNT=$((COUNT + 1))
+            fi
+          done
+          echo "Downloaded data from $COUNT runs"
+
+      - name: Generate weekly report
+        run: |
+          cd test_framework
+          python3 -m benchmark.cli report --last 5 2>&1 | tee report_run.log
+
+      - name: Generate job summary
+        if: always()
+        run: |
+          cd test_framework
+          LATEST=$(ls -td benchmark_results/*/report/ 2>/dev/null | head -1)
+
+          echo "## Weekly Benchmark Report" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -z "$LATEST" ]; then
+            echo "_No weekly report generated (insufficient daily data)._" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          cat "${LATEST}weekly_report.md" 2>/dev/null >> "$GITHUB_STEP_SUMMARY" || echo "_Report not available._"
+
+      - name: Upload weekly report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-weekly-${{ github.run_number }}
+          path: test_framework/benchmark_results/
+          retention-days: 90
+
+  # ── Sunday: Submodule updates ──────────────────────────────
+  weekly-submodules:
+    name: Submodule Updates
+    if: |
+      github.event.schedule == '0 9 * * 0' ||
+      (github.event_name == 'workflow_dispatch' && inputs.mode == 'submodules')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update all submodules
+        run: git submodule update --remote --recursive
+
+      - name: Check for changes
+        id: check
+        run: |
+          CHANGED=$(git diff --submodule | wc -l)
+          echo "changed=$CHANGED" >> "$GITHUB_OUTPUT"
+
+          if [ "$CHANGED" -gt 0 ]; then
+            echo "### Submodule Updates" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo '```diff' >> "$GITHUB_STEP_SUMMARY"
+            git diff --submodule >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "_No submodule updates this week._" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Commit and push
+        if: steps.check.outputs.changed > 0
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "submodules: weekly update $(date +%Y-%m-%d)"
+          git push
