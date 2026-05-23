@@ -115,4 +115,4 @@ benchmarks/results/
 *secret*
 *token*
 *key*
-*credential*
+*credential*.worktrees/
