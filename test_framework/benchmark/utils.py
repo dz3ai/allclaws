@@ -492,4 +492,4 @@ def _get_metric(result: BenchmarkResult, platform: str, metric: str):
 
 def now_timestamp() -> str:
     """Return ISO 8601 timestamp suitable for filenames and JSON."""
-    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%S")

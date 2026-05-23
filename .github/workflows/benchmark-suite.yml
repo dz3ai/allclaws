@@ -103,7 +103,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: benchmark-daily-${{ github.run_number }}
-          path: test_framework/benchmark_results/
+          path: test_framework/benchmark_results/*/runtime/
+          if-no-files-found: warn
           retention-days: 60
 
   # ── Saturday: Weekly report ────────────────────────────────
