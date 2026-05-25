@@ -133,17 +133,9 @@ jobs:
       - name: Collect results
         run: |
           cd test_framework
-          docker-compose exec -T deepeval-runner \
-            python -c "
-import json
-import os
-results_dir = 'results'
-for file in os.listdir(results_dir):
-    if file.endswith('.json'):
-        with open(os.path.join(results_dir, file)) as f:
-            data = json.load(f)
-            print(f'{file}: {len(data)} results')
-            "
+          docker-compose exec -T deepeval-runner python3 -c \
+            "import json,os
+             [print(f, len(json.load(open(f\"results/{f}\")))) for f in os.listdir('results') if f.endswith('.json')]"
 
       - name: Cleanup
         if: always()
