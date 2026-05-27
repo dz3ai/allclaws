@@ -25,17 +25,17 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 ### 1. Complete Unified Platform Comparison
 
 **Status:** Completed ✅
-**Target:** Complete architecture documentation for all 24 platforms
+**Target:** Complete architecture documentation for all 25 platforms
 
 **Deliverables:**
-- [x] `architecture/platform_comparison.md` — Unified comparison of all 24 platforms
+- [x] `architecture/platform_comparison.md` — Unified comparison of all 25 platforms
 - [x] Standardized format for each platform (classification, architecture, diagrams)
 - [x] Cross-platform comparison matrices
 - [x] Chinese translation (`platform_comparison.zh-CN.md`)
 
 **Scope:**
 - **Claw Ecosystem (13):** OpenClaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, ZeroClaw, HiClaw, QuantumClaw, Hermes-Agent, RTL-CLAW, Claw-AI-Lab
-- **CLI Coding Agents (2):** aider, copilot-cli
+- **CLI Coding Agents (3):** aider, copilot-cli, reasonix
 - **Human Digital Twin (1):** openhuman
 - **External Frameworks (8):** SmolAgents, LangGraph, mcp-agent, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang
 
@@ -48,7 +48,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 - What is the actual token overhead of MCP in production deployments?
 - Which MCP servers are most widely adopted?
 - How do MCP-native frameworks (mcp-agent) differ from MCP-adapter approaches?
-- What is the rate of MCP adoption across the 24 tracked platforms?
+- What is the rate of MCP adoption across the 25 tracked platforms?
 
 **Deliverables:**
 - MCP adoption report (native vs adapter vs resistant)
@@ -108,7 +108,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 - Token efficiency (output/input ratio)
 
 **Deliverables:**
-- Performance comparison across 24 platforms
+- Performance comparison across 25 platforms
 - Benchmark methodology documentation
 - Performance regression detection
 
@@ -156,7 +156,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 **Frequency:** Weekly
 **Activities:**
 - Run test suite on all 13 claw ecosystem platforms
-- CLI Coding Agents (aider, copilot-cli) are tracked via documentation review rather than automated tests, as they are external frameworks without local test targets
+- CLI Coding Agents (aider, copilot-cli, reasonix) are tracked via documentation review rather than automated tests, as they are external frameworks without local test targets
 - Track test pass/fail rates
 - Investigate failures
 - Update test cases as platforms evolve

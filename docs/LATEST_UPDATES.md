@@ -2,7 +2,7 @@
 
 English | **[中文](LATEST_UPDATES.zh-CN.md)**
 
-> Tracking major changes across 13 claw ecosystem platforms, 8 external frameworks, 2 CLI coding agents, and 1 human digital twin platform — architecture innovations, MCP adoption debates, enterprise vs personal patterns, and security developments from April to May 2026.
+> Tracking major changes across 13 claw ecosystem platforms, 8 external frameworks, 3 CLI coding agents, and 1 human digital twin platform — architecture innovations, MCP adoption debates, enterprise vs personal patterns, and security developments from April to May 2026.
 
 ---
 
@@ -15,7 +15,7 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 3. **Enterprise vs 1PC Fork** — Clear divergence between enterprise-automation (governance, cloud, MCP) and personal-force-multiplier (speed, local, CLI) paradigms
 4. **External Framework Recognition** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, mcp-agent, OpenFang added for ecosystem comparison
 5. **Agent Harnesses Category Added** — UltraWorkers toolchain (claw-code, oh-my-codex, clawhip, oh-my-openagent) recognized as distinct infrastructure layer
-6. **CLI Coding Agents Added** — aider (~68K stars, git-aware AI pair programming) and copilot-cli (GitHub Copilot terminal agent) added as new category
+6. **CLI Coding Agents Added** — aider (~68K stars, git-aware AI pair programming), copilot-cli (GitHub Copilot terminal agent), reasonix (DeepSeek-native coding agent, ~11.3K stars) added as new category
 7. **Human Digital Twin Added** — openhuman (Rust, 人类数字孪生) added as academic/research platform
 
 ---
@@ -340,6 +340,34 @@ copilot-cli is GitHub's Copilot-powered terminal agent that brings AI assistance
 
 ---
 
+### reasonix
+
+**TypeScript | ~11.3K stars | May 2026**
+
+**Status:** Active — DeepSeek-native coding agent
+
+### Overview
+reasonix (DeepSeek-Reasonix) is a DeepSeek-native AI coding agent for the terminal. Engineered around prefix-cache stability for low token costs across long sessions, it achieves ~99.82% cache hit rates. Built with Ink (React for CLI) for its TUI.
+
+### Key Features
+- **DeepSeek R1/v4 optimized** — Purpose-built for DeepSeek's reasoning models
+- **Prefix-cache invariant** — Engineered for maximum prefix-cache stability
+- **SEARCH/REPLACE edits** — Focused edit strategy for precision code changes
+- **99.82% cache hit rates** — Low token costs across long coding sessions
+- **TUI with Ink** — React-based terminal UI
+- **Monorepo (npm)** — TypeScript architecture, Node ≥ 22
+
+### Architecture
+- **Language:** TypeScript (Node ≥ 22)
+- **Entry Point:** `reasonix` CLI (npm package: `reasonix`)
+- **Architecture Pattern:** CLI-first terminal coding agent
+- **MCP Status:** None
+- **Deployment:** npm install (`npm install -g reasonix`)
+- **LLM Support:** DeepSeek (R1, v4)
+- **License:** MIT
+
+---
+
 ## openhuman
 
 **Rust | Academic/Research | v0.53.49-staging — May 2026**
@@ -481,11 +509,12 @@ OpenFang is a Rust-based Agent OS deployed as a single binary (~32MB, 137K LOC a
 | OpenFang | ~17.6K | Rust | Adapter | Personal |
 | aider | ~68K | Python | None | Personal |
 | copilot-cli | N/A | TypeScript | ACP | Personal |
+| reasonix | ~11.3K | TypeScript | None | Personal |
 | openhuman | N/A | Rust | N/A | Academic |
 
 ---
 
 *Last updated: May 20, 2026*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*
-*Platforms tracked: 24 (13 claw ecosystem + 8 external frameworks + 2 CLI coding agents + 1 human digital twin)*
+*Platforms tracked: 25 (13 claw ecosystem + 8 external frameworks + 3 CLI coding agents + 1 human digital twin)*
 *Next update: June 2026*

@@ -25,17 +25,17 @@
 ### 1. 完成统一平台比较
 
 **状态：** 已完成 ✅
-**目标：** 完成所有 24 个平台的架构文档
+**目标：** 完成所有 25 个平台的架构文档
 
 **交付成果：**
-- [x] `architecture/platform_comparison.md` — 所有 24 个平台的统一比较
+- [x] `architecture/platform_comparison.md` — 所有 25 个平台的统一比较
 - [x] 每个平台的标准格式（分类、架构、图表）
 - [x] 跨平台比较矩阵
 - [x] 中文翻译（`platform_comparison.zh-CN.md`）
 
 **范围：**
 - **Claw 生态（13 个）：** OpenClaw、ClawTeam、GoClaw、IronClaw、Maxclaw、NanoClaw、Nanobot、ZeroClaw、HiClaw、QuantumClaw、Hermes-Agent、RTL-CLAW、Claw-AI-Lab
-- **CLI 编程代理（2 个）：** aider、copilot-cli
+- **CLI 编程代理（3 个）：** aider、copilot-cli、reasonix
 - **人类数字孪生（1 个）：** openhuman
 - **外部框架（8 个）：** SmolAgents、LangGraph、mcp-agent、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang
 
@@ -48,7 +48,7 @@
 - MCP 在生产部署中的实际 token 开销是多少？
 - 哪些 MCP 服务器被广泛采用？
 - MCP 原生框架（mcp-agent）与 MCP 适配器方法有何不同？
-- 24 个跟踪平台的 MCP 采用率是多少？
+- 25 个跟踪平台的 MCP 采用率是多少？
 
 **交付成果：**
 - MCP 采用报告（原生 vs 适配器 vs 抵制）
@@ -108,7 +108,7 @@
 - Token 效率（输出/输入比率）
 
 **交付成果：**
-- 24 个平台的性能比较
+- 25 个平台的性能比较
 - 基准测试方法文档
 - 性能回归检测
 
@@ -156,7 +156,7 @@
 **频率：** 每周
 **活动：**
 - 在所有 13 个 claw 生态平台上运行测试套件
-- CLI 编程代理（aider、copilot-cli）通过文档审查进行跟踪，而非自动化测试，因为它们是没有本地测试目标的外部框架
+- CLI 编程代理（aider、copilot-cli、reasonix）通过文档审查进行跟踪，而非自动化测试，因为它们是没有本地测试目标的外部框架
 - 跟踪测试通过/失败率
 - 调查失败原因
 - 随平台演进更新测试用例

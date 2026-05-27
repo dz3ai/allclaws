@@ -25,6 +25,7 @@
     "openfang",
     "aider",
     "copilot-cli",
+    "reasonix",
     "openhuman"
   ],
   "default_privilege_level": "standard",
@@ -53,6 +54,7 @@
     "openfang": "../openfang",
     "aider": "./coding-agents/cli-agents/aider",
     "copilot-cli": "./coding-agents/cli-agents/copilot-cli",
+    "reasonix": "./coding-agents/cli-agents/reasonix",
     "openhuman": "./openhuman"
   },
   "platform_languages": {
@@ -79,6 +81,7 @@
     "openfang": "Rust",
     "aider": "Python",
     "copilot-cli": "TypeScript",
+    "reasonix": "TypeScript",
     "openhuman": "Rust"
   },
   "test_categories": [

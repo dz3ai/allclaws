@@ -1,20 +1,20 @@
-# Unified Platform Comparison: All 24 AI Agent Platforms
+# Unified Platform Comparison: All 25 AI Agent Platforms
 
 **[中文](platform_comparison.zh-CN.md)** | English
 
-> Standardized architecture comparison across all 24 platforms tracked by AllClaws — 13 claw ecosystem platforms, 8 external frameworks, 2 CLI coding agents, and 1 human digital twin platform. Updated May 2026.
+> Standardized architecture comparison across all 25 platforms tracked by AllClaws — 13 claw ecosystem platforms, 8 external frameworks, 3 CLI coding agents, and 1 human digital twin platform. Updated May 2026.
 
 ---
 
 ## Overview
 
-This document provides a standardized, side-by-side architecture comparison of all 24 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
+This document provides a standardized, side-by-side architecture comparison of all 25 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
 
-The 24 platforms divide into four groups:
+The 25 platforms divide into four groups:
 
 - **Claw Ecosystem (13):** Platforms originating within or closely associated with the Claw/OpenClaw ecosystem.
 - **External Frameworks (8):** Industry-reference frameworks tracked for ecosystem comparison.
-- **CLI Coding Agents (2):** AI-powered terminal-based coding assistants (aider, copilot-cli).
+- **CLI Coding Agents (3):** AI-powered terminal-based coding assistants (aider, reasonix, copilot-cli).
 - **Human Digital Twin (1):** Academic/research platform (openhuman).
 
 ### Key Cross-Cutting Patterns (May 2026)
@@ -1145,7 +1145,7 @@ graph TD
 
 ---
 
-## Part 3: CLI Coding Agents (2 Platforms)
+## Part 3: CLI Coding Agents (3 Platforms)
 
 ---
 
@@ -1246,6 +1246,51 @@ graph TD
 
 ---
 
+## reasonix
+
+**Classification:** TypeScript | ~11.3K stars | Personal-Force-Multiplier
+**Repository:** [github.com/esengine/DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix)
+**Status:** Active
+
+### Overview
+
+Reasonix is an AI-powered CLI coding agent built on DeepSeek's reasoning capabilities. It provides terminal-based code generation, editing, and explanation with a focus on chain-of-thought reasoning for complex coding tasks. Licensed under MIT.
+
+### Key Principles
+
+- Reasoning-first — leverages DeepSeek's chain-of-thought for complex problem decomposition
+- CLI-native — designed for terminal workflows
+- TypeScript — modern, type-safe implementation
+- Open source — MIT license
+
+### Core Architecture
+
+- **Language:** TypeScript
+- **Entry Point:** CLI
+- **Architecture Pattern:** Terminal coding agent with reasoning pipeline
+- **Key Modules:** Reasoning engine, CLI interface, code editor, file system access
+- **MCP Status:** N/A
+- **Deployment:** Local (npm install)
+- **LLM Support:** DeepSeek
+- **Memory:** Session-based
+- **Database:** None
+- **Security:** Local-only execution
+- **Testing:** Not specified
+
+### Architecture Diagram
+
+```mermaid
+graph TD
+    A[CLI Entry] --> B[Reasoning Engine]
+    B --> C[DeepSeek LLM]
+    B --> D[Code Editor]
+    B --> E[File System Access]
+    A --> F[Session Manager]
+    F --> G[Context Window]
+```
+
+---
+
 ## Part 4: Human Digital Twin (1 Platform)
 
 ---
@@ -1323,6 +1368,7 @@ graph TD
 | Swarms | Python | Enterprise-Automation | ~5K |
 | OpenAgents | TypeScript | Enterprise-Automation | N/A |
 | aider | Python | Personal-Force-Multiplier | ~68K |
+| reasonix | TypeScript | Personal-Force-Multiplier | ~11.3K |
 | copilot-cli | TypeScript | Personal-Force-Multiplier | N/A |
 | openhuman | Rust | Academic | N/A |
 | OpenFang | Rust | Personal-Force-Multiplier | ~17.6K |
@@ -1335,7 +1381,7 @@ graph TD
 | **Adapter** | OpenClaw, GoClaw, IronClaw, ZeroClaw, HiClaw, OpenFang |
 | **Resistant** | NanoClaw |
 | **None** | ClawTeam, Maxclaw, Nanobot, QuantumClaw |
-| **N/A** | RTL-CLAW, Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, aider, openhuman |
+| **N/A** | RTL-CLAW, Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, aider, reasonix, openhuman |
 
 ### Architecture Pattern Matrix
 
@@ -1356,6 +1402,7 @@ graph TD
 | **Layered pipeline** | RTL-CLAW |
 | **Research pipeline** | Claw-AI-Lab |
 | **Pair-programming (REPL)** | aider |
+| **Terminal agent (reasoning)** | reasonix |
 | **Terminal agent (ACP)** | copilot-cli |
 | **Agent OS (Hands)** | OpenFang |
 
@@ -1384,11 +1431,12 @@ graph TD
 | Swarms | Cloud | Not specified | Not specified |
 | OpenAgents | Cloud (distributed) | Not specified | Not specified |
 | aider | Local CLI | SQLite | None |
+| reasonix | Local CLI | None | None |
 | copilot-cli | Local CLI | GitHub API | None |
 | openhuman | Local / Self-hosted | SQLite | Docker |
 | OpenFang | Cross-platform (single binary) | SQLite | None |
 
-### Full 24-Platform Comparison Table
+### Full 25-Platform Comparison Table
 
 | Platform | Language | Stars | MCP | Architecture | Deployment | Field |
 |----------|----------|-------|-----|-------------|------------|-------|
@@ -1413,6 +1461,10 @@ graph TD
 | Swarms | Python | ~5K | N/A | Async orchestration | Cloud | Enterprise |
 | OpenAgents | TypeScript | N/A | N/A | Distributed | Cloud | Enterprise |
 | OpenFang | Rust | ~17.6K | Adapter | Agent OS | Single binary | Personal |
+| aider | Python | ~68K | N/A | Pair-programming (REPL) | Local CLI | Personal |
+| reasonix | TypeScript | ~11.3K | N/A | Terminal agent (reasoning) | Local CLI | Personal |
+| copilot-cli | TypeScript | N/A | N/A | Terminal agent (ACP) | Local CLI | Personal |
+| openhuman | Rust | N/A | N/A | Digital twin simulation | Local | Academic |
 
 ---
 
@@ -1427,5 +1479,5 @@ graph TD
 ---
 
 *Last updated: May 2026*
-*Platforms tracked: 24 (13 claw ecosystem + 8 external frameworks + 2 CLI coding agents + 1 human digital twin)*
+*Platforms tracked: 25 (13 claw ecosystem + 8 external frameworks + 3 CLI coding agents + 1 human digital twin)*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*

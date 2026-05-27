@@ -43,6 +43,9 @@
 [submodule "coding-agents/cli-agents/copilot-cli"]
 	path = coding-agents/cli-agents/copilot-cli
 	url = https://github.com/github/copilot-cli.git
+[submodule "coding-agents/cli-agents/reasonix"]
+	path = coding-agents/cli-agents/reasonix
+	url = https://github.com/esengine/DeepSeek-Reasonix.git
 [submodule "openhuman"]
 	path = openhuman
 	url = https://github.com/tinyhumansai/openhuman.git
