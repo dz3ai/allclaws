@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-05-23T01:15:58",
+  "engine_version": "3.0.0",
+  "metric_count": 1,
+  "skipped_count": 0,
+  "command": "sandbox",
+  "toolchain": {
+    "python3": true,
+    "cargo": true,
+    "node": true,
+    "go": false,
+    "docker": true,
+    "podman": true,
+    "ps": true,
+    "time_v": true
+  },
+  "metrics": [
+    {
+      "platform": "clawteam",
+      "metric": "finding",
+      "value": 1,
+      "unit": "critical",
+      "notes": "container | Container not running | Action: Start with: podman-compose up -d clawteam-sandbox"
+    }
+  ],
+  "skipped": []
+}

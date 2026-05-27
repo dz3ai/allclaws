@@ -1,0 +1,184 @@
+{
+  "timestamp": "2026-05-23T01:15:55",
+  "engine_version": "3.0.0",
+  "metric_count": 16,
+  "skipped_count": 0,
+  "command": "runtime",
+  "toolchain": {
+    "python3": true,
+    "cargo": true,
+    "node": true,
+    "go": false,
+    "docker": true,
+    "podman": true,
+    "ps": true,
+    "time_v": true
+  },
+  "metrics": [
+    {
+      "platform": "ironclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no target/release (not built)"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "install_footprint",
+      "value": 3831495,
+      "unit": "KB",
+      "notes": "target/ directory"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "build_proxy_time",
+      "value": 64.9,
+      "unit": "ms",
+      "notes": "cargo check failed (rc=101)",
+      "samples": [
+        64.9
+      ],
+      "stats": {
+        "mean": 64.9,
+        "stddev": 0.0,
+        "min": 64.9,
+        "max": 64.9,
+        "p50": 64.9,
+        "p95": 64.9
+      }
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "cold_start_time",
+      "value": 0,
+      "unit": "ms",
+      "notes": "binary not built"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "install_footprint",
+      "value": 0,
+      "unit": "KB",
+      "notes": "node_modules/ not installed"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "npm_deps",
+      "value": 73,
+      "unit": "deps"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no dist/ or build/ directory"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "cold_start_time",
+      "value": 64.48,
+      "unit": "ms",
+      "notes": "node parse time (no runtime init)",
+      "samples": [
+        64.48
+      ],
+      "stats": {
+        "mean": 64.48,
+        "stddev": 0.0,
+        "min": 64.48,
+        "max": 64.48,
+        "p50": 64.48,
+        "p95": 64.48
+      }
+    },
+    {
+      "platform": "openclaw",
+      "metric": "response_latency_ms",
+      "value": 32.24,
+      "unit": "ms",
+      "notes": "echo benchmark",
+      "samples": [
+        32.24
+      ],
+      "stats": {
+        "mean": 32.24,
+        "stddev": 0.0,
+        "min": 32.24,
+        "max": 32.24,
+        "p50": 32.24,
+        "p95": 32.24
+      }
+    },
+    {
+      "platform": "openclaw",
+      "metric": "memory_idle_mb",
+      "value": 38.9,
+      "unit": "MB"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "py_deps",
+      "value": 19,
+      "unit": "deps"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "install_footprint",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no venv found"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "cold_start_time",
+      "value": 32.59,
+      "unit": "ms",
+      "notes": "import failed (import clawteam) \u2014 not installed",
+      "samples": [
+        32.59
+      ],
+      "stats": {
+        "mean": 32.59,
+        "stddev": 0.0,
+        "min": 32.59,
+        "max": 32.59,
+        "p50": 32.59,
+        "p95": 32.59
+      }
+    },
+    {
+      "platform": "clawteam",
+      "metric": "response_latency_ms",
+      "value": 32.4,
+      "unit": "ms",
+      "notes": "echo benchmark",
+      "samples": [
+        32.4
+      ],
+      "stats": {
+        "mean": 32.4,
+        "stddev": 0.0,
+        "min": 32.4,
+        "max": 32.4,
+        "p50": 32.4,
+        "p95": 32.4
+      }
+    },
+    {
+      "platform": "clawteam",
+      "metric": "memory_idle_mb",
+      "value": 11.5,
+      "unit": "MB",
+      "notes": "bare python process"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "memory_active_mb",
+      "value": 11.5,
+      "unit": "MB",
+      "notes": "python import clawteam (system)"
+    }
+  ],
+  "skipped": []
+}

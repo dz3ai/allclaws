@@ -1,0 +1,98 @@
+{
+  "timestamp": "2026-05-23T01:15:26",
+  "engine_version": "3.0.0",
+  "metric_count": 13,
+  "skipped_count": 0,
+  "command": "static",
+  "toolchain": {
+    "python3": true,
+    "cargo": true,
+    "node": true,
+    "go": false,
+    "docker": true,
+    "podman": true,
+    "ps": true,
+    "time_v": true
+  },
+  "metrics": [
+    {
+      "platform": "clawteam",
+      "metric": "repo_size",
+      "value": 9826,
+      "unit": "KB"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "readme_lines",
+      "value": 712,
+      "unit": "lines"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "docs_size",
+      "value": 73,
+      "unit": "KB"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "ci_workflows",
+      "value": 1,
+      "unit": "files"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "ci_steps",
+      "value": 8,
+      "unit": "steps"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "dockerfiles",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "makefile_targets",
+      "value": 0,
+      "unit": "targets"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "test_files",
+      "value": 36,
+      "unit": "files"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "i18n_files",
+      "value": 0,
+      "unit": "files"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "top_level_dirs",
+      "value": 9,
+      "unit": "dirs"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "py_files",
+      "value": 92,
+      "unit": "files"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "py_loc",
+      "value": 18167,
+      "unit": "lines"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "py_deps",
+      "value": 19,
+      "unit": "deps"
+    }
+  ],
+  "skipped": []
+}

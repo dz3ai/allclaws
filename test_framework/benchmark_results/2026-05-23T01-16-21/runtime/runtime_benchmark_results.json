@@ -1,0 +1,220 @@
+{
+  "timestamp": "2026-05-23T01:16:24",
+  "engine_version": "3.0.0",
+  "metric_count": 18,
+  "skipped_count": 0,
+  "command": "runtime",
+  "toolchain": {
+    "python3": true,
+    "cargo": true,
+    "node": true,
+    "go": false,
+    "docker": true,
+    "podman": true,
+    "ps": true,
+    "time_v": true
+  },
+  "metrics": [
+    {
+      "platform": "openclaw",
+      "metric": "install_footprint",
+      "value": 0,
+      "unit": "KB",
+      "notes": "node_modules/ not installed"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "npm_deps",
+      "value": 73,
+      "unit": "deps"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no dist/ or build/ directory"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "cold_start_time",
+      "value": 64.35,
+      "unit": "ms",
+      "notes": "node parse time (no runtime init)",
+      "samples": [
+        64.29,
+        64.3,
+        64.45
+      ],
+      "stats": {
+        "mean": 64.35,
+        "stddev": 0.08,
+        "min": 64.29,
+        "max": 64.45,
+        "p50": 64.3,
+        "p95": 64.45
+      }
+    },
+    {
+      "platform": "openclaw",
+      "metric": "response_latency_ms",
+      "value": 32.4,
+      "unit": "ms",
+      "notes": "echo benchmark",
+      "samples": [
+        32.23,
+        32.32,
+        32.65
+      ],
+      "stats": {
+        "mean": 32.4,
+        "stddev": 0.18,
+        "min": 32.23,
+        "max": 32.65,
+        "p50": 32.32,
+        "p95": 32.65
+      }
+    },
+    {
+      "platform": "openclaw",
+      "metric": "memory_idle_mb",
+      "value": 38.7,
+      "unit": "MB"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "py_deps",
+      "value": 86,
+      "unit": "deps"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "install_footprint",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no venv found"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "cold_start_time",
+      "value": 32.44,
+      "unit": "ms",
+      "notes": "import failed (import nanobot) \u2014 not installed",
+      "samples": [
+        32.53,
+        32.51,
+        32.27
+      ],
+      "stats": {
+        "mean": 32.44,
+        "stddev": 0.12,
+        "min": 32.27,
+        "max": 32.53,
+        "p50": 32.51,
+        "p95": 32.53
+      }
+    },
+    {
+      "platform": "nanobot",
+      "metric": "response_latency_ms",
+      "value": 32.87,
+      "unit": "ms",
+      "notes": "echo benchmark",
+      "samples": [
+        32.91,
+        32.94,
+        32.76
+      ],
+      "stats": {
+        "mean": 32.87,
+        "stddev": 0.08,
+        "min": 32.76,
+        "max": 32.94,
+        "p50": 32.91,
+        "p95": 32.94
+      }
+    },
+    {
+      "platform": "nanobot",
+      "metric": "memory_idle_mb",
+      "value": 11.6,
+      "unit": "MB",
+      "notes": "bare python process"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "memory_active_mb",
+      "value": 11.5,
+      "unit": "MB",
+      "notes": "python import nanobot (system)"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "py_deps",
+      "value": 53,
+      "unit": "deps"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "install_footprint",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no venv found"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "cold_start_time",
+      "value": 16.0,
+      "unit": "ms",
+      "notes": "import failed (from run_agent import main) \u2014 not installed",
+      "samples": [
+        15.85,
+        15.77,
+        16.4
+      ],
+      "stats": {
+        "mean": 16.0,
+        "stddev": 0.28,
+        "min": 15.77,
+        "max": 16.4,
+        "p50": 15.85,
+        "p95": 16.4
+      }
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "response_latency_ms",
+      "value": 26.79,
+      "unit": "ms",
+      "notes": "echo benchmark",
+      "samples": [
+        15.88,
+        31.99,
+        32.49
+      ],
+      "stats": {
+        "mean": 26.79,
+        "stddev": 7.71,
+        "min": 15.88,
+        "max": 32.49,
+        "p50": 31.99,
+        "p95": 32.49
+      }
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "memory_idle_mb",
+      "value": 11.5,
+      "unit": "MB",
+      "notes": "bare python process"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "memory_active_mb",
+      "value": 11.5,
+      "unit": "MB",
+      "notes": "python from run_agent import main (system)"
+    }
+  ],
+  "skipped": []
+}

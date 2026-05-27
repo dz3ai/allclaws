@@ -1,0 +1,732 @@
+{
+  "timestamp": "2026-05-23T16-11-44",
+  "engine_version": "3.0.0",
+  "metric_count": 59,
+  "skipped_count": 13,
+  "command": "runtime",
+  "toolchain": {
+    "python3": true,
+    "cargo": true,
+    "node": true,
+    "go": true,
+    "docker": true,
+    "podman": true,
+    "ps": true,
+    "time_v": true
+  },
+  "metrics": [
+    {
+      "platform": "ironclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no target/release (not built)"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "install_footprint",
+      "value": 3831495,
+      "unit": "KB",
+      "notes": "target/ directory"
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "build_proxy_time",
+      "value": 38.96,
+      "unit": "ms",
+      "notes": "cargo check failed (rc=101)",
+      "samples": [
+        64.62,
+        33.11,
+        32.58,
+        32.31,
+        32.16
+      ],
+      "stats": {
+        "mean": 38.96,
+        "stddev": 12.84,
+        "min": 32.16,
+        "max": 64.62,
+        "p50": 32.58,
+        "p95": 64.62
+      }
+    },
+    {
+      "platform": "ironclaw",
+      "metric": "cold_start_time",
+      "value": 0,
+      "unit": "ms",
+      "notes": "binary not built"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no target/release (not built)"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "install_footprint",
+      "value": 1804439,
+      "unit": "KB",
+      "notes": "target/ directory"
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "build_proxy_time",
+      "value": 32.49,
+      "unit": "ms",
+      "notes": "cargo check failed (rc=101)",
+      "samples": [
+        32.63,
+        33.12,
+        32.12,
+        32.26,
+        32.31
+      ],
+      "stats": {
+        "mean": 32.49,
+        "stddev": 0.36,
+        "min": 32.12,
+        "max": 33.12,
+        "p50": 32.31,
+        "p95": 33.12
+      }
+    },
+    {
+      "platform": "zeroclaw",
+      "metric": "cold_start_time",
+      "value": 0,
+      "unit": "ms",
+      "notes": "binary not built"
+    },
+    {
+      "platform": "openhuman",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no target/release (not built)"
+    },
+    {
+      "platform": "openhuman",
+      "metric": "install_footprint",
+      "value": 0,
+      "unit": "KB",
+      "notes": "target/ directory"
+    },
+    {
+      "platform": "openhuman",
+      "metric": "build_proxy_time",
+      "value": 39.36,
+      "unit": "ms",
+      "notes": "cargo check failed (rc=101)",
+      "samples": [
+        32.69,
+        32.5,
+        32.76,
+        65.94,
+        32.93
+      ],
+      "stats": {
+        "mean": 39.36,
+        "stddev": 13.29,
+        "min": 32.5,
+        "max": 65.94,
+        "p50": 32.76,
+        "p95": 65.94
+      }
+    },
+    {
+      "platform": "openhuman",
+      "metric": "cold_start_time",
+      "value": 0,
+      "unit": "ms",
+      "notes": "binary not built"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "not built"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "install_footprint",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no vendor/; go mod download proxy"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "build_proxy_time",
+      "value": 115.041834,
+      "unit": "ms",
+      "notes": "go vet failed (rc=1)"
+    },
+    {
+      "platform": "goclaw",
+      "metric": "mod_download_time",
+      "value": 3.85,
+      "unit": "ms",
+      "notes": "go mod download",
+      "samples": [
+        3.9,
+        3.81,
+        3.73,
+        3.94,
+        3.87
+      ],
+      "stats": {
+        "mean": 3.85,
+        "stddev": 0.07,
+        "min": 3.73,
+        "max": 3.94,
+        "p50": 3.87,
+        "p95": 3.94
+      }
+    },
+    {
+      "platform": "goclaw",
+      "metric": "cold_start_time",
+      "value": 0,
+      "unit": "ms",
+      "notes": "binary not built"
+    },
+    {
+      "platform": "maxclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "not built"
+    },
+    {
+      "platform": "maxclaw",
+      "metric": "install_footprint",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no vendor/; go mod download proxy"
+    },
+    {
+      "platform": "maxclaw",
+      "metric": "build_proxy_time",
+      "value": 8.067914,
+      "unit": "ms",
+      "notes": "go vet failed (rc=1)"
+    },
+    {
+      "platform": "maxclaw",
+      "metric": "mod_download_time",
+      "value": 3.7,
+      "unit": "ms",
+      "notes": "go mod download",
+      "samples": [
+        3.73,
+        3.66,
+        3.72,
+        3.69,
+        3.72
+      ],
+      "stats": {
+        "mean": 3.7,
+        "stddev": 0.03,
+        "min": 3.66,
+        "max": 3.73,
+        "p50": 3.72,
+        "p95": 3.73
+      }
+    },
+    {
+      "platform": "maxclaw",
+      "metric": "cold_start_time",
+      "value": 0,
+      "unit": "ms",
+      "notes": "binary not built"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "install_footprint",
+      "value": 572770,
+      "unit": "KB",
+      "notes": "node_modules/"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "npm_deps",
+      "value": 73,
+      "unit": "deps"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no dist/ or build/ directory"
+    },
+    {
+      "platform": "openclaw",
+      "metric": "cold_start_time",
+      "value": 75.15,
+      "unit": "ms",
+      "notes": "node parse time (no runtime init)",
+      "samples": [
+        117.21,
+        65.0,
+        64.35,
+        64.46,
+        64.71
+      ],
+      "stats": {
+        "mean": 75.15,
+        "stddev": 21.03,
+        "min": 64.35,
+        "max": 117.21,
+        "p50": 64.71,
+        "p95": 117.21
+      }
+    },
+    {
+      "platform": "openclaw",
+      "metric": "response_latency_ms",
+      "value": 32.66,
+      "unit": "ms",
+      "notes": "echo benchmark",
+      "samples": [
+        32.41,
+        32.64,
+        32.61,
+        32.8,
+        32.87
+      ],
+      "stats": {
+        "mean": 32.66,
+        "stddev": 0.16,
+        "min": 32.41,
+        "max": 32.87,
+        "p50": 32.64,
+        "p95": 32.87
+      }
+    },
+    {
+      "platform": "openclaw",
+      "metric": "memory_idle_mb",
+      "value": 38.4,
+      "unit": "MB"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "install_footprint",
+      "value": 162533,
+      "unit": "KB",
+      "notes": "node_modules/"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "npm_deps",
+      "value": 19,
+      "unit": "deps"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no dist/ or build/ directory"
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "cold_start_time",
+      "value": 64.91,
+      "unit": "ms",
+      "notes": "node parse time (no runtime init)",
+      "samples": [
+        64.91,
+        64.91,
+        64.56,
+        65.03,
+        65.12
+      ],
+      "stats": {
+        "mean": 64.91,
+        "stddev": 0.19,
+        "min": 64.56,
+        "max": 65.12,
+        "p50": 64.91,
+        "p95": 65.12
+      }
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "response_latency_ms",
+      "value": 32.43,
+      "unit": "ms",
+      "notes": "echo benchmark",
+      "samples": [
+        32.56,
+        32.37,
+        32.33,
+        32.51,
+        32.36
+      ],
+      "stats": {
+        "mean": 32.43,
+        "stddev": 0.09,
+        "min": 32.33,
+        "max": 32.56,
+        "p50": 32.37,
+        "p95": 32.56
+      }
+    },
+    {
+      "platform": "nanoclaw",
+      "metric": "memory_idle_mb",
+      "value": 38.5,
+      "unit": "MB"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "install_footprint",
+      "value": 74892,
+      "unit": "KB",
+      "notes": "node_modules/"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "npm_deps",
+      "value": 12,
+      "unit": "deps"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "binary_size",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no dist/ or build/ directory"
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "cold_start_time",
+      "value": 74.99,
+      "unit": "ms",
+      "notes": "node parse time (no runtime init)",
+      "samples": [
+        114.79,
+        65.36,
+        64.9,
+        65.48,
+        64.44
+      ],
+      "stats": {
+        "mean": 74.99,
+        "stddev": 19.9,
+        "min": 64.44,
+        "max": 114.79,
+        "p50": 65.36,
+        "p95": 114.79
+      }
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "response_latency_ms",
+      "value": 32.47,
+      "unit": "ms",
+      "notes": "echo benchmark",
+      "samples": [
+        32.33,
+        32.31,
+        32.72,
+        32.73,
+        32.26
+      ],
+      "stats": {
+        "mean": 32.47,
+        "stddev": 0.21,
+        "min": 32.26,
+        "max": 32.73,
+        "p50": 32.33,
+        "p95": 32.73
+      }
+    },
+    {
+      "platform": "quantumclaw",
+      "metric": "memory_idle_mb",
+      "value": 38.6,
+      "unit": "MB"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "py_deps",
+      "value": 19,
+      "unit": "deps"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "install_footprint",
+      "value": 58507,
+      "unit": "KB",
+      "notes": ".venv/"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "cold_start_time",
+      "value": 7.65,
+      "unit": "ms",
+      "notes": "python import clawteam",
+      "samples": [
+        7.59,
+        7.53,
+        7.54,
+        7.51,
+        8.1
+      ],
+      "stats": {
+        "mean": 7.65,
+        "stddev": 0.22,
+        "min": 7.51,
+        "max": 8.1,
+        "p50": 7.54,
+        "p95": 8.1
+      }
+    },
+    {
+      "platform": "clawteam",
+      "metric": "response_latency_ms",
+      "value": 32.31,
+      "unit": "ms",
+      "notes": "echo benchmark",
+      "samples": [
+        32.29,
+        32.19,
+        32.18,
+        32.57,
+        32.32
+      ],
+      "stats": {
+        "mean": 32.31,
+        "stddev": 0.14,
+        "min": 32.18,
+        "max": 32.57,
+        "p50": 32.29,
+        "p95": 32.57
+      }
+    },
+    {
+      "platform": "clawteam",
+      "metric": "memory_idle_mb",
+      "value": 11.6,
+      "unit": "MB",
+      "notes": "bare python process"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "memory_active_mb",
+      "value": 9.0,
+      "unit": "MB",
+      "notes": "python import clawteam (venv)"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "py_deps",
+      "value": 86,
+      "unit": "deps"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "install_footprint",
+      "value": 299548,
+      "unit": "KB",
+      "notes": ".venv/"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "cold_start_time",
+      "value": 267.28,
+      "unit": "ms",
+      "notes": "python import nanobot",
+      "samples": [
+        267.05,
+        266.8,
+        265.36,
+        265.77,
+        271.41
+      ],
+      "stats": {
+        "mean": 267.28,
+        "stddev": 2.16,
+        "min": 265.36,
+        "max": 271.41,
+        "p50": 266.8,
+        "p95": 271.41
+      }
+    },
+    {
+      "platform": "nanobot",
+      "metric": "response_latency_ms",
+      "value": 32.26,
+      "unit": "ms",
+      "notes": "echo benchmark",
+      "samples": [
+        32.78,
+        32.26,
+        32.01,
+        32.14,
+        32.11
+      ],
+      "stats": {
+        "mean": 32.26,
+        "stddev": 0.27,
+        "min": 32.01,
+        "max": 32.78,
+        "p50": 32.14,
+        "p95": 32.78
+      }
+    },
+    {
+      "platform": "nanobot",
+      "metric": "memory_idle_mb",
+      "value": 11.5,
+      "unit": "MB",
+      "notes": "bare python process"
+    },
+    {
+      "platform": "nanobot",
+      "metric": "memory_active_mb",
+      "value": 49.3,
+      "unit": "MB",
+      "notes": "python import nanobot (venv)"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "py_deps",
+      "value": 53,
+      "unit": "deps"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "install_footprint",
+      "value": 103253,
+      "unit": "KB",
+      "notes": ".venv/"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "cold_start_time",
+      "value": 509.33,
+      "unit": "ms",
+      "notes": "python from run_agent import main",
+      "samples": [
+        519.21,
+        516.88,
+        520.03,
+        473.57,
+        516.99
+      ],
+      "stats": {
+        "mean": 509.33,
+        "stddev": 17.92,
+        "min": 473.57,
+        "max": 520.03,
+        "p50": 516.99,
+        "p95": 520.03
+      }
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "response_latency_ms",
+      "value": 32.69,
+      "unit": "ms",
+      "notes": "echo benchmark",
+      "samples": [
+        32.69,
+        32.8,
+        32.13,
+        32.93,
+        32.92
+      ],
+      "stats": {
+        "mean": 32.69,
+        "stddev": 0.3,
+        "min": 32.13,
+        "max": 32.93,
+        "p50": 32.8,
+        "p95": 32.93
+      }
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "memory_idle_mb",
+      "value": 11.6,
+      "unit": "MB",
+      "notes": "bare python process"
+    },
+    {
+      "platform": "hermes-agent",
+      "metric": "memory_active_mb",
+      "value": 45.9,
+      "unit": "MB",
+      "notes": "python from run_agent import main (venv)"
+    },
+    {
+      "platform": "rtl-claw",
+      "metric": "runtime_benchmarks",
+      "value": 0,
+      "unit": "N/A",
+      "notes": "hardware description language, no runtime"
+    }
+  ],
+  "skipped": [
+    {
+      "platform": "openfang",
+      "reason": "not found or no Cargo.toml"
+    },
+    {
+      "platform": "hiclaw",
+      "reason": "not found or no go.mod"
+    },
+    {
+      "platform": "openagents",
+      "reason": "not found or no package.json"
+    },
+    {
+      "platform": "copilot-cli",
+      "reason": "not found or no package.json"
+    },
+    {
+      "platform": "claw-ai-lab",
+      "reason": "no pyproject.toml or requirements.txt"
+    },
+    {
+      "platform": "smolagents",
+      "reason": "not checked out \u2014 tracked via documentation only"
+    },
+    {
+      "platform": "langgraph",
+      "reason": "not checked out \u2014 tracked via documentation only"
+    },
+    {
+      "platform": "mcp-agent",
+      "reason": "not checked out \u2014 tracked via documentation only"
+    },
+    {
+      "platform": "crewai",
+      "reason": "not checked out \u2014 tracked via documentation only"
+    },
+    {
+      "platform": "autogen",
+      "reason": "not checked out \u2014 tracked via documentation only"
+    },
+    {
+      "platform": "swarms",
+      "reason": "not checked out \u2014 tracked via documentation only"
+    },
+    {
+      "platform": "aider",
+      "reason": "not checked out \u2014 tracked via documentation only"
+    },
+    {
+      "platform": "rtl-claw",
+      "reason": "build-tool only \u2014 no runtime agent metrics applicable"
+    }
+  ]
+}

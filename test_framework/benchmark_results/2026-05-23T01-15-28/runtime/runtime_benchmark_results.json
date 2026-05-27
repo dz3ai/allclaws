@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-05-23T01:15:29",
+  "engine_version": "3.0.0",
+  "metric_count": 6,
+  "skipped_count": 0,
+  "command": "runtime",
+  "toolchain": {
+    "python3": true,
+    "cargo": true,
+    "node": true,
+    "go": false,
+    "docker": true,
+    "podman": true,
+    "ps": true,
+    "time_v": true
+  },
+  "metrics": [
+    {
+      "platform": "clawteam",
+      "metric": "py_deps",
+      "value": 19,
+      "unit": "deps"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "install_footprint",
+      "value": 0,
+      "unit": "KB",
+      "notes": "no venv found"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "cold_start_time",
+      "value": 16.02,
+      "unit": "ms",
+      "notes": "import failed (import clawteam) \u2014 not installed",
+      "samples": [
+        15.91,
+        16.13
+      ],
+      "stats": {
+        "mean": 16.02,
+        "stddev": 0.11,
+        "min": 15.91,
+        "max": 16.13,
+        "p50": 16.13,
+        "p95": 16.13
+      }
+    },
+    {
+      "platform": "clawteam",
+      "metric": "response_latency_ms",
+      "value": 32.96,
+      "unit": "ms",
+      "notes": "echo benchmark",
+      "samples": [
+        33.45,
+        32.47
+      ],
+      "stats": {
+        "mean": 32.96,
+        "stddev": 0.49,
+        "min": 32.47,
+        "max": 33.45,
+        "p50": 33.45,
+        "p95": 33.45
+      }
+    },
+    {
+      "platform": "clawteam",
+      "metric": "memory_idle_mb",
+      "value": 11.5,
+      "unit": "MB",
+      "notes": "bare python process"
+    },
+    {
+      "platform": "clawteam",
+      "metric": "memory_active_mb",
+      "value": 11.6,
+      "unit": "MB",
+      "notes": "python import clawteam (system)"
+    }
+  ],
+  "skipped": []
+}
