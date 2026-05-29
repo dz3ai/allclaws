@@ -25,12 +25,6 @@
 [submodule "hiclaw"]
 	path = hiclaw
 	url = https://github.com/agentscope-ai/HiClaw.git
-[submodule "rtl-claw"]
-	path = rtl-claw
-	url = https://github.com/TONGJI-EDA-LAB/RTL-CLAW.git
-[submodule "quantumclaw"]
-	path = quantumclaw
-	url = https://github.com/QuantumClaw/QClaw.git
 [submodule "claw-ai-lab"]
 	path = claw-ai-lab
 	url = https://github.com/Claw-AI-Lab/Claw-AI-Lab.git
@@ -49,3 +43,9 @@
 [submodule "openhuman"]
 	path = openhuman
 	url = https://github.com/tinyhumansai/openhuman.git
+[submodule "coding-agents/cli-agents/kimi-cli"]
+	path = coding-agents/cli-agents/kimi-cli
+	url = https://github.com/MoonshotAI/kimi-cli.git
+[submodule "coding-agents/kimi-code"]
+	path = coding-agents/kimi-code
+	url = https://github.com/MoonshotAI/kimi-code.git

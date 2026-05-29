@@ -2,8 +2,8 @@
 
 ## 总览
 - 仓库: dz3ai/allclaws (GitHub)
-- 平台数: 25 (13 Claw + 8 External + 3 CLI + 1 Digital Twin)
-- 最近提交: f787ab2 — feat: add Reasonix as 25th tracked platform
+- 平台数: 24 (11 Claw + 8 External + 4 CLI + 1 Digital Twin)
+- 最近提交: f787ab2 — feat: add Reasonix as tracked platform
 - 分支: main, up to date with origin
 
 ## 今日活动 (2026-05-28)
@@ -28,7 +28,7 @@
    - Go 1.24.4: ~/local/go/bin
    - Rust target: ironclaw (3.1G), zeroclaw
    - 真实数据验证: 59 metrics, cold_start/memory 均非 fallback 值
-4. ✅ 文档更新: 24→25 平台 (OpenFang + Reasonix)
+4. ✅ 文档更新: 25→24 平台 (count correction)
 5. ✅ CI 修复:
    - agent-tests.yml YAML 语法错误 L138 (inline Python 缩进问题)
    - results/ + benchmark_results/ 冒号目录名全部重命名 (48 renames)
@@ -48,7 +48,7 @@
 
 ## 关键文件
 - test_framework/benchmark/ — Python benchmark 包 (7 files, v3.0)
-- test_framework/config.json — 25 platforms 配置
+- test_framework/config.json — 24 platforms 配置
 - .github/workflows/benchmark-suite.yml — CI workflow (Mon-Fri daily)
 - .github/workflows/agent-tests.yml — 静态分析 + 基准测试
 - docs/platform_comparison.md + .zh-CN.md — 平台对比矩阵

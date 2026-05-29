@@ -6,18 +6,18 @@
 
 ## 🎯 Mission
 
-AllClaws conducts independent research on AI agent architectures and deployment models, with emphasis on understanding the emerging distinction between **personal-force-multiplier** and **enterprise-automation** paradigms. We track 25 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
+AllClaws conducts independent research on AI agent architectures and deployment models, with emphasis on understanding the emerging distinction between **personal-force-multiplier** and **enterprise-automation** paradigms. We track 24 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
 
 **Full Mission:** [docs/MISSION.md](docs/MISSION.md)
 
 ## 🔥 Key Insights (May 2026)
 
-Based on tracking **25 platforms**, several key trends have emerged:
+Based on tracking **24 platforms**, several key trends have emerged:
 
 1. **The Personal vs Enterprise Fork** — Clear divergence between personal-force-multiplier (1PC) and enterprise-automation paradigms
 2. **MCP Debate Intensifies** — Model Context Protocol gaining enterprise adoption but facing resistance from local-first agents over token overhead
 3. **"Self-Improving" Claims Scrutiny** — After Hermes-Agent source code analysis, distinction between procedural memory and autonomous learning is critical
-4. **External Framework Integration** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, mcp-agent, OpenFang tracked for ecosystem comparison
+4. **External Framework Integration** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang tracked for ecosystem comparison
 5. **CLI Coding Agents & Human Digital Twin** — aider (~68K stars, git-aware AI pair programming), copilot-cli (GitHub Copilot terminal agent), reasonix (DeepSeek-native coding agent, ~11.3K stars), openhuman (Rust human digital twin platform) added
 
 See [AI Agent Ecosystem Report: April-May 2026](_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md) for full details.
@@ -29,9 +29,9 @@ See [Latest Updates: April-May 2026](docs/LATEST_UPDATES.md) for full details.
 ### 1. Architecture Analysis & Comparison
 **Status:** ✅ Active Development
 
-Comprehensive analysis of AI agent platforms across 25 tracked frameworks:
+Comprehensive analysis of AI agent platforms across 24 tracked frameworks:
 
-**Claw Ecosystem (13 platforms):**
+**Claw Ecosystem (11 platforms):**
 - **Openclaw** (TypeScript): Extensible CLI with multi-channel support
 - **ClawTeam** (Python): Multi-agent swarm coordination with leader-worker orchestration
 - **GoClaw** (Go): Multi-agent AI gateway with PostgreSQL multi-tenancy
@@ -41,25 +41,25 @@ Comprehensive analysis of AI agent platforms across 25 tracked frameworks:
 - **Nanobot** (Python): Ultra-lightweight assistant (~4,000 LOC core)
 - **Zeroclaw** (Rust): High-performance runtime (<5MB RAM)
 - **HiClaw** (Go + Shell): Enterprise multi-agent runtime with Kubernetes-style resources
-- **QuantumClaw** (TypeScript): Self-hosted AGEX protocol implementation
 - **Hermes-Agent** (Python): Research-backed agent with context compaction
-- **RTL-CLAW** (Python/Verilog): EDA workflow automation
 - **Claw-AI-Lab** (Python): Academic research platform
 
 **External Frameworks (8 platforms):**
 - **SmolAgents** (Python): Hugging Face's ~1K LOC code-agent framework
 - **LangGraph** (Python/TS): Graph-based stateful multi-agent workflows
-- **mcp-agent** (Python): MCP-native agent framework
 - **CrewAI** (Python): Role-playing autonomous agents
 - **AutoGen** (Python): Microsoft's multi-agent conversation framework
 - **Swarms** (Python): Enterprise orchestration framework
 - **OpenAgents** (TypeScript): Distributed agent networks
 - **OpenFang** (Rust): Agent OS with Hands capability packages (~17.6K stars)
+- **Kimi Code** (TypeScript): MoonshotAI's next-gen agent framework with plugin architecture (~1.4K stars)
+- **AgentScope** (Python): Alibaba DAMO Academy's multi-agent framework (~25.8K stars)
 
-**CLI Coding Agents (3 platforms):**
+**CLI Coding Agents (4 platforms):**
 - **aider** (Python): AI pair programming CLI with git-aware multi-model support (~68K stars)
 - **reasonix** (TypeScript): DeepSeek-native coding agent for terminal, prefix-cache optimized (~11.3K stars)
 - **copilot-cli** (TypeScript): GitHub Copilot terminal agent with ACP protocol support
+- **Kimi CLI** (Python): MoonshotAI's CLI coding agent with terminal TUI (~8.8K stars)
 
 **Human Digital Twin (1 platform):**
 - **openhuman** (Rust): Human digital twin platform (人类数字孪生), academic/research
@@ -77,14 +77,14 @@ Comprehensive analysis of AI agent platforms across 25 tracked frameworks:
 - `architecture/external_frameworks.md` - External frameworks deep-dive
 - `architecture/agent_harnesses.md` - Agent harnesses and toolchains analysis
 - `architecture/architecture_comparison.md` - Claw ecosystem analysis (redirect to new comparison)
-- `architecture/platform_comparison.md` - Unified 25-platform comparison (EN + ZH)
+- `architecture/platform_comparison.md` - Unified 24-platform comparison (EN + ZH)
 - `architecture/agent_harnesses.md` - Agent harnesses & toolchains analysis
 - `architecture/multi_agent_coordination_research.md` - Multi-agent coordination trend analysis
 
 ### 2. Personal Agent Test Framework
 **Status:** ✅ v2.0 — Cross-Platform Static Analysis Complete
 
-A testing framework that scans all 13 claw ecosystem platform submodules and records results systematically. **Note:** External frameworks (including CLI coding agents and other categories) are analyzed via documentation and source code review, not automated testing.
+A testing framework that scans all 11 claw ecosystem platform submodules and records results systematically. **Note:** External frameworks (including CLI coding agents and other categories) are analyzed via documentation and source code review, not automated testing.
 
 **Run tests:**
 ```bash
@@ -105,9 +105,7 @@ bash scripts/run_tests.sh
 | Nanobot | Python | 88 .py | 10/13 pass |
 | Zeroclaw | Rust | 227 .rs | 14/14 pass |
 | HiClaw | Go | ~400 .go | 13/14 pass |
-| QuantumClaw | TypeScript | ~150 .ts | 12/13 pass |
 | Hermes-Agent | Python | ~60 .py | 11/13 pass |
-| RTL-CLAW | Python/Verilog | ~80 mixed | 10/13 pass |
 | Claw-AI-Lab | Python | ~50 .py | 11/13 pass |
 
 **What gets tested per platform:**
@@ -118,7 +116,7 @@ bash scripts/run_tests.sh
 ### 3. Benchmark Engine
 **Status:** ✅ v1.0 — Cross-Platform Metrics Collection Complete
 
-A pure-external benchmark engine that measures repository characteristics across all 13 platforms without requiring builds or runtime dependencies.
+A pure-external benchmark engine that measures repository characteristics across all 11 platforms without requiring builds or runtime dependencies.
 
 **Run benchmarks:**
 ```bash
@@ -139,9 +137,7 @@ bash scripts/run_benchmarks.sh
 | Nanobot | 66,200 | 88 .py | 18,960 | 49 pip | 26 |
 | Zeroclaw | 24,640 | 259 .rs | 161,169 | 45 cargo | 18 |
 | HiClaw | ~25,000 | ~400 .go | ~35,000 | ~40 go | ~30 |
-| QuantumClaw | ~15,000 | ~150 .ts | ~25,000 | ~20 npm | ~15 |
 | Hermes-Agent | ~8,000 | ~60 .py | ~8,000 | ~15 pip | ~12 |
-| RTL-CLAW | ~12,000 | ~80 mixed | ~15,000 | ~20 pip | ~10 |
 | Claw-AI-Lab | ~10,000 | ~50 .py | ~7,000 | ~25 pip | ~8 |
 
 **What gets measured per platform:**
@@ -163,7 +159,7 @@ Creating educational content about personal AI assistants:
 - [The AI Agent Fork: Enterprise vs 1PC](_posts/2026-05-06-ai-agent-fork-enterprise-vs-1pc.md) — Why both sides are right
 - [AI Agent Ecosystem Report: April-May 2026](_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md) — Monthly report
 - [Agent Harnesses & Toolchains](architecture/agent_harnesses.md) — UltraWorkers stack analysis
-- [Unified Platform Comparison](architecture/platform_comparison.md) — All 25 platforms
+- [Unified Platform Comparison](architecture/platform_comparison.md) — All 24 platforms
 - Multi-agent coordination trend analysis
 - Security considerations for personal AI agents
 - Framework documentation (English + Chinese)
@@ -220,12 +216,12 @@ bash tests/test_agent_validation.sh
 ## 📊 Current Status & Roadmap
 
 ### ✅ Completed
-- [x] Architecture analysis of 25 platforms (13 claw ecosystem + 8 external frameworks + 3 CLI coding agents + 1 human digital twin)
-- [x] External frameworks integration (SmolAgents, LangGraph, mcp-agent, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang)
+- [x] Architecture analysis of 24 platforms (11 claw ecosystem + 8 external frameworks + 4 CLI coding agents + 1 human digital twin)
+- [x] External frameworks integration (SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang)
 - [x] Multi-agent coordination trend research
 - [x] Monthly ecosystem updates tracking (EN + ZH)
-- [x] Cross-platform static analysis test framework (v2.1, 165/177 pass for 13 claw platforms)
-- [x] Benchmark execution engine (v1.0, 182 metrics across 13 claw platforms)
+- [x] Cross-platform static analysis test framework (v2.1, 165/177 pass for 11 claw platforms)
+- [x] Benchmark execution engine (v1.0, 182 metrics across 11 claw platforms)
 - [x] Refined mission statement (personal vs enterprise paradigm analysis)
 - [x] Claims verification (Hermes-Agent "self-improving" analysis)
 - [x] Multi-agent coordination trend research
@@ -236,7 +232,7 @@ bash tests/test_agent_validation.sh
 - [x] Security privilege and rule enforcement
 - [x] Comprehensive .gitignore for sensitive data protection
 - [x] Bilingual documentation (English + Chinese)
-- [x] Unified platform comparison (all 25 platforms, EN + ZH)
+- [x] Unified platform comparison (all 24 platforms, EN + ZH)
 - [x] Agent harnesses & toolchains analysis (EN + ZH)
 - [x] Blog: personal harness tutorial, enterprise vs 1PC fork analysis
 
@@ -268,7 +264,7 @@ This is an active research project. Contributions welcome in:
 
 ## 🔗 Related Projects
 
-**Claw Ecosystem (13 platforms):**
+**Claw Ecosystem (11 platforms):**
 - **Openclaw**: https://github.com/openclaw/openclaw
 - **ClawTeam**: https://github.com/win4r/ClawTeam-OpenClaw
 - **GoClaw**: https://github.com/nextlevelbuilder/goclaw
@@ -278,25 +274,24 @@ This is an active research project. Contributions welcome in:
 - **Nanobot**: https://github.com/HKUDS/nanobot
 - **Zeroclaw**: https://github.com/zeroclaw-labs/zeroclaw
 - **HiClaw**: https://github.com/hiclaw-org/hiclaw
-- **QuantumClaw**: https://github.com/quantumclaw/quantumclaw
 - **Hermes-Agent**: https://github.com/NousResearch/hermes-agent
-- **RTL-CLAW**: https://github.com/rtl-claw/rtl-claw
 - **Claw-AI-Lab**: https://github.com/Claw-AI-Lab/Claw-AI-Lab
 
 **External Frameworks (8 platforms):**
 - **SmolAgents**: https://github.com/huggingface/smolagents
 - **LangGraph**: https://github.com/langchain-ai/langgraph
-- **mcp-agent**: https://github.com/lastmile-ai/mcp-agent
 - **CrewAI**: https://github.com/crewaiinc/crewai
 - **AutoGen**: https://github.com/microsoft/autogen
 - **Swarms**: https://github.com/kyegomez/swarms
 - **OpenAgents**: https://github.com/openagents-org/openagents
 - **OpenFang**: https://github.com/RightNow-AI/openfang
+- **Kimi Code**: https://github.com/MoonshotAI/kimi-code
 
-**CLI Coding Agents:**
+**CLI Coding Agents (4):**
 - **aider**: https://github.com/paul-gauthier/aider
 - **copilot-cli**: https://github.com/githubnext/copilot-cli
 - **reasonix**: https://github.com/esengine/DeepSeek-Reasonix
+- **Kimi CLI**: https://github.com/MoonshotAI/kimi-cli
 
 **Human Digital Twin:**
 - **openhuman**: https://github.com/openhuman/openhuman

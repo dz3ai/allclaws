@@ -2,7 +2,7 @@
 
 English | **[中文](LATEST_UPDATES.zh-CN.md)**
 
-> Tracking major changes across 13 claw ecosystem platforms, 8 external frameworks, 3 CLI coding agents, and 1 human digital twin platform — architecture innovations, MCP adoption debates, enterprise vs personal patterns, and security developments from April to May 2026.
+> Tracking major changes across 13 claw ecosystem platforms, 9 external frameworks, 4 CLI coding agents, and 1 human digital twin platform — architecture innovations, MCP adoption debates, enterprise vs personal patterns, and security developments from April to May 2026.
 
 ---
 
@@ -10,13 +10,14 @@ English | **[中文](LATEST_UPDATES.zh-CN.md)**
 
 April-May 2026 revealed four defining trends shaping the ecosystem:
 
-1. **The MCP Debate Intensified** — Model Context Protocol gained enterprise adoption (mcp-agent, IronClaw, GoClaw, ZeroClaw) but faced resistance from local-first agents (NanoClaw) over 20-30% token overhead
+1. **The MCP Debate Intensified** — Model Context Protocol gained enterprise adoption (IronClaw, GoClaw, ZeroClaw) but faced resistance from local-first agents (NanoClaw) over 20-30% token overhead
 2. **"Self-Improving" Claims Under Scrutiny** — Hermes-Agent source code analysis revealed procedural memory ≠ autonomous learning; distinction now widely recognized
 3. **Enterprise vs 1PC Fork** — Clear divergence between enterprise-automation (governance, cloud, MCP) and personal-force-multiplier (speed, local, CLI) paradigms
-4. **External Framework Recognition** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, mcp-agent, OpenFang added for ecosystem comparison
+4. **External Framework Recognition** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang added for ecosystem comparison
 5. **Agent Harnesses Category Added** — UltraWorkers toolchain (claw-code, oh-my-codex, clawhip, oh-my-openagent) recognized as distinct infrastructure layer
 6. **CLI Coding Agents Added** — aider (~68K stars, git-aware AI pair programming), copilot-cli (GitHub Copilot terminal agent), reasonix (DeepSeek-native coding agent, ~11.3K stars) added as new category
 7. **Human Digital Twin Added** — openhuman (Rust, 人类数字孪生) added as academic/research platform
+8. **MoonshotAI Platforms Added** — kimi-cli (Python, CLI coding agent, ~8.8K stars, ACP support) and kimi-code (TypeScript, next-gen agent framework, ~1.4K stars, MCP + plugin architecture) added
 
 ---
 
@@ -220,24 +221,6 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 
 ---
 
-## QuantumClaw
-
-**TypeScript | Active dev | v1.6.0 — April-May 2026**
-
-**Status:** AGEX protocol implementation
-
-### Architecture
-- Native multi-agent spawning
-- AGEX protocol support
-- Cost-aware routing
-
-### Key Features
-- 15 team presets
-- 5-tier cost routing
-- Self-hosted focus
-
----
-
 ## Hermes-Agent
 
 **Python | Research-backed | v2026.5.16 — May 2026**
@@ -257,19 +240,6 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 
 ### Verdict
 **Procedural memory ≠ autonomous learning** — "self-improving" claims overstated
-
----
-
-## RTL-CLAW
-
-**Python/Verilog | Academic | Active dev**
-
-**Status:** EDA workflow automation
-
-### Focus
-- Electronic design automation
-- Hardware workflow AI
-- Academic research platform
 
 ---
 
@@ -392,6 +362,58 @@ openhuman is a Rust-based Human Digital Twin platform (人类数字孪生) desig
 
 ---
 
+## Kimi CLI
+
+**Python | ~8.8K stars | Apache-2.0 — May 2026**
+
+**Status:** Active — MoonshotAI's CLI coding agent
+
+### Overview
+kimi-cli is MoonshotAI's CLI-based coding agent. Python-based with ACP (Agent Communication Protocol) support and a terminal TUI interface for interactive coding sessions.
+
+### Key Features
+- **Python-based** — Pure Python implementation for extensibility
+- **ACP support** — Agent Communication Protocol for structured interactions
+- **Terminal TUI** — Interactive terminal user interface
+- **MoonshotAI integration** — Optimized for Moonshot AI models
+
+### Architecture
+- **Language:** Python
+- **Entry Point:** CLI
+- **Architecture Pattern:** Terminal coding agent with TUI
+- **MCP Status:** ACP support
+- **Deployment:** pip install
+- **LLM Support:** MoonshotAI (Kimi)
+- **License:** Apache-2.0
+
+---
+
+## Kimi Code
+
+**TypeScript | ~1.4K stars | MIT — May 2026**
+
+**Status:** Active — MoonshotAI's next-gen agent framework
+
+### Overview
+kimi-code is MoonshotAI's next-generation agent framework. A TypeScript monorepo with plugin architecture and MCP (Model Context Protocol) support for building extensible AI agent systems.
+
+### Key Features
+- **Plugin architecture** — Extensible plugin system for custom capabilities
+- **MCP support** — Model Context Protocol for tool/context integration
+- **TypeScript monorepo** — Modern, type-safe implementation
+- **Next-gen framework** — Designed for building multi-purpose AI agents
+
+### Architecture
+- **Language:** TypeScript
+- **Entry Point:** Application
+- **Architecture Pattern:** Plugin-based agent framework
+- **MCP Status:** Native
+- **Deployment:** npm install
+- **LLM Support:** MoonshotAI (Kimi)
+- **License:** MIT
+
+---
+
 ## External Frameworks (New Tracking)
 
 ### SmolAgents (Hugging Face)
@@ -407,13 +429,6 @@ openhuman is a Rust-based Human Digital Twin platform (人类数字孪生) desig
 - Graph-based orchestration
 - Stateful workflows
 - Enterprise pattern comparison
-
-### mcp-agent
-**Python | ~8.2K stars | MCP-native**
-
-- MCP reference implementation
-- "MCP is all you need" vision
-- Native vs adapter pattern comparison
 
 ### CrewAI
 **Python | Role-playing focus**
@@ -495,13 +510,10 @@ OpenFang is a Rust-based Agent OS deployed as a single binary (~32MB, 137K LOC a
 | ClawTeam | ~884 | Python | None | Personal |
 | Maxclaw | ~189 | Go+TS | None | Personal |
 | HiClaw | N/A | Go+Shell | Adapter | Enterprise |
-| QuantumClaw | N/A | TypeScript | None | Personal |
 | Hermes-Agent | N/A | Python | Native | Personal |
-| RTL-CLAW | N/A | Py/Verilog | N/A | Academic |
 | Claw-AI-Lab | N/A | Python | N/A | Academic |
 | SmolAgents | ~26.7K | Python | N/A | Personal |
 | LangGraph | N/A | Py/TS | N/A | Enterprise |
-| mcp-agent | ~8.2K | Python | Native | Enterprise |
 | CrewAI | N/A | Python | N/A | Enterprise |
 | AutoGen | N/A | Python | N/A | Enterprise |
 | Swarms | ~5K | Python | N/A | Enterprise |
@@ -511,10 +523,12 @@ OpenFang is a Rust-based Agent OS deployed as a single binary (~32MB, 137K LOC a
 | copilot-cli | N/A | TypeScript | ACP | Personal |
 | reasonix | ~11.3K | TypeScript | None | Personal |
 | openhuman | N/A | Rust | N/A | Academic |
+| Kimi CLI | ~8.8K | Python | ACP | Personal |
+| Kimi Code | ~1.4K | TypeScript | Native | Personal/Enterprise |
 
 ---
 
-*Last updated: May 20, 2026*
+*Last updated: May 29, 2026*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*
-*Platforms tracked: 25 (13 claw ecosystem + 8 external frameworks + 3 CLI coding agents + 1 human digital twin)*
+*Platforms tracked: 27 (13 claw ecosystem + 9 external frameworks + 4 CLI coding agents + 1 human digital twin)*
 *Next update: June 2026*

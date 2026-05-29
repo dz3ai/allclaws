@@ -1,20 +1,20 @@
-# Unified Platform Comparison: All 25 AI Agent Platforms
+# Unified Platform Comparison: All 24 AI Agent Platforms
 
 **[中文](platform_comparison.zh-CN.md)** | English
 
-> Standardized architecture comparison across all 25 platforms tracked by AllClaws — 13 claw ecosystem platforms, 8 external frameworks, 3 CLI coding agents, and 1 human digital twin platform. Updated May 2026.
+> Standardized architecture comparison across all 24 platforms tracked by AllClaws — 11 claw ecosystem platforms, 8 external frameworks, 4 CLI coding agents, and 1 human digital twin platform. Updated May 2026.
 
 ---
 
 ## Overview
 
-This document provides a standardized, side-by-side architecture comparison of all 25 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
+This document provides a standardized, side-by-side architecture comparison of all 24 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
 
-The 25 platforms divide into four groups:
+The 24 platforms divide into four groups:
 
-- **Claw Ecosystem (13):** Platforms originating within or closely associated with the Claw/OpenClaw ecosystem.
+- **Claw Ecosystem (11):** Platforms originating within or closely associated with the Claw/OpenClaw ecosystem.
 - **External Frameworks (8):** Industry-reference frameworks tracked for ecosystem comparison.
-- **CLI Coding Agents (3):** AI-powered terminal-based coding assistants (aider, reasonix, copilot-cli).
+- **CLI Coding Agents (4):** AI-powered terminal-based coding assistants (aider, reasonix, copilot-cli, kimi-cli).
 - **Human Digital Twin (1):** Academic/research platform (openhuman).
 
 ### Key Cross-Cutting Patterns (May 2026)
@@ -41,24 +41,24 @@ The 25 platforms divide into four groups:
 
 | Field | Description | Examples |
 |-------|-------------|----------|
-| **Personal-Force-Multiplier** | Single user or small team; CLI-first; local deployment | OpenClaw, Nanobot, SmolAgents, Maxclaw, ZeroClaw, NanoClaw, aider, copilot-cli |
+| **Personal-Force-Multiplier** | Single user or small team; CLI-first; local deployment | OpenClaw, Nanobot, SmolAgents, Maxclaw, ZeroClaw, NanoClaw, aider, copilot-cli, kimi-cli |
 | **Enterprise-Automation** | Multi-user; cloud-deployed; governance focus | GoClaw, LangGraph, Swarms, HiClaw, CrewAI, AutoGen |
 | **Personal/Enterprise (Hybrid)** | Spans both paradigms | IronClaw |
-| **Academic** | Research and education focused | RTL-CLAW, Claw-AI-Lab, openhuman |
+| **Academic** | Research and education focused | Claw-AI-Lab, openhuman |
 
 ### By MCP Relationship
 
 | Status | Meaning | Examples |
 |--------|---------|----------|
-| **Native** | Framework built around MCP protocol | mcp-agent, Hermes-Agent |
+| **Native** | Framework built around MCP protocol | Hermes-Agent |
 | **Adapter** | MCP supported as integration layer | IronClaw, GoClaw, ZeroClaw, OpenClaw, HiClaw |
 | **Resistant** | Explicitly avoids MCP overhead | NanoClaw |
-| **None** | No MCP integration | ClawTeam, Maxclaw, Nanobot, QuantumClaw |
-| **N/A** | Domain-specific; MCP not relevant | RTL-CLAW, Claw-AI-Lab |
+| **None** | No MCP integration | ClawTeam, Maxclaw, Nanobot |
+| **N/A** | Domain-specific; MCP not relevant | Claw-AI-Lab |
 
 ---
 
-## Part 1: Claw Ecosystem (13 Platforms)
+## Part 1: Claw Ecosystem (11 Platforms)
 
 ---
 
@@ -566,61 +566,6 @@ graph TB
 
 ---
 
-## QuantumClaw
-
-**Classification:** Node.js (TypeScript) | Active development | Personal-Force-Multiplier
-**Status:** Active
-
-### Overview
-
-QuantumClaw is a self-hosted AGEX (Agent Gateway EXchange) protocol implementation focused on agent identity, trust, and cost-aware orchestration. Provides 3-layer memory, 5-tier cost routing, and ClawHub integration (3,286+ skills).
-
-### Key Principles
-
-- AGEX protocol for agent identity and trust
-- Cost-aware model routing
-- Three-layer memory architecture
-- Self-hosted with minimal dependencies
-- ClawHub skill marketplace integration
-
-### Core Architecture
-
-- **Language:** Node.js (TypeScript)
-- **Entry Point:** `quantumclaw` CLI
-- **Architecture Pattern:** Multi-agent spawning with AGEX protocol
-- **Key Modules:** AGEX protocol (identity + trust), 3-layer memory (vector + structured + knowledge graph), 5-tier cost routing (reflex → simple → standard → complex → expert), Live Canvas dashboard, ClawHub integration, 12 MCP servers
-- **MCP Status:** None — AGEX protocol, not MCP
-- **Deployment:** Self-hosted (Linux, VPS, RPi, Android)
-- **LLM Support:** 8+ providers
-- **Memory:** 3-layer (vector search, structured knowledge, knowledge graph)
-- **Database:** SQLite
-- **Security:** Trust kernel (VALUES.md)
-- **Testing:** Not specified
-
-### Architecture Diagram
-
-```mermaid
-graph TB
-    A[CLI Entry: quantumclaw] --> B[AGEX Protocol Layer]
-    B --> C[Agent Identity]
-    B --> D[Trust Kernel]
-    B --> E[Cost Router]
-    E --> F[Tier 1: Reflex]
-    E --> G[Tier 2: Simple]
-    E --> H[Tier 3: Standard]
-    E --> I[Tier 4: Complex]
-    E --> J[Tier 5: Expert]
-    A --> K[3-Layer Memory]
-    K --> K1[Vector Search]
-    K --> K2[Structured Knowledge]
-    K --> K3[Knowledge Graph]
-    A --> L[ClawHub Integration]
-    L --> M[3,286+ Skills]
-    A --> N[Live Canvas Dashboard]
-```
-
----
-
 ## Hermes-Agent
 
 **Classification:** Python | Research-backed | Personal-Force-Multiplier
@@ -672,59 +617,6 @@ graph TD
     A --> O[Channel Manager]
     O --> P[Telegram]
     O --> Q[Discord]
-```
-
----
-
-## RTL-CLAW
-
-**Classification:** Python + Verilog | Academic | Academic
-**Status:** Active
-
-### Overview
-
-RTL-CLAW is an AI-agent-driven framework for automated IC design flow, developed collaboratively by Tongji EDA Lab and CUHK. Built on OpenClaw, it demonstrates AI-driven RTL design automation, verification, and synthesis targeting ASAP7nm PDK.
-
-### Key Principles
-
-- Research-oriented EDA toolchain on OpenClaw
-- Layered design: Interaction → Agent Core → Tool/Data Flow
-- Modular plugin architecture
-- Integration of open-source and commercial EDA tools
-
-### Core Architecture
-
-- **Language:** Python + Verilog
-- **Entry Point:** Docker Compose
-- **Architecture Pattern:** Layered pipeline (Interaction → Agent Core → Tool/Data Flow)
-- **Key Modules:** Interaction Layer, Agent Core Layer (task planning/execution), Tool & Data Flow Layer (RTL analysis, Verilog partition, optimization, testbench generation, Yosys synthesis)
-- **MCP Status:** N/A
-- **Deployment:** Docker-based
-- **LLM Support:** OpenClaw provider
-- **Memory:** Workspace-based
-- **Database:** Not specified
-- **Security:** Docker-based isolation
-- **Testing:** Not specified
-
-### Architecture Diagram
-
-```mermaid
-graph TB
-    A[Docker Compose Entry] --> B[RTL-CLAW CLI]
-    A --> C[RTL-CLAW Gateway]
-    B --> D[Interaction Layer]
-    C --> E[Web UI]
-    D --> F[Agent Core Layer]
-    F --> G[Task Planning]
-    F --> H[Task Execution]
-    F --> I[Tool & Data Flow Layer]
-    I --> J[RTL Analysis]
-    I --> K[Verilog Partition]
-    I --> L[Optimization]
-    I --> M[Testbench Generation]
-    I --> N[Yosys Synthesis]
-    I --> O[Open-Source EDA Tools]
-    I --> P[Commercial EDA Tools]
 ```
 
 ---
@@ -871,50 +763,6 @@ Graph-based orchestration framework for stateful, multi-agent AI applications. B
 | **Orchestration** | Graph-based | Leader-worker | Team-based |
 | **State** | Checkpointed | Git worktrees | PostgreSQL |
 | **Type Safety** | Typed state | Untyped | Go types |
-
----
-
-## mcp-agent
-
-**Classification:** Python | ~8.2K stars | Enterprise-Automation
-**Repository:** [github.com/lastmile-ai/mcp-agent](https://github.com/lastmile-ai/mcp-agent)
-**Status:** Active
-
-### Overview
-
-The reference implementation for MCP-native AI agents. Built by LastMile AI with a planner-executor model, built-in memory, and simple composition. Vision: "MCP is all you need."
-
-### Key Principles
-
-- MCP-native design
-- Planner-executor model
-- Built-in memory system
-- Simple composition from MCP servers
-
-### Core Architecture
-
-- **Language:** Python
-- **Entry Point:** Library import
-- **Architecture Pattern:** Planner-executor (single-agent)
-- **Key Modules:** MCP Client, Planner (task decomposition), Executor (MCP tool calls), Memory
-- **MCP Status:** Native — reference implementation
-- **Deployment:** Cloud
-- **LLM Support:** Not specified
-- **Memory:** Integrated memory system
-- **Database:** Not specified
-- **Security:** Not specified
-- **Testing:** Not specified
-
-### Claw Ecosystem Comparison
-
-| Platform | MCP Support | Type |
-|----------|-------------|------|
-| **mcp-agent** | Native (reference) | Framework built around MCP |
-| **IronClaw** | Adapter | stdio/SSE/streamable-http |
-| **GoClaw** | Adapter | stdio/SSE/streamable-http |
-| **ZeroClaw** | Adapter | stdio/SSE/streamable-http |
-| **OpenClaw** | Plugin | Via extension |
-| **NanoClaw** | None | CLI-first, resistant |
 
 ---
 
@@ -1076,15 +924,6 @@ TypeScript-based framework for distributed AI agent networks. Philosophy: "Your 
 - **Security:** Not specified
 - **Testing:** Not specified
 
-### Claw Ecosystem Comparison
-
-| Aspect | OpenAgents | QuantumClaw |
-|--------|------------|-------------|
-| **Deployment** | Distributed cloud | Local-first |
-| **Protocol** | Custom | AGEX |
-| **Language** | TypeScript | TypeScript |
-| **Focus** | Distributed scale | Privacy |
-
 ---
 
 ## OpenFang
@@ -1145,7 +984,54 @@ graph TD
 
 ---
 
-## Part 3: CLI Coding Agents (3 Platforms)
+## kimi-code
+
+**Classification:** TypeScript | ~1.4K stars | Personal-Force-Multiplier
+**Repository:** [github.com/MoonshotAI/kimi-code](https://github.com/MoonshotAI/kimi-code)
+**Status:** Active
+
+### Overview
+
+MoonshotAI's next-generation agent framework built as a monorepo with plugin architecture and MCP support. Provides extensible tooling and agent orchestration capabilities for building custom AI agents.
+
+### Key Principles
+
+- Monorepo architecture for cohesive development
+- Plugin architecture for extensibility
+- MCP (Model Context Protocol) support
+- MIT open source license
+
+### Core Architecture
+
+- **Language:** TypeScript
+- **Entry Point:** Library/CLI
+- **Architecture Pattern:** Plugin-based agent framework (monorepo)
+- **Key Modules:** Agent core, plugin registry, MCP integration, tool system
+- **MCP Status:** Adapter — MCP support via plugin architecture
+- **Deployment:** Cross-platform
+- **LLM Support:** MoonshotAI (Kimi)
+- **Memory:** Not specified
+- **Database:** Not specified
+- **Security:** Not specified
+- **Testing:** Not specified
+
+### Architecture Diagram
+
+```mermaid
+graph TD
+    A[Entry Point] --> B[Agent Core]
+    B --> C[Plugin Registry]
+    C --> C1[Plugin A]
+    C --> C2[Plugin B]
+    C --> C3[Plugin N]
+    B --> D[MCP Integration]
+    B --> E[Tool System]
+    B --> F[LLM Provider]
+```
+
+---
+
+## Part 3: CLI Coding Agents (4 Platforms)
 
 ---
 
@@ -1291,6 +1177,52 @@ graph TD
 
 ---
 
+## kimi-cli
+
+**Classification:** Python | ~8.8K stars | Personal-Force-Multiplier
+**Repository:** [github.com/MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli)
+**Status:** Active
+
+### Overview
+
+MoonshotAI's CLI coding agent featuring ACP (Agent Communication Protocol) support and a terminal TUI interface. Brings Moonshot's Kimi AI capabilities directly to the command line for AI-assisted coding workflows.
+
+### Key Principles
+
+- ACP protocol support for structured terminal interactions
+- Terminal TUI for rich in-terminal experience
+- MoonshotAI ecosystem integration
+- Apache-2.0 open source license
+
+### Core Architecture
+
+- **Language:** Python
+- **Entry Point:** CLI
+- **Architecture Pattern:** Terminal coding agent with TUI
+- **Key Modules:** ACP client, TUI renderer, code editor, file system access
+- **MCP Status:** N/A
+- **Deployment:** Local CLI
+- **LLM Support:** MoonshotAI (Kimi)
+- **Memory:** Session-based
+- **Database:** None
+- **Security:** Local-only execution
+- **Testing:** Not specified
+
+### Architecture Diagram
+
+```mermaid
+graph TD
+    A[CLI Entry] --> B[TUI Renderer]
+    B --> C[Kimi LLM]
+    A --> D[ACP Client]
+    D --> E[Agent Communication]
+    A --> F[Code Editor]
+    F --> G[File System Access]
+    A --> H[Session Manager]
+```
+
+---
+
 ## Part 4: Human Digital Twin (1 Platform)
 
 ---
@@ -1356,13 +1288,10 @@ graph TD
 | Nanobot | Python 3.11+ | Personal-Force-Multiplier | ~37K |
 | ZeroClaw | Rust | Personal-Force-Multiplier | ~29K |
 | HiClaw | Go + Shell | Enterprise-Automation | N/A |
-| QuantumClaw | Node.js (TypeScript) | Personal-Force-Multiplier | N/A |
 | Hermes-Agent | Python | Personal-Force-Multiplier | N/A |
-| RTL-CLAW | Python + Verilog | Academic | N/A |
 | Claw-AI-Lab | Python 3.11+ + Node.js 18+ | Academic | N/A |
 | SmolAgents | Python | Personal-Force-Multiplier | ~26.7K |
 | LangGraph | Python/TypeScript | Enterprise-Automation | N/A |
-| mcp-agent | Python | Enterprise-Automation | ~8.2K |
 | CrewAI | Python | Enterprise-Automation | N/A |
 | AutoGen | Python | Enterprise-Automation | N/A |
 | Swarms | Python | Enterprise-Automation | ~5K |
@@ -1372,16 +1301,18 @@ graph TD
 | copilot-cli | TypeScript | Personal-Force-Multiplier | N/A |
 | openhuman | Rust | Academic | N/A |
 | OpenFang | Rust | Personal-Force-Multiplier | ~17.6K |
+| kimi-code | TypeScript | Personal-Force-Multiplier | ~1.4K |
+| kimi-cli | Python | Personal-Force-Multiplier | ~8.8K |
 
 ### MCP Adoption Matrix
 
 | MCP Status | Platforms |
 |------------|-----------|
-| **Native** | mcp-agent, Hermes-Agent |
-| **Adapter** | OpenClaw, GoClaw, IronClaw, ZeroClaw, HiClaw, OpenFang |
+| **Native** | Hermes-Agent |
+| **Adapter** | OpenClaw, GoClaw, IronClaw, ZeroClaw, HiClaw, OpenFang, kimi-code |
 | **Resistant** | NanoClaw |
-| **None** | ClawTeam, Maxclaw, Nanobot, QuantumClaw |
-| **N/A** | RTL-CLAW, Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, aider, reasonix, openhuman |
+| **None** | ClawTeam, Maxclaw, Nanobot |
+| **N/A** | Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, aider, reasonix, openhuman, kimi-cli |
 
 ### Architecture Pattern Matrix
 
@@ -1391,20 +1322,19 @@ graph TD
 | **Leader-Worker** | ClawTeam |
 | **Gateway/Teams** | GoClaw |
 | **Manager-Workers** | HiClaw |
-| **Multi-agent spawning** | QuantumClaw |
 | **Role-based multi-agent** | CrewAI |
 | **Conversational multi-agent** | AutoGen |
 | **Async orchestration** | Swarms |
 | **Distributed network** | OpenAgents |
 | **Graph-orchestration** | LangGraph |
-| **Planner-executor** | mcp-agent |
 | **Code generation** | SmolAgents |
-| **Layered pipeline** | RTL-CLAW |
 | **Research pipeline** | Claw-AI-Lab |
 | **Pair-programming (REPL)** | aider |
 | **Terminal agent (reasoning)** | reasonix |
 | **Terminal agent (ACP)** | copilot-cli |
 | **Agent OS (Hands)** | OpenFang |
+| **Plugin-based framework** | kimi-code |
+| **Terminal agent (TUI + ACP)** | kimi-cli |
 
 ### Deployment & Database Matrix
 
@@ -1419,13 +1349,10 @@ graph TD
 | Nanobot | Cross-platform (Python + Docker) | SQLite | Docker |
 | ZeroClaw | Native (Linux, etc.) | SQLite | None |
 | HiClaw | Docker + Kubernetes | PostgreSQL + MinIO | Docker/K8s |
-| QuantumClaw | Self-hosted (Linux, VPS, RPi) | SQLite | None |
 | Hermes-Agent | Linux, macOS, cloud | SQLite | None |
-| RTL-CLAW | Docker | Not specified | Docker |
 | Claw-AI-Lab | Cross-platform | Project-based | Sandbox executor |
 | SmolAgents | Hybrid | Not specified | E2B sandbox |
 | LangGraph | Cloud | Not specified | Not specified |
-| mcp-agent | Cloud | Not specified | Not specified |
 | CrewAI | Hybrid | Not specified | Not specified |
 | AutoGen | Cloud | Not specified | Docker |
 | Swarms | Cloud | Not specified | Not specified |
@@ -1435,8 +1362,10 @@ graph TD
 | copilot-cli | Local CLI | GitHub API | None |
 | openhuman | Local / Self-hosted | SQLite | Docker |
 | OpenFang | Cross-platform (single binary) | SQLite | None |
+| kimi-code | Cross-platform | Not specified | Not specified |
+| kimi-cli | Local CLI | None | None |
 
-### Full 25-Platform Comparison Table
+### Full 24-Platform Comparison Table
 
 | Platform | Language | Stars | MCP | Architecture | Deployment | Field |
 |----------|----------|-------|-----|-------------|------------|-------|
@@ -1449,13 +1378,10 @@ graph TD
 | Nanobot | Python | ~37K | None | Single + subagent | Cross-platform | Personal |
 | ZeroClaw | Rust | ~29K | Adapter | Single + traits | Native | Personal |
 | HiClaw | Go+Shell | N/A | Adapter | Manager-Workers | Docker/K8s | Enterprise |
-| QuantumClaw | TypeScript | N/A | None | Multi-agent spawning | Self-hosted | Personal |
 | Hermes-Agent | Python | N/A | Native | Single + context | Linux/macOS/cloud | Personal |
-| RTL-CLAW | Py+Verilog | N/A | N/A | Layered pipeline | Docker | Academic |
 | Claw-AI-Lab | Py+Node.js | N/A | N/A | Research pipeline | Cross-platform | Academic |
 | SmolAgents | Python | ~26.7K | N/A | Code generation | Hybrid | Personal |
 | LangGraph | Py/TS | N/A | N/A | Graph-orchestration | Cloud | Enterprise |
-| mcp-agent | Python | ~8.2K | Native | Planner-executor | Cloud | Enterprise |
 | CrewAI | Python | N/A | N/A | Role-based | Hybrid | Enterprise |
 | AutoGen | Python | N/A | N/A | Conversational | Cloud | Enterprise |
 | Swarms | Python | ~5K | N/A | Async orchestration | Cloud | Enterprise |
@@ -1465,6 +1391,8 @@ graph TD
 | reasonix | TypeScript | ~11.3K | N/A | Terminal agent (reasoning) | Local CLI | Personal |
 | copilot-cli | TypeScript | N/A | N/A | Terminal agent (ACP) | Local CLI | Personal |
 | openhuman | Rust | N/A | N/A | Digital twin simulation | Local | Academic |
+| kimi-code | TypeScript | ~1.4K | Adapter | Plugin-based framework | Cross-platform | Personal |
+| kimi-cli | Python | ~8.8K | N/A | Terminal agent (TUI + ACP) | Local CLI | Personal |
 
 ---
 
@@ -1479,5 +1407,5 @@ graph TD
 ---
 
 *Last updated: May 2026*
-*Platforms tracked: 25 (13 claw ecosystem + 8 external frameworks + 3 CLI coding agents + 1 human digital twin)*
+*Platforms tracked: 24 (11 claw ecosystem + 8 external frameworks + 4 CLI coding agents + 1 human digital twin)*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*

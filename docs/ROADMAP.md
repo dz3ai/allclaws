@@ -25,19 +25,19 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 ### 1. Complete Unified Platform Comparison
 
 **Status:** Completed ✅
-**Target:** Complete architecture documentation for all 25 platforms
+**Target:** Complete architecture documentation for all 27 platforms
 
 **Deliverables:**
-- [x] `architecture/platform_comparison.md` — Unified comparison of all 25 platforms
+- [x] `architecture/platform_comparison.md` — Unified comparison of all 27 platforms
 - [x] Standardized format for each platform (classification, architecture, diagrams)
 - [x] Cross-platform comparison matrices
 - [x] Chinese translation (`platform_comparison.zh-CN.md`)
 
 **Scope:**
-- **Claw Ecosystem (13):** OpenClaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, ZeroClaw, HiClaw, QuantumClaw, Hermes-Agent, RTL-CLAW, Claw-AI-Lab
-- **CLI Coding Agents (3):** aider, copilot-cli, reasonix
+- **Claw Ecosystem (11):** OpenClaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, ZeroClaw, HiClaw, Hermes-Agent, Claw-AI-Lab
+- **CLI Coding Agents (4):** aider, copilot-cli, reasonix, kimi-cli
 - **Human Digital Twin (1):** openhuman
-- **External Frameworks (8):** SmolAgents, LangGraph, mcp-agent, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang
+- **External Frameworks (8):** SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, kimi-code
 
 ### 2. MCP Ecosystem Deep-Dive
 
@@ -47,8 +47,8 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 **Research Questions:**
 - What is the actual token overhead of MCP in production deployments?
 - Which MCP servers are most widely adopted?
-- How do MCP-native frameworks (mcp-agent) differ from MCP-adapter approaches?
-- What is the rate of MCP adoption across the 25 tracked platforms?
+- How do MCP-native frameworks differ from MCP-adapter approaches?
+- What is the rate of MCP adoption across the 24 tracked platforms?
 
 **Deliverables:**
 - MCP adoption report (native vs adapter vs resistant)
@@ -108,7 +108,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 - Token efficiency (output/input ratio)
 
 **Deliverables:**
-- Performance comparison across 25 platforms
+- Performance comparison across 27 platforms
 - Benchmark methodology documentation
 - Performance regression detection
 
@@ -156,7 +156,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 **Frequency:** Weekly
 **Activities:**
 - Run test suite on all 13 claw ecosystem platforms
-- CLI Coding Agents (aider, copilot-cli, reasonix) are tracked via documentation review rather than automated tests, as they are external frameworks without local test targets
+- CLI Coding Agents (aider, copilot-cli, reasonix, kimi-cli) are tracked via documentation review rather than automated tests, as they are external frameworks without local test targets
 - Track test pass/fail rates
 - Investigate failures
 - Update test cases as platforms evolve
@@ -200,11 +200,9 @@ The following projects have had no recent activity and may be archived or re-eva
 
 | Project | Last Activity | Notes |
 |---------|--------------|-------|
-| RTL-CLAW | Apr 2, 2026 | No activity since Apr 2 |
 | Claw-AI-Lab | — | No tags released |
 | ClawTeam | Apr 14, 2026 | No commits since Apr 14 |
 | GoClaw | Apr 27, 2026 | No commits since Apr 27 |
-| QuantumClaw | Apr 30, 2026 | No commits since Apr 30 |
 
 These projects remain tracked for historical comparison but may not receive active updates in architecture documentation.
 
