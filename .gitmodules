@@ -49,3 +49,6 @@
 [submodule "coding-agents/kimi-code"]
 	path = coding-agents/kimi-code
 	url = https://github.com/MoonshotAI/kimi-code.git
+[submodule "coding-agents/cli-agents/codex"]
+	path = coding-agents/cli-agents/codex
+	url = https://github.com/openai/codex.git

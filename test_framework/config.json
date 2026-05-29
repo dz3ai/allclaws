@@ -25,7 +25,8 @@
     "reasonix",
     "openhuman",
     "kimi-cli",
-    "kimi-code"
+    "kimi-code",
+    "codex"
   ],
   "default_privilege_level": "standard",
   "audit_logging": true,
@@ -53,7 +54,8 @@
     "reasonix": "./coding-agents/cli-agents/reasonix",
     "openhuman": "./openhuman",
     "kimi-cli": "./coding-agents/cli-agents/kimi-cli",
-    "kimi-code": "./coding-agents/kimi-code"
+    "kimi-code": "./coding-agents/kimi-code",
+    "codex": "./coding-agents/cli-agents/codex"
   },
   "platform_languages": {
     "openclaw": "TypeScript",
@@ -79,7 +81,8 @@
     "reasonix": "TypeScript",
     "openhuman": "Rust",
     "kimi-cli": "Python",
-    "kimi-code": "TypeScript"
+    "kimi-code": "TypeScript",
+    "codex": "Rust"
   },
   "test_categories": [
     "static_analysis",

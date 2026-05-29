@@ -35,7 +35,7 @@
 
 **范围：**
 - **Claw 生态（11 个）：** OpenClaw、ClawTeam、GoClaw、IronClaw、Maxclaw、NanoClaw、Nanobot、ZeroClaw、HiClaw、Hermes-Agent、Claw-AI-Lab
-- **CLI 编程代理（4 个）：** aider、copilot-cli、reasonix、kimi-cli
+- **CLI 编程代理（5 个）：** aider、copilot-cli、reasonix、kimi-cli、codex
 - **人类数字孪生（1 个）：** openhuman
 - **外部框架（8 个）：** SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、kimi-code
 
@@ -48,7 +48,7 @@
 - MCP 在生产部署中的实际 token 开销是多少？
 - 哪些 MCP 服务器被广泛采用？
 - MCP 原生框架与 MCP 适配器方法有何不同？
-- 24 个跟踪平台的 MCP 采用率是多少？
+- 25 个跟踪平台的 MCP 采用率是多少？
 
 **交付成果：**
 - MCP 采用报告（原生 vs 适配器 vs 抵制）
@@ -156,7 +156,7 @@
 **频率：** 每周
 **活动：**
 - 在所有 13 个 claw 生态平台上运行测试套件
-- CLI 编程代理（aider、copilot-cli、reasonix、kimi-cli）通过文档审查进行跟踪，而非自动化测试，因为它们是没有本地测试目标的外部框架
+- CLI 编程代理（aider、copilot-cli、reasonix、kimi-cli、codex）通过文档审查进行跟踪，而非自动化测试，因为它们是没有本地测试目标的外部框架
 - 跟踪测试通过/失败率
 - 调查失败原因
 - 随平台演进更新测试用例

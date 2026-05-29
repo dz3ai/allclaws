@@ -35,7 +35,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 
 **Scope:**
 - **Claw Ecosystem (11):** OpenClaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, ZeroClaw, HiClaw, Hermes-Agent, Claw-AI-Lab
-- **CLI Coding Agents (4):** aider, copilot-cli, reasonix, kimi-cli
+- **CLI Coding Agents (5):** aider, copilot-cli, reasonix, kimi-cli, codex
 - **Human Digital Twin (1):** openhuman
 - **External Frameworks (8):** SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, kimi-code
 
@@ -48,7 +48,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 - What is the actual token overhead of MCP in production deployments?
 - Which MCP servers are most widely adopted?
 - How do MCP-native frameworks differ from MCP-adapter approaches?
-- What is the rate of MCP adoption across the 24 tracked platforms?
+- What is the rate of MCP adoption across the 25 tracked platforms?
 
 **Deliverables:**
 - MCP adoption report (native vs adapter vs resistant)
@@ -156,7 +156,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 **Frequency:** Weekly
 **Activities:**
 - Run test suite on all 13 claw ecosystem platforms
-- CLI Coding Agents (aider, copilot-cli, reasonix, kimi-cli) are tracked via documentation review rather than automated tests, as they are external frameworks without local test targets
+- CLI Coding Agents (aider, copilot-cli, reasonix, kimi-cli, codex) are tracked via documentation review rather than automated tests, as they are external frameworks without local test targets
 - Track test pass/fail rates
 - Investigate failures
 - Update test cases as platforms evolve

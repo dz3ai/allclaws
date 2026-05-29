@@ -1,20 +1,20 @@
-# Unified Platform Comparison: All 24 AI Agent Platforms
+# Unified Platform Comparison: All 25 AI Agent Platforms
 
 **[中文](platform_comparison.zh-CN.md)** | English
 
-> Standardized architecture comparison across all 24 platforms tracked by AllClaws — 11 claw ecosystem platforms, 8 external frameworks, 4 CLI coding agents, and 1 human digital twin platform. Updated May 2026.
+> Standardized architecture comparison across all 25 platforms tracked by AllClaws — 11 claw ecosystem platforms, 8 external frameworks, 5 CLI coding agents, and 1 human digital twin platform. Updated May 2026.
 
 ---
 
 ## Overview
 
-This document provides a standardized, side-by-side architecture comparison of all 24 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
+This document provides a standardized, side-by-side architecture comparison of all 25 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
 
-The 24 platforms divide into four groups:
+The 25 platforms divide into four groups:
 
 - **Claw Ecosystem (11):** Platforms originating within or closely associated with the Claw/OpenClaw ecosystem.
 - **External Frameworks (8):** Industry-reference frameworks tracked for ecosystem comparison.
-- **CLI Coding Agents (4):** AI-powered terminal-based coding assistants (aider, reasonix, copilot-cli, kimi-cli).
+- **CLI Coding Agents (5):** AI-powered terminal-based coding assistants (aider, reasonix, copilot-cli, kimi-cli, codex).
 - **Human Digital Twin (1):** Academic/research platform (openhuman).
 
 ### Key Cross-Cutting Patterns (May 2026)
@@ -41,7 +41,7 @@ The 24 platforms divide into four groups:
 
 | Field | Description | Examples |
 |-------|-------------|----------|
-| **Personal-Force-Multiplier** | Single user or small team; CLI-first; local deployment | OpenClaw, Nanobot, SmolAgents, Maxclaw, ZeroClaw, NanoClaw, aider, copilot-cli, kimi-cli |
+| **Personal-Force-Multiplier** | Single user or small team; CLI-first; local deployment | OpenClaw, Nanobot, SmolAgents, Maxclaw, ZeroClaw, NanoClaw, aider, copilot-cli, kimi-cli, codex |
 | **Enterprise-Automation** | Multi-user; cloud-deployed; governance focus | GoClaw, LangGraph, Swarms, HiClaw, CrewAI, AutoGen |
 | **Personal/Enterprise (Hybrid)** | Spans both paradigms | IronClaw |
 | **Academic** | Research and education focused | Claw-AI-Lab, openhuman |
@@ -1031,7 +1031,7 @@ graph TD
 
 ---
 
-## Part 3: CLI Coding Agents (4 Platforms)
+## Part 3: CLI Coding Agents (5 Platforms)
 
 ---
 
@@ -1223,6 +1223,38 @@ graph TD
 
 ---
 
+## codex
+
+**Classification:** Rust | ~86.9K stars | Personal-Force-Multiplier
+**Repository:** [github.com/openai/codex](https://github.com/openai/codex)
+**Status:** Active
+
+### Overview
+
+OpenAI's lightweight coding agent built in Rust. A terminal-based tool with sandboxed execution that supports GPT-4o, o3, and o4-mini models. Designed for fast iteration with minimal dependencies. Licensed under Apache-2.0.
+
+### Key Principles
+
+- Sandboxed execution — all code runs in isolated environments
+- Minimal dependencies — single binary, zero runtime overhead
+- Fast iteration — optimized for rapid code-edit-test cycles
+- Rust-native — performance and memory safety
+
+### Core Architecture
+
+- **Language:** Rust
+- **Entry Point:** `codex` CLI
+- **Architecture Pattern:** Simple CLI → LLM → Shell execution loop
+- **MCP Status:** N/A
+- **Deployment:** Local (single binary)
+- **LLM Support:** GPT-4o, o3, o4-mini
+- **Memory:** Session-based
+- **Database:** None
+- **Security:** Sandboxed execution
+- **Testing:** Not specified
+
+---
+
 ## Part 4: Human Digital Twin (1 Platform)
 
 ---
@@ -1303,6 +1335,7 @@ graph TD
 | OpenFang | Rust | Personal-Force-Multiplier | ~17.6K |
 | kimi-code | TypeScript | Personal-Force-Multiplier | ~1.4K |
 | kimi-cli | Python | Personal-Force-Multiplier | ~8.8K |
+| codex | Rust | Personal-Force-Multiplier | ~86.9K |
 
 ### MCP Adoption Matrix
 
@@ -1312,7 +1345,7 @@ graph TD
 | **Adapter** | OpenClaw, GoClaw, IronClaw, ZeroClaw, HiClaw, OpenFang, kimi-code |
 | **Resistant** | NanoClaw |
 | **None** | ClawTeam, Maxclaw, Nanobot |
-| **N/A** | Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, aider, reasonix, openhuman, kimi-cli |
+| **N/A** | Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, aider, reasonix, openhuman, kimi-cli, codex |
 
 ### Architecture Pattern Matrix
 
@@ -1335,6 +1368,7 @@ graph TD
 | **Agent OS (Hands)** | OpenFang |
 | **Plugin-based framework** | kimi-code |
 | **Terminal agent (TUI + ACP)** | kimi-cli |
+| **Terminal agent (sandboxed)** | codex |
 
 ### Deployment & Database Matrix
 
@@ -1364,8 +1398,9 @@ graph TD
 | OpenFang | Cross-platform (single binary) | SQLite | None |
 | kimi-code | Cross-platform | Not specified | Not specified |
 | kimi-cli | Local CLI | None | None |
+| codex | Local (single binary) | None | Sandboxed execution |
 
-### Full 24-Platform Comparison Table
+### Full 25-Platform Comparison Table
 
 | Platform | Language | Stars | MCP | Architecture | Deployment | Field |
 |----------|----------|-------|-----|-------------|------------|-------|
@@ -1393,6 +1428,7 @@ graph TD
 | openhuman | Rust | N/A | N/A | Digital twin simulation | Local | Academic |
 | kimi-code | TypeScript | ~1.4K | Adapter | Plugin-based framework | Cross-platform | Personal |
 | kimi-cli | Python | ~8.8K | N/A | Terminal agent (TUI + ACP) | Local CLI | Personal |
+| codex | Rust | ~86.9K | N/A | Terminal agent (sandboxed) | Local binary | Personal |
 
 ---
 
@@ -1407,5 +1443,5 @@ graph TD
 ---
 
 *Last updated: May 2026*
-*Platforms tracked: 24 (11 claw ecosystem + 8 external frameworks + 4 CLI coding agents + 1 human digital twin)*
+*Platforms tracked: 25 (11 claw ecosystem + 8 external frameworks + 5 CLI coding agents + 1 human digital twin)*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*

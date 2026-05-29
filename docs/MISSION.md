@@ -6,7 +6,7 @@
 
 ## Mission Statement
 
-AllClaws conducts independent research on AI agent architectures and deployment models, with emphasis on understanding the emerging distinction between **personal-force-multiplier** and **enterprise-automation** paradigms. We track 24 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
+AllClaws conducts independent research on AI agent architectures and deployment models, with emphasis on understanding the emerging distinction between **personal-force-multiplier** and **enterprise-automation** paradigms. We track 25 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
 
 ---
 
@@ -30,10 +30,10 @@ A world where AI agent platforms are understood by their actual capabilities, no
 
 ### Scope
 
-**24 Platforms Tracked:**
+**25 Platforms Tracked:**
 - **Claw Ecosystem (11):** OpenClaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, ZeroClaw, HiClaw, Hermes-Agent, Claw-AI-Lab
 - **External Frameworks (8):** SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, Kimi Code
-- **CLI Coding Agents (4):** aider, copilot-cli, reasonix, kimi-cli
+- **CLI Coding Agents (5):** aider, copilot-cli, reasonix, kimi-cli, codex
 - **Human Digital Twin (1):** openhuman
 
 **What We Cover:**
@@ -56,7 +56,7 @@ A world where AI agent platforms are understood by their actual capabilities, no
 
 ### On Platform Coverage
 
-We track both claw-ecosystem platforms (11) and significant external frameworks (8), plus CLI coding agents (4) and a human digital twin platform (1), to provide comprehensive ecosystem coverage. Our focus is on understanding architectural patterns, not promoting any specific implementation.
+We track both claw-ecosystem platforms (11) and significant external frameworks (8), plus CLI coding agents (5) and a human digital twin platform (1), to provide comprehensive ecosystem coverage. Our focus is on understanding architectural patterns, not promoting any specific implementation.
 
 **Rationale:** The distinction between "claw" and "external" is historical, not qualitative. External frameworks like LangGraph and CrewAI represent industry standards that must be understood for complete ecosystem analysis.
 

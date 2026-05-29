@@ -1,20 +1,20 @@
-# 统一平台比较：全部 24 个 AI 代理平台
+# 统一平台比较：全部 25 个 AI 代理平台
 
 **[English](platform_comparison.md)** | 中文
 
-> AllClaws 跟踪的全部 24 个平台的标准化架构比较 — 11 个 claw 生态平台、8 个外部框架、4 个 CLI 编程代理和 1 个人类数字孪生平台。2026 年 5 月更新。
+> AllClaws 跟踪的全部 25 个平台的标准化架构比较 — 11 个 claw 生态平台、8 个外部框架、5 个 CLI 编程代理和 1 个人类数字孪生平台。2026 年 5 月更新。
 
 ---
 
 ## 概述
 
-本文档以标准化格式并排比较 AllClaws 研究项目跟踪的全部 24 个 AI 代理平台的架构。每个平台条目遵循统一格式，涵盖分类、设计原则、核心架构和架构图（如有）。
+本文档以标准化格式并排比较 AllClaws 研究项目跟踪的全部 25 个 AI 代理平台的架构。每个平台条目遵循统一格式，涵盖分类、设计原则、核心架构和架构图（如有）。
 
-24 个平台分为四组：
+25 个平台分为四组：
 
 - **Claw 生态（11 个）：** 起源于 Claw/OpenClaw 生态或与之紧密关联的平台。
 - **外部框架（8 个）：** 用于生态比较的行业参考框架。
-- **CLI 编程代理（4 个）：** 基于终端的 AI 编程助手（aider、reasonix、copilot-cli、kimi-cli）。
+- **CLI 编程代理（5 个）：** 基于终端的 AI 编程助手（aider、reasonix、copilot-cli、kimi-cli、codex）。
 - **人类数字孪生（1 个）：** 学术/研究平台（openhuman）。
 
 ### 关键跨平台模式（2026 年 5 月）
@@ -41,7 +41,7 @@
 
 | 领域 | 描述 | 示例 |
 |------|------|------|
-|| **个人力量倍增器** | 单用户或小团队；CLI 优先；本地部署 | OpenClaw、Nanobot、SmolAgents、Maxclaw、ZeroClaw、NanoClaw、aider、reasonix、copilot-cli、kimi-cli |
+|| **个人力量倍增器** | 单用户或小团队；CLI 优先；本地部署 | OpenClaw、Nanobot、SmolAgents、Maxclaw、ZeroClaw、NanoClaw、aider、reasonix、copilot-cli、kimi-cli、codex |
 | **企业自动化** | 多用户；云端部署；治理和合规；基于协议的工具访问 | GoClaw、LangGraph、Swarms、HiClaw、CrewAI、AutoGen |
 | **个人/企业（混合）** | 跨越两种范式 | IronClaw |
 | **学术** | 研究和教育重点 | Claw-AI-Lab、openhuman |
@@ -54,7 +54,7 @@
 | **适配器** | MCP 作为集成层支持 | IronClaw、GoClaw、ZeroClaw、OpenClaw、HiClaw |
 | **抵制** | 明确避免 MCP 开销 | NanoClaw |
 | **无** | 无 MCP 集成 | ClawTeam、Maxclaw、Nanobot |
-| **N/A** | 领域特定；MCP 不相关 | Claw-AI-Lab、aider、openhuman |
+|| **N/A** | 领域特定；MCP 不相关 | Claw-AI-Lab、aider、openhuman、copilot-cli、codex |
 
 ---
 
@@ -993,7 +993,7 @@ graph TD
 
 ---
 
-## 第三部分：CLI 编程代理（3 个平台）
+## 第三部分：CLI 编程代理（5 个平台）
 
 ---
 
@@ -1139,6 +1139,53 @@ graph TD
 
 ---
 
+## codex
+
+**分类：** Rust | ~86.9K stars | 个人力量倍增器
+**仓库：** [github.com/openai/codex](https://github.com/openai/codex)
+**许可证：** Apache-2.0
+**状态：** 活跃
+
+### 概述
+
+Codex CLI 是 OpenAI 的轻量级终端编程代理。基于 Rust 的 CLI 工具，支持沙箱执行环境，为开发者提供快速迭代式的 AI 辅助编程体验。支持 GPT-4o、o3、o4-mini 模型。
+
+### 关键原则
+
+- 沙箱执行 — 代码在隔离环境中运行，保障安全性
+- 最小依赖 — Rust 原生编译，零运行时依赖
+- 快速迭代 — 简洁的 CLI → LLM → Shell 执行循环
+
+### 核心架构
+
+- **语言：** Rust
+- **入口点：** `codex` CLI
+- **架构模式：** CLI → LLM → Shell 执行循环
+- **关键模块：** CLI 界面、LLM 客户端、沙箱执行器、文件系统访问
+- **MCP 状态：** N/A
+- **部署：** 本地（二进制）
+- **LLM 支持：** GPT-4o、o3、o4-mini
+- **内存：** 基于会话
+- **数据库：** 无
+- **安全性：** 沙箱执行
+- **测试：** `cargo test`
+
+### 架构图
+
+```mermaid
+graph TD
+    A[CLI 入口：codex] --> B[LLM 客户端]
+    B --> C[GPT-4o]
+    B --> D[o3]
+    B --> E[o4-mini]
+    A --> F[沙箱执行器]
+    F --> G[Shell 命令]
+    F --> H[文件系统操作]
+    A --> I[会话管理器]
+```
+
+---
+
 ## 第四部分：人类数字孪生（1 个平台）
 
 ---
@@ -1217,6 +1264,7 @@ graph TD
 ||| copilot-cli | TypeScript | 个人力量倍增器 | N/A |
 |||| openhuman | Rust | 学术 | N/A |
 ||| OpenFang | Rust | 个人力量倍增器 | ~17.6K |
+| codex | Rust | 个人力量倍增器 | ~86.9K |
 
 ### MCP 采用矩阵
 
@@ -1226,7 +1274,7 @@ graph TD
 | **适配器** | OpenClaw、GoClaw、IronClaw、ZeroClaw、HiClaw、OpenFang |
 | **抵制** | NanoClaw |
 | **无** | ClawTeam、Maxclaw、Nanobot |
-| **N/A** | Claw-AI-Lab、SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、aider、reasonix、openhuman |
+|| **N/A** | Claw-AI-Lab、SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、aider、reasonix、copilot-cli、openhuman、codex |
 
 ### 架构模式矩阵
 
@@ -1246,7 +1294,8 @@ graph TD
 | **结对编程（REPL）** | aider |
 | **终端代理（推理）** | reasonix |
 | **终端代理（ACP）** | copilot-cli |
-| **Agent OS（Hands）** | OpenFang |
+|| **Agent OS（Hands）** | OpenFang |
+|| **CLI → LLM → Shell 执行** | codex |
 
 ### 部署与数据库矩阵
 
@@ -1273,9 +1322,10 @@ graph TD
 | reasonix | 本地 CLI | 无 | 无 |
 | copilot-cli | 本地 CLI | GitHub API | 无 |
 || openhuman | 本地/自托管 | SQLite | Docker |
-|| OpenFang | 跨平台（单一二进制） | SQLite | 无 |
+||| OpenFang | 跨平台（单一二进制） | SQLite | 无 |
+||| codex | 本地 CLI（二进制） | 无 | 沙箱执行 |
 
-### 完整 24 平台比较表
+### 完整 25 平台比较表
 
 | 平台 | 语言 | Stars | MCP | 架构 | 部署 | 领域 |
 |------|------|-------|-----|------|------|------|
@@ -1300,7 +1350,8 @@ graph TD
 | reasonix | TypeScript | ~11.3K | N/A | 终端代理 (推理) | 本地 CLI | 个人 |
 | copilot-cli | TypeScript | N/A | N/A | 终端代理 (ACP) | 本地 CLI | 个人 |
 || openhuman | Rust | N/A | N/A | 数字孪生模拟 | 本地 | 学术 |
-|| OpenFang | Rust | ~17.6K | 适配器 | Agent OS | 单一二进制 | 个人 |
+||| OpenFang | Rust | ~17.6K | 适配器 | Agent OS | 单一二进制 | 个人 |
+| codex | Rust | ~86.9K | N/A | CLI→LLM→Shell | 本地 CLI | 个人 |
 
 ---
 
@@ -1315,5 +1366,5 @@ graph TD
 ---
 
 *最后更新：2026 年 5 月*
-*跟踪平台：24 个（11 个 claw 生态 + 8 个外部框架 + 4 个 CLI 编程代理 + 1 个人类数字孪生）*
+*跟踪平台：25 个（11 个 claw 生态 + 8 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）*
 *所属：AllClaws 个人 AI 代理生态系统研究*

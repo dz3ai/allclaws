@@ -2,7 +2,7 @@
 
 English | **[中文](LATEST_UPDATES.zh-CN.md)**
 
-> Tracking major changes across 13 claw ecosystem platforms, 9 external frameworks, 4 CLI coding agents, and 1 human digital twin platform — architecture innovations, MCP adoption debates, enterprise vs personal patterns, and security developments from April to May 2026.
+> Tracking major changes across 13 claw ecosystem platforms, 9 external frameworks, 5 CLI coding agents, and 1 human digital twin platform — architecture innovations, MCP adoption debates, enterprise vs personal patterns, and security developments from April to May 2026.
 
 ---
 
@@ -388,6 +388,33 @@ kimi-cli is MoonshotAI's CLI-based coding agent. Python-based with ACP (Agent Co
 
 ---
 
+## Codex CLI
+
+**Rust | ~86.9K stars | Apache-2.0 — May 2026**
+
+**Status:** Active — OpenAI's official CLI coding agent
+
+### Overview
+
+codex is OpenAI's lightweight coding agent that runs in your terminal. Built in Rust for performance, it provides sandboxed execution for safe code operations. The highest-star CLI coding agent tracked by AllClaws.
+
+### Key Features
+- **Rust-native** — High-performance implementation in Rust
+- **Sandboxed execution** — Safe code operations with isolation
+- **Lightweight** — Minimal footprint terminal agent
+- **OpenAI integration** — Optimized for OpenAI models (GPT-4, o-series)
+
+### Architecture
+- **Language:** Rust
+- **Entry Point:** CLI
+- **Architecture Pattern:** Terminal coding agent with sandboxed execution
+- **MCP Status:** None
+- **Deployment:** Binary install
+- **LLM Support:** OpenAI (GPT-4, o-series)
+- **License:** Apache-2.0
+
+---
+
 ## Kimi Code
 
 **TypeScript | ~1.4K stars | MIT — May 2026**
@@ -525,6 +552,7 @@ OpenFang is a Rust-based Agent OS deployed as a single binary (~32MB, 137K LOC a
 | openhuman | N/A | Rust | N/A | Academic |
 | Kimi CLI | ~8.8K | Python | ACP | Personal |
 | Kimi Code | ~1.4K | TypeScript | Native | Personal/Enterprise |
+| Codex CLI | ~86.9K | Rust | None | Personal |
 
 ---
 
