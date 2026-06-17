@@ -17,7 +17,7 @@ jobs:
   # 静态分析测试
   # ============================================
   static-analysis:
-    name: Static Analysis (13 Platforms)
+    name: Static Analysis (11 Platforms)
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
@@ -32,8 +32,6 @@ jobs:
           - nanobot
           - zeroclaw
           - hiclaw
-          - rtl-claw
-          - quantumclaw
           - claw-ai-lab
           - hermes-agent
     steps:
@@ -64,7 +62,7 @@ jobs:
   # 基准测试
   # ============================================
   benchmarks:
-    name: Benchmarks (13 Platforms)
+    name: Benchmarks (11 Platforms)
     runs-on: ubuntu-latest
     timeout-minutes: 45
     needs: static-analysis
