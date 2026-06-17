@@ -6,7 +6,7 @@
 
 ## Mission Statement
 
-AllClaws conducts independent research on AI agent architectures and deployment models, with emphasis on understanding the emerging distinction between **personal-force-multiplier** and **enterprise-automation** paradigms. We track 25 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
+AllClaws conducts independent research on AI agent architectures and deployment models, with emphasis on understanding the emerging distinction between **personal-force-multiplier** and **enterprise-automation** paradigms. We track 26 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
 
 ---
 
@@ -30,7 +30,7 @@ A world where AI agent platforms are understood by their actual capabilities, no
 
 ### Scope
 
-**25 Platforms Tracked:**
+**26 Platforms Tracked:**
 - **Claw Ecosystem (11):** OpenClaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, ZeroClaw, HiClaw, Hermes-Agent, Claw-AI-Lab
 - **External Frameworks (8):** SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, Kimi Code
 - **CLI Coding Agents (5):** aider, copilot-cli, reasonix, kimi-cli, codex

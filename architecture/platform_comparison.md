@@ -1,8 +1,8 @@
-# Unified Platform Comparison: All 25 AI Agent Platforms
+# Unified Platform Comparison: All 26 AI Agent Platforms
 
 **[中文](platform_comparison.zh-CN.md)** | English
 
-> Standardized architecture comparison across all 25 platforms tracked by AllClaws — 11 claw ecosystem platforms, 8 external frameworks, 5 CLI coding agents, and 1 human digital twin platform. Updated May 2026.
+> Standardized architecture comparison across all 26 platforms tracked by AllClaws — 11 claw ecosystem platforms, 9 external frameworks, 5 CLI coding agents, and 1 human digital twin platform. Updated June 2026.
 
 ---
 
@@ -677,7 +677,7 @@ graph TB
 
 ---
 
-## Part 2: External Frameworks (8 Platforms)
+## Part 2: External Frameworks (9 Platforms)
 
 ---
 
@@ -1028,6 +1028,75 @@ graph TD
     B --> E[Tool System]
     B --> F[LLM Provider]
 ```
+
+---
+
+## AgentScope
+
+**Classification:** Python 3.11+ | ~25.8K stars | Personal/Enterprise (Hybrid)
+**Repository:** [github.com/agentscope-ai/agentscope](https://github.com/agentscope-ai/agentscope)
+**Status:** Active
+
+### Overview
+
+Alibaba's production-ready multi-agent framework with event-driven streaming, native MCP support, fine-grained permission control, and multi-tenant FastAPI serving. Designed to leverage rising model capability with minimal orchestration overhead.
+
+### Key Principles
+
+- Event-driven streaming architecture
+- Minimal orchestration — leverage model reasoning, don't constrain it
+- Multi-tenancy & multi-session isolation
+- Fine-grained permission system for tool/resource control
+- Extensible middleware composable into the agent loop
+
+### Core Architecture
+
+- **Language:** Python 3.11+
+- **Entry Point:** Library import (`from agentscope.agent import Agent`) or FastAPI service
+- **Architecture Pattern:** Multi-agent (event-driven, streaming)
+- **Key Modules:** Agent (ReAct loop), Model (8+ providers), Tool/Toolkit (built-in + MCP), Workspace (local/Docker/E2B), Permission engine, Event bus, Middleware (tracing, memory, budget, TTS), App (FastAPI service with storage/sessions/teams)
+- **MCP Status:** Native — built-in MCP client (stdio + HTTP/SSE/streamable)
+- **Deployment:** Hybrid — local library + FastAPI production service
+- **LLM Support:** DashScope (Qwen), OpenAI, Anthropic, DeepSeek, Gemini, Moonshot, Ollama, xAI
+- **Memory:** In-conversation state + long-term memory via mem0 middleware
+- **Database:** Redis (optional, for service storage); in-memory otherwise
+- **Security:** Permission engine (bypass/ask modes, rule-based), workspace sandboxes (local/Docker/E2B)
+- **Testing:** ~42,800+ lines of tests
+
+### Architecture Diagram
+
+```mermaid
+graph TB
+    A[Library Import / FastAPI Entry] --> B[Agent ReAct Loop]
+    B --> C[Event Bus]
+    C --> D[Model Providers]
+    C --> E[Tool Execution]
+    E --> E1[Built-in Tools]
+    E --> E2[MCP Servers]
+    E --> E3[Workspace Sandbox]
+    E3 --> E3a[Local]
+    E3 --> E3b[Docker]
+    E3 --> E3c[E2B]
+    B --> F[Permission Engine]
+    B --> G[Middleware Stack]
+    G --> G1[OpenTelemetry]
+    G --> G2[Long-term Memory mem0]
+    G --> G3[Budget Control]
+    G --> G4[TTS]
+    B --> H[Storage]
+    H --> H1[Redis]
+    H --> H2[In-memory]
+```
+
+### Claw Ecosystem Comparison
+
+| Aspect | AgentScope | LangGraph | AutoGen |
+|--------|-----------|-----------|---------|
+| **Architecture** | Event-driven streaming | Graph-orchestration | Conversational messages |
+| **MCP** | Native | N/A | N/A |
+| **Sandbox** | Local/Docker/E2B | Not specified | Docker |
+| **Multi-tenancy** | Built-in (FastAPI + Redis) | Not specified | Not specified |
+| **LLM Providers** | 8+ | Via LangChain | Various |
 
 ---
 

@@ -1,8 +1,8 @@
-# 统一平台比较：全部 25 个 AI 代理平台
+# 统一平台比较：全部 26 个 AI 代理平台
 
 **[English](platform_comparison.md)** | 中文
 
-> AllClaws 跟踪的全部 25 个平台的标准化架构比较 — 11 个 claw 生态平台、8 个外部框架、5 个 CLI 编程代理和 1 个人类数字孪生平台。2026 年 5 月更新。
+> AllClaws 跟踪的全部 26 个平台的标准化架构比较 — 11 个 claw 生态平台、9 个外部框架、5 个 CLI 编程代理和 1 个人类数字孪生平台。2026 年 6 月更新。
 
 ---
 
@@ -677,7 +677,7 @@ graph TB
 
 ---
 
-## 第二部分：外部框架（8 个平台）
+## 第二部分：外部框架（9 个平台）
 
 ---
 
@@ -990,6 +990,75 @@ graph TD
     J --> K[工具执行]
     C --> L[安全层]
 ```
+
+---
+
+## AgentScope
+
+**分类：** Python 3.11+ | ~25.8K stars | 个人/企业（混合）
+**仓库：** [github.com/agentscope-ai/agentscope](https://github.com/agentscope-ai/agentscope)
+**状态：** 活跃
+
+### 概述
+
+阿里巴巴生产级多代理框架，具有事件驱动流式传输、原生 MCP 支持、细粒度权限控制和多租户 FastAPI 服务。设计理念是充分利用模型能力，而非过度编排。
+
+### 核心原则
+
+- 事件驱动流式架构
+- 最小化编排 — 充分利用模型推理能力
+- 多租户与多会话隔离
+- 细粒度权限系统控制工具/资源访问
+- 可扩展中间件可组合到代理循环中
+
+### 核心架构
+
+- **语言：** Python 3.11+
+- **入口：** 库导入 (`from agentscope.agent import Agent`) 或 FastAPI 服务
+- **架构模式：** 多代理（事件驱动，流式）
+- **关键模块：** Agent（ReAct 循环）、Model（8+ 提供商）、Tool/Toolkit（内置 + MCP）、Workspace（本地/Docker/E2B）、权限引擎、事件总线、中间件（追踪、记忆、预算、TTS）、App（FastAPI 服务含存储/会话/团队）
+- **MCP 状态：** 原生 — 内置 MCP 客户端（stdio + HTTP/SSE/streamable）
+- **部署：** 混合 — 本地库 + FastAPI 生产服务
+- **LLM 支持：** DashScope (Qwen)、OpenAI、Anthropic、DeepSeek、Gemini、Moonshot、Ollama、xAI
+- **记忆：** 会话内状态 + mem0 中间件长期记忆
+- **数据库：** Redis（可选，服务存储）；否则内存
+- **安全：** 权限引擎（bypass/ask 模式，规则引擎）、工作区沙箱（本地/Docker/E2B）
+- **测试：** ~42,800+ 行测试代码
+
+### 架构图
+
+```mermaid
+graph TB
+    A[库导入 / FastAPI 入口] --> B[Agent ReAct 循环]
+    B --> C[事件总线]
+    C --> D[模型提供商]
+    C --> E[工具执行]
+    E --> E1[内置工具]
+    E --> E2[MCP 服务]
+    E --> E3[工作区沙箱]
+    E3 --> E3a[本地]
+    E3 --> E3b[Docker]
+    E3 --> E3c[E2B]
+    B --> F[权限引擎]
+    B --> G[中间件栈]
+    G --> G1[OpenTelemetry]
+    G --> G2[长期记忆 mem0]
+    G --> G3[预算控制]
+    G --> G4[TTS]
+    B --> H[存储]
+    H --> H1[Redis]
+    H --> H2[内存]
+```
+
+### Claw 生态比较
+
+| 方面 | AgentScope | LangGraph | AutoGen |
+|------|-----------|-----------|---------|
+| **架构** | 事件驱动流式 | 图编排 | 对话消息 |
+| **MCP** | 原生 | 无 | 无 |
+| **沙箱** | 本地/Docker/E2B | 未指定 | Docker |
+| **多租户** | 内置 (FastAPI + Redis) | 未指定 | 未指定 |
+| **LLM 提供商** | 8+ | 通过 LangChain | 多种 |
 
 ---
 

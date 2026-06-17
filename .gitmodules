@@ -52,3 +52,6 @@
 [submodule "coding-agents/cli-agents/codex"]
 	path = coding-agents/cli-agents/codex
 	url = https://github.com/openai/codex.git
+[submodule "agentscope"]
+	path = agentscope
+	url = https://github.com/agentscope-ai/agentscope.git

@@ -48,7 +48,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 - What is the actual token overhead of MCP in production deployments?
 - Which MCP servers are most widely adopted?
 - How do MCP-native frameworks differ from MCP-adapter approaches?
-- What is the rate of MCP adoption across the 25 tracked platforms?
+- What is the rate of MCP adoption across the 26 tracked platforms?
 
 **Deliverables:**
 - MCP adoption report (native vs adapter vs resistant)
@@ -111,7 +111,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 - Token efficiency (output/input ratio)
 
 **Deliverables:**
-- [x] Performance comparison across 25 platforms
+- [x] Performance comparison across 26 platforms
 - [x] Benchmark methodology documentation (EN + ZH)
 - [x] Performance regression detection (CI integration)
 - [x] Local benchmark environment setup

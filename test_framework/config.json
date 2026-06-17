@@ -26,7 +26,8 @@
     "openhuman",
     "kimi-cli",
     "kimi-code",
-    "codex"
+    "codex",
+    "agentscope"
   ],
   "default_privilege_level": "standard",
   "audit_logging": true,
@@ -55,7 +56,8 @@
     "openhuman": "./openhuman",
     "kimi-cli": "./coding-agents/cli-agents/kimi-cli",
     "kimi-code": "./coding-agents/kimi-code",
-    "codex": "./coding-agents/cli-agents/codex"
+    "codex": "./coding-agents/cli-agents/codex",
+    "agentscope": "../agentscope"
   },
   "platform_languages": {
     "openclaw": "TypeScript",
@@ -82,7 +84,8 @@
     "openhuman": "Rust",
     "kimi-cli": "Python",
     "kimi-code": "TypeScript",
-    "codex": "Rust"
+    "codex": "Rust",
+    "agentscope": "Python"
   },
   "test_categories": [
     "static_analysis",
