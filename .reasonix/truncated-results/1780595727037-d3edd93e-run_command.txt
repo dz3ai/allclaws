@@ -1,0 +1,344 @@
+$ git submodule update --init --recursive
+[killed after timeout]
+From https://github.com/github/copilot-cli
+   3085447..3e316bb  main       -> origin/main
+ * [new tag]         v1.0.56    -> v1.0.56
+ * [new tag]         v1.0.56-2  -> v1.0.56-2
+ * [new tag]         v1.0.60-0  -> v1.0.60-0
+ * [new tag]         v1.0.57    -> v1.0.57
+ * [new tag]         v1.0.57-0  -> v1.0.57-0
+ * [new tag]         v1.0.57-1  -> v1.0.57-1
+ * [new tag]         v1.0.57-2  -> v1.0.57-2
+ * [new tag]         v1.0.57-3  -> v1.0.57-3
+ * [new tag]         v1.0.57-4  -> v1.0.57-4
+ * [new tag]         v1.0.57-5  -> v1.0.57-5
+ * [new tag]         v1.0.58    -> v1.0.58
+ * [new tag]         v1.0.59    -> v1.0.59
+Submodule path 'coding-agents/cli-agents/copilot-cli': checked out '5e5b150c44e8671d6883a5b6549acc8a7e7b6285'
+From https://github.com/esengine/DeepSeek-Reasonix
+ * [new branch]        feat/v1-mcp-compat   -> origin/feat/v1-mcp-compat
+ * [new branch]        fix/2856-no-rewizard -> origin/fix/2856-no-rewizard
+ * [new branch]        main-v2              -> origin/main-v2
+ * [new branch]        pr-2925              -> origin/pr-2925
+ * [new branch]        v1                   -> origin/v1
+ * [new tag]           desktop-v1.0.0       -> desktop-v1.0.0
+ * [new tag]           desktop-v1.1.0       -> desktop-v1.1.0
+ * [new tag]           v1.0.0               -> v1.0.0
+ * [new tag]           v1.1.0               -> v1.1.0
+Submodule path 'coding-agents/cli-agents/reasonix': checked out '2c267aac12050290b0edecf7a5e2a55ed7caf889'
+Submodule path 'goclaw': checked out '0fcf5bade6cbb4f8e6ed85e101a082e7c21a846a'
+From https://github.com/NousResearch/hermes-agent
+ * [new branch]          austin/fix/cron-actions-gui -> origin/austin/fix/cron-actions-gui
+ * [new branch]          bb/clarify-prompt-timeout-stuck -> origin/bb/clarify-prompt-timeout-stuck
+ * [new branch]          bb/coding-agent-harness-analysis -> origin/bb/coding-agent-harness-analysis
+ * [new branch]          bb/desktop-install-path-clarity -> origin/bb/desktop-install-path-clarity
+ * [new branch]          bb/gui-mainmerge-tmp       -> origin/bb/gui-mainmerge-tmp
+ * [new branch]          bb/installer-trusted-uv-resolution -> origin/bb/installer-trusted-uv-resolution
+ * [new branch]          bb/tui-ansi-height-desync  -> origin/bb/tui-ansi-height-desync
+ * [new branch]          bb/tui-ctrlj-newline       -> origin/bb/tui-ctrlj-newline
+ * [new branch]          cline-port/plugin-install-browser-urls -> origin/cline-port/plugin-install-browser-urls
+ * [new branch]          dashboard-internal-ws-credential -> origin/dashboard-internal-ws-credential
+ * [new branch]          dependabot/github_actions/actions-minor-patch-05611cc895 -> origin/dependabot/github_actions/actions-minor-patch-05611cc895
+ * [new branch]          dependabot/github_actions/actions/create-github-app-token-3.2.0 -> origin/dependabot/github_actions/actions/create-github-app-token-3.2.0
+ * [new branch]          dependabot/github_actions/actions/deploy-pages-5.0.0 -> origin/dependabot/github_actions/actions/deploy-pages-5.0.0
+ * [new branch]          dependabot/github_actions/docker/setup-buildx-action-4.1.0 -> origin/dependabot/github_actions/docker/setup-buildx-action-4.1.0
+ * [new branch]          dependabot/github_actions/marocchino/sticky-pull-request-comment-3.0.4 -> origin/dependabot/github_actions/marocchino/sticky-pull-request-comment-3.0.4
+ * [new branch]          dependabot/npm_and_yarn/multi-4ad6f623a9 -> origin/dependabot/npm_and_yarn/multi-4ad6f623a9
+ * [new branch]          dependabot/npm_and_yarn/scripts/whatsapp-bridge/multi-f792d6d6d9 -> origin/dependabot/npm_and_yarn/scripts/whatsapp-bridge/multi-f792d6d6d9
+ * [new branch]          dependabot/npm_and_yarn/website/brace-expansion-1.1.14 -> origin/dependabot/npm_and_yarn/website/brace-expansion-1.1.14
+ * [new branch]          dependabot/npm_and_yarn/website/multi-f792d6d6d9 -> origin/dependabot/npm_and_yarn/website/multi-f792d6d6d9
+ * [new branch]          dependabot/npm_and_yarn/website/path-to-regexp-3.3.0 -> origin/dependabot/npm_and_yarn/website/path-to-regexp-3.3.0
+ * [new branch]          dependabot/npm_and_yarn/website/picomatch-2.3.2 -> origin/dependabot/npm_and_yarn/website/picomatch-2.3.2
+ * [new branch]          dependabot/uv/aiohttp-3.14.0 -> origin/dependabot/uv/aiohttp-3.14.0
+ * [new branch]          docker_s6                  -> origin/docker_s6
+ * [new branch]          docs/execute-code-hermes-env-passthrough -> origin/docs/execute-code-hermes-env-passthrough
+ * [new branch]          docs/video-gen-nous-gateway -> origin/docs/video-gen-nous-gateway
+ * [new branch]          ethie/desktop-uninstall    -> origin/ethie/desktop-uninstall
+ * [new branch]          ethie/docker-simplify-tagging -> origin/ethie/docker-simplify-tagging
+ * [new branch]          ethie/faster-tests-fake-main -> origin/ethie/faster-tests-fake-main
+ * [new branch]          ethie/fix-nix-develop      -> origin/ethie/fix-nix-develop
+ * [new branch]          ethie/oh-god               -> origin/ethie/oh-god
+ * [new branch]          ethie/slash-prompt-start-only -> origin/ethie/slash-prompt-start-only
+ * [new branch]          ethie/uv-salvage           -> origin/ethie/uv-salvage
+ * [new branch]          ethie/win-exe-only         -> origin/ethie/win-exe-only
+ * [new branch]          extend-hook-registry-for-plugins -> origin/extend-hook-registry-for-plugins
+ * [new branch]          feat/15268-pricing-nous-xai -> origin/feat/15268-pricing-nous-xai
+ * [new branch]          feat/blank-slate-setup     -> origin/feat/blank-slate-setup
+ * [new branch]          feat/dashboard-auth-self-hosted-oidc -> origin/feat/dashboard-auth-self-hosted-oidc
+ * [new branch]          feat/dashboard-register    -> origin/feat/dashboard-register
+ * [new branch]          feat/dashboard-typography-and-contrast -> origin/feat/dashboard-typography-and-contrast
+ * [new branch]          feat/dynamic-workflow-skill -> origin/feat/dynamic-workflow-skill
+ * [new branch]          feat/gateway-lazy-platform-import -> origin/feat/gateway-lazy-platform-import
+ * [new branch]          feat/iron-proxy            -> origin/feat/iron-proxy
+ * [new branch]          feat/payments-skills       -> origin/feat/payments-skills
+ * [new branch]          feat/whatsapp-cloud-api    -> origin/feat/whatsapp-cloud-api
+ * [new branch]          fix/dev-dep-setuptools     -> origin/fix/dev-dep-setuptools
+ * [new branch]          fix/docker-tty-zero-dim-pty -> origin/fix/docker-tty-zero-dim-pty
+ * [new branch]          fix/markdown-core-dep      -> origin/fix/markdown-core-dep
+ * [new branch]          fix/nix-gateway-install-env -> origin/fix/nix-gateway-install-env
+ * [new branch]          fix/node-fhs-root-hardening -> origin/fix/node-fhs-root-hardening
+ * [new branch]          fix/node-symlink-fhs-root-install -> origin/fix/node-symlink-fhs-root-install
+ * [new branch]          fix/packaging-test-setuptools-dep -> origin/fix/packaging-test-setuptools-dep
+ * [new branch]          fix/slash-keyboard-selection -> origin/fix/slash-keyboard-selection
+ * [new branch]          fix/tui-mouse-x10-prompt-leak -> origin/fix/tui-mouse-x10-prompt-leak
+ * [new branch]          fix/tui-persist-timed-out-clarify -> origin/fix/tui-persist-timed-out-clarify
+ * [new branch]          fix/update-detects-parent-shim-as-running -> origin/fix/update-detects-parent-shim-as-running
+ + 76507172c...f3058fbec fix/vision-dimension-cap   -> origin/fix/vision-dimension-cap  (forced update)
+ * [new branch]          gemini-cli-port/config-corruption-backup -> origin/gemini-cli-port/config-corruption-backup
+ * [new branch]          hermes-events-bus          -> origin/hermes-events-bus
+ * [new branch]          hermes/curator-usage-cli   -> origin/hermes/curator-usage-cli
+ * [new branch]          hermes/firecrawl-integration-tag-telemetry-gated -> origin/hermes/firecrawl-integration-tag-telemetry-gated
+ * [new branch]          hermes/fix-copilot-auth-test -> origin/hermes/fix-copilot-auth-test
+ * [new branch]          hermes/gateway-replace-fix -> origin/hermes/gateway-replace-fix
+ * [new branch]          hermes/hermes-008bccbc     -> origin/hermes/hermes-008bccbc
+ * [new branch]          hermes/hermes-040df651     -> origin/hermes/hermes-040df651
+ * [new branch]          hermes/hermes-09fb88ef     -> origin/hermes/hermes-09fb88ef
+ * [new branch]          hermes/hermes-135cadfb     -> origin/hermes/hermes-135cadfb
+ * [new branch]          hermes/hermes-1552fa93     -> origin/hermes/hermes-1552fa93
+ * [new branch]          hermes/hermes-21eb0ce1     -> origin/hermes/hermes-21eb0ce1
+ * [new branch]          hermes/hermes-2747755a     -> origin/hermes/hermes-2747755a
+ * [new branch]          hermes/hermes-2b79b6da     -> origin/hermes/hermes-2b79b6da
+ * [new branch]          hermes/hermes-2d0a2eb3     -> origin/hermes/hermes-2d0a2eb3
+ * [new branch]          hermes/hermes-368c2379     -> origin/hermes/hermes-368c2379
+ * [new branch]          hermes/hermes-3a4b0a1b     -> origin/hermes/hermes-3a4b0a1b
+ * [new branch]          hermes/hermes-3ec2a701     -> origin/hermes/hermes-3ec2a701
+ * [new branch]          hermes/hermes-5db05717     -> origin/hermes/hermes-5db05717
+ * [new branch]          hermes/hermes-5e533958     -> origin/hermes/hermes-5e533958
+ * [new branch]          hermes/hermes-5fdb1cc4     -> origin/hermes/hermes-5fdb1cc4
+   55321e456..78798138d  hermes/hermes-63babeb7     -> origin/hermes/hermes-63babeb7
+ * [new branch]          hermes/hermes-6c420680     -> origin/hermes/hermes-6c420680
+ * [new branch]          hermes/hermes-72b329fd     -> origin/hermes/hermes-72b329fd
+ * [new branch]          hermes/hermes-737ba78e     -> origin/hermes/hermes-737ba78e
+ * [new branch]          hermes/hermes-759c9167     -> origin/hermes/hermes-759c9167
+ * [new branch]          hermes/hermes-780defc4     -> origin/hermes/hermes-780defc4
+ + 5cde366cb...27b90d5d6 hermes/hermes-8d7d912f     -> origin/hermes/hermes-8d7d912f  (forced update)
+ * [new branch]          hermes/hermes-9de0799a     -> origin/hermes/hermes-9de0799a
+ * [new branch]          hermes/hermes-9fa9a6bc     -> origin/hermes/hermes-9fa9a6bc
+ * [new branch]          hermes/hermes-a5904da7     -> origin/hermes/hermes-a5904da7
+ * [new branch]          hermes/hermes-a963c25d     -> origin/hermes/hermes-a963c25d
+ * [new branch]          hermes/hermes-aa200214     -> origin/hermes/hermes-aa200214
+ * [new branch]          hermes/hermes-aba10f53     -> origin/hermes/hermes-aba10f53
+ * [new branch]          hermes/hermes-b8245fea     -> origin/hermes/hermes-b8245fea
+ * [new branch]          hermes/hermes-d1511484     -> origin/hermes/hermes-d1511484
+ * [new branch]          hermes/hermes-d44c5398     -> origin/hermes/hermes-d44c5398
+ * [new branch]          hermes/hermes-de0d15b6     -> origin/hermes/hermes-de0d15b6
+ * [new branch]          hermes/hermes-f28d58c5     -> origin/hermes/hermes-f28d58c5
+ * [new branch]          hermes/hermes-f51d2dad     -> origin/hermes/hermes-f51d2dad
+ * [new branch]          hermes/sec-tier1-32130     -> origin/hermes/sec-tier1-32130
+ * [new branch]          ironclaw-port/search-budget-soft-truncation -> origin/ironclaw-port/search-budget-soft-truncation
+ * [new branch]          kilocode-port/read-document-extraction -> origin/kilocode-port/read-document-extraction
+   f36c89cd5..a3fb48b2c  main                       -> origin/main
+ * [new branch]          nanoclaw-port/upload-trace-v2 -> origin/nanoclaw-port/upload-trace-v2
+ * [new branch]          openclaw-port/gemini-self-prefix-strip -> origin/openclaw-port/gemini-self-prefix-strip
+ * [new branch]          opencode-port/responses-failed-error-detail -> origin/opencode-port/responses-failed-error-detail
+ * [new branch]          perf/fts-optimize          -> origin/perf/fts-optimize
+ * [new branch]          plugin-sdk-auth            -> origin/plugin-sdk-auth
+ * [new branch]          pr-37660                   -> origin/pr-37660
+ * [new branch]          pr-37665                   -> origin/pr-37665
+ * [new branch]          refactor/stop-writing-gateway-jsonl-transcripts -> origin/refactor/stop-writing-gateway-jsonl-transcripts
+ * [new branch]          refactor/stop-writing-session-json-snapshots -> origin/refactor/stop-writing-session-json-snapshots
+ * [new branch]          release/v0.15.0-strip-gui  -> origin/release/v0.15.0-strip-gui
+ * [new branch]          revert-34333-feat/nvidia-skills-tap -> origin/revert-34333-feat/nvidia-skills-tap
+ * [new branch]          salvage-8306-webhook-secret -> origin/salvage-8306-webhook-secret
+ * [new branch]          salvage/31518-env-mode-preserve -> origin/salvage/31518-env-mode-preserve
+ * [new branch]          salvage/pr-24570           -> origin/salvage/pr-24570
+ * [new branch]          salvage/pr-25178           -> origin/salvage/pr-25178
+ * [new branch]          salvage/pr-26336           -> origin/salvage/pr-26336
+ * [new branch]          salvage/pr-26378           -> origin/salvage/pr-26378
+ * [new branch]          salvage/pr-3691            -> origin/salvage/pr-3691
+ * [new branch]          salvage/pr-8996            -> origin/salvage/pr-8996
+ * [new branch]          salvage/pr-9190            -> origin/salvage/pr-9190
+ * [new branch]          sid/tool-gateway-implement -> origin/sid/tool-gateway-implement
+ * [new branch]          v2026.5.29.1               -> origin/v2026.5.29.1
+ * [new branch]          ziliang-review-fork-inherit-toolsets -> origin/ziliang-review-fork-inherit-toolsets
+ * [new tag]             desktop-pr20059-installers -> desktop-pr20059-installers
+ * [new tag]             v2026.5.29.2               -> v2026.5.29.2
+ * [new tag]             v2026.5.28                 -> v2026.5.28
+ * [new tag]             v2026.5.29                 -> v2026.5.29
+Submodule path 'hermes-agent': checked out '1fc7bdc5e64e052bc61d3ddb9e6f96cf6c7461dc'
+From https://github.com/agentscope-ai/HiClaw
+ * [new branch]      chore/archive-changelog-v1.1.2 -> origin/chore/archive-changelog-v1.1.2
+ * [new branch]      codex/release-current-v1.1.2 -> origin/codex/release-current-v1.1.2
+ * [new branch]      docs/issue-612-custom-worker-agent -> origin/docs/issue-612-custom-worker-agent
+ * [new branch]      docs/issue-738-zh-cn-sync -> origin/docs/issue-738-zh-cn-sync
+ * [new branch]      docs/issue-837-team-delegation-match -> origin/docs/issue-837-team-delegation-match
+ * [new branch]      fix/issue-746-normalize-admin-user -> origin/fix/issue-746-normalize-admin-user
+ * [new branch]      fix/issue-799-team-worker-conflict -> origin/fix/issue-799-team-worker-conflict
+ * [new branch]      fix/issue-818-ai-route-lock -> origin/fix/issue-818-ai-route-lock
+ * [new branch]      fix/issue-877-runtime-socket-match -> origin/fix/issue-877-runtime-socket-match
+ * [new branch]      fix/issue-878-worker-extra-hosts -> origin/fix/issue-878-worker-extra-hosts
+ * [new branch]      fix/issue-879-leader-coordination -> origin/fix/issue-879-leader-coordination
+ * [new branch]      fix/issue-892-manager-default-worker-runtime-env -> origin/fix/issue-892-manager-default-worker-runtime-env
+   e21ac83..fb294d7  main       -> origin/main
+ * [new tag]         v1.1.2     -> v1.1.2
+Submodule path 'hiclaw': checked out '115dfada86eb4a52e0e2c79da3fc965d676f4340'
+From https://github.com/nearai/ironclaw
+ * [new branch]          arch-test-composition-seams -> origin/arch-test-composition-seams
+ * [new branch]          arch/phase-1-ironclaw-oauth-substrate -> origin/arch/phase-1-ironclaw-oauth-substrate
+ * [new branch]          arch/phase-2-blockedauth-resume-path -> origin/arch/phase-2-blockedauth-resume-path
+ * [new branch]          arch/phase-3-ironclaw-native-extensions-scaffold-google-provider-registration -> origin/arch/phase-3-ironclaw-native-extensions-scaffold-google-provider-registration
+ * [new branch]          arch/phase-4-composition-wiring -> origin/arch/phase-4-composition-wiring
+ * [new branch]          arch/phase-5-google-calendar-package -> origin/arch/phase-5-google-calendar-package
+ * [new branch]          arch/phase-6-gmail-package -> origin/arch/phase-6-gmail-package
+ * [new branch]          attested-signing-01-provider-trait -> origin/attested-signing-01-provider-trait
+ * [new branch]          attested-signing-02b-wire-hardening -> origin/attested-signing-02b-wire-hardening
+ * [new branch]          attested-signing-03-grant-ledger -> origin/attested-signing-03-grant-ledger
+ * [new branch]          attested-signing-04-challenge-webauthn-audit -> origin/attested-signing-04-challenge-webauthn-audit
+ * [new branch]          attested-signing-05-turns-resume -> origin/attested-signing-05-turns-resume
+ * [new branch]          attested-signing-06-chain-signing -> origin/attested-signing-06-chain-signing
+ * [new branch]          attested-signing-07-injected-provider -> origin/attested-signing-07-injected-provider
+ * [new branch]          attested-signing-08-near-redirect -> origin/attested-signing-08-near-redirect
+ * [new branch]          attested-signing-09-walletconnect -> origin/attested-signing-09-walletconnect
+ * [new branch]          attested-signing-10-reborn-runtime -> origin/attested-signing-10-reborn-runtime
+ * [new branch]          attested-signing-11-webui-ingress -> origin/attested-signing-11-webui-ingress
+ * [new branch]          attested-signing-12-durable-stores -> origin/attested-signing-12-durable-stores
+ * [new branch]          attested-signing-13-production-wiring -> origin/attested-signing-13-production-wiring
+ * [new branch]          attested-signing-14-loop-raise -> origin/attested-signing-14-loop-raise
+ * [new branch]          attested-signing-4102-trait-followups -> origin/attested-signing-4102-trait-followups
+ * [new branch]          attested-signing-coherence-followups -> origin/attested-signing-coherence-followups
+ * [new branch]          attested-signing-kms-shipgate-hardening -> origin/attested-signing-kms-shipgate-hardening
+ * [new branch]          attested-signing-multitenant-model -> origin/attested-signing-multitenant-model
+ * [new branch]          attested-signing-trust-registration -> origin/attested-signing-trust-registration
+ * [new branch]          audit/crate-boundaries  -> origin/audit/crate-boundaries
+ * [new branch]          backup/codex-3288-before-reborn-integration-merge-20260526-013322 -> origin/backup/codex-3288-before-reborn-integration-merge-20260526-013322
+ * [new branch]          backup/pr-3760-before-reborn-integration-merge-20260519-120915 -> origin/backup/pr-3760-before-reborn-integration-merge-20260519-120915
+ * [new branch]          backup/pr-3765-before-reborn-merge-20260520-155702 -> origin/backup/pr-3765-before-reborn-merge-20260520-155702
+ * [new branch]          backup/pr4156-before-reborn-integration-merge-20260528-132258 -> origin/backup/pr4156-before-reborn-integration-merge-20260528-132258
+ * [new branch]          chore/update-checksums-1779814741 -> origin/chore/update-checksums-1779814741
+ * [new branch]          chore/update-checksums-1780514300 -> origin/chore/update-checksums-1780514300
+ * [new branch]          codex/3806-pr1-github-v2-package -> origin/codex/3806-pr1-github-v2-package
+ * [new branch]          codex/3806-pr2-github-wasm-read -> origin/codex/3806-pr2-github-wasm-read
+ * [new branch]          codex/3806-pr3-github-comment-approval -> origin/codex/3806-pr3-github-comment-approval
+ * [new branch]          codex/apply-patch-write-state -> origin/codex/apply-patch-write-state
+ * [new branch]          codex/extension-lifecycle-profiles -> origin/codex/extension-lifecycle-profiles
+ * [new branch]          codex/fix-tool-call-previews -> origin/codex/fix-tool-call-previews
+ * [new branch]          codex/fix-webchat-v2-shutdown -> origin/codex/fix-webchat-v2-shutdown
+ * [new branch]          codex/fix-wecom-vision-attachments -> origin/codex/fix-wecom-vision-attachments
+ * [new branch]          codex/github-extension-search-inputs -> origin/codex/github-extension-search-inputs
+ * [new branch]          codex/gsuite-wasm-oauth-setup -> origin/codex/gsuite-wasm-oauth-setup
+ * [new branch]          codex/host-runtime-boundary-cleanup -> origin/codex/host-runtime-boundary-cleanup
+ * [new branch]          codex/issue-3756-disable-worker-ansi -> origin/codex/issue-3756-disable-worker-ansi
+ * [new branch]          codex/issue-4112-ui-review-fixes -> origin/codex/issue-4112-ui-review-fixes
+ * [new branch]          codex/issue-4112-webui-v2-auth-e2e -> origin/codex/issue-4112-webui-v2-auth-e2e
+ * [new branch]          codex/issue-4149-runtime-context-plan -> origin/codex/issue-4149-runtime-context-plan
+ * [new branch]          codex/issue-4349-completion-observer -> origin/codex/issue-4349-completion-observer
+ * [new branch]          codex/issue-4366-compaction-defer -> origin/codex/issue-4366-compaction-defer
+ * [new branch]          codex/issue-4425-http-output-budget -> origin/codex/issue-4425-http-output-budget
+ * [new branch]          codex/local-dev-approval-gates -> origin/codex/local-dev-approval-gates
+ * [new branch]          codex/local-dev-approval-test-decomposition -> origin/codex/local-dev-approval-test-decomposition
+ * [new branch]          codex/nearai-mcp-reborn-fix -> origin/codex/nearai-mcp-reborn-fix
+ * [new branch]          codex/nearai-system-message-boundary -> origin/codex/nearai-system-message-boundary
+ * [new branch]          codex/no-exposure-followups-3924 -> origin/codex/no-exposure-followups-3924
+ * [new branch]          codex/oversized-skill-prompt-fallback -> origin/codex/oversized-skill-prompt-fallback
+ * [new branch]          codex/plain-md-skill-install -> origin/codex/plain-md-skill-install
+ * [new branch]          codex/profile-approval-authorizer -> origin/codex/profile-approval-authorizer
+ * [new branch]          codex/prompt-host-debug-logs -> origin/codex/prompt-host-debug-logs
+ * [new branch]          codex/prompt-snippet-debug-logs -> origin/codex/prompt-snippet-debug-logs
+ * [new branch]          codex/reborn-auth-cancel-no-flow -> origin/codex/reborn-auth-cancel-no-flow
+ * [new branch]          codex/reborn-e2e-events-parity -> origin/codex/reborn-e2e-events-parity
+ * [new branch]          codex/reborn-extension-catalog -> origin/codex/reborn-extension-catalog
+ * [new branch]          codex/reborn-factory-production-builder -> origin/codex/reborn-factory-production-builder
+ * [new branch]          codex/reborn-first-party-extension-registry -> origin/codex/reborn-first-party-extension-registry
+ * [new branch]          codex/reborn-local-dev-yolo -> origin/codex/reborn-local-dev-yolo
+ * [new branch]          codex/reborn-localdev-http -> origin/codex/reborn-localdev-http
+ * [new branch]          codex/reborn-multitenancy-contract-tests -> origin/codex/reborn-multitenancy-contract-tests
+ * [new branch]          codex/reborn-process-resource-ceilings -> origin/codex/reborn-process-resource-ceilings
+ * [new branch]          codex/reborn-secret-store-private-builder -> origin/codex/reborn-secret-store-private-builder
+ * [new branch]          codex/reborn-skills-composition -> origin/codex/reborn-skills-composition
+ * [new branch]          codex/reborn-tool-input-errors-recover -> origin/codex/reborn-tool-input-errors-recover
+ * [new branch]          codex/reborn-turn-objective-anchor -> origin/codex/reborn-turn-objective-anchor
+ * [new branch]          codex/reborn-webui-v2-images -> origin/codex/reborn-webui-v2-images
+ * [new branch]          codex/rich-tool-activity-sse -> origin/codex/rich-tool-activity-sse
+ * [new branch]          codex/runtime-profile-approval-gates -> origin/codex/runtime-profile-approval-gates
+ * [new branch]          codex/serve-init-tracing -> origin/codex/serve-init-tracing
+ * [new branch]          codex/slack-host-beta-journey -> origin/codex/slack-host-beta-journey
+ * [new branch]          codex/trigger-create-pairing-fix -> origin/codex/trigger-create-pairing-fix
+ * [new branch]          codex/unified-skill-install-url -> origin/codex/unified-skill-install-url
+ * [new branch]          cr-loop-fix-4234        -> origin/cr-loop-fix-4234
+ * [new branch]          daniel/3280-product-workflow-plan -> origin/daniel/3280-product-workflow-plan
+ * [new branch]          daniel/3280-product-workflow-routing -> origin/daniel/3280-product-workflow-routing
+ * [new branch]          daniel/3702-reborn-tool-param-coercion-parity -> origin/daniel/3702-reborn-tool-param-coercion-parity
+   ee98d798e..8efe501c2  debug/relay-callback-signature-logging -> origin/debug/relay-callback-signature-logging
+ * [new branch]          dependabot/cargo/everything-else-e1ffbb7a7d -> origin/dependabot/cargo/everything-else-e1ffbb7a7d
+ * [new branch]          dependabot/cargo/serialization-1284067e12 -> origin/dependabot/cargo/serialization-1284067e12
+ * [new branch]          dependabot/cargo/tar-0.4.46 -> origin/dependabot/cargo/tar-0.4.46
+ * [new branch]          dependabot/cargo/tokio-ecosystem-54aea43eca -> origin/dependabot/cargo/tokio-ecosystem-54aea43eca
+ * [new branch]          dependabot/cargo/wasm-43c55a7eb4 -> origin/dependabot/cargo/wasm-43c55a7eb4
+ * [new branch]          dependabot/github_actions/actions-e93afaab30 -> origin/dependabot/github_actions/actions-e93afaab30
+ * [new branch]          docs/reborn-agents-md-refresh -> origin/docs/reborn-agents-md-refresh
+   5764b8c2f..31383ada8  docs/wechat             -> origin/docs/wechat
+ * [new branch]          feat/3094-interaction-services -> origin/feat/3094-interaction-services
+ * [new branch]          feat/extension-v2-tool-package-readiness -> origin/feat/extension-v2-tool-package-readiness
+ * [new branch]          feat/feishu-long-conn   -> origin/feat/feishu-long-conn
+ * [new branch]          feat/lean-no-exposure-guard -> origin/feat/lean-no-exposure-guard
+ * [new branch]          feat/nearai-bench-started-ack -> origin/feat/nearai-bench-started-ack
+ * [new branch]          feat/reborn-identity-resolver -> origin/feat/reborn-identity-resolver
+ * [new branch]          feat/reborn-memory-product-surfaces -> origin/feat/reborn-memory-product-surfaces
+ * [new branch]          feat/reborn-repl-codex-auth -> origin/feat/reborn-repl-codex-auth
+ * [new branch]          feat/reborn-repl-product-workflow -> origin/feat/reborn-repl-product-workflow
+ * [new branch]          feat/reborn-repl-tools  -> origin/feat/reborn-repl-tools
+ * [new branch]          feat/reborn-serve-webui-delegation -> origin/feat/reborn-serve-webui-delegation
+   2b2063749..cbe23032f  feat/reborn-telegram-v2-wiring -> origin/feat/reborn-telegram-v2-wiring
+ * [new branch]          feat/reborn-webui-v2-host-serve -> origin/feat/reborn-webui-v2-host-serve
+ * [new branch]          feat/safe-tool-io-previews -> origin/feat/safe-tool-io-previews
+   c1e21633e..5ba10e7f4  feat/secrets-explained  -> origin/feat/secrets-explained
+ * [new branch]          feat/webui-v2-near-sso  -> origin/feat/webui-v2-near-sso
+ * [new branch]          filesystem-openat2-hardening -> origin/filesystem-openat2-hardening
+ * [new branch]          firat/4238-broker-projection -> origin/firat/4238-broker-projection
+ * [new branch]          firat/docker-sandbox-command-transport-pr5 -> origin/firat/docker-sandbox-command-transport-pr5
+ * [new branch]          fix-4084-background-subagent-notification -> origin/fix-4084-background-subagent-notification
+ * [new branch]          fix-http-response-error-aborts-run -> origin/fix-http-response-error-aborts-run
+ * [new branch]          fix/3608-authorized-dispatch-request -> origin/fix/3608-authorized-dispatch-request
+   880dde56d..f5f5b822b  fix/mission-output-routing-to-chat-thread-main -> origin/fix/mission-output-routing-to-chat-thread-main
+ * [new branch]          fix/slack-file-attachments -> origin/fix/slack-file-attachments
+ * [new branch]          henry/reborn-google-extensions-spec -> origin/henry/reborn-google-extensions-spec
+ * [new branch]          hooks-digest-test-through-caller -> origin/hooks-digest-test-through-caller
+ * [new branch]          hooks-foundation-deferred-tests -> origin/hooks-foundation-deferred-tests
+   886429f89..571efdf67  hooks-fu-wasm-runtime   -> origin/hooks-fu-wasm-runtime
+ * [new branch]          hooks-merged-pr-cleanup -> origin/hooks-merged-pr-cleanup
+ * [new branch]          hooks-predicate-backend-libsql -> origin/hooks-predicate-backend-libsql
+ * [new branch]          hooks-predicate-backend-parity-suite -> origin/hooks-predicate-backend-parity-suite
+ * [new branch]          hooks-predicate-backend-postgres -> origin/hooks-predicate-backend-postgres
+ * [new branch]          hooks-production-activation -> origin/hooks-production-activation
+ * [new branch]          hooks-thirdparty-activation -> origin/hooks-thirdparty-activation
+ * [new branch]          issue-4442-reborn-openai-api-contracts -> origin/issue-4442-reborn-openai-api-contracts
+   4fea8b354..556dfd077  main                    -> origin/main
+ * [new branch]          pr3819                  -> origin/pr3819
+ * [new branch]          pr3822                  -> origin/pr3822
+ * [new branch]          pr4007                  -> origin/pr4007
+ * [new branch]          reborn-generic-shims    -> origin/reborn-generic-shims
+   4ee6b219b..f6ea8a50b  reborn-integration      -> origin/reborn-integration
+ + cff47783e...410c1737c release-plz-2026-05-16T22-43-06Z -> origin/release-plz-2026-05-16T22-43-06Z  (forced update)
+ * [new branch]          review-fix-4224         -> origin/review-fix-4224
+ * [new branch]          security-audit-sink-wiring -> origin/security-audit-sink-wiring
+ * [new branch]          step3-chat-path-audited-dispatch -> origin/step3-chat-path-audited-dispatch
+ * [new branch]          step4-scheduler-routines-audited-dispatch -> origin/step4-scheduler-routines-audited-dispatch
+ * [new branch]          step5-bridge-command-builder-audited-dispatch -> origin/step5-bridge-command-builder-audited-dispatch
+ * [new branch]          step6-effect-adapter-audited-dispatch -> origin/step6-effect-adapter-audited-dispatch
+ * [new branch]          test/benchmark-canary   -> origin/test/benchmark-canary
+ * [new branch]          thermo/code-quality-fixes -> origin/thermo/code-quality-fixes
+ * [new branch]          tool-execution-funnel-boundary-test -> origin/tool-execution-funnel-boundary-test
+ * [new branch]          trace-pilot-allowlist-cleanup -> origin/trace-pilot-allowlist-cleanup
+ * [new branch]          webui-v2-qol-attention-recents -> origin/webui-v2-qol-attention-recents
+ + e1b970d84...5a2d71ca9 zetyquickly/engine-v2-notify-metadata -> origin/zetyquickly/engine-v2-notify-metadata  (forced update)
+   ef069d83e..2bd5db810  zetyquickly/fix-security-shell -> origin/zetyquickly/fix-security-shell
+ * [new tag]             ironclaw-v0.29.1        -> ironclaw-v0.29.1
+ * [new tag]             ironclaw-v0.29.0        -> ironclaw-v0.29.0
+Submodule path 'ironclaw': checked out '749f58441ff43d78c7a307a16c7ec536f440ac18'
+From https://github.com/HKUDS/nanobot
+ * [new branch]        codex/cli-image-artifacts -> origin/codex/cli-image-artifacts
+ * [new branch]        codex/desktop-cleanup -> origin/codex/desktop-cleanup
+ * [new branch]        codex/feishu-mention-slash-command -> origin/codex/feishu-mention-slash-command
+ * [new branch]        codex/fix-cli-apps-windows-ci -> origin/codex/fix-cli-apps-windows-ci
+ * [new branch]        codex/fix-session-stream-context-bugs -> origin/codex/fix-session-stream-context-bugs
+ * [new branch]        codex/heartbeat-suppress-all-clear -> origin/codex/heartbeat-suppress-all-clear
+ * [new branch]        codex/hook-lifecycle  -> origin/codex/hook-lifecycle
+ * [new branch]        codex/hook-lifecycle-simplify -> origin/codex/hook-lifecycle-simplify
+ * [new branch]        codex/long-goal-iteration-budget -> origin/codex/long-goal-iteration-budget
+ * [new branch]        codex/mcp-presets-mvp -> origin/codex/mcp-presets-mvp
+ * [new branch]        codex/tool-call-success-rate -> origin/codex/tool-call-success-rate
+ * [new branch]        codex/webui-command-palette -> origin/codex/webui-command-palette
+ * [new branch]        codex/webui-file-edit-stats -> origin/codex/webui-file-edit-stats
+ * [new
+
+[… truncated 1814 chars …]
