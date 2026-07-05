@@ -3,7 +3,7 @@ set -uo pipefail
 
 FRAMEWORK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 ALLCLAWS_DIR="$(dirname "$FRAMEWORK_DIR")"
-TIMESTAMP="$(date +%Y-%m-%dT%H:%M%S)"
+TIMESTAMP="$(date +%Y-%m-%dT%H-%M%S)"
 RESULT_DIR="$FRAMEWORK_DIR/benchmark_results/$TIMESTAMP"
 REPORT_JSON="$RESULT_DIR/benchmark_results.json"
 REPORT_MD="$RESULT_DIR/benchmark_results.md"

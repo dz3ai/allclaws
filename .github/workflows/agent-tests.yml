@@ -48,7 +48,7 @@ jobs:
       - name: Test ${{ matrix.platform }}
         run: |
           cd test_framework
-          bash scripts/run_tests.sh 2>&1 | tee test_output.log
+          bash scripts/run_tests.sh --platform ${{ matrix.platform }} 2>&1 | tee test_output.log
 
       - name: Upload results
         if: always()
@@ -184,31 +184,64 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Download all test result artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: test-results-*
+          path: test_framework/results/
+          merge-multiple: true
+
+      - name: Download benchmark artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: benchmark-results
+          path: test_framework/benchmark_results/
+          merge-multiple: true
+
       - name: Generate test report
+        if: always()
         run: |
           cd test_framework
-
-          # 找到最新的结果目录
-          TEST_LATEST=$(ls -t results/ | head -1)
-          BENCH_LATEST=$(ls -t benchmark_results/ | head -1)
 
           echo "# AllClaws 测试报告" > test_report.md
           echo "" >> test_report.md
           echo "**生成时间:** $(date '+%Y-%m-%d %H:%M:%S UTC')" >> test_report.md
           echo "" >> test_report.md
 
+          # Aggregate all test result JSONs
           echo "## 测试结果摘要" >> test_report.md
-          cat "$TEST_LATEST/results.md" >> test_report.md
+          echo "" >> test_report.md
+          if ls results/*/results.json >/dev/null 2>&1; then
+            jq -s '
+              {
+                total: map(.total) | add,
+                passed: map(.passed) | add,
+                failed: map(.failed) | add,
+                skipped: map(.skipped) | add
+              }
+            ' results/*/results.json >> test_report.md
+          else
+            echo "_No test result artifacts available._" >> test_report.md
+          fi
           echo "" >> test_report.md
 
+          # Find and include benchmark summary
           echo "## 基准测试摘要" >> test_report.md
-          cat "$BENCH_LATEST/benchmark_results.md" >> test_report.md
+          echo "" >> test_report.md
+          BENCH_SUMMARY=$(find benchmark_results/ -name "summary.md" | sort | tail -1)
+          if [ -n "$BENCH_SUMMARY" ] && [ -f "$BENCH_SUMMARY" ]; then
+            cat "$BENCH_SUMMARY" >> test_report.md
+          else
+            echo "_No benchmark summary available._" >> test_report.md
+          fi
 
       - name: Upload report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-report
           path: test_framework/test_report.md
+          if-no-files-found: warn
           retention-days: 90
 
       - name: Comment on PR

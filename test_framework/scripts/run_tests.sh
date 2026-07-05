@@ -3,7 +3,7 @@ set -uo pipefail
 
 FRAMEWORK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 ALLCLAWS_DIR="$(dirname "$FRAMEWORK_DIR")"
-TIMESTAMP="$(date +%Y-%m-%dT%H:%M%S)"
+TIMESTAMP="$(date +%Y-%m-%dT%H-%M%S)"
 RESULT_DIR="$FRAMEWORK_DIR/results/$TIMESTAMP"
 REPORT_JSON="$RESULT_DIR/results.json"
 REPORT_MD="$RESULT_DIR/results.md"
@@ -22,13 +22,28 @@ if [ ! -f "$CONFIG_FILE" ]; then
     exit 1
 fi
 
+# Optional: filter to a single platform via --platform <name>
+FILTER_PLATFORM=""
+if [ "${1:-}" = "--platform" ] && [ -n "${2:-}" ]; then
+    FILTER_PLATFORM="$2"
+fi
+
 # Read platforms and languages from config.json
 SUPPORTED_PLATFORMS=($(jq -r '.supported_platforms[]' "$CONFIG_FILE"))
 PLATFORM_LANGUAGES=()
 for platform in "${SUPPORTED_PLATFORMS[@]}"; do
+    # Skip if filtering and this isn't the target
+    if [ -n "$FILTER_PLATFORM" ] && [ "$platform" != "$FILTER_PLATFORM" ]; then
+        continue
+    fi
     lang=$(jq -r --arg p "$platform" '.platform_languages[$p] // "Unknown"' "$CONFIG_FILE")
     PLATFORM_LANGUAGES+=("$platform:$lang")
 done
+
+if [ -n "$FILTER_PLATFORM" ] && [ ${#PLATFORM_LANGUAGES[@]} -eq 0 ]; then
+    echo "ERROR: platform '$FILTER_PLATFORM' not found in config.json"
+    exit 1
+fi
 
 # Build PLATFORMS array in the format "platform:language"
 PLATFORMS=("${PLATFORM_LANGUAGES[@]}")
