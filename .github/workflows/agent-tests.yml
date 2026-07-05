@@ -72,29 +72,60 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Setup Node.js 20 LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
       - name: Run benchmarks
         run: |
           cd test_framework
-          bash scripts/run_benchmarks.sh 2>&1 | tee benchmark_output.log
+          python3 -m benchmark.cli runtime --runs 5 2>&1 | tee benchmark_output.log
 
-      - name: Generate summary
+      - name: Generate job summary
+        if: always()
         run: |
           cd test_framework
-          echo "## Benchmark Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          jq -r '"|\(.platform)| \(.metric)| \(.value) \(.unit)|"' \
-            benchmark_results/latest/benchmark_results.json >> $GITHUB_STEP_SUMMARY
+          LATEST=$(ls -td benchmark_results/*/runtime/ 2>/dev/null | head -1)
+
+          echo "## Benchmark Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -z "$LATEST" ]; then
+            echo "_No benchmark results found._" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          SUMMARY_FILE="${LATEST}summary.md"
+          if [ -f "$SUMMARY_FILE" ]; then
+            cat "$SUMMARY_FILE" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "_Summary not available._" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "<details>" >> "$GITHUB_STEP_SUMMARY"
+          echo "<summary>Full Report</summary>" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          cat "${LATEST}runtime_benchmark_results.md" 2>/dev/null >> "$GITHUB_STEP_SUMMARY" || echo "_No report._"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "</details>" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload results
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: benchmark-results
-          path: test_framework/benchmark_results/
+          path: test_framework/benchmark_results/*/runtime/
+          if-no-files-found: warn
           retention-days: 30
 
   # ============================================
