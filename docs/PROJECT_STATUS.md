@@ -104,20 +104,15 @@
 12. ✅ AgentScope 全链路集成 (06-17): submodule, config.json, platform_comparison EN/ZH, README, MISSION, ROADMAP, LATEST_UPDATES
 
 ## 进行中 / 待完成
-1. 🔴 agent-tests.yml 跑通 — 持续不稳定 (最近失败 06-28):
-   - run #27698528413 (06-17): clawteam failure, "Generate Report" 失败
-   - run #27698824988 (06-17): 同样失败
-   - run #27893869480 (06-21): nanoclaw Upload results 失败; "Generate Report" 失败
-   - run #28311017446 (06-28): claw-ai-lab Upload results 失败; "Generate Report" 失败 (相同 concurrency 取消模式)
-   - 根因分析: concurrency-group 取消大部分 matrix job → upload-artifact 被取消 → report 生成时 artifacts 不完整
-   - 需排查: (a) concurrency 设置过于激进, (b) "Generate Report" 依赖的 artifacts 缺失处理
-   - ⚠️ 已连续 17 天无用户主动修复
-2. 🟡 openhuman Rust 编译 — 需要 rustup toolchain install 1.93.0 (网络问题)
-3. 🟡 openhuman submodule 未加入 .gitmodules (untracked)
-4. 🟡 基准报告 md 渲染 — jq 语法错误导致模板为空，需修复报告生成脚本
-5. 🟡 新 untracked 子目录: claw-ai-lab/, hermes-agent/, nanoclaw/ — submodule clone 的本地噪声
-6. 🟢 architecture/platform_comparison.md + .zh-CN.md — 移除 3 平台的分析段落可能未清理完全
-7. 🟢 GitHub Issue #1 "new players and category" — 内容已覆盖但未关闭
+1. ✅ agent-tests.yml CI 修复 (commit db7c2d6):
+   - 根因: timestamp 含冒号 → upload-artifact@v4 拒绝 → matrix 全部取消
+   - 根因: matrix job 运行全部 26 平台 (非 matrix.platform)
+   - 根因: Generate Report 读取不存在的路径
+   - 修复: timestamp 改用连字符, 新增 --platform 过滤, 重写报告生成
+2. ✅ openhuman submodule 已加入 .gitmodules (已跟踪, 状态正常)
+3. ✅ openhuman Rust 编译 — rustc 1.95.0 满足要求 (Cargo.toml 无 rust-version 约束)
+4. 🟢 architecture/platform_comparison.md + .zh-CN.md — 移除 3 平台的分析段落可能未清理完全
+5. 🟢 GitHub Issue #1 "new players and category" — 内容已覆盖但未关闭
 
 ## 关键文件
 - test_framework/benchmark/ — Python benchmark 包 (7 files, v3.0)
