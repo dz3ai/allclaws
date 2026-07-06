@@ -1,19 +1,19 @@
-# 统一平台比较：全部 26 个 AI 代理平台
+# 统一平台比较：全部 30 个 AI 代理平台
 
 **[English](platform_comparison.md)** | 中文
 
-> AllClaws 跟踪的全部 26 个平台的标准化架构比较 — 11 个 claw 生态平台、9 个外部框架、5 个 CLI 编程代理和 1 个人类数字孪生平台。2026 年 6 月更新。
+> AllClaws 跟踪的全部 30 个平台的标准化架构比较 — 11 个 claw 生态平台、13 个外部框架、5 个 CLI 编程代理和 1 个人类数字孪生平台。2026 年 6 月更新。
 
 ---
 
 ## 概述
 
-本文档以标准化格式并排比较 AllClaws 研究项目跟踪的全部 25 个 AI 代理平台的架构。每个平台条目遵循统一格式，涵盖分类、设计原则、核心架构和架构图（如有）。
+本文档以标准化格式并排比较 AllClaws 研究项目跟踪的全部 30 个 AI 代理平台的架构。每个平台条目遵循统一格式，涵盖分类、设计原则、核心架构和架构图（如有）。
 
-25 个平台分为四组：
+30 个平台分为四组：
 
 - **Claw 生态（11 个）：** 起源于 Claw/OpenClaw 生态或与之紧密关联的平台。
-- **外部框架（8 个）：** 用于生态比较的行业参考框架。
+- **外部框架（13 个）：** 用于生态比较的行业参考框架。
 - **CLI 编程代理（5 个）：** 基于终端的 AI 编程助手（aider、reasonix、copilot-cli、kimi-cli、codex）。
 - **人类数字孪生（1 个）：** 学术/研究平台（openhuman）。
 
@@ -677,7 +677,7 @@ graph TB
 
 ---
 
-## 第二部分：外部框架（9 个平台）
+## 第二部分：外部框架（13 个平台）
 
 ---
 
@@ -1062,6 +1062,217 @@ graph TB
 
 ---
 
+## eliza
+
+**分类：** TypeScript | ~18.7K stars | Apache-2.0 | 个人/企业
+**仓库：** [github.com/elizaOS/eliza](https://github.com/elizaOS/eliza)
+**版本：** v2.0.4
+**状态：** 活跃（5 次提交/天）
+
+### 概述
+
+eliza 是一个用 TypeScript 构建的 monorepo "智能体操作系统"。它将 25+ 个子包（agent、core、os、lifeops、plugins）打包成插件优先的代理 OS。内置社交、加密和消息频道连接器（Discord、Telegram、Slack），支持多平台部署。在 eliza 中一切皆为插件——从频道到模型提供商再到角色定义。
+
+### 关键原则
+
+- 插件优先架构 — 频道、提供商和角色均为插件
+- Monorepo "智能体 OS"，含 25+ 个内聚包
+- 全 TypeScript 实现（agent、core、os、lifeops、plugins）
+- 多平台部署，含社交/加密/消息连接器
+- 角色驱动的代理定义
+
+### 核心架构
+
+- **语言：** TypeScript
+- **入口点：** Monorepo 包（agent/core/os 入口）
+- **架构模式：** 基于插件的代理操作系统（monorepo）
+- **关键模块：** agent、core、os、lifeops、plugins（25+ 包）；频道插件（Discord、Telegram、Slack）；模型提供商插件；角色定义插件
+- **MCP 状态：** 适配器 — 通过插件集成
+- **部署：** 多平台（跨平台）
+- **LLM 支持：** 通过插件多提供商
+- **记忆：** 基于插件的记忆（未详细指定）
+- **数据库：** 未指定
+- **安全性：** 未指定
+- **测试：** 未指定
+
+### 架构图
+
+```mermaid
+graph TB
+    A[Monorepo 入口] --> B[core]
+    A --> C[agent]
+    A --> D[os]
+    A --> E[lifeops]
+    A --> F[plugins]
+    F --> F1[频道插件]
+    F1 --> F1a[Discord]
+    F1 --> F1b[Telegram]
+    F1 --> F1c[Slack]
+    F --> F2[模型提供商插件]
+    F --> F3[角色定义插件]
+    C --> G[代理循环]
+    G --> H[插件注册表]
+    H --> F
+```
+
+---
+
+## agent-zero
+
+**分类：** Python | ~18.3K stars | 自定义非标准许可证 | 个人
+**仓库：** [github.com/agent0ai/agent-zero](https://github.com/agent0ai/agent-zero)
+**版本：** v2.2
+**状态：** 活跃（上次提交 4 天前）
+
+### 概述
+
+agent-zero 是一个单代理自主框架，采用刻意扁平的架构。单个 `agent.py` 入口点编排通用自主助手，配套 Web UI（`run_ui.py`）。工具执行经 Docker 隔离，代理通过基于记忆的持久化在会话间学习。
+
+### 关键原则
+
+- 最小足迹 — 单个 `agent.py` 入口点
+- 扁平架构（无深层包嵌套）
+- Docker 隔离工具执行
+- 跨会话基于记忆的学习
+- 通用自主助手 + Web UI
+
+### 核心架构
+
+- **语言：** Python
+- **入口点：** `agent.py`（或 `run_ui.py` 用于 Web UI）
+- **架构模式：** 单代理自主循环
+- **关键模块：** agent.py、models.py、prompts/、plugins/、extensions/、knowledge/、run_ui.py
+- **MCP 状态：** N/A
+- **部署：** 本地 + Docker（工具执行隔离）
+- **LLM 支持：** 多提供商
+- **记忆：** 跨会话基于记忆的学习
+- **数据库：** 未指定
+- **安全性：** Docker 工具执行隔离
+- **测试：** 未指定
+
+### 架构图
+
+```mermaid
+graph TD
+    A[入口：agent.py / run_ui.py] --> B[代理循环]
+    B --> C[推理引擎]
+    B --> D[工具执行]
+    D --> D1[Docker 隔离]
+    B --> E[记忆层]
+    E --> E1[跨会话记忆]
+    B --> F[知识库：knowledge/]
+    B --> G[插件：plugins/]
+    B --> H[扩展：extensions/]
+    A --> I[Web UI：run_ui.py]
+```
+
+---
+
+## praisonai
+
+**分类：** Python | ~8.4K stars | MIT | 企业/个人
+**仓库：** [github.com/MervinPraison/PraisonAI](https://github.com/MervinPraison/PraisonAI)
+**版本：** v4.6.126
+**状态：** 极度活跃（每日发布）
+
+### 概述
+
+PraisonAI 是一个多代理 "AI 劳动力" 框架，采用 4 层包模型。内置记忆与 RAG，支持 100+ 个 LLM，并提供 Python、TypeScript 和 Rust SDK。自称 "自我改进"（该声明需独立验证）。是企业多代理编排领域 CrewAI、AutoGen 和 LangGraph 的直接竞争者。
+
+### 关键原则
+
+- 多代理 "AI 劳动力" 编排
+- 内置记忆 + 跨代理 RAG
+- 100+ 个 LLM 提供商支持
+- 跨语言 SDK（Python、TypeScript、Rust）
+- 自称 "自我改进" 能力（需验证）
+
+### 核心架构
+
+- **语言：** Python（+ TypeScript 和 Rust SDK）
+- **入口点：** 库导入 / CLI
+- **架构模式：** 多代理编排（4 层包模型）
+- **关键模块：** 多代理编排、记忆子系统、RAG 管道、LLM 提供商抽象（100+）、跨语言 SDK
+- **MCP 状态：** N/A
+- **部署：** 混合（本地 + 云端）
+- **LLM 支持：** 100+ 提供商
+- **记忆：** 内置（跨代理）
+- **数据库：** RAG 支持的向量存储
+- **安全性：** 未指定
+- **测试：** 未指定
+
+### 架构图
+
+```mermaid
+graph TB
+    A[入口：CLI / 库] --> B[多代理编排器]
+    B --> C[代理劳动力]
+    B --> D[记忆子系统]
+    B --> E[RAG 管道]
+    B --> F[LLM 提供商抽象]
+    F --> F1[100+ 提供商]
+    B --> G[SDK 层]
+    G --> G1[Python SDK]
+    G --> G2[TypeScript SDK]
+    G --> G3[Rust SDK]
+    D --> H[向量存储]
+```
+
+---
+
+## rocketride-server
+
+**分类：** Python/C++ | ~5.0K stars | MIT | 企业
+**仓库：** [github.com/rocketride-org/rocketride-server](https://github.com/rocketride-org/rocketride-server)
+**版本：** client-mcp-v1.2.0-prerelease
+**状态：** 活跃（今日更新）
+
+### 概述
+
+rocketride-server 是一个高性能 AI 管道引擎，含 C++ 核心和 50+ 个 Python 可扩展节点。它是唯一被跟踪的具备原生 C++ 执行引擎的平台。管道以节点图而非对话方式组合。内置 13+ 个模型提供商、8+ 个向量数据库、VS Code 扩展、TypeScript/Python SDK 和 Docker 部署。
+
+### 关键原则
+
+- C++ 性能核心 + Python 可扩展性
+- 基于节点的管道组合（节点图，非对话）
+- 50+ 个 Python 可扩展节点
+- 广泛的提供商/存储支持（13+ 模型提供商，8+ 向量数据库）
+- 一流工具链 — VS Code 扩展 + 多语言 SDK
+
+### 核心架构
+
+- **语言：** C++ 核心 + Python 可扩展层
+- **入口点：** 服务器 / SDK（TypeScript/Python）
+- **架构模式：** 节点图管道引擎
+- **关键模块：** C++ 执行核心、50+ Python 可扩展节点、模型提供商（13+）、向量数据库（8+）、VS Code 扩展、TypeScript/Python SDK
+- **MCP 状态：** 适配器 — MCP 客户端支持（client-mcp 预发布）
+- **部署：** Docker + 服务器
+- **LLM 支持：** 13+ 提供商
+- **记忆：** 向量存储支持（8+）
+- **数据库：** 8+ 向量数据库
+- **安全性：** Docker 隔离
+- **测试：** 未指定
+
+### 架构图
+
+```mermaid
+graph TB
+    A[服务器入口 / SDK] --> B[C++ 执行核心]
+    B --> C[节点图引擎]
+    C --> D[50+ Python 可扩展节点]
+    B --> E[模型提供商]
+    E --> E1[13+ 提供商]
+    B --> F[向量数据库]
+    F --> F1[8+ 向量数据库]
+    A --> G[工具链]
+    G --> G1[VS Code 扩展]
+    G --> G2[TypeScript SDK]
+    G --> G3[Python SDK]
+    A --> H[Docker 部署]
+```
+
+---
+
 ## 第三部分：CLI 编程代理（5 个平台）
 
 ---
@@ -1334,16 +1545,20 @@ graph TD
 |||| openhuman | Rust | 学术 | N/A |
 ||| OpenFang | Rust | 个人力量倍增器 | ~17.6K |
 | codex | Rust | 个人力量倍增器 | ~86.9K |
+| eliza | TypeScript | 个人/企业（混合） | ~18.7K |
+| agent-zero | Python | 个人力量倍增器 | ~18.3K |
+| praisonai | Python | 企业自动化 | ~8.4K |
+| rocketride-server | Python/C++ | 企业自动化 | ~5.0K |
 
 ### MCP 采用矩阵
 
 | MCP 状态 | 平台 |
 |----------|------|
 | **原生** | Hermes-Agent |
-| **适配器** | OpenClaw、GoClaw、IronClaw、ZeroClaw、HiClaw、OpenFang |
+| **适配器** | OpenClaw、GoClaw、IronClaw、ZeroClaw、HiClaw、OpenFang、kimi-code、eliza、rocketride-server |
 | **抵制** | NanoClaw |
 | **无** | ClawTeam、Maxclaw、Nanobot |
-|| **N/A** | Claw-AI-Lab、SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、aider、reasonix、copilot-cli、openhuman、codex |
+| **N/A** | Claw-AI-Lab、SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、aider、reasonix、copilot-cli、openhuman、codex、agent-zero、praisonai |
 
 ### 架构模式矩阵
 
@@ -1363,8 +1578,12 @@ graph TD
 | **结对编程（REPL）** | aider |
 | **终端代理（推理）** | reasonix |
 | **终端代理（ACP）** | copilot-cli |
-|| **Agent OS（Hands）** | OpenFang |
-|| **CLI → LLM → Shell 执行** | codex |
+| **Agent OS（Hands）** | OpenFang |
+| **CLI → LLM → Shell 执行** | codex |
+| **插件代理 OS（monorepo）** | eliza |
+| **单代理自主** | agent-zero |
+| **多代理劳动力** | praisonai |
+| **节点图管道引擎** | rocketride-server |
 
 ### 部署与数据库矩阵
 
@@ -1393,8 +1612,12 @@ graph TD
 || openhuman | 本地/自托管 | SQLite | Docker |
 ||| OpenFang | 跨平台（单一二进制） | SQLite | 无 |
 ||| codex | 本地 CLI（二进制） | 无 | 沙箱执行 |
+| eliza | 多平台（跨平台） | 未指定 | 未指定 |
+| agent-zero | 本地 + Docker | 未指定 | Docker（工具隔离） |
+| praisonai | 混合（本地 + 云端） | RAG 向量存储 | 未指定 |
+| rocketride-server | Docker + 服务器 | 8+ 向量数据库 | Docker |
 
-### 完整 25 平台比较表
+### 完整 30 平台比较表
 
 | 平台 | 语言 | Stars | MCP | 架构 | 部署 | 领域 |
 |------|------|-------|-----|------|------|------|
@@ -1421,6 +1644,10 @@ graph TD
 || openhuman | Rust | N/A | N/A | 数字孪生模拟 | 本地 | 学术 |
 ||| OpenFang | Rust | ~17.6K | 适配器 | Agent OS | 单一二进制 | 个人 |
 | codex | Rust | ~86.9K | N/A | CLI→LLM→Shell | 本地 CLI | 个人 |
+| eliza | TypeScript | ~18.7K | 适配器 | 插件代理 OS | 多平台 | 个人/企业 |
+| agent-zero | Python | ~18.3K | N/A | 单代理自主 | 本地 + Docker | 个人 |
+| praisonai | Python | ~8.4K | N/A | 多代理劳动力 | 混合 | 企业 |
+| rocketride-server | Python/C++ | ~5.0K | 适配器 | 节点图管道引擎 | Docker + 服务器 | 企业 |
 
 ---
 
@@ -1435,5 +1662,5 @@ graph TD
 ---
 
 *最后更新：2026 年 5 月*
-*跟踪平台：25 个（11 个 claw 生态 + 8 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）*
+*跟踪平台：30 个（11 个 claw 生态 + 13 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）*
 *所属：AllClaws 个人 AI 代理生态系统研究*

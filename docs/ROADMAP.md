@@ -111,7 +111,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 - Token efficiency (output/input ratio)
 
 **Deliverables:**
-- [x] Performance comparison across 26 platforms
+- [x] Performance comparison across 30 platforms
 - [x] Benchmark methodology documentation (EN + ZH)
 - [x] Performance regression detection (CI integration)
 - [x] Local benchmark environment setup

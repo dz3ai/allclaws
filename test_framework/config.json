@@ -27,7 +27,11 @@
     "kimi-cli",
     "kimi-code",
     "codex",
-    "agentscope"
+    "agentscope",
+    "eliza",
+    "agent-zero",
+    "praisonai",
+    "rocketride-server"
   ],
   "default_privilege_level": "standard",
   "audit_logging": true,
@@ -57,7 +61,11 @@
     "kimi-cli": "./coding-agents/cli-agents/kimi-cli",
     "kimi-code": "./coding-agents/kimi-code",
     "codex": "./coding-agents/cli-agents/codex",
-    "agentscope": "../agentscope"
+    "agentscope": "../agentscope",
+    "eliza": "../eliza",
+    "agent-zero": "../agent-zero",
+    "praisonai": "../praisonai",
+    "rocketride-server": "../rocketride-server"
   },
   "platform_languages": {
     "openclaw": "TypeScript",
@@ -85,7 +93,11 @@
     "kimi-cli": "Python",
     "kimi-code": "TypeScript",
     "codex": "Rust",
-    "agentscope": "Python"
+    "agentscope": "Python",
+    "eliza": "TypeScript",
+    "agent-zero": "Python",
+    "praisonai": "Python",
+    "rocketride-server": "Python"
   },
   "test_categories": [
     "static_analysis",

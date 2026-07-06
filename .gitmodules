@@ -55,3 +55,15 @@
 [submodule "agentscope"]
 	path = agentscope
 	url = https://github.com/agentscope-ai/agentscope.git
+[submodule "eliza"]
+	path = eliza
+	url = https://github.com/elizaOS/eliza.git
+[submodule "agent-zero"]
+	path = agent-zero
+	url = https://github.com/agent0ai/agent-zero.git
+[submodule "praisonai"]
+	path = praisonai
+	url = https://github.com/MervinPraison/PraisonAI.git
+[submodule "rocketride-server"]
+	path = rocketride-server
+	url = https://github.com/rocketride-org/rocketride-server.git

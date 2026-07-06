@@ -1,19 +1,19 @@
-# Unified Platform Comparison: All 26 AI Agent Platforms
+# Unified Platform Comparison: All 30 AI Agent Platforms
 
 **[中文](platform_comparison.zh-CN.md)** | English
 
-> Standardized architecture comparison across all 26 platforms tracked by AllClaws — 11 claw ecosystem platforms, 9 external frameworks, 5 CLI coding agents, and 1 human digital twin platform. Updated June 2026.
+> Standardized architecture comparison across all 30 platforms tracked by AllClaws — 11 claw ecosystem platforms, 13 external frameworks, 5 CLI coding agents, and 1 human digital twin platform. Updated June 2026.
 
 ---
 
 ## Overview
 
-This document provides a standardized, side-by-side architecture comparison of all 25 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
+This document provides a standardized, side-by-side architecture comparison of all 30 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
 
-The 25 platforms divide into four groups:
+The 30 platforms divide into four groups:
 
 - **Claw Ecosystem (11):** Platforms originating within or closely associated with the Claw/OpenClaw ecosystem.
-- **External Frameworks (8):** Industry-reference frameworks tracked for ecosystem comparison.
+- **External Frameworks (13):** Industry-reference frameworks tracked for ecosystem comparison.
 - **CLI Coding Agents (5):** AI-powered terminal-based coding assistants (aider, reasonix, copilot-cli, kimi-cli, codex).
 - **Human Digital Twin (1):** Academic/research platform (openhuman).
 
@@ -677,7 +677,7 @@ graph TB
 
 ---
 
-## Part 2: External Frameworks (9 Platforms)
+## Part 2: External Frameworks (13 Platforms)
 
 ---
 
@@ -1100,6 +1100,217 @@ graph TB
 
 ---
 
+## eliza
+
+**Classification:** TypeScript | ~18.7K stars | Apache-2.0 | Personal/Enterprise
+**Repository:** [github.com/elizaOS/eliza](https://github.com/elizaOS/eliza)
+**Version:** v2.0.4
+**Status:** Active (5 commits/day)
+
+### Overview
+
+eliza is a monorepo "agentic operating system" built in TypeScript. It packages 25+ sub-packages (agent, core, os, lifeops, plugins) into a plugin-first agent OS. Ships connectors for social, crypto, and messaging channels (Discord, Telegram, Slack) and supports multi-platform deployment. Everything in eliza is a plugin — from channels to model providers to character definitions.
+
+### Key Principles
+
+- Plugin-first architecture — channels, providers, and characters are all plugins
+- Monorepo "agentic OS" with 25+ cohesive packages
+- TypeScript throughout (agent, core, os, lifeops, plugins)
+- Multi-platform deployment with social/crypto/messaging connectors
+- Character-driven agent definitions
+
+### Core Architecture
+
+- **Language:** TypeScript
+- **Entry Point:** Monorepo package (agent/core/os entry points)
+- **Architecture Pattern:** Plugin-based agent operating system (monorepo)
+- **Key Modules:** agent, core, os, lifeops, plugins (25+ packages); channel plugins (Discord, Telegram, Slack); model provider plugins; character definition plugins
+- **MCP Status:** Adapter — via plugin integration
+- **Deployment:** Multi-platform (cross-platform)
+- **LLM Support:** Multi-provider via plugins
+- **Memory:** Plugin-based memory (not specified in detail)
+- **Database:** Not specified
+- **Security:** Not specified
+- **Testing:** Not specified
+
+### Architecture Diagram
+
+```mermaid
+graph TB
+    A[Monorepo Entry] --> B[core]
+    A --> C[agent]
+    A --> D[os]
+    A --> E[lifeops]
+    A --> F[plugins]
+    F --> F1[Channel Plugins]
+    F1 --> F1a[Discord]
+    F1 --> F1b[Telegram]
+    F1 --> F1c[Slack]
+    F --> F2[Model Provider Plugins]
+    F --> F3[Character Definition Plugins]
+    C --> G[Agent Loop]
+    G --> H[Plugin Registry]
+    H --> F
+```
+
+---
+
+## agent-zero
+
+**Classification:** Python | ~18.3K stars | Custom non-standard license | Personal
+**Repository:** [github.com/agent0ai/agent-zero](https://github.com/agent0ai/agent-zero)
+**Version:** v2.2
+**Status:** Active (last commit 4 days ago)
+
+### Overview
+
+agent-zero is a single-agent autonomous framework with a deliberately flat architecture. A single `agent.py` entry point orchestrates a general-purpose autonomous assistant, complemented by a web UI (`run_ui.py`). Tool execution is Docker-isolated, and the agent learns across sessions via memory-based persistence.
+
+### Key Principles
+
+- Minimal footprint — single `agent.py` entry point
+- Flat architecture (no deep package nesting)
+- Docker-isolated tool execution
+- Memory-based learning across sessions
+- General-purpose autonomous assistant with web UI
+
+### Core Architecture
+
+- **Language:** Python
+- **Entry Point:** `agent.py` (or `run_ui.py` for web UI)
+- **Architecture Pattern:** Single-agent autonomous loop
+- **Key Modules:** agent.py, models.py, prompts/, plugins/, extensions/, knowledge/, run_ui.py
+- **MCP Status:** N/A
+- **Deployment:** Local + Docker (for tool execution isolation)
+- **LLM Support:** Multi-provider
+- **Memory:** Cross-session memory-based learning
+- **Database:** Not specified
+- **Security:** Docker tool-execution isolation
+- **Testing:** Not specified
+
+### Architecture Diagram
+
+```mermaid
+graph TD
+    A[Entry: agent.py / run_ui.py] --> B[Agent Loop]
+    B --> C[Reasoning Engine]
+    B --> D[Tool Execution]
+    D --> D1[Docker Isolation]
+    B --> E[Memory Layer]
+    E --> E1[Cross-session Memory]
+    B --> F[Knowledge Base: knowledge/]
+    B --> G[Plugins: plugins/]
+    B --> H[Extensions: extensions/]
+    A --> I[Web UI: run_ui.py]
+```
+
+---
+
+## praisonai
+
+**Classification:** Python | ~8.4K stars | MIT | Enterprise/Personal
+**Repository:** [github.com/MervinPraison/PraisonAI](https://github.com/MervinPraison/PraisonAI)
+**Version:** v4.6.126
+**Status:** Extremely active (daily releases)
+
+### Overview
+
+PraisonAI is a multi-agent "AI Workforce" framework with a 4-tier package model. It ships built-in memory and RAG, supports 100+ LLMs, and provides Python, TypeScript, and Rust SDKs. It positions itself as "self-improving" (this claim warrants independent verification). A direct competitor to CrewAI, AutoGen, and LangGraph for enterprise multi-agent orchestration.
+
+### Key Principles
+
+- Multi-agent "AI Workforce" orchestration
+- Built-in memory + RAG across agents
+- 100+ LLM provider support
+- Cross-language SDKs (Python, TypeScript, Rust)
+- Self-described "self-improving" capability (needs verification)
+
+### Core Architecture
+
+- **Language:** Python (+ TypeScript and Rust SDKs)
+- **Entry Point:** Library import / CLI
+- **Architecture Pattern:** Multi-agent orchestration (4-tier package model)
+- **Key Modules:** Multi-agent orchestration, memory subsystem, RAG pipeline, LLM provider abstraction (100+), cross-language SDKs
+- **MCP Status:** N/A
+- **Deployment:** Hybrid (local + cloud)
+- **LLM Support:** 100+ providers
+- **Memory:** Built-in (cross-agent)
+- **Database:** RAG-backed vector store
+- **Security:** Not specified
+- **Testing:** Not specified
+
+### Architecture Diagram
+
+```mermaid
+graph TB
+    A[Entry: CLI / Library] --> B[Multi-agent Orchestrator]
+    B --> C[Agent Workforce]
+    B --> D[Memory Subsystem]
+    B --> E[RAG Pipeline]
+    B --> F[LLM Provider Abstraction]
+    F --> F1[100+ Providers]
+    B --> G[SDK Layer]
+    G --> G1[Python SDK]
+    G --> G2[TypeScript SDK]
+    G --> G3[Rust SDK]
+    D --> H[Vector Store]
+```
+
+---
+
+## rocketride-server
+
+**Classification:** Python/C++ | ~5.0K stars | MIT | Enterprise
+**Repository:** [github.com/rocketride-org/rocketride-server](https://github.com/rocketride-org/rocketride-server)
+**Version:** client-mcp-v1.2.0-prerelease
+**Status:** Active (updated today)
+
+### Overview
+
+rocketride-server is a high-performance AI pipeline engine with a C++ core and 50+ Python-extensible nodes. It is the only tracked platform with a native C++ execution engine. Pipelines are composed as node graphs rather than conversations. Ships with 13+ model providers, 8+ vector databases, a VS Code extension, TypeScript/Python SDKs, and Docker deployment.
+
+### Key Principles
+
+- C++ performance core with Python extensibility
+- Node-based pipeline composition (node graph, not conversation)
+- 50+ Python-extensible nodes
+- Broad provider/storage support (13+ model providers, 8+ vector DBs)
+- First-class tooling — VS Code extension + multi-language SDKs
+
+### Core Architecture
+
+- **Language:** C++ core + Python extensibility layer
+- **Entry Point:** Server / SDK (TypeScript/Python)
+- **Architecture Pattern:** Node-graph pipeline engine
+- **Key Modules:** C++ execution core, 50+ Python-extensible nodes, model providers (13+), vector databases (8+), VS Code extension, TypeScript/Python SDKs
+- **MCP Status:** Adapter — MCP client support (client-mcp prerelease)
+- **Deployment:** Docker + server
+- **LLM Support:** 13+ providers
+- **Memory:** Vector-store backed (8+ supported)
+- **Database:** 8+ vector databases
+- **Security:** Docker isolation
+- **Testing:** Not specified
+
+### Architecture Diagram
+
+```mermaid
+graph TB
+    A[Server Entry / SDK] --> B[C++ Execution Core]
+    B --> C[Node Graph Engine]
+    C --> D[50+ Python-extensible Nodes]
+    B --> E[Model Providers]
+    E --> E1[13+ Providers]
+    B --> F[Vector Databases]
+    F --> F1[8+ Vector DBs]
+    A --> G[Tooling]
+    G --> G1[VS Code Extension]
+    G --> G2[TypeScript SDK]
+    G --> G3[Python SDK]
+    A --> H[Docker Deployment]
+```
+
+---
+
 ## Part 3: CLI Coding Agents (5 Platforms)
 
 ---
@@ -1405,16 +1616,20 @@ graph TD
 | kimi-code | TypeScript | Personal-Force-Multiplier | ~1.4K |
 | kimi-cli | Python | Personal-Force-Multiplier | ~8.8K |
 | codex | Rust | Personal-Force-Multiplier | ~86.9K |
+| eliza | TypeScript | Personal/Enterprise (Hybrid) | ~18.7K |
+| agent-zero | Python | Personal-Force-Multiplier | ~18.3K |
+| praisonai | Python | Enterprise-Automation | ~8.4K |
+| rocketride-server | Python/C++ | Enterprise-Automation | ~5.0K |
 
 ### MCP Adoption Matrix
 
 | MCP Status | Platforms |
 |------------|-----------|
 | **Native** | Hermes-Agent |
-| **Adapter** | OpenClaw, GoClaw, IronClaw, ZeroClaw, HiClaw, OpenFang, kimi-code |
+| **Adapter** | OpenClaw, GoClaw, IronClaw, ZeroClaw, HiClaw, OpenFang, kimi-code, eliza, rocketride-server |
 | **Resistant** | NanoClaw |
 | **None** | ClawTeam, Maxclaw, Nanobot |
-| **N/A** | Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, aider, reasonix, openhuman, kimi-cli, codex |
+| **N/A** | Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, aider, reasonix, openhuman, kimi-cli, codex, agent-zero, praisonai |
 
 ### Architecture Pattern Matrix
 
@@ -1438,6 +1653,10 @@ graph TD
 | **Plugin-based framework** | kimi-code |
 | **Terminal agent (TUI + ACP)** | kimi-cli |
 | **Terminal agent (sandboxed)** | codex |
+| **Plugin-based agent OS (monorepo)** | eliza |
+| **Single-agent autonomous** | agent-zero |
+| **Multi-agent Workforce** | praisonai |
+| **Node-graph pipeline engine** | rocketride-server |
 
 ### Deployment & Database Matrix
 
@@ -1468,8 +1687,12 @@ graph TD
 | kimi-code | Cross-platform | Not specified | Not specified |
 | kimi-cli | Local CLI | None | None |
 | codex | Local (single binary) | None | Sandboxed execution |
+| eliza | Multi-platform (cross-platform) | Not specified | Not specified |
+| agent-zero | Local + Docker | Not specified | Docker (tool isolation) |
+| praisonai | Hybrid (local + cloud) | RAG-backed vector store | Not specified |
+| rocketride-server | Docker + server | 8+ vector databases | Docker |
 
-### Full 25-Platform Comparison Table
+### Full 30-Platform Comparison Table
 
 | Platform | Language | Stars | MCP | Architecture | Deployment | Field |
 |----------|----------|-------|-----|-------------|------------|-------|
@@ -1498,6 +1721,10 @@ graph TD
 | kimi-code | TypeScript | ~1.4K | Adapter | Plugin-based framework | Cross-platform | Personal |
 | kimi-cli | Python | ~8.8K | N/A | Terminal agent (TUI + ACP) | Local CLI | Personal |
 | codex | Rust | ~86.9K | N/A | Terminal agent (sandboxed) | Local binary | Personal |
+| eliza | TypeScript | ~18.7K | Adapter | Plugin-based agent OS | Multi-platform | Personal/Enterprise |
+| agent-zero | Python | ~18.3K | N/A | Single-agent autonomous | Local + Docker | Personal |
+| praisonai | Python | ~8.4K | N/A | Multi-agent Workforce | Hybrid | Enterprise |
+| rocketride-server | Python/C++ | ~5.0K | Adapter | Node-graph pipeline engine | Docker + server | Enterprise |
 
 ---
 
@@ -1512,5 +1739,5 @@ graph TD
 ---
 
 *Last updated: May 2026*
-*Platforms tracked: 25 (11 claw ecosystem + 8 external frameworks + 5 CLI coding agents + 1 human digital twin)*
+*Platforms tracked: 30 (11 claw ecosystem + 13 external frameworks + 5 CLI coding agents + 1 human digital twin)*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*
