@@ -17,7 +17,7 @@ Based on tracking **30 platforms**, several key trends have emerged:
 1. **The Personal vs Enterprise Fork** — Clear divergence between personal-force-multiplier (1PC) and enterprise-automation paradigms
 2. **MCP Debate Intensifies** — Model Context Protocol gaining enterprise adoption but facing resistance from local-first agents over token overhead
 3. **"Self-Improving" Claims Scrutiny** — After Hermes-Agent source code analysis, distinction between procedural memory and autonomous learning is critical
-4. **External Framework Integration** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang tracked for ecosystem comparison
+4. **External Framework Integration** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride tracked for ecosystem comparison
 5. **CLI Coding Agents & Human Digital Twin** — aider (~68K stars, git-aware AI pair programming), copilot-cli (GitHub Copilot terminal agent), reasonix (DeepSeek-native coding agent, ~11.3K stars), openhuman (Rust human digital twin platform), codex (OpenAI's Rust-based CLI coding agent, ~86.9K stars, sandboxed execution) added
 
 See [AI Agent Ecosystem Report: April-May 2026](_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md) for full details.
@@ -29,7 +29,7 @@ See [Latest Updates: April-May 2026](docs/LATEST_UPDATES.md) for full details.
 ### 1. Architecture Analysis & Comparison
 **Status:** ✅ Active Development
 
-Comprehensive analysis of AI agent platforms across 26 tracked frameworks:
+Comprehensive analysis of AI agent platforms across 30 tracked frameworks:
 
 **Claw Ecosystem (11 platforms):**
 - **Openclaw** (TypeScript): Extensible CLI with multi-channel support
@@ -44,7 +44,7 @@ Comprehensive analysis of AI agent platforms across 26 tracked frameworks:
 - **Hermes-Agent** (Python): Research-backed agent with context compaction
 - **Claw-AI-Lab** (Python): Academic research platform
 
-**External Frameworks (8 platforms):**
+**External Frameworks (13 platforms):**
 - **SmolAgents** (Python): Hugging Face's ~1K LOC code-agent framework
 - **LangGraph** (Python/TS): Graph-based stateful multi-agent workflows
 - **CrewAI** (Python): Role-playing autonomous agents
@@ -53,7 +53,11 @@ Comprehensive analysis of AI agent platforms across 26 tracked frameworks:
 - **OpenAgents** (TypeScript): Distributed agent networks
 - **OpenFang** (Rust): Agent OS with Hands capability packages (~17.6K stars)
 - **Kimi Code** (TypeScript): MoonshotAI's next-gen agent framework with plugin architecture (~1.4K stars)
-- **AgentScope** (Python): Alibaba DAMO Academy's multi-agent framework (~25.8K stars)
+- **AgentScope** (Python): Alibaba DAMO Academy's distributed multi-agent framework with message hub and pipeline workflows (~25.8K stars)
+- **Eliza** (TypeScript): Multi-platform AI agent framework with plugin architecture (MIT)
+- **Agent Zero** (Python): Autonomous AI agent framework with tool-use capabilities (MIT)
+- **PraisonAI** (Python): Multi-agent LLM framework with low-code workflow builder (MIT)
+- **Rocketride** (TypeScript): near.ai agent server for autonomous task execution (MIT)
 
 **CLI Coding Agents (5 platforms):**
 - **aider** (Python): AI pair programming CLI with git-aware multi-model support (~68K stars)
@@ -78,7 +82,7 @@ Comprehensive analysis of AI agent platforms across 26 tracked frameworks:
 - `architecture/external_frameworks.md` - External frameworks deep-dive
 - `architecture/agent_harnesses.md` - Agent harnesses and toolchains analysis
 - `architecture/architecture_comparison.md` - Claw ecosystem analysis (redirect to new comparison)
-- `architecture/platform_comparison.md` - Unified 26-platform comparison (EN + ZH)
+- `architecture/platform_comparison.md` - Unified 30-platform comparison (EN + ZH)
 - `architecture/agent_harnesses.md` - Agent harnesses & toolchains analysis
 - `architecture/multi_agent_coordination_research.md` - Multi-agent coordination trend analysis
 
@@ -218,7 +222,7 @@ bash tests/test_agent_validation.sh
 
 ### ✅ Completed
 - [x] Architecture analysis of 30 platforms (11 claw ecosystem + 13 external frameworks + 5 CLI coding agents + 1 human digital twin)
-- [x] External frameworks integration (SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang)
+- [x] External frameworks integration (SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride)
 - [x] Multi-agent coordination trend research
 - [x] Monthly ecosystem updates tracking (EN + ZH)
 - [x] Cross-platform static analysis test framework (v2.1, 165/177 pass for 11 claw platforms)
@@ -278,7 +282,7 @@ This is an active research project. Contributions welcome in:
 - **Hermes-Agent**: https://github.com/NousResearch/hermes-agent
 - **Claw-AI-Lab**: https://github.com/Claw-AI-Lab/Claw-AI-Lab
 
-**External Frameworks (8 platforms):**
+**External Frameworks (13 platforms):**
 - **SmolAgents**: https://github.com/huggingface/smolagents
 - **LangGraph**: https://github.com/langchain-ai/langgraph
 - **CrewAI**: https://github.com/crewaiinc/crewai
@@ -287,6 +291,11 @@ This is an active research project. Contributions welcome in:
 - **OpenAgents**: https://github.com/openagents-org/openagents
 - **OpenFang**: https://github.com/RightNow-AI/openfang
 - **Kimi Code**: https://github.com/MoonshotAI/kimi-code
+- **AgentScope**: https://github.com/agentscope-ai/agentscope
+- **Eliza**: https://github.com/eliza-os/eliza
+- **Agent Zero**: https://github.com/frdel/agent-zero
+- **PraisonAI**: https://github.com/MervinPraison/PraisonAI
+- **Rocketride**: https://github.com/nearai/rocketride-server
 
 **CLI Coding Agents (5):**
 - **aider**: https://github.com/paul-gauthier/aider

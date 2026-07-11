@@ -67,3 +67,6 @@
 [submodule "rocketride-server"]
 	path = rocketride-server
 	url = https://github.com/rocketride-org/rocketride-server.git
+[submodule "coding-agents/external-frameworks/agentscope"]
+	path = coding-agents/external-frameworks/agentscope
+	url = https://github.com/agentscope-ai/agentscope.git

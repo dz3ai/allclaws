@@ -1608,6 +1608,7 @@ graph TD
 | AutoGen | Python | Enterprise-Automation | N/A |
 | Swarms | Python | Enterprise-Automation | ~5K |
 | OpenAgents | TypeScript | Enterprise-Automation | N/A |
+| AgentScope | Python 3.11+ | Personal/Enterprise (Hybrid) | ~25.8K |
 | aider | Python | Personal-Force-Multiplier | ~68K |
 | reasonix | TypeScript | Personal-Force-Multiplier | ~11.3K |
 | copilot-cli | TypeScript | Personal-Force-Multiplier | N/A |
@@ -1625,7 +1626,7 @@ graph TD
 
 | MCP Status | Platforms |
 |------------|-----------|
-| **Native** | Hermes-Agent |
+| **Native** | Hermes-Agent, AgentScope |
 | **Adapter** | OpenClaw, GoClaw, IronClaw, ZeroClaw, HiClaw, OpenFang, kimi-code, eliza, rocketride-server |
 | **Resistant** | NanoClaw |
 | **None** | ClawTeam, Maxclaw, Nanobot |
@@ -1644,6 +1645,7 @@ graph TD
 | **Async orchestration** | Swarms |
 | **Distributed network** | OpenAgents |
 | **Graph-orchestration** | LangGraph |
+| **Event-driven multi-agent** | AgentScope |
 | **Code generation** | SmolAgents |
 | **Research pipeline** | Claw-AI-Lab |
 | **Pair-programming (REPL)** | aider |
@@ -1679,6 +1681,7 @@ graph TD
 | AutoGen | Cloud | Not specified | Docker |
 | Swarms | Cloud | Not specified | Not specified |
 | OpenAgents | Cloud (distributed) | Not specified | Not specified |
+| AgentScope | Hybrid (local + FastAPI) | Redis (optional) / in-memory | Docker / E2B |
 | aider | Local CLI | SQLite | None |
 | reasonix | Local CLI | None | None |
 | copilot-cli | Local CLI | GitHub API | None |
@@ -1713,6 +1716,7 @@ graph TD
 | AutoGen | Python | N/A | N/A | Conversational | Cloud | Enterprise |
 | Swarms | Python | ~5K | N/A | Async orchestration | Cloud | Enterprise |
 | OpenAgents | TypeScript | N/A | N/A | Distributed | Cloud | Enterprise |
+| AgentScope | Python | ~25.8K | Native | Event-driven multi-agent | Hybrid | Personal/Enterprise |
 | OpenFang | Rust | ~17.6K | Adapter | Agent OS | Single binary | Personal |
 | aider | Python | ~68K | N/A | Pair-programming (REPL) | Local CLI | Personal |
 | reasonix | TypeScript | ~11.3K | N/A | Terminal agent (reasoning) | Local CLI | Personal |

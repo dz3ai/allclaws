@@ -25,10 +25,10 @@
 ### 1. 完成统一平台比较
 
 **状态：** 已完成 ✅
-**目标：** 完成所有 27 个平台的架构文档
+**目标：** 完成所有 30 个平台的架构文档
 
 **交付成果：**
-- [x] `architecture/platform_comparison.md` — 所有 27 个平台的统一比较
+- [x] `architecture/platform_comparison.md` — 所有 30 个平台的统一比较
 - [x] 每个平台的标准格式（分类、架构、图表）
 - [x] 跨平台比较矩阵
 - [x] 中文翻译（`platform_comparison.zh-CN.md`）
@@ -37,18 +37,18 @@
 - **Claw 生态（11 个）：** OpenClaw、ClawTeam、GoClaw、IronClaw、Maxclaw、NanoClaw、Nanobot、ZeroClaw、HiClaw、Hermes-Agent、Claw-AI-Lab
 - **CLI 编程代理（5 个）：** aider、copilot-cli、reasonix、kimi-cli、codex
 - **人类数字孪生（1 个）：** openhuman
-- **外部框架（8 个）：** SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、kimi-code
+- **外部框架（13 个）：** SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、kimi-code、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride
 
 ### 2. MCP 生态系统深度分析
 
-**状态：** 计划中
+**状态：** 已完成 ✅
 **目标：** MCP 协议采用和抵制的综合分析
 
 **研究问题：**
 - MCP 在生产部署中的实际 token 开销是多少？
 - 哪些 MCP 服务器被广泛采用？
 - MCP 原生框架与 MCP 适配器方法有何不同？
-- 26 个跟踪平台的 MCP 采用率是多少？
+- 30 个跟踪平台的 MCP 采用率是多少？
 
 **交付成果：**
 - MCP 采用报告（原生 vs 适配器 vs 抵制）
@@ -58,7 +58,7 @@
 
 ### 3. 企业治理框架分析
 
-**状态：** 计划中
+**状态：** 已完成 ✅
 **目标：** 记录新兴的企业 AI 代理治理方法
 
 **研究范围：**
@@ -111,14 +111,14 @@
 - Token 效率（输出/输入比率）
 
 **交付成果：**
-- [x] 26 个平台的性能比较
+- [x] 30 个平台的性能比较
 - [x] 基准测试方法文档（中英文）
 - [x] 性能回归检测（CI 集成）
 - [x] 本地基准测试环境搭建
 
 ### 3. "自我改进"声明验证系列
 
-**状态：** 计划中
+**状态：** 已完成 ✅
 **目标：** 自主学习声明的系统性验证
 
 **继 Hermes 分析之后（2026 年 5 月）：**

@@ -1538,8 +1538,9 @@ graph TD
 | CrewAI | Python | 企业自动化 | N/A |
 | AutoGen | Python | 企业自动化 | N/A |
 | Swarms | Python | 企业自动化 | ~5K |
-|| OpenAgents | TypeScript | 企业自动化 | N/A |
-||| aider | Python | 个人力量倍增器 | ~68K |
+| OpenAgents | TypeScript | 企业自动化 | N/A |
+| AgentScope | Python 3.11+ | 个人/企业（混合） | ~25.8K |
+| aider | Python | 个人力量倍增器 | ~68K |
 ||| reasonix | TypeScript | 个人力量倍增器 | ~11.3K |
 ||| copilot-cli | TypeScript | 个人力量倍增器 | N/A |
 |||| openhuman | Rust | 学术 | N/A |
@@ -1554,7 +1555,7 @@ graph TD
 
 | MCP 状态 | 平台 |
 |----------|------|
-| **原生** | Hermes-Agent |
+| **原生** | Hermes-Agent、AgentScope |
 | **适配器** | OpenClaw、GoClaw、IronClaw、ZeroClaw、HiClaw、OpenFang、kimi-code、eliza、rocketride-server |
 | **抵制** | NanoClaw |
 | **无** | ClawTeam、Maxclaw、Nanobot |
@@ -1573,6 +1574,7 @@ graph TD
 | **异步编排** | Swarms |
 | **分布式网络** | OpenAgents |
 | **图编排** | LangGraph |
+| **事件驱动多代理** | AgentScope |
 | **代码生成** | SmolAgents |
 | **研究管道** | Claw-AI-Lab |
 | **结对编程（REPL）** | aider |
@@ -1606,6 +1608,7 @@ graph TD
 | AutoGen | 云端 | 未指定 | Docker |
 | Swarms | 云端 | 未指定 | 未指定 |
 | OpenAgents | 云端（分布式） | 未指定 | 未指定 |
+| AgentScope | 混合（本地 + FastAPI） | Redis（可选）/ 内存 | Docker / E2B |
 | aider | 本地 CLI | SQLite | 无 |
 | reasonix | 本地 CLI | 无 | 无 |
 | copilot-cli | 本地 CLI | GitHub API | 无 |
@@ -1638,6 +1641,8 @@ graph TD
 | AutoGen | Python | N/A | N/A | 对话式 | 云端 | 企业 |
 | Swarms | Python | ~5K | N/A | 异步编排 | 云端 | 企业 |
 | OpenAgents | TypeScript | N/A | N/A | 分布式 | 云端 | 企业 |
+| AgentScope | Python | ~25.8K | 原生 | 事件驱动多代理 | 混合 | 个人/企业 |
+| OpenFang | Rust | ~17.6K | 适配器 | Agent OS | 单一二进制 | 个人 |
 | aider | Python | ~68K | N/A | 结对编程 (REPL) | 本地 CLI | 个人 |
 | reasonix | TypeScript | ~11.3K | N/A | 终端代理 (推理) | 本地 CLI | 个人 |
 | copilot-cli | TypeScript | N/A | N/A | 终端代理 (ACP) | 本地 CLI | 个人 |

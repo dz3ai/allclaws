@@ -2,7 +2,7 @@
 
 English | **[中文](LATEST_UPDATES.zh-CN.md)**
 
-> Tracking major changes across 13 claw ecosystem platforms, 9 external frameworks, 5 CLI coding agents, and 1 human digital twin platform — architecture innovations, MCP adoption debates, enterprise vs personal patterns, and security developments from April to May 2026.
+> Tracking major changes across 11 claw ecosystem platforms, 13 external frameworks, 5 CLI coding agents, and 1 human digital twin platform — architecture innovations, MCP adoption debates, enterprise vs personal patterns, and security developments from April to May 2026.
 
 ---
 
@@ -13,11 +13,16 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 1. **The MCP Debate Intensified** — Model Context Protocol gained enterprise adoption (IronClaw, GoClaw, ZeroClaw) but faced resistance from local-first agents (NanoClaw) over 20-30% token overhead
 2. **"Self-Improving" Claims Under Scrutiny** — Hermes-Agent source code analysis revealed procedural memory ≠ autonomous learning; distinction now widely recognized
 3. **Enterprise vs 1PC Fork** — Clear divergence between enterprise-automation (governance, cloud, MCP) and personal-force-multiplier (speed, local, CLI) paradigms
-4. **External Framework Recognition** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang added for ecosystem comparison
+4. **External Framework Recognition** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride added for ecosystem comparison
 5. **Agent Harnesses Category Added** — UltraWorkers toolchain (claw-code, oh-my-codex, clawhip, oh-my-openagent) recognized as distinct infrastructure layer
 6. **CLI Coding Agents Added** — aider (~68K stars, git-aware AI pair programming), copilot-cli (GitHub Copilot terminal agent), reasonix (DeepSeek-native coding agent, ~11.3K stars) added as new category
 7. **Human Digital Twin Added** — openhuman (Rust, 人类数字孪生) added as academic/research platform
 8. **MoonshotAI Platforms Added** — kimi-cli (Python, CLI coding agent, ~8.8K stars, ACP support) and kimi-code (TypeScript, next-gen agent framework, ~1.4K stars, MCP + plugin architecture) added
+9. **AgentScope Added** — AgentScope (Python, Alibaba DAMO Academy, ~25.8K stars) added as 9th external framework; distributed multi-agent collaboration with message hub and pipeline workflows
+10. **Eliza Added** — Eliza (TypeScript, eliza-os, MIT) added as 10th external framework; multi-platform AI agent framework with plugin architecture
+11. **Agent Zero Added** — Agent Zero (Python, frdel, MIT) added as 11th external framework; autonomous AI agent framework with tool-use capabilities
+12. **PraisonAI Added** — PraisonAI (Python, MervinPraison, MIT) added as 12th external framework; multi-agent LLM framework with low-code workflow builder
+13. **Rocketride Added** — Rocketride (TypeScript, nearai, MIT) added as 13th external framework; near.ai agent server for autonomous task execution
 
 ---
 
@@ -513,6 +518,133 @@ OpenFang is a Rust-based Agent OS deployed as a single binary (~32MB, 137K LOC a
 
 ---
 
+## AgentScope
+
+**Python | ~25.8K stars | Apache-2.0 — May 2026**
+
+**Status:** Active — Alibaba DAMO Academy's multi-agent framework
+
+### Overview
+AgentScope is a distributed multi-agent framework developed by Alibaba DAMO Academy. It provides a message hub architecture for agent communication and pipeline-based workflows for composing multi-agent collaboration patterns. Designed for both research and production use.
+
+### Key Features
+- **Distributed multi-agent collaboration** — Agents communicate via a centralized message hub
+- **Message hub architecture** — Decoupled agent communication through message passing
+- **Pipeline workflows** — Composable pipeline patterns for structuring multi-agent interactions
+- **Python-native** — Pure Python implementation for research extensibility
+- **Production-ready** — Supports distributed deployment scenarios
+
+### Architecture
+- **Language:** Python
+- **Entry Point:** Python API
+- **Architecture Pattern:** Distributed multi-agent with message hub + pipeline workflows
+- **MCP Status:** N/A
+- **Deployment:** pip install
+- **LLM Support:** Multiple providers
+- **License:** Apache-2.0
+
+---
+
+## Eliza
+
+**TypeScript | MIT — May 2026**
+
+**Status:** Active — Multi-platform AI agent framework
+
+### Overview
+Eliza is a TypeScript-based multi-platform AI agent framework developed by eliza-os. It provides a plugin architecture for building AI agents that can operate across multiple platforms and communication channels.
+
+### Key Features
+- **Multi-platform support** — Agents can operate across Discord, Telegram, Twitter, and more
+- **Plugin architecture** — Extensible plugin system for custom capabilities
+- **TypeScript-native** — Modern, type-safe implementation
+- **MIT licensed** — Open-source with permissive licensing
+
+### Architecture
+- **Language:** TypeScript
+- **Entry Point:** Application
+- **Architecture Pattern:** Plugin-based multi-platform agent framework
+- **MCP Status:** N/A
+- **Deployment:** npm install
+- **License:** MIT
+
+---
+
+## Agent Zero
+
+**Python | MIT — May 2026**
+
+**Status:** Active — Autonomous AI agent framework
+
+### Overview
+Agent Zero is a Python-based autonomous AI agent framework developed by frdel. It provides tool-use capabilities for building agents that can autonomously perform tasks using various tools and APIs.
+
+### Key Features
+- **Autonomous operation** — Agents can work independently toward goals
+- **Tool-use capabilities** — Built-in support for using tools and APIs
+- **Python-native** — Pure Python implementation for extensibility
+- **MIT licensed** — Open-source with permissive licensing
+
+### Architecture
+- **Language:** Python
+- **Entry Point:** Python API
+- **Architecture Pattern:** Autonomous agent with tool-use
+- **MCP Status:** N/A
+- **Deployment:** pip install
+- **License:** MIT
+
+---
+
+## PraisonAI
+
+**Python | MIT — May 2026**
+
+**Status:** Active — Multi-agent LLM framework
+
+### Overview
+PraisonAI is a Python-based multi-agent LLM framework developed by MervinPraison. It features a low-code workflow builder for creating multi-agent systems with minimal configuration.
+
+### Key Features
+- **Low-code workflow builder** — Create multi-agent workflows with minimal coding
+- **Multi-agent orchestration** — Coordinate multiple agents for complex tasks
+- **Python-native** — Pure Python implementation
+- **MIT licensed** — Open-source with permissive licensing
+
+### Architecture
+- **Language:** Python
+- **Entry Point:** Python API / CLI
+- **Architecture Pattern:** Multi-agent LLM framework with low-code workflows
+- **MCP Status:** N/A
+- **Deployment:** pip install
+- **License:** MIT
+
+---
+
+## Rocketride
+
+**TypeScript | MIT — May 2026**
+
+**Status:** Active — near.ai agent server
+
+### Overview
+Rocketride is a TypeScript-based agent server developed by nearai for the near.ai platform. It provides a server-side runtime for autonomous task execution by AI agents.
+
+### Key Features
+- **Server-side runtime** — Runs agents in a server environment
+- **Autonomous task execution** — Agents can perform tasks autonomously
+- **TypeScript-native** — Modern, type-safe implementation
+- **near.ai integration** — Built for the near.ai ecosystem
+
+### Architecture
+- **Language:** TypeScript
+- **Entry Point:** Server application
+- **Architecture Pattern:** Agent server for autonomous task execution
+- **MCP Status:** N/A
+- **Deployment:** npm install
+- **License:** MIT
+
+---
+
 ## Fork Analysis: Personal vs Enterprise
 
 | Aspect | Personal-Force-Multiplier | Enterprise-Automation |
@@ -520,7 +652,7 @@ OpenFang is a Rust-based Agent OS deployed as a single binary (~32MB, 137K LOC a
 | **Primary Concern** | Speed, cost | Governance, compliance |
 | **Deployment** | Local, single-user | Cloud, multi-tenant |
 | **Tool Access** | CLI, direct execution | MCP, protocols |
-| **Examples** | OpenClaw, Nanobot, SmolAgents, Maxclaw, IronClaw, ZeroClaw, NanoClaw | LangGraph, Swarms, HiClaw, GoClaw, CrewAI, AutoGen |
+| **Examples** | OpenClaw, Nanobot, SmolAgents, Maxclaw, IronClaw, ZeroClaw, NanoClaw | LangGraph, Swarms, HiClaw, GoClaw, CrewAI, AutoGen, AgentScope |
 
 ---
 
@@ -553,10 +685,15 @@ OpenFang is a Rust-based Agent OS deployed as a single binary (~32MB, 137K LOC a
 | Kimi CLI | ~8.8K | Python | ACP | Personal |
 | Kimi Code | ~1.4K | TypeScript | Native | Personal/Enterprise |
 | Codex CLI | ~86.9K | Rust | None | Personal |
+| AgentScope | ~25.8K | Python | N/A | Enterprise |
+| Eliza | N/A | TypeScript | N/A | Personal/Enterprise |
+| Agent Zero | N/A | Python | N/A | Personal |
+| PraisonAI | N/A | Python | N/A | Personal/Enterprise |
+| Rocketride | N/A | TypeScript | N/A | Enterprise |
 
 ---
 
 *Last updated: May 29, 2026*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*
-*Platforms tracked: 27 (13 claw ecosystem + 9 external frameworks + 4 CLI coding agents + 1 human digital twin)*
+*Platforms tracked: 30 (11 claw ecosystem + 13 external frameworks + 5 CLI coding agents + 1 human digital twin)*
 *Next update: June 2026*

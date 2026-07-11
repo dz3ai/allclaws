@@ -2,7 +2,7 @@
 
 **[English](LATEST_UPDATES.md)** | 中文
 
-> 追踪 13 个 claw 生态平台、9 个外部框架、5 个 CLI 编程代理和 1 个人类数字孪生平台的重大更新 — 架构革新、MCP 采用争论、企业 vs 个人模式、安全发展（2026 年 4-5 月）。
+> 追踪 11 个 claw 生态平台、13 个外部框架、5 个 CLI 编程代理和 1 个人类数字孪生平台的重大更新 — 架构革新、MCP 采用争论、企业 vs 个人模式、安全发展（2026 年 4-5 月）。
 
 ---
 
@@ -13,11 +13,16 @@
 1. **MCP 争论激化** — 模型上下文协议在企业获得采用（IronClaw、GoClaw、ZeroClaw），但本地优先代理（NanoClaw）因 20-30% 的 token 开销而抵制
 2. **"自我改进"声明受质疑** — Hermes-Agent 源代码分析揭示程序记忆 ≠ 自主学习；这一区别现在被广泛认可
 3. **企业 vs 一人公司分叉** — 企业自动化（治理、云、MCP）与个人力量倍增器（速度、本地、CLI）模式之间出现明显分歧
-4. **外部框架纳入跟踪** — SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang 加入生态系统比较
+4. **外部框架纳入跟踪** — SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride 加入生态系统比较
 5. **Agent 框架类别添加** — UltraWorkers 工具链（claw-code、oh-my-codex、clawhip、oh-my-openagent）被认可为独特的基础设施层
 6. **CLI 编程代理添加** — aider（约 68K 星，git 感知 AI 结对编程）、copilot-cli（GitHub Copilot 终端代理）、reasonix（DeepSeek 原生编程代理，约 11.3K 星）作为新类别添加
 7. **人类数字孪生添加** — openhuman（Rust，人类数字孪生）作为学术/研究平台添加
 8. **MoonshotAI 平台添加** — kimi-cli（Python，CLI 编程代理，约 8.8K 星，ACP 支持）和 kimi-code（TypeScript，下一代代理框架，约 1.4K 星，MCP + 插件架构）添加
+9. **AgentScope 添加** — AgentScope（Python，阿里巴巴达摩院，约 25.8K 星）作为第 9 个外部框架添加；分布式多代理协作，消息中心和管道工作流
+10. **Eliza 添加** — Eliza（TypeScript，eliza-os，MIT）作为第 10 个外部框架添加；多平台 AI 代理框架，插件架构
+11. **Agent Zero 添加** — Agent Zero（Python，frdel，MIT）作为第 11 个外部框架添加；自主 AI 代理框架，具备工具使用能力
+12. **PraisonAI 添加** — PraisonAI（Python，MervinPraison，MIT）作为第 12 个外部框架添加；多代理 LLM 框架，低代码工作流构建器
+13. **Rocketride 添加** — Rocketride（TypeScript，nearai，MIT）作为第 13 个外部框架添加；near.ai 代理服务器，自主任务执行
 
 ---
 
@@ -512,6 +517,133 @@ OpenFang 是一个基于 Rust 的 Agent OS，作为单一二进制文件部署�
 
 ---
 
+## AgentScope
+
+**Python | 约 25.8K 星 | Apache-2.0 — 2026 年 5 月**
+
+**状态：** 活跃 — 阿里巴巴达摩院多代理框架
+
+### 概述
+AgentScope 是阿里巴巴达摩院开发的分布式多代理框架。提供消息中心架构用于代理通信，以及基于管道的工作流用于组合多代理协作模式。兼顾研究和生产使用。
+
+### 关键特性
+- **分布式多代理协作** — 代理通过集中式消息中心通信
+- **消息中心架构** — 通过消息传递实现代理间解耦通信
+- **管道工作流** — 可组合的管道模式，用于构建多代理交互结构
+- **Python 原生** — 纯 Python 实现，便于研究扩展
+- **生产就绪** — 支持分布式部署场景
+
+### 架构
+- **语言：** Python
+- **入口：** Python API
+- **架构模式：** 分布式多代理 + 消息中心 + 管道工作流
+- **MCP 状态：** N/A
+- **部署：** pip install
+- **LLM 支持：** 多提供商
+- **许可：** Apache-2.0
+
+---
+
+## Eliza
+
+**TypeScript | MIT — 2026 年 5 月**
+
+**状态：** 活跃 — 多平台 AI 代理框架
+
+### 概述
+Eliza 是由 eliza-os 开发的基于 TypeScript 的多平台 AI 代理框架。提供插件架构，用于构建可跨多个平台和通信渠道运行的 AI 代理。
+
+### 关键特性
+- **多平台支持** — 代理可在 Discord、Telegram、Twitter 等平台运行
+- **插件架构** — 可扩展插件系统，支持自定义能力
+- **TypeScript 原生** — 现代、类型安全的实现
+- **MIT 许可** — 开源，宽松许可
+
+### 架构
+- **语言：** TypeScript
+- **入口：** 应用程序
+- **架构模式：** 基于插件的多平台代理框架
+- **MCP 状态：** N/A
+- **部署：** npm install
+- **许可：** MIT
+
+---
+
+## Agent Zero
+
+**Python | MIT — 2026 年 5 月**
+
+**状态：** 活跃 — 自主 AI 代理框架
+
+### 概述
+Agent Zero 是由 frdel 开发的基于 Python 的自主 AI 代理框架。提供工具使用能力，用于构建可自主执行任务的代理。
+
+### 关键特性
+- **自主操作** — 代理可独立朝目标工作
+- **工具使用能力** — 内置支持使用工具和 API
+- **Python 原生** — 纯 Python 实现，易于扩展
+- **MIT 许可** — 开源，宽松许可
+
+### 架构
+- **语言：** Python
+- **入口：** Python API
+- **架构模式：** 自主代理 + 工具使用
+- **MCP 状态：** N/A
+- **部署：** pip install
+- **许可：** MIT
+
+---
+
+## PraisonAI
+
+**Python | MIT — 2026 年 5 月**
+
+**状态：** 活跃 — 多代理 LLM 框架
+
+### 概述
+PraisonAI 是由 MervinPraison 开发的基于 Python 的多代理 LLM 框架。具有低代码工作流构建器，可最小化配置创建多代理系统。
+
+### 关键特性
+- **低代码工作流构建器** — 最少编码创建多代理工作流
+- **多代理编排** — 协调多个代理执行复杂任务
+- **Python 原生** — 纯 Python 实现
+- **MIT 许可** — 开源，宽松许可
+
+### 架构
+- **语言：** Python
+- **入口：** Python API / CLI
+- **架构模式：** 多代理 LLM 框架 + 低代码工作流
+- **MCP 状态：** N/A
+- **部署：** pip install
+- **许可：** MIT
+
+---
+
+## Rocketride
+
+**TypeScript | MIT — 2026 年 5 月**
+
+**状态：** 活跃 — near.ai 代理服务器
+
+### 概述
+Rocketride 是由 nearai 为 near.ai 平台开发的基于 TypeScript 的代理服务器。提供服务器端运行时，用于 AI 代理自主执行任务。
+
+### 关键特性
+- **服务器端运行时** — 在服务器环境中运行代理
+- **自主任务执行** — 代理可自主执行任务
+- **TypeScript 原生** — 现代、类型安全的实现
+- **near.ai 集成** — 为 near.ai 生态系统构建
+
+### 架构
+- **语言：** TypeScript
+- **入口：** 服务器应用程序
+- **架构模式：** 自主任务执行代理服务器
+- **MCP 状态：** N/A
+- **部署：** npm install
+- **许可：** MIT
+
+---
+
 ## 分叉分析：个人 vs 企业
 
 | 方面 | 个人力量倍增器 | 企业自动化 |
@@ -519,7 +651,7 @@ OpenFang 是一个基于 Rust 的 Agent OS，作为单一二进制文件部署�
 | **主要关注点** | 速度、成本 | 治理、合规 |
 | **部署** | 本地、单用户 | 云、多租户 |
 | **工具访问** | CLI、直接执行 | MCP、协议 |
-| **示例** | OpenClaw、Nanobot、SmolAgents、Maxclaw、IronClaw、ZeroClaw、NanoClaw | LangGraph、Swarms、HiClaw、GoClaw、CrewAI、AutoGen |
+| **示例** | OpenClaw、Nanobot、SmolAgents、Maxclaw、IronClaw、ZeroClaw、NanoClaw | LangGraph、Swarms、HiClaw、GoClaw、CrewAI、AutoGen、AgentScope |
 
 ---
 
@@ -552,10 +684,15 @@ OpenFang 是一个基于 Rust 的 Agent OS，作为单一二进制文件部署�
 | Kimi CLI | 约 8.8K | Python | ACP | 个人 |
 | Kimi Code | 约 1.4K | TypeScript | 原生 | 个人/企业 |
 | Codex CLI | 约 86.9K | Rust | 无 | 个人 |
+| AgentScope | 约 25.8K | Python | N/A | 企业 |
+| Eliza | N/A | TypeScript | N/A | 个人/企业 |
+| Agent Zero | N/A | Python | N/A | 个人 |
+| PraisonAI | N/A | Python | N/A | 个人/企业 |
+| Rocketride | N/A | TypeScript | N/A | 企业 |
 
 ---
 
 *最后更新：2026 年 5 月 29 日*
 *所属：AllClaws 个人 AI 代理生态系统研究*
-*跟踪平台：27 个（13 个 claw 生态 + 9 个外部框架 + 4 个 CLI 编程代理 + 1 个人类数字孪生）*
+*跟踪平台：30 个（11 个 claw 生态 + 13 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）*
 *下次更新：2026 年 6 月*

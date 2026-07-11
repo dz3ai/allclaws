@@ -25,10 +25,10 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 ### 1. Complete Unified Platform Comparison
 
 **Status:** Completed ✅
-**Target:** Complete architecture documentation for all 27 platforms
+**Target:** Complete architecture documentation for all 30 platforms
 
 **Deliverables:**
-- [x] `architecture/platform_comparison.md` — Unified comparison of all 27 platforms
+- [x] `architecture/platform_comparison.md` — Unified comparison of all 30 platforms
 - [x] Standardized format for each platform (classification, architecture, diagrams)
 - [x] Cross-platform comparison matrices
 - [x] Chinese translation (`platform_comparison.zh-CN.md`)
@@ -37,18 +37,18 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 - **Claw Ecosystem (11):** OpenClaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, ZeroClaw, HiClaw, Hermes-Agent, Claw-AI-Lab
 - **CLI Coding Agents (5):** aider, copilot-cli, reasonix, kimi-cli, codex
 - **Human Digital Twin (1):** openhuman
-- **External Frameworks (8):** SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, kimi-code
+- **External Frameworks (13):** SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, kimi-code, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride
 
 ### 2. MCP Ecosystem Deep-Dive
 
-**Status:** Planned
+**Status:** Completed ✅
 **Target:** Comprehensive analysis of MCP protocol adoption and resistance
 
 **Research Questions:**
 - What is the actual token overhead of MCP in production deployments?
 - Which MCP servers are most widely adopted?
 - How do MCP-native frameworks differ from MCP-adapter approaches?
-- What is the rate of MCP adoption across the 26 tracked platforms?
+- What is the rate of MCP adoption across the 30 tracked platforms?
 
 **Deliverables:**
 - MCP adoption report (native vs adapter vs resistant)
@@ -58,7 +58,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 
 ### 3. Enterprise Governance Frameworks Analysis
 
-**Status:** Planned
+**Status:** Completed ✅
 **Target:** Document emerging enterprise AI agent governance approaches
 
 **Research Scope:**
@@ -118,7 +118,7 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 
 ### 3. "Self-Improving" Claims Verification Series
 
-**Status:** Planned
+**Status:** Completed ✅
 **Target:** Systematic verification of autonomous learning claims
 
 **Following:** Hermes-Agent analysis (May 2026)
