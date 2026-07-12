@@ -78,8 +78,9 @@ The primary focus for H2 2026 is documenting and analyzing the emerging fork bet
 
 ### 1. Personal-Force-Multiplier Case Studies
 
-**Status:** Planned
+**Status:** Completed ✅ (July 2026)
 **Target:** Document 1PC (one-person company) success stories
+**Report:** `docs/reports/1pc-case-studies-2026.md`
 
 **Research Scope:**
 - Interview solo founders using AI agents
