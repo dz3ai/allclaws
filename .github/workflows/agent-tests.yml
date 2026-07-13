@@ -157,7 +157,7 @@ jobs:
       - name: Run DeepEval tests
         run: |
           cd test_framework
-          docker-compose exec -T deepeval-runner python evals/agent_eval.py
+          docker-compose exec -T deepeval-runner python agent_eval.py
 
       - name: Collect results
         run: |
