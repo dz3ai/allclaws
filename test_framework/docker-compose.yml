@@ -1,7 +1,7 @@
 version: "3.8"
 
 # AllClaws Test Framework - Docker Compose
-# 定义 13 个 AI Agent 平台的沙盒测试环境
+# 定义 11 个 AI Agent 平台的沙盒测试环境
 
 services:
   # ============================================
@@ -33,17 +33,6 @@ services:
       - test-net
     environment:
       - NODE_ENV=test
-
-  quantumclaw-sandbox:
-    image: node:22-alpine
-    container_name: quantumclaw-test
-    volumes:
-      - ../quantumclaw:/workspace:ro
-      - ./evals:/evals
-    working_dir: /workspace
-    command: tail -f /dev/null
-    networks:
-      - test-net
 
   # ============================================
   # Rust 平台
@@ -164,20 +153,6 @@ services:
       - PYTHONUNBUFFERED=1
 
   # ============================================
-  # Verilog 平台 (EDA)
-  # ============================================
-  rtl-claw-sandbox:
-    image: localhost/openclaw:local
-    container_name: rtlclaw-test
-    volumes:
-      - ../rtl-claw:/workspace:ro
-      - ./evals:/evals
-    working_dir: /workspace
-    command: tail -f /dev/null
-    networks:
-      - test-net
-
-  # ============================================
   # 评估服务
   # ============================================
   deepeval-runner:
@@ -193,9 +168,7 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
       - DEEPEVAL_API_KEY=${DEEPEVAL_API_KEY}
-    install:
-      - pip install deepeval pytest pytest-asyncio jq
-    command: tail -f /dev/null
+    command: sh -c "pip install deepeval pytest pytest-asyncio && tail -f /dev/null"
 
   # ============================================
   # 结果收集器
