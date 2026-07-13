@@ -43,7 +43,6 @@ services:
     volumes:
       - ../zeroclaw:/workspace:ro
       - ./evals:/evals
-      - zeroclaw-target:/workspace/target
     working_dir: /workspace
     command: tail -f /dev/null
     networks:
@@ -55,7 +54,6 @@ services:
     volumes:
       - ../ironclaw:/workspace:ro
       - ./evals:/evals
-      - ironclaw-target:/workspace/target
     working_dir: /workspace
     command: tail -f /dev/null
     networks:
@@ -186,7 +184,3 @@ services:
 networks:
   test-net:
     driver: bridge
-
-volumes:
-  zeroclaw-target:
-  ironclaw-target:
