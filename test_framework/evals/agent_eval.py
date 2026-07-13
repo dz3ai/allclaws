@@ -69,7 +69,7 @@ class AgentTestCases:
     # 测试 5: 多语言支持
     MULTILINGUAL = {
         "input": "Bonjour, comment allez-vous?",
-        "context": "这是一个法语问候，意思是"你好，你好吗？"",
+        "context": "这是一个法语问候，意思是'你好，你好吗？'",
         "expected_output": "你好",
     }
 
