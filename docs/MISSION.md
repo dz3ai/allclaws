@@ -30,11 +30,12 @@ A world where AI agent platforms are understood by their actual capabilities, no
 
 ### Scope
 
-**30 Platforms Tracked:**
+**30 Platforms + 2 Agent Harness Ecosystems Tracked:**
 - **Claw Ecosystem (11):** OpenClaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, ZeroClaw, HiClaw, Hermes-Agent, Claw-AI-Lab
 - **External Frameworks (13):** SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, Kimi Code, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride
 - **CLI Coding Agents (5):** aider, copilot-cli, reasonix, kimi-cli, codex
 - **Human Digital Twin (1):** openhuman
+- **Agent Harnesses & Toolchains (5):** UltraWorkers (claw-code, oh-my-codex, clawhip, oh-my-openagent), HarnessX (Darwin Agent), OmniCoreAgent, Harmonist (GammaLab), SIA (hexo-ai)
 
 **What We Cover:**
 - Architecture and design patterns
@@ -56,7 +57,7 @@ A world where AI agent platforms are understood by their actual capabilities, no
 
 ### On Platform Coverage
 
-We track both claw-ecosystem platforms (11) and significant external frameworks (13), plus CLI coding agents (5) and a human digital twin platform (1), to provide comprehensive ecosystem coverage. Our focus is on understanding architectural patterns, not promoting any specific implementation.
+We track both claw-ecosystem platforms (11) and significant external frameworks (13), plus CLI coding agents (5), a human digital twin platform (1), and 5 agent harness & toolchain ecosystems (UltraWorkers, HarnessX, OmniCoreAgent, Harmonist, SIA), to provide comprehensive ecosystem coverage. Our focus is on understanding architectural patterns, not promoting any specific implementation.
 
 **Rationale:** The distinction between "claw" and "external" is historical, not qualitative. External frameworks like LangGraph and CrewAI represent industry standards that must be understood for complete ecosystem analysis.
 
@@ -104,6 +105,19 @@ We believe the fork between personal-force-multiplier (1PC) and enterprise-autom
 - Cloud-deployed infrastructure
 - Governance and compliance focus
 - Examples: LangGraph, Swarms, HiClaw, GoClaw
+
+### On Agent Harnesses
+
+We track agent harnesses and toolchains as a distinct layer below agent platforms. Harnesses provide execution runtime, coordination, observability, and structured event routing — they are the transmission, dashboard, and pit crew to the agent platform's engine.
+
+**Tracked Harness Ecosystems:**
+- **UltraWorkers** — Rust + Node.js autonomous development system (claw-code, oh-my-codex, clawhip, oh-my-openagent)
+- **HarnessX** — Python agent harness foundry with composable 9-dimension pipeline, trace-driven evolution, and model-harness co-evolution
+- **OmniCoreAgent** — Python production agent harness with MCP, memory, subagents, REST serving
+- **Harmonist** — Python portable multi-agent orchestration with mechanical protocol enforcement (2,292 ⭐)
+- **SIA** — Python self-improving AI framework with harness + weight co-improvement (2,018 ⭐)
+
+**Rationale:** The harness layer is an independent optimization surface. HarnessX (arXiv:2606.14249, July 2026) demonstrates +14.5% average gains across 5 benchmarks through harness evolution alone — without model scaling. Understanding harness design patterns is essential for complete agent ecosystem analysis, particularly for the 1PC vs enterprise fork where harness economics differ dramatically.
 
 ---
 
@@ -176,4 +190,4 @@ AllClaws is an independent research project. For discussions, questions, or coll
 
 ---
 
-*Last updated: May 20, 2026*
+*Last updated: July 15, 2026*

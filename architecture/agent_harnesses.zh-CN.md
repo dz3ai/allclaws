@@ -28,7 +28,10 @@ Agent 框架位于代理平台的**下方**：
 
 **跟踪的生态系统：**
 - **UltraWorkers 工具链** — Rust + Node.js 自主开发系统
-- 未来：其他出现的框架
+- **Darwin Agent HarnessX** — Python agent harness foundry，具有可组合处理器和进化引擎
+- **OmniCoreAgent** — Python 生产级 agent harness，MCP + memory + subagents
+- **Harmonist** — Python 便携式多 agent 编排，机械化协议强制执行
+- **SIA** — Python 自改进 AI 框架，harness + 权重双重改进
 
 ---
 

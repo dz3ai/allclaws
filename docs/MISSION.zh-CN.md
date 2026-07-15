@@ -30,11 +30,12 @@ AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注�
 
 ### 范围
 
-**跟踪的 30 个平台：**
+**跟踪的 30 个平台 + 2 个 Agent Harness 生态：**
 - **Claw 生态（11 个）：** OpenClaw、ClawTeam、GoClaw、IronClaw、Maxclaw、NanoClaw、Nanobot、ZeroClaw、HiClaw、Hermes-Agent、Claw-AI-Lab
 - **外部框架（13 个）：** SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、Kimi Code、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride
 - **CLI 编程代理（5 个）：** aider、copilot-cli、reasonix、kimi-cli、codex
 - **人类数字孪生（1 个）：** openhuman
+- **Agent Harnesses & Toolchains（5 个）：** UltraWorkers（claw-code 等）、HarnessX（Darwin Agent）、OmniCoreAgent、Harmonist（GammaLab）、SIA（hexo-ai）
 
 **我们涵盖的内容：**
 - 架构和设计模式
@@ -56,7 +57,7 @@ AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注�
 
 ### 关于平台覆盖
 
-我们同时跟踪 claw 生态平台（11 个）和重要的外部框架（13 个），加上 CLI 编程代理（5 个）和人类数字孪生平台（1 个），以提供全面的生态系统覆盖。我们的重点是理解架构模式，而不是推广任何特定实现。
+我们同时跟踪 claw 生态平台（11 个）和重要的外部框架（13 个），加上 CLI 编程代理（5 个）、人类数字孪生平台（1 个）和 5 个 agent harness & toolchain 生态（UltraWorkers、HarnessX、OmniCoreAgent、Harmonist、SIA），以提供全面的生态系统覆盖。我们的重点是理解架构模式，而不是推广任何特定实现。
 
 **理由：** "claw" 和 "外部" 之间的区别是历史性的，而非质量上的。LangGraph 和 CrewAI 等外部框架代表行业标准，必须理解这些标准才能进行完整的生态系统分析。
 
@@ -104,6 +105,19 @@ MCP 代表了一个岔路口：标准化 vs 本地控制。我们跟踪两种方
 - 云部署基础设施
 - 治理和合规重点
 - 示例：LangGraph、Swarms、HiClaw、GoClaw
+
+### 关于 Agent Harness
+
+我们将 agent harness 和 toolchain 作为代理平台下方的独立层级进行跟踪。Harness 提供执行运行时、协调、可观测性和结构化事件路由——它们是代理平台引擎的变速箱、仪表盘和维修团队。
+
+**跟踪的 Harness 生态：**
+- **UltraWorkers** — Rust + Node.js 自主开发系统（claw-code、oh-my-codex、clawhip、oh-my-openagent）
+- **HarnessX** — Python agent harness foundry，具有可组合的 9 维度流水线、基于执行轨迹的进化和模型-harness 协同进化
+- **OmniCoreAgent** — Python 生产级 agent harness，提供 MCP、memory、subagents、REST 服务
+- **Harmonist** — Python 便携式多 agent 编排，机械化协议强制执行（2,292 ⭐）
+- **SIA** — Python 自改进 AI 框架，harness + 权重双重改进（2,018 ⭐）
+
+**理由：** Harness 层是一个独立的优化表面。HarnessX（arXiv:2606.14249，2026 年 7 月）展示了在不扩展模型的情况下，仅通过 harness 进化就在 5 个基准测试中平均提升 +14.5%。理解 harness 设计模式对于完整的代理生态系统分析至关重要，特别是在 1PC vs 企业的分叉中，harness 的经济性差异显著。
 
 ---
 
@@ -176,4 +190,4 @@ AllClaws 是一个独立研究项目。如需讨论、问题或合作机会，�
 
 ---
 
-*最后更新：2026 年 5 月 20 日*
+*最后更新: 2026年7月15日*

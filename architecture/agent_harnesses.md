@@ -28,7 +28,10 @@ Agent harnesses sit **below** agent platforms in the stack:
 
 **Tracked Ecosystems:**
 - **UltraWorkers Toolchain** — Rust + Node.js autonomous development system
-- Future: Other harnesses as they emerge
+- **Darwin Agent HarnessX** — Python agent harness foundry with composable processors and evolution engine
+- **OmniCoreAgent** — Python production agent harness with MCP, memory, subagents, REST serving
+- **Harmonist** — Python portable multi-agent orchestration with mechanical protocol enforcement
+- **SIA** — Python self-improving AI framework with harness + weight co-improvement
 
 ---
 
@@ -219,6 +222,291 @@ Handles planning, handoffs, disagreement resolution, and verification loops acro
 
 ---
 
+## Darwin Agent HarnessX
+
+**Repository:** [Darwin-Agent/HarnessX](https://github.com/Darwin-Agent/HarnessX)
+**Language:** Python 3.11+
+**License:** MIT
+**Stars:** 241
+**Created:** April 2026
+
+**Philosophy:** *"The harness — not just the model — determines agent performance."*
+
+### Overview
+
+HarnessX is a **harness foundry**: a framework for composing, adapting, and evolving agent harnesses independently of the underlying model. It formalizes the harness as a first-class typed object with nine behavioral dimensions, each implemented as pluggable processors attached to lifecycle hooks.
+
+The core insight: `agent = model.agentic(harness)` — model configuration and harness configuration are orthogonal concerns, independently substitutable.
+
+### Architecture
+
+```
+harnessx/
+├── core/              # Harness, Builder, RunLoop, State, Events, Trajectory
+├── processors/        # 7 categories × multiple processors
+│   ├── context/       # System prompt, history, user wrapper
+│   ├── control/       # 13 safety & reliability processors
+│   ├── evaluation/    # LLM judge, PRM, self-verify
+│   ├── memory/        # Extraction, retrieval, 5 strategies
+│   ├── multi_model/   # Model routing
+│   ├── observability/ # OTel, checkpoints, metrics
+│   └── tools/         # Skill loader, schema adapter, filters
+├── providers/         # 6 model backends + agentic mixin
+├── plugins/           # Plugin base, discovery, builtins, dimensions
+├── sandbox/           # Local, Docker, E2B
+├── tracing/           # Journal, OTel, null tracer
+├── rl/                # RLConfigSpec, TaskBuilder
+└── bundles/           # Pre-composed capability bundles
+```
+
+### Key Features
+
+- **9-dimension behavior pipeline** — model, context, memory, tools, execution env, evaluation, control/safety, observability, training bridge
+- **Processor composition** — processors combine with `|` operator; attach to 8 lifecycle hooks (task_start through task_end)
+- **MetaHarness** — the agent observes its own trajectories and proposes harness config changes; sandboxed promotion loop with deterministic gating
+- **Harness Evolution** — trace-driven auto-optimization: Qwen 3.5 9B on GAIA goes from 33% → 47% with zero model changes; GPT-5 goes from 62% → 84%
+- **Model-Harness Co-Evolution** — interleaved GRPO training over shared replay buffer: Qwen 3.5 9B on GAIA reaches 55.77% (+64% relative)
+- **Lab UI** — React + TypeScript browser interface for harness configuration (`hx lab`)
+- **IM Gateway** — connects agents to Feishu, Telegram, Slack, Discord, DingTalk
+- **Plugin system** — dimensions, processors, memory backends all pluggable
+- **Benchmark suite** — GAIA, ALFWorld, SWE-bench Verified, LoCoMo integrations
+
+### Key Stats (July 2026)
+
+- 868 files, ~60 MB
+- 505 Python source files
+- Extensive test suite (test_processor, test_builder, test_model_router, test_journal, etc.)
+- MIT License — fully open-source
+
+### Comparison with UltraWorkers
+
+| Aspect | UltraWorkers (claw-code) | HarnessX |
+|--------|--------------------------|----------|
+| **Approach** | Production harness for CLI agents | Research framework for harness composition |
+| **Language** | Rust (48K+ LOC) | Python 3.11+ |
+| **Composability** | Crate-level modularity | Processor-level composition with substitution algebra |
+| **Evolution** | Manual iteration | Trace-driven AEGIS-style auto-optimization |
+| **Model Training** | N/A | Built-in GRPO co-evolution bridge via VERL |
+| **UI** | Discord-first | CLI + Lab UI + IM Gateway |
+| **Target** | Deploy and run agents at scale | Research, experiment, and evolve harness design |
+| **Licensing** | Public (disclaimed) | MIT |
+
+### Roadmap
+
+| Phase | Focus | Status |
+|-------|-------|--------|
+| 1 | Core pipeline, 13 processors, 4 benchmarks, Lab UI, SFT/RL bridge | Current |
+| 2 | Bayesian Optimization, MetaHarness, auto config search | In progress |
+| 3 | Closed-loop self-evolution, HarnessHUB marketplace (`hx pull coding-agent@v1.2`) | Planned |
+| 4 | Multimodal memory, third-party integrations (VERL, SuperMemory, OpenVKing) | Planned |
+
+### Relevance to AllClaws
+
+HarnessX is the **academic reference implementation** for the evolutionary harness concepts discussed in the "Evolutionary Harness Architectures" section below. It provides:
+- Production-grade code validating the harness-as-first-class-object thesis
+- Empirical evidence for the inverse-scaling pattern (weaker models gain more from harness evolution)
+- A clean plugin architecture that could inform future AllClaws benchmark harness design
+- The MetaHarness component as a working example of trace-driven self-optimization
+
+### Reference
+
+```bibtex
+@software{harnessx2026,
+  title   = {HarnessX: A Composable, Self-Evolving Agent Harness Foundry},
+  author  = {Darwin Agent Team},
+  year    = {2026},
+  url     = {https://github.com/Darwin-Agent/HarnessX},
+  license = {MIT},
+}
+```
+
+---
+
+## OmniCoreAgent
+
+**Repository:** [omnirexflora-labs/omnicoreagent](https://github.com/omnirexflora-labs/omnicoreagent)
+**Language:** Python 3.10+
+**License:** MIT
+**Stars:** 244
+**Created:** March 2025
+
+**Philosophy:** *"A library gives you pieces to assemble. A harness gives you the runtime boundary that makes a model usable inside an application."*
+
+### Overview
+
+OmniCoreAgent is the most explicitly harness-labeled project in the open-source ecosystem — it self-identifies as "The Open Production Agent Harness for Python." It distinguishes itself from agent libraries by providing a complete runtime boundary rather than a toolkit you assemble yourself.
+
+### Architecture
+
+The harness layers around a model:
+
+```
+model
+  + prompt contract
+  + reasoning loop
+  + local tools
+  + MCP tools
+  + parallel tool batches
+  + structured observations
+  + memory
+  + context control
+  + workspace files
+  + tool-output offloading
+  + guardrails
+  + events
+  + subagents
+  + background tasks
+  + REST/SSE serving (OmniServe)
+```
+
+### Key Features
+
+- **Parallel tool batching** — executes independent tool calls concurrently
+- **Structured observations** — typed observation schemas instead of raw tool output
+- **Signature loop detection** — catches and breaks infinite reasoning loops
+- **MCP integration** — native MCP client for external tool servers
+- **Memory & workspace** — persistent context and file-based workspace
+- **Subagents** — spawn child agents for decomposed tasks
+- **Background tasks** — async task execution outside the main reasoning loop
+- **Guardrails** — configurable safety rules and constraints
+- **OmniServe** — REST/SSE serving boundary for production deployment
+- **Explicit layer separation** — model intelligence vs harness infrastructure clearly delineated
+
+### Key Stats (July 2026)
+
+- 244 ⭐, 57 forks
+- PyPI package: `omnicoreagent`
+- Published on PyPI with download tracking
+- Online docs at docs-omnicoreagent.omnirexfloralabs.com
+
+### Relevance to AllClaws
+
+OmniCoreAgent is the most architecturally pure example of the harness-as-distinct-layer philosophy that AllClaws studies. Its explicit split between "agent harness" and "serving boundary" layers, combined with MCP integration, makes it a reference point for evaluating how other ecosystems (claw, UltraWorkers, HarnessX) implement the same concepts.
+
+---
+
+## Harmonist
+
+**Repository:** [GammaLabTechnologies/harmonist](https://github.com/GammaLabTechnologies/harmonist)
+**Language:** Python 3.9+
+**License:** MIT
+**Stars:** 2,292
+**Created:** April 2026
+
+**Philosophy:** *"Most AI coding frameworks trust the language model to follow the rules. Harmonist refuses to let it skip them."*
+
+### Overview
+
+Harmonist is a drop-in multi-agent orchestration framework for AI coding assistants (Cursor, Claude Code, Copilot, Windsurf, Aider). Its defining innovation is **mechanical protocol enforcement**: every code-changing turn is gated by hooks that verify reviewers ran, memory was updated, and every shipped file's supply chain is intact — before the turn completes.
+
+### Architecture
+
+```
+harmonist/
+├── agents/          # 193+ pre-built agent definitions
+├── hooks/           # Mechanical enforcement gates
+├── memory/          # Structured validated memory system
+├── protocols/       # Per-agent protocol definitions
+└── integration/     # Drop-in integrations for IDEs
+```
+
+### Key Features
+
+- **193+ pre-built agents** — catalogued, versioned agent definitions
+- **Mechanical protocol enforcement** — hooks gate every code-changing turn, not prompt suggestions
+- **Zero runtime dependencies** — stdlib-only Python, no pip install required
+- **550+ tests** — comprehensive test coverage
+- **Drop-in integration** — works with Cursor, Claude Code, Copilot, Windsurf, Aider
+- **Structured validated memory** — memory updates are verified, not just requested
+- **Supply chain integrity** — every shipped file must pass protocol checks
+- **Built by GammaLab** — commercially maintained with CI/CD
+
+### Key Stats (July 2026)
+
+- 2,292 ⭐, 229 forks
+- v1.2.3 release
+- 193 agents catalogued
+- 550+ tests
+- stdlib-only — zero pip dependencies
+
+### Relevance to AllClaws
+
+Harmonist is the largest open-source multi-agent orchestration framework by adoption. Its mechanical enforcement approach — protocol gates that cannot be skipped by the model — is a concrete implementation of the "deterministic gating" concept from HarnessX's AEGIS. It also validates AllClaws' observation that multi-agent coordination is a distinct harness concern requiring its own infrastructure layer.
+
+---
+
+## SIA (Self-Improving AI)
+
+**Repository:** [hexo-ai/sia](https://github.com/hexo-ai/sia)
+**Language:** Python 3.11+
+**License:** MIT
+**Stars:** 2,018
+**Created:** March 2026
+
+**Paper:** arXiv:2605.27276 (Hebbar et al., 2026)
+
+**Philosophy:** *"SIA is a self-improving loop where a language-model agent updates both the harness and the weights of a task-specific agent."*
+
+### Overview
+
+SIA is the closest open-source counterpart to HarnessX's co-evolution concept. It implements a three-agent improvement loop (Meta, Target, Feedback) that autonomously refines a task-specific agent through successive generations — improving both the agent's configuration (harness) and its model weights.
+
+### Architecture
+
+```
+Meta-Agent          Target Agent         Feedback Agent
+    │                    │                     │
+    │ generates initial   │ attempts task       │ reviews logs
+    │ Target Agent ──────►│ and records ───────►│ proposes improvements
+    │                    │ actions              │ updates Target
+    │                    │                     │
+    └──── iteration loop over generations ──────┘
+```
+
+### Key Features
+
+- **Meta-Agent** — reads task description, generates initial Target Agent
+- **Target Agent** — task-specific agent that executes and records
+- **Feedback Agent** — reviews performance logs, identifies improvements, updates Target
+- **Harness + weight co-improvement** — both configuration and model weights evolve
+- **Built-in task suite** — ships with benchmark tasks for immediate evaluation
+- **Visualizer** — run visualization tool for monitoring improvement trajectories
+- **PyPI package** — `sia-agent` for easy installation
+- **Paper-backed** — full academic paper with benchmark results
+
+### Published Results (from arXiv:2605.27276)
+
+| Benchmark | Gain |
+|-----------|------|
+| LawBench | +56.6% |
+| GPU Kernels (runtime reduction) | −91.9% |
+| Single-cell RNA denoising | +502% |
+| MLE-Bench Hard (Kaggle) | Competitive |
+
+### Key Stats (July 2026)
+
+- 2,018 ⭐, 241 forks
+- PyPI: `sia-agent`
+- 16 open issues
+- Active CI pipeline
+
+### Relevance to AllClaws
+
+SIA is the open-source counterpart to HarnessX's co-evolution research. While HarnessX provides the theoretical framework (operational mirror, AEGIS, cross-harness GRPO), SIA provides the engineering counterpart with a simpler three-agent architecture and demonstrated gains across diverse domains (legal, systems, bio). The pair together — HarnessX for theory, SIA for practice — covers the full spectrum of self-improving harness research that AllClaws tracks.
+
+### Reference
+
+```bibtex
+@article{hebbar2026sia,
+  title   = {SIA: Self Improving AI with Harness & Weight Updates},
+  author  = {Hebbar et al.},
+  year    = {2026},
+  journal = {arXiv:2605.27276},
+}
+```
+
+---
+
 ## Comparison with Agent Platforms
 
 | Aspect | Agent Platforms | Agent Harnesses |
@@ -301,6 +589,129 @@ Shift from human-readable logs to structured events:
 
 ---
 
+## Evolutionary Harness Architectures
+
+> Trace-driven, self-adapting harnesses that improve through structured execution feedback — a paradigm shift from static hand-engineering to learned optimization.
+
+### The Static-Harness Problem
+
+Every agent harness in production today is **hand-crafted and frozen**: prompts, tool wrappers, retry policies, and memory strategies are authored once and never improve from execution experience. When a model version changes, a new tool appears, or a task domain shifts, the harness requires bespoke manual re-engineering. Execution traces — which contain rich diagnostic signal about *why* an agent succeeded or failed — are discarded.
+
+The HarnessX paper (Darwin Agent Team, "HarnessX: A Composable, Adaptive, and Evolvable Agent Harness Foundry", arXiv:2606.14249, July 2026) establishes the theoretical foundation for moving beyond this ceiling: **harness evolution as a first-class learning problem**.
+
+### The Nine-Dimensional Harness Taxonomy
+
+HarnessX formalizes a harness as a typed, composable object spanning nine behavioral dimensions:
+
+| Dimension | Role | What It Controls |
+|-----------|------|-----------------|
+| D1: Model Selection | Which model serves which role | Main agent, judge, evaluator, fallback policies |
+| D2: Context Assembly | What the model sees | System prompt, history editing, context window trimming |
+| D3: Memory Management | What persists across steps/sessions | Working memory, long-term store, retrieval policies |
+| D4: Tool Ecosystem | What the agent can invoke | Tool registry, schemas, MCP servers, sandboxed execution |
+| D5: Execution Environment | Where side-effects materialize | Sandbox, workspace, filesystem boundaries |
+| D6: Evaluation & Reward | How outcomes are judged | Verifiers, scoring functions, pass/fail criteria |
+| D7: Control & Safety | Rules constraining execution | Budget limits, loop detection, approval gates, permission policies |
+| D8: Observability | What gets recorded | Full execution traces, event logs, structured diagnostics |
+| D9: Training Bridge | Feedback → model signal | Trajectory records, replay buffer, RL training loop |
+
+Each dimension is implemented as typed **processors** attached to lifecycle hooks (task_start, step_start, before_model, after_model, before_tool, after_tool, step_end, task_end). Processors are independently substitutable — a key property enabling programmatic evolution.
+
+### Trace-Driven Harness Evolution (AEGIS)
+
+AEGIS (Adaptive Engine for General Intelligence Scaffolding) is HarnessX's evolution engine. It operates as a four-stage pipeline, all driven by a single meta-agent LLM:
+
+```
+Digester           Planner            Evolver             Critic + Gate
+  │                   │                   │                     │
+  │ compresses        │ constructs        │ produces typed      │ validates and
+  │ raw traces →      │ adaptation        │ builder edits       │ deterministically
+  │ structured        │ landscape         │ with change         │ ships or rejects
+  │ summaries         │ (what failed,     │ manifests           │ (seesaw constraint)
+  │                   │  what's untried)  │                     │
+```
+
+**The Operational Mirror.** AEGIS maps harness evolution onto RL concepts:
+- Harness configuration = state
+- Typed harness edit = action
+- Execution trace + verifier score = feedback
+- Deterministic acceptance gate = transition function
+
+This mapping is predictive: three well-known RL pathologies reappear in symbolic harness evolution and each requires a dedicated defense:
+1. **Reward hacking** — edits that exploit verifier format rather than solving tasks → Critic catches via trace inspection
+2. **Catastrophic forgetting** — edits improving one task silently regress another → deterministic gating enforces "no regression on previously solved tasks"
+3. **Under-exploration** — pipeline converges on low-risk local edits (prompt tweaks) → Planner constructs landscape spanning structural changes before edit generation
+
+### Empirical Results
+
+Across five benchmarks (GAIA, ALFWorld, WebShop, τ³-Bench, SWE-bench Verified) and three task-agent families (Claude Sonnet 4.6, GPT-5.4, Qwen3.5-9B):
+
+| Benchmark | Avg Gain | Max Gain | Key Insight |
+|-----------|----------|----------|-------------|
+| ALFWorld | +25.4% | +44.0% (Qwen3.5-9B) | Weaker models benefit most — harness closes behavioral gaps |
+| WebShop | +15.7% | +18.0% | Prompt + processor edits reduce search/pagination loops |
+| GAIA | +8.9% | +17.1% (Qwen3.5-9B) | Tool-level edits (WikiTextFetch) unlock retrieval failures |
+| SWE-bench | +15.8% | +18.2% | Gains only for capable models; 9B model hits capability floor |
+| τ³-Bench | +7.0% | +14.5% | Near-ceiling baselines leave less headroom |
+
+**The Inverse-Scaling Pattern.** Gains scale inversely with baseline performance. Qwen3.5-9B, the weakest task agent, gains +44.0% on ALFWorld — the evolved harness provides structural support that the model's own reasoning cannot supply. Stronger models (Sonnet 4.6) gain less because they self-correct more failures internally.
+
+**Variant Isolation.** On heterogeneous benchmarks like GAIA (103 tasks spanning retrieval, reasoning, visual, document-parsing), a single harness cannot improve all tasks simultaneously — edits helping one cluster silently regress another. HarnessX introduces **ensemble routing**: maintain up to K harness variants, route each task to the variant with highest prior success, and fork new variants when an edit improves a subset while regressing another. On GAIA + GPT-5.4, this lifts a stagnating ∆=0.0 to +13.6% with a non-degrading trajectory.
+
+### Harness-Model Co-Evolution
+
+The most advanced mode interleaves harness evolution with model reinforcement learning over a shared replay buffer:
+
+```
+         ┌─────────────────────────────────────────┐
+         │           Shared Replay Buffer            │
+         │  (trajectories from multiple harness      │
+         │   versions + model checkpoints)           │
+         └──────────────┬──────────────────────────┘
+                        │
+          ┌─────────────┴─────────────┐
+          │                           │
+    ┌─────▼──────┐            ┌───────▼───────┐
+    │   AEGIS    │            │ Cross-Harness │
+    │  Harness   │            │    GRPO       │
+    │  Evolution │            │ Model Training│
+    └────────────┘            └───────────────┘
+```
+
+Cross-harness GRPO groups trajectories by task identity across harness versions, computing group-relative advantages so the model learns successful strategies regardless of which harness version produced them. Co-evolution adds +4.7% over harness-only evolution by breaking two ceilings simultaneously:
+- **Scaffolding ceiling**: a frozen model eventually cannot exploit further harness improvements
+- **Training-signal ceiling**: a fixed harness never surfaces context that would exercise newly trained capabilities
+
+### Relevance to AllClaws Research
+
+The HarnessX framework directly validates and extends several AllClaws research themes:
+
+1. **The Harness as a Distinct Layer.** AllClaws already positions harnesses below agent platforms in the stack. HarnessX formalizes *why* this separation matters: the harness is an independent optimization surface with its own composition algebra, learning dynamics, and failure modes.
+
+2. **The 1PC vs Enterprise Fork.** The inverse-scaling result suggests a new dimension to the fork: **small-model + evolved-harness** may be the economical path for personal (1PC) deployments, while **large-model + static-harness** characterizes enterprise deployments where hand-tuning is amortized across many users. HarnessX's variant isolation also provides a mechanism for the multi-tenant harness problem (different users need different harness behaviors).
+
+3. **Claims Verification.** HarnessX distinguishes between *procedural memory* (AEGIS — symbolic harness adaptation using execution traces) and *autonomous learning* (cross-harness GRPO — model parameters improve from experience). This is precisely the distinction AllClaws' MISSION draws when evaluating "self-improving" claims.
+
+4. **MCP and Tool Ecosystems.** D4 (Tool Ecosystem) in HarnessX's taxonomy formalizes what AllClaws tracks as MCP adoption vs resistance. The substitution algebra lets tools be swapped without touching other harness components — the theoretical backing for the MCP lifecycle bridge in claw-code.
+
+5. **Observability as a First-Class Concern.** D8 (Observability) confirms AllClaws' emphasis on event-first architectures: structured traces are not merely debugging aids but the *fuel* for harness evolution. clawhip's typed event pipeline and claw-code's mock parity harness are concrete instantiations of this principle.
+
+### Open Questions
+
+1. **Meta-agent capability floor.** HarnessX uses Claude Opus 4.6 as the meta-agent. Can weaker/cheaper meta-agents drive evolution with comparable gains? This directly affects the economics of 1PC harness evolution.
+2. **Held-out generalization.** HarnessX reports gains only on the same task set used for evolution. Does an evolved harness generalize to unseen tasks in the same domain?
+3. **Long-horizon stability.** Variant isolation resolves GAIA stagnation over 15 rounds; does it hold over 100+ rounds, or do variants over-specialize?
+4. **Multi-platform harness.** HarnessX evolves harnesses for a single platform. Can evolved harness components transfer across platforms (e.g., a processor that works for both claw-code and Claude Code)?
+
+### References
+
+- Darwin Agent Team. "HarnessX: A Composable, Adaptive, and Evolvable Agent Harness Foundry." arXiv:2606.14249, July 2026.
+- Fernando et al. "Promptbreeder: Self-Referential Self-Improvement Via Prompt Evolution." arXiv:2309.16797, 2023.
+- Khattab et al. "DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines." arXiv:2310.03714, 2023.
+- Ouyang, Zhang et al. "SICA: Self-Improving Code Agent." arXiv:2505.17029, 2025.
+
+---
+
 ## Future Directions
 
 ### Open Questions
@@ -328,5 +739,5 @@ New harness ecosystems may be added based on:
 
 ---
 
-*Last updated: 2026 May 5*
+*Last updated: 2026 July 15*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*

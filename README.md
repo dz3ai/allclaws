@@ -19,6 +19,7 @@ Based on tracking **30 platforms**, several key trends have emerged:
 3. **"Self-Improving" Claims Scrutiny** — After Hermes-Agent source code analysis, distinction between procedural memory and autonomous learning is critical
 4. **External Framework Integration** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride tracked for ecosystem comparison
 5. **CLI Coding Agents & Human Digital Twin** — aider (~68K stars, git-aware AI pair programming), copilot-cli (GitHub Copilot terminal agent), reasonix (DeepSeek-native coding agent, ~11.3K stars), openhuman (Rust human digital twin platform), codex (OpenAI's Rust-based CLI coding agent, ~86.9K stars, sandboxed execution) added
+6. **Evolutionary Harness Architectures** — HarnessX (Darwin Agent, arXiv:2606.14249) formalizes harness as a first-class evolvable object; 9-dimension taxonomy, trace-driven AEGIS evolution engine, +14.5% avg gain across 5 benchmarks (GAIA, ALFWorld, WebShop, τ³-Bench, SWE-bench Verified)
 
 See [AI Agent Ecosystem Report: April-May 2026](_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md) for full details.
 
@@ -75,6 +76,14 @@ Comprehensive analysis of AI agent platforms across 30 tracked frameworks:
   - **oh-my-codex** (Node.js): Workflow layer with canonical execution patterns
   - **clawhip** (Rust): Event routing daemon with Discord/Slack delivery
   - **oh-my-openagent** (Node.js): Multi-agent coordination layer
+- **Darwin Agent HarnessX** — Python agent harness foundry (MIT)
+  - **HarnessX** (Python): Composable, adaptive, evolvable harness framework with 9-dimension pipeline, MetaHarness auto-optimization, and model-harness co-evolution via GRPO
+- **OmniCoreAgent** — Python production agent harness (MIT, 244 ⭐)
+  - Parallel tool batches, structured observations, MCP, memory, workspace, subagents, guardrails, REST/SSE serving
+- **Harmonist** — Python portable multi-agent orchestration (MIT, 2,292 ⭐)
+  - 193+ pre-built agents, mechanical protocol enforcement, zero runtime dependencies, stdlib-only
+- **SIA** — Python self-improving AI framework (MIT, 2,018 ⭐)
+  - Meta/Target/Feedback agent triad, harness + weight co-improvement, arXiv:2605.27276
 
 **Key Deliverables:**
 - `docs/MISSION.md` - Research mission and position statements
@@ -304,6 +313,13 @@ This is an active research project. Contributions welcome in:
 - **Kimi CLI**: https://github.com/MoonshotAI/kimi-cli
 - **Codex CLI**: https://github.com/openai/codex
 
+**Agent Harnesses & Toolchains (5 ecosystems):**
+- **UltraWorkers**: claw-code, oh-my-codex, clawhip, oh-my-openagent
+- **HarnessX**: https://github.com/Darwin-Agent/HarnessX — composable, adaptive, evolvable harness foundry
+- **OmniCoreAgent**: https://github.com/omnirexflora-labs/omnicoreagent — production agent harness for Python
+- **Harmonist**: https://github.com/GammaLabTechnologies/harmonist — portable multi-agent orchestration
+- **SIA**: https://github.com/hexo-ai/sia — self-improving AI via harness & weight updates
+
 **Human Digital Twin:**
 - **openhuman**: https://github.com/openhuman/openhuman
 
@@ -319,4 +335,4 @@ This project represents ongoing research into AI agent architectures. For discus
 
 ---
 
-*Last updated: May 29, 2026*
+*Last updated: July 15, 2026*
