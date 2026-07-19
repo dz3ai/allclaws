@@ -8,15 +8,15 @@
 
 ## H2 2026 Priorities
 
-### Theme: The Personal vs Enterprise Fork
+### Theme: From Cataloguing to Understanding
 
-The primary focus for H2 2026 is documenting and analyzing the emerging fork between **personal-force-multiplier** and **enterprise-automation** AI agent paradigms.
+The initial phase of AllClaws catalogued 30 platforms and analyzed their architectures. The remaining H2 2026 (July-December) shifts focus **from what exists to how agents fail, interoperate, and mature in production.**
 
 **Key Questions:**
-1. How do these paradigms differ architecturally?
-2. What trade-offs do developers make when choosing one over the other?
-3. Will the ecosystems converge or diverge further?
-4. What patterns transfer between paradigms?
+1. How do agents fail in real-world production scenarios? Can we build a systematic taxonomy?
+2. How are the protocol wars shaping agent interoperability (MCP vs A2A vs proprietary)?
+3. What are the real economics of running agent systems — not just API costs but maintenance, review, and technical debt?
+4. What does the Chinese AI agent ecosystem look like beyond the 30 currently tracked platforms?
 
 ---
 
@@ -76,16 +76,43 @@ Leverages the HarnessX paper (arXiv 2606.14249, July 2026) as the primary academ
 - [x] `architecture/agent_harnesses.md` — New "Evolutionary Harness Architectures" section (July 2026)
 - [x] HarnessX paper notes and findings captured
 
-**Research Scope:**
-- Okta's AI agent identity framework
-- Enterprise deployment patterns (HiClaw, GoClaw, LangGraph, Swarms)
-- Human-in-the-loop workflows
-- Credential isolation patterns
+### 5. Agent Failure Mode Taxonomy
+
+**Status:** Planned
+**Target:** Build a systematic taxonomy of how AI agents break in production
+
+Rather than cataloguing platforms, this focuses on **failure modes** — the concrete ways agents go wrong in real-world scenarios. Each failure mode is studied across multiple platforms.
+
+**Research Questions:**
+- What are the recurring failure patterns? (hallucination loops, tool misuse, context decay, infinite retries)
+- Which failures are platform-specific vs universal?
+- How do different architectures handle the same failure type?
+- What recovery patterns work best?
 
 **Deliverables:**
-- Enterprise governance comparison matrix
-- Best practices documentation
-- Risk analysis frameworks
+- Failure mode taxonomy (10-15 categories) with platform-specific examples
+- Recovery pattern catalog
+- Platform comparison by failure resilience
+- Report: `docs/reports/failure-mode-taxonomy-2026.md`
+
+### 6. China AI Agent Ecosystem Deep-Dive
+
+**Status:** Planned
+**Target:** Document the rapidly growing Chinese AI agent ecosystem
+
+Currently only AgentScope represents the Chinese ecosystem among 30 tracked platforms. Major active projects (Qwen-Agent, Dify, ModelScope, ByteDance agent tools) and the unique constraints of the GFW — limited access to OpenAI APIs, reliance on domestic models (GLM, Qwen, DeepSeek) — create a parallel ecosystem worth studying.
+
+**Research Scope:**
+- Map 10-15 active Chinese AI agent projects (open-source and notable closed-source)
+- Analyze how the GFW shapes architecture decisions (local model preference, censorship bypass patterns)
+- Compare Chinese agent design patterns vs Western equivalents
+- Document government AI governance impact on agent development
+
+**Deliverables:**
+- Chinese ecosystem landscape report
+- Architecture comparison: Chinese vs Western agent patterns
+- Platform recommendations for AllClaws tracking (add 3-5 new platforms)
+- Bilingual blog post (EN + ZH)
 
 ---
 
@@ -150,6 +177,63 @@ Leverages the HarnessX paper (arXiv 2606.14249, July 2026) as the primary academ
 - Documentation vs implementation comparison
 - Evidence of actual performance improvement over time
 
+### 4. Long-Running Agent Benchmarks
+
+**Status:** Planned
+**Target:** Upgrade benchmark suite from micro-benchmarks to end-to-end task evaluation
+
+Current benchmarks measure startup time and dependencies — informative but disconnected from real work. The next evolution tracks agents completing sustained, realistic tasks.
+
+**Research Questions:**
+- How do agents perform on tasks lasting 30+ minutes (GitHub issue resolution, multi-file refactoring)?
+- What is the token cost vs outcome quality curve?
+- How does technical debt accumulate across agent sessions?
+- Can we detect "agent fatigue" — quality degradation over long sessions?
+
+**Deliverables:**
+- Long-running benchmark suite (5+ realistic task scenarios)
+- Token cost modeling tool (estimated API spend per task type)
+- Comparison of agent quality maintenance across platforms
+- CI integration for weekly long-run benchmarking
+
+### 5. Protocol Wars: MCP vs A2A vs Proprietary
+
+**Status:** Planned
+**Target:** Analyze the emerging battle over agent communication standards
+
+Google's Agent-to-Agent (A2A) protocol, Anthropic's MCP, and proprietary solutions from OpenAI/Cursor are vying to become the standard for how agents communicate and share tools. This is a foundational infrastructure decision affecting all 30 tracked platforms.
+
+**Research Questions:**
+- How do MCP, A2A, and proprietary protocols differ in latency, security, and expressiveness?
+- Which platforms are adopting which protocol? Is bifurcation forming?
+- What does protocol choice mean for agent composability?
+- How does the protocol choice affect the 1PC vs Enterprise fork identified in H1 2026?
+
+**Deliverables:**
+- Protocol comparison matrix (MCP vs A2A vs proprietary)
+- Platform adoption survey across 30 tracked projects
+- Recommendations for protocol evaluation
+- Report: `docs/reports/protocol-wars-2026.md`
+
+### 6. Platform Governance & Quality Thresholds
+
+**Status:** Planned
+**Target:** Establish governance rules for a maturing platform catalog
+
+At 30 platforms with growth momentum, AllClaws needs governance to maintain quality. This project formalizes: which platforms earn a spot, which get archived, and what "good" documentation looks like.
+
+**Research Questions:**
+- Should AllClaws cap at 35 platforms? What are the admission criteria?
+- How to handle platforms that go stale (last commit > 6 months)?
+- What is a minimum viable platform analysis?
+- When does a platform "earn" its own architecture doc vs a footnote?
+
+**Deliverables:**
+- Platform admission policy (documented criteria)
+- Quarterly stale-platform review process
+- Quality checklist for platform analysis
+- Stale project archiving criteria and timeline
+
 ---
 
 ## Ongoing Activities
@@ -194,15 +278,15 @@ Leverages the HarnessX paper (arXiv 2606.14249, July 2026) as the primary academ
 
 ---
 
-## Future Directions (2027+)
+## Future Directions (H1 2027 Preview)
 
-### Potential Focus Areas
+These directions may become formal H1 2027 targets, depending on H2 2026 findings:
 
-1. **Mobile-First Agents** — AI agents optimized for mobile deployment
-2. **Edge Computing Agents** — Resource-constrained agent deployments
-3. **Blockchain-Integrated Agents** — Agents with blockchain-based identity/coordination
-4. **Vertical-Specific Analysis** — Healthcare, finance, legal AI agents
-5. **Agent Interoperability** — Cross-platform agent communication protocols
+1. **Agent Economics** — Real cost models beyond API pricing (maintenance overhead, review cost, technical debt accumulation)
+2. **Multi-Agent Orchestration Patterns** — Emergent design patterns for coordinating 3+ agents in production
+3. **Mobile-First Agents** — AI agents optimized for mobile and edge deployment
+4. **Agent Security & Supply Chain** — Vulnerability analysis of agent plugin ecosystems
+5. **Vertical-Specific Deep-Dives** — Healthcare, finance, legal AI agent analysis
 
 ### Expansion Criteria
 
@@ -216,15 +300,17 @@ New platforms may be added based on:
 
 ## Stale / Inactive Projects
 
-The following projects have had no recent activity and may be archived or re-evaluated:
+The following projects have had no recent activity and are candidates for archiving under the new quarterly review process:
 
-| Project | Last Activity | Notes |
-|---------|--------------|-------|
-| Claw-AI-Lab | — | No tags released |
-| ClawTeam | Apr 14, 2026 | No commits since Apr 14 |
-| GoClaw | Apr 27, 2026 | No commits since Apr 27 |
+| Project | Last Activity | Stars | Status |
+|---------|--------------|-------|--------|
+| Claw-AI-Lab | No tags released | ~10K | ⚠️ Review Q3 2026 |
+| ClawTeam | Apr 14, 2026 | 19.7K | ⚠️ Review Q3 2026 |
+| GoClaw | Apr 27, 2026 | 3.2K | ⚠️ Review Q3 2026 |
+| MaxClaw | May 5, 2026 | 228 | ⚠️ Low impact, review Q3 2026 |
+| AutoGen | Apr 6, 2026 | 58.5K | ⚠️ Maintenance mode, review Q4 2026 |
 
-These projects remain tracked for historical comparison but may not receive active updates in architecture documentation.
+**Archiving criteria:** Projects with no commits for 6+ months and no strategic significance may be archived (removing submodule, noting in history). Archived projects remain in documentation for historical comparison.
 
 ---
 
@@ -261,4 +347,4 @@ For discussions, questions, or collaboration opportunities:
 
 ---
 
-*Last updated: July 15, 2026*
+*Last updated: July 19, 2026*
