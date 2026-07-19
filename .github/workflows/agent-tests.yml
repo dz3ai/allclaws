@@ -153,6 +153,9 @@ jobs:
           cd test_framework
           docker-compose up -d
           docker-compose ps
+          echo "Waiting for deepeval-runner to install dependencies..."
+          docker-compose exec -T deepeval-runner sh -c 'while ! python -c "import deepeval" 2>/dev/null; do sleep 5; done'
+          echo "Dependencies ready."
 
       - name: Run DeepEval tests
         run: |
