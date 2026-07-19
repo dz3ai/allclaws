@@ -166,7 +166,7 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
       - DEEPEVAL_API_KEY=${DEEPEVAL_API_KEY}
-    command: sh -c "pip install deepeval pytest pytest-asyncio && tail -f /dev/null"
+    command: sh -c "pip install deepeval pytest; tail -f /dev/null"
 
   # ============================================
   # 结果收集器

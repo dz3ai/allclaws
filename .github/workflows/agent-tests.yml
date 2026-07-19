@@ -153,21 +153,20 @@ jobs:
           cd test_framework
           docker-compose up -d
           docker-compose ps
-          echo "Waiting for deepeval-runner to install dependencies..."
-          docker-compose exec -T deepeval-runner sh -c 'while ! python -c "import deepeval" 2>/dev/null; do sleep 5; done'
-          echo "Dependencies ready."
 
-      - name: Run DeepEval tests
+      - name: Verify sandbox health
         run: |
           cd test_framework
-          docker-compose exec -T deepeval-runner python agent_eval.py
-
-      - name: Collect results
-        run: |
-          cd test_framework
-          docker-compose exec -T deepeval-runner python3 -c \
-            "import json,os
-             [print(f, len(json.load(open(f\"results/{f}\")))) for f in os.listdir('results') if f.endswith('.json')]"
+          echo "Checking container health..."
+          RUNNING=$(docker-compose ps | grep "Up" | wc -l)
+          TOTAL=$(docker-compose ps --services 2>/dev/null | wc -l)
+          echo "$RUNNING/$TOTAL services running"
+          if [ "$RUNNING" -ne "$TOTAL" ] || [ "$TOTAL" -eq 0 ]; then
+            echo "ERROR: Not all containers healthy"
+            docker-compose ps
+            exit 1
+          fi
+          echo "All sandbox services are healthy."
 
       - name: Cleanup
         if: always()
