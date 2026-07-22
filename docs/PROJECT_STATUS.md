@@ -1,26 +1,27 @@
-# AllClaws 项目状态 — 2026-07-21
+# AllClaws 项目状态 — 2026-07-22
 
 ## 总览
 - 仓库: dz3ai/allclaws (GitHub)
 - 平台数: 30 (11 Claw + 13 External + 5 CLI + 1 Digital Twin)
-- 最近提交: `4999f55` — chore: update PROJECT_STATUS for 2026-07-20~21 (07-21 23:30 cron)
-- 本地 HEAD: `4999f55` (07-21), **与 origin 同步** ✅
+- 最近提交: `ab448c3` — chore: update PROJECT_STATUS for 2026-07-21 (fix HEAD reference, add cron CI entries)
+- 本地 HEAD: `ab448c3` (07-22), **与 origin 同步** ✅
 - 分支: main
 - **自 07-19 开发日后无新用户提交** — 项目处于平稳监视期，仅 cron 更新
 
-## 今日活动 (2026-07-21, 周二) — 平稳日
+## 今日活动 (2026-07-22, 周三) — 平稳日
 
 **CI 状态：**
-- ✅ Benchmark Suite schedule #29824413862 (11:00 UTC) — **周二正常执行**
-- ✅ Agent Platform Tests (push) #29836888592 (13:58 UTC) — PROJECT_STATUS cron 推送触发
-- ✅ Deploy Jekyll #29836888578 (13:58 UTC) — PROJECT_STATUS cron 推送触发
+- ✅ Benchmark Suite schedule #29914128890 (11:01 UTC) — **周三正常执行**，Daily Benchmarks (N=5) 通过，Weekly Report/Submodule Updates 自动跳过
+- 06:00 晨间简报 — cron 正常执行
 
-**项目状态：** 23:30 cron 已执行并提交 `4999f55`，0 submodule drift，工作区干净（仅 3 个 untracked 子目录）
+**项目状态：** 23:30 cron 已更新，0 submodule drift，工作区干净（仅 3 个 untracked 子目录）
 
-## 昨日活动 (2026-07-20, 周一) — 平稳日
+## 昨日活动 (2026-07-21, 周二) — 平稳日
 - ⏰ 06:00 晨间简报 — cron 正常执行
-- ✅ **Benchmark Suite schedule #29739263018** (11:38 UTC) — **周一正常恢复执行**
-- 📋 23:30 日终总结 — 项目处于平稳期，无用户活动
+- ✅ **Benchmark Suite schedule #29824413862** (11:06 UTC) — 周二正常执行
+- ✅ **Agent Platform Tests (push)** #29836888592 — PROJECT_STATUS cron 推送触发
+- ✅ **Deploy Jekyll** #29836888578 — PROJECT_STATUS cron 推送触发
+- 📋 23:30 日终总结 — 状态文件 HEAD 引用修正，cron CI 条目补全
 
 ## 前日 Activity (2026-07-19, 周日) — ⭐ 开发日：DeepEval 修复 + 子模块更新 + ROADMAP 扩展
 **6 commits 推送：**
@@ -48,6 +49,7 @@
 ## CI 状态（最新）
 | 工作流 | 状态 | 运行号 | 日期 | 说明 |
 |--------|------|--------|------|------|
+| Benchmark Suite (schedule) | ✅ | #29914128890 | 07-22 | 周三 Daily Benchmarks N=5 |
 | Agent Platform Tests (push) | ✅ | #29836888592 | 07-21 | PROJECT_STATUS cron 推送 (13:58 UTC) |
 | Deploy Jekyll | ✅ | #29836888578 | 07-21 | PROJECT_STATUS cron 推送 (13:58 UTC) |
 | Benchmark Suite | ✅ | #29824413862 | 07-21 | schedule trigger (周二) |
@@ -64,10 +66,10 @@
 ## 进行中 / 待完成
 1. 🟢 **0 个 submodule drift** ✅ — 持续干净
 2. 🟢 **Sandboxed Tests dispatch 已修复** ✅ — run #29686393982 通过
-3. 🟡 **新 ROADMAP 目标待开展** — H2 2026 新增 6 项计划均未启动
+3. 🟡 **新 ROADMAP 目标待开展** — H2 2026 新增 6 项计划均未启动（代理失败分类学、中国生态、协议战争等）
 4. 🟢 GitHub Issue #1 — 内容已覆盖但未关闭
 5. 🟢 本地 untracked 子目录: claw-ai-lab/, hermes-agent/, nanoclaw/
-6. 🟢 **Benchmark Suite 周一/二正常执行** ✅ — 每日自动恢复正常
+6. 🟢 **Benchmark Suite 每日正常执行** ✅ — 周一至周三均通过
 
 ## 关键文件
 - test_framework/benchmark/ — Python benchmark 包 (7 files, v3.0)
@@ -91,6 +93,6 @@
 - Rust: 1.95.0
 
 ## CI 状态（总览）
-- Benchmark Suite: ✅ green (最近 #29824413862, 2026-07-21)
+- Benchmark Suite: ✅ green (最近 #29914128890, 2026-07-22)
 - Agent Platform Tests: ✅ green (最近 #29836888592 cron 推送, 2026-07-21)
 - Deploy Jekyll: ✅ green (最近 #29836888578 cron 推送, 2026-07-21)
