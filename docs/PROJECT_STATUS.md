@@ -1,33 +1,33 @@
-# AllClaws 项目状态 — 2026-07-23
+# AllClaws 项目状态 — 2026-07-24
 
 ## 总览
 - 仓库: dz3ai/allclaws (GitHub)
 - 平台数: 30 (11 Claw + 13 External + 5 CLI + 1 Digital Twin)
-- 最近提交: `cfa4727` — chore: update PROJECT_STATUS for 2026-07-22
-- 本地 HEAD: `cfa4727` (07-23), **与 origin 同步** ✅
+- 最近提交: `b42a972` — chore: update PROJECT_STATUS for 2026-07-23
+- 本地 HEAD: `b42a972` (07-23), **与 origin 同步** ✅
 - 分支: main
 - **自 07-19 开发日后无新用户提交** — 项目处于平稳监视期，仅 cron 更新
 
-## 今日活动 (2026-07-23, 周四) — 平稳日
+## 今日活动 (2026-07-24, 周五) — 平稳日
 
 **CI 状态：**
-- ✅ Benchmark Suite schedule #30001663819 (11:03 UTC) — **周四正常执行**，Daily Benchmarks (N=5) 通过，Weekly Report/Submodule Updates 自动跳过
+- ✅ Benchmark Suite schedule #30087887797 (10:56 UTC) — **周五正常执行**，Daily Benchmarks 通过，Weekly Report/Submodule Updates 自动跳过
 - ⏰ 06:00 晨间简报 — cron 正常执行
 
 **项目状态：** 23:30 cron 已更新，0 submodule drift，工作区干净（仅 3 个 untracked 子目录）
 
-## 昨日活动 (2026-07-22, 周三) — 平稳日
-- ✅ **Benchmark Suite schedule #29914128890** (11:01 UTC) — 周三 Daily Benchmarks N=5 通过
+## 昨日活动 (2026-07-23, 周四) — 平稳日
+- ✅ **Benchmark Suite schedule #30001663819** (11:03 UTC) — 周四 Daily Benchmarks N=5 通过
 - ✅ 06:00 晨间简报 — cron 正常执行
-- ✅ PROJECT_STATUS cron 推送 — `cfa4727` (#29933886766, #29933886715)
+- ✅ Agent Platform Tests (push) #30021145386 — PROJECT_STATUS cron 推送触发（15:34 UTC）
+- ✅ Deploy Jekyll #30021145583 — PROJECT_STATUS cron 推送触发（15:34 UTC）
 - 📋 23:30 日终总结 — 状态更新并推送
 
-## 前日 Activity (2026-07-21, 周二) — 平稳日
+## 前日 Activity (2026-07-22, 周三) — 平稳日
 - ⏰ 06:00 晨间简报 — cron 正常执行
-- ✅ **Benchmark Suite schedule #29824413862** (11:06 UTC) — 周二正常执行
-- ✅ **Agent Platform Tests (push)** #29836888592 — PROJECT_STATUS cron 推送触发
-- ✅ **Deploy Jekyll** #29836888578 — PROJECT_STATUS cron 推送触发
-- 📋 23:30 日终总结 — 状态文件 HEAD 引用修正，cron CI 条目补全
+- ✅ **Benchmark Suite schedule #29914128890** (11:01 UTC) — 周三 Daily Benchmarks N=5 通过
+- ✅ **Agent Platform Tests (push)** #29933886766 — PROJECT_STATUS cron 推送触发
+- ✅ **Deploy Jekyll** #29933886715 — PROJECT_STATUS cron 推送触发
 
 ## 2026-07-19 (周日) — ⭐ 开发日：DeepEval 修复 + 子模块更新 + ROADMAP 扩展
 **6 commits 推送：**
@@ -44,6 +44,8 @@
 - ✅ **ROADMAP 扩展** — H2 2026 新增 6 个计划目标
 
 ## 更早日活动
+- **2026-07-21 (周二)** 平稳日
+- **2026-07-20 (周一)** 平稳日
 - **2026-07-18 (周六)** 平稳日 + Weekly Report
 - **2026-07-17 (周五)** 平稳日
 - **2026-07-16 (周四)** 平稳日
@@ -55,6 +57,9 @@
 ## CI 状态（最新）
 | 工作流 | 状态 | 运行号 | 日期 | 说明 |
 |--------|------|--------|------|------|
+| Benchmark Suite (schedule) | ✅ | #30087887797 | 07-24 | 周五 Daily Benchmarks |
+| Deploy Jekyll | ✅ | #30021145583 | 07-23 | PROJECT_STATUS cron 推送 (15:34 UTC) |
+| Agent Platform Tests (push) | ✅ | #30021145386 | 07-23 | PROJECT_STATUS cron 推送 (15:34 UTC) |
 | Benchmark Suite (schedule) | ✅ | #30001663819 | 07-23 | 周四 Daily Benchmarks N=5 |
 | Agent Platform Tests (push) | ✅ | #29933886766 | 07-22 | PROJECT_STATUS cron 推送 (15:32 UTC) |
 | Deploy Jekyll | ✅ | #29933886715 | 07-22 | PROJECT_STATUS cron 推送 (15:32 UTC) |
@@ -62,11 +67,6 @@
 | Agent Platform Tests (push) | ✅ | #29836888592 | 07-21 | PROJECT_STATUS cron 推送 (13:58 UTC) |
 | Deploy Jekyll | ✅ | #29836888578 | 07-21 | PROJECT_STATUS cron 推送 (13:58 UTC) |
 | Benchmark Suite | ✅ | #29824413862 | 07-21 | schedule trigger (周二) |
-| Benchmark Suite | ✅ | #29739263018 | 07-20 | schedule trigger (周一) |
-| Agent Platform Tests (push) | ✅ | #29693072095 | 07-19 | PROJECT_STATUS 更新 (15:33 UTC) |
-| Agent Platform Tests (dispatch) | ✅ | #29686393982 | 07-19 | **dispatch 修复成功！** |
-| Deploy Jekyll | ✅ | #29693072129 | 07-19 | PROJECT_STATUS 更新 (15:33 UTC) |
-| Deploy Jekyll | ✅ | #29691957623 | 07-19 | ROADMAP 扩展 (15:00 UTC) |
 
 ## 已完成 (累计)
 1–18. (同 07-19 版本，无新增完成项)
@@ -78,7 +78,7 @@
 3. 🟡 **新 ROADMAP 目标待开展** — H2 2026 新增 6 项计划均未启动（代理失败分类学、中国生态、协议战争等）
 4. 🟢 GitHub Issue #1 — 内容已覆盖但未关闭
 5. 🟢 本地 untracked 子目录: claw-ai-lab/, hermes-agent/, nanoclaw/
-6. 🟢 **Benchmark Suite 每日正常执行** ✅ — 周一至周四均通过
+6. 🟢 **Benchmark Suite 每日正常执行** ✅ — 周一至周五均通过
 
 ## 关键文件
 - test_framework/benchmark/ — Python benchmark 包 (7 files, v3.0)
@@ -102,6 +102,6 @@
 - Rust: 1.95.0
 
 ## CI 状态（总览）
-- Benchmark Suite: ✅ green (最近 #30001663819, 2026-07-23)
-- Agent Platform Tests: ✅ green (最近 #29933886766 cron 推送, 2026-07-22)
-- Deploy Jekyll: ✅ green (最近 #29933886715 cron 推送, 2026-07-22)
+- Benchmark Suite: ✅ green (最近 #30087887797, 2026-07-24)
+- Agent Platform Tests: ✅ green (最近 #30021145386 cron 推送, 2026-07-23)
+- Deploy Jekyll: ✅ green (最近 #30021145583 cron 推送, 2026-07-23)
