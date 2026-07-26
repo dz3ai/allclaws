@@ -1,34 +1,41 @@
-# AllClaws 项目状态 — 2026-07-25
+# AllClaws 项目状态 — 2026-07-26
 
 ## 总览
 - 仓库: dz3ai/allclaws (GitHub)
 - 平台数: 30 (11 Claw + 13 External + 5 CLI + 1 Digital Twin)
-- 最近提交: `671f85f` — chore: update PROJECT_STATUS for 2026-07-24
-- 本地 HEAD: `671f85f` (07-24), **与 origin 同步** ✅
+- 最近提交: `6207aa9` — submodules: weekly update 2026-07-26
+- 本地 HEAD: `6207aa9` (07-26), **与 origin 同步** ✅
 - 分支: main
-- **自 07-19 开发日后无新用户提交** — 项目处于平稳监视期，仅 cron 更新（第6天）
+- **自 07-19 开发日后无新用户提交** — 项目处于平稳监视期，仅 cron 更新（第7天）
 
-## 今日活动 (2026-07-25, 周六) — 平稳日
+## 今日活动 (2026-07-26, 周日) — ⭐ Submodule Weekly Update
 
 **CI 状态：**
-- ✅ **Benchmark Suite schedule #30154372796** (10:23 UTC) — **周六 Weekly Report 正常执行通过**，Daily Benchmarks/Submodule Updates 自动跳过
-- ⏰ 06:00 晨间简报 — cron 正常执行，无新活动 [SILENT]
+- ✅ **Benchmark Suite #30198703303** (09:00 UTC) — **周日 Submodule Updates 自动执行**
+- ✅ **17 个子模块有更新** — agent-zero, agentscope, copilot-cli, reasonix, eliza, goclaw, hermes-agent, hiclaw, ironclaw, nanobot, nanoclaw, openclaw, openhuman, praisonai, rocketride-server, zeroclaw 等
+- ✅ **Submodule Updates job:** 检测到变更 → 自动提交 `6207aa9` → 推送至 main
+- ✅ **Agent Platform Tests #30186075464** (schedule) — 触发成功
+- ⏰ 06:00 晨间简报 — cron 正常执行，无新活动
 
-**项目状态：** 23:30 cron 已更新，0 submodule drift，工作区干净（仅 3 个 untracked 子目录）
+**项目状态：** 23:30 cron 已更新，本地已同步 origin（`git pull` fast-forward），17 个子模块指针更新，工作区干净（3 个 untracked 子目录不变）
 
-## 昨日活动 (2026-07-24, 周五) — 平稳日
+## 昨日活动 (2026-07-25, 周六) — 平稳日
+- ✅ **Benchmark Suite schedule #30154372796** (10:23 UTC) — 周六 Weekly Report 正常执行通过，Daily Benchmarks/Submodule Updates 自动跳过
+- ✅ 06:00 晨间简报 — cron 正常执行，无新活动 [SILENT]
+- ✅ PROJECT_STATUS.md 已更新至 07-25，提交 `cf0f449` 并推送
+
+## 2026-07-24 (周五) — 平稳日
 - ✅ **Benchmark Suite schedule #30087887797** (10:56 UTC) — 周五 Daily Benchmarks 通过
 - ✅ 06:00 晨间简报 — cron 正常执行
 - ✅ PROJECT_STATUS.md 已更新至 07-24，提交 `671f85f` 并推送
 
-## 前日 Activity (2026-07-23, 周四) — 平稳日
+## 2026-07-23 (周四) — 平稳日
 - ✅ **Benchmark Suite schedule #30001663819** (11:03 UTC) — 周四 Daily Benchmarks N=5 通过
 - ✅ 06:00 晨间简报 — cron 正常执行
 - ✅ Agent Platform Tests (push) #30021145386 — PROJECT_STATUS cron 推送触发（15:34 UTC）
 - ✅ Deploy Jekyll #30021145583 — PROJECT_STATUS cron 推送触发（15:34 UTC）
-- 📋 23:30 日终总结 — 状态更新并推送
 
-## 2026-07-22 Activity
+## 2026-07-22 (周三) — 平稳日
 - ✅ Benchmark Suite schedule #29914128890 (11:01 UTC) — 周三 Daily Benchmarks N=5 通过
 - ✅ Agent Platform Tests (push) #29933886766 — PROJECT_STATUS cron 推送触发
 - ✅ Deploy Jekyll #29933886715 — PROJECT_STATUS cron 推送触发
@@ -61,6 +68,8 @@
 ## CI 状态（最新）
 | 工作流 | 状态 | 运行号 | 日期 | 说明 |
 |--------|------|--------|------|------|
+| Benchmark Suite (schedule) | ✅ | #30198703303 | 07-26 | 周日 Submodule Updates (17 子模块更新) |
+| Agent Platform Tests (schedule) | ✅ | #30186075464 | 07-26 | schedule 触发 |
 | Benchmark Suite (schedule) | ✅ | #30154372796 | 07-25 | 周六 Weekly Report |
 | Benchmark Suite (schedule) | ✅ | #30087887797 | 07-24 | 周五 Daily Benchmarks |
 | Deploy Jekyll | ✅ | #30021145583 | 07-23 | PROJECT_STATUS cron 推送 (15:34 UTC) |
@@ -78,19 +87,19 @@
     — 项目自 07-19 日开发后进入平稳监视期
 
 ## 进行中 / 待完成
-1. 🟢 **0 个 submodule drift** ✅ — 持续干净
+1. 🟢 **17 个子模块已由 CI 自动更新** ✅ — commit `6207aa9` （2026-07-26 周日 weekly update）
 2. 🟢 **Sandboxed Tests dispatch 已修复** ✅ — run #29686393982 通过
 3. 🟡 **新 ROADMAP 目标待开展** — H2 2026 新增 6 项计划均未启动（代理失败分类学、中国生态、协议战争等）
 4. 🟢 GitHub Issue #1 — 内容已覆盖但未关闭
-5. 🟢 本地 untracked 子目录: claw-ai-lab/, hermes-agent/, nanoclaw/
-6. 🟢 **Benchmark Suite 每日正常执行** ✅ — 周一至周六均通过
+5. 🟢 本地 untracked 子目录: claw-ai-lab/, hermes-agent/, nanoclaw/（无变化）
+6. 🟢 **Benchmark Suite 每日正常执行** ✅ — 周日至周六每天通过
 
 ## 关键文件
 - test_framework/benchmark/ — Python benchmark 包 (7 files, v3.0)
 - test_framework/config.json — 30 platforms 配置
 - test_framework/scripts/run_runtime_benchmarks.sh — v3.0.0 Python engine wrapper
 - test_framework/docker-compose.yml — Sandboxed Tests 容器定义
-- .github/workflows/benchmark-suite.yml — CI workflow (Mon-Fri daily, Sat weekly)
+- .github/workflows/benchmark-suite.yml — CI workflow (Mon-Fri daily, Sat weekly, Sun submodule updates)
 - .github/workflows/agent-tests.yml — 静态分析 + 基准测试 (11 platforms, ✅ dispatch 已修复)
 - architecture/platform_comparison.md + .zh-CN.md — 平台对比矩阵
 - architecture/agent_harnesses.md + .zh-CN.md — harness 项目分析
@@ -107,6 +116,6 @@
 - Rust: 1.95.0
 
 ## CI 状态（总览）
-- Benchmark Suite: ✅ green (最近 #30154372796, 2026-07-25 周六 Weekly Report)
-- Agent Platform Tests: ✅ green (最近 #30021145386 cron 推送, 2026-07-23)
+- Benchmark Suite: ✅ green (最近 #30198703303, 2026-07-26 周日 Submodule Updates)
+- Agent Platform Tests: ✅ green (最近 #30186075464 schedule, 2026-07-26)
 - Deploy Jekyll: ✅ green (最近 #30021145583 cron 推送, 2026-07-23)
