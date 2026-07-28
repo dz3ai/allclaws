@@ -93,8 +93,9 @@ AllClaws 的初期阶段对 31 个平台进行了编目并分析了其架构。2
 
 ### 6. 中国 AI 代理生态系统深度调研
 
-**状态：** 计划中
+**状态：** 已完成 ✅（2026 年 7 月）
 **目标：** 记录快速增长的中国 AI 代理生态系统
+**报告：** `docs/reports/china-agent-ecosystem-2026.md`
 
 当前 31 个跟踪平台中只有 AgentScope 代表中国生态系统。重要的活跃项目（Qwen-Agent、Dify、ModelScope、字节跳动的代理工具）和 GFW 的独特约束——限制访问 OpenAI API、依赖国产模型（GLM、Qwen、DeepSeek）——创造了一个值得研究的并行生态系统。
 

@@ -97,8 +97,9 @@ Rather than cataloguing platforms, this focuses on **failure modes** — the con
 
 ### 6. China AI Agent Ecosystem Deep-Dive
 
-**Status:** Planned
+**Status:** Completed ✅ (July 2026)
 **Target:** Document the rapidly growing Chinese AI agent ecosystem
+**Report:** `docs/reports/china-agent-ecosystem-2026.md`
 
 Currently only AgentScope represents the Chinese ecosystem among 31 tracked platforms. Major active projects (Qwen-Agent, Dify, ModelScope, ByteDance agent tools) and the unique constraints of the GFW — limited access to OpenAI APIs, reliance on domestic models (GLM, Qwen, DeepSeek) — create a parallel ecosystem worth studying.
 
