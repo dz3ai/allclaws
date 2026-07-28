@@ -6,7 +6,7 @@
 
 ## Mission Statement
 
-AllClaws conducts independent research on AI agent architectures and deployment models, with emphasis on understanding the emerging distinction between **personal-force-multiplier** and **enterprise-automation** paradigms. We track 31 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
+AllClaws conducts independent research on AI agent architectures and deployment models, with emphasis on understanding the emerging distinction between **personal-force-multiplier** and **enterprise-automation** paradigms. We track 34 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
 
 ---
 
@@ -30,9 +30,9 @@ A world where AI agent platforms are understood by their actual capabilities, no
 
 ### Scope
 
-**31 Platforms + 2 Agent Harness Ecosystems Tracked:**
+**34 Platforms + 2 Agent Harness Ecosystems Tracked:**
 - **Claw Ecosystem (11):** OpenClaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, ZeroClaw, HiClaw, Hermes-Agent, Claw-AI-Lab
-- **External Frameworks (14):** SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, Kimi Code, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride, OpenWorker
+- **External Frameworks (17):** SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, Kimi Code, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride, OpenWorker
 - **CLI Coding Agents (5):** aider, copilot-cli, reasonix, kimi-cli, codex
 - **Human Digital Twin (1):** openhuman
 - **Agent Harnesses & Toolchains (5):** UltraWorkers (claw-code, oh-my-codex, clawhip, oh-my-openagent), HarnessX (Darwin Agent), OmniCoreAgent, Harmonist (GammaLab), SIA (hexo-ai)
@@ -158,7 +158,7 @@ Our architecture analysis comes from reading actual source code, not README file
 
 ### 4. Comprehensive Coverage
 
-31 platforms across both specialized claw ecosystem and major external frameworks, plus CLI coding agents and a human digital twin platform, provides unparalleled ecosystem visibility.
+34 platforms across both specialized claw ecosystem and major external frameworks, plus CLI coding agents and a human digital twin platform, provides unparalleled ecosystem visibility.
 
 ---
 

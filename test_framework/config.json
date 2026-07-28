@@ -32,7 +32,10 @@
     "agent-zero",
     "praisonai",
     "rocketride-server",
-    "openworker"
+    "openworker",
+    "dify",
+    "metagpt",
+    "qwen-agent"
   ],
   "default_privilege_level": "standard",
   "audit_logging": true,
