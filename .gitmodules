@@ -73,3 +73,15 @@
 [submodule "coding-agents/external-frameworks/openworker"]
 	path = coding-agents/external-frameworks/openworker
 	url = https://github.com/andrewyng/openworker.git
+[submodule "coding-agents/external-frameworks/metagpt"]
+	path = coding-agents/external-frameworks/metagpt
+	url = https://github.com/geekan/MetaGPT.git
+	branch = main
+[submodule "coding-agents/external-frameworks/qwen-agent"]
+	path = coding-agents/external-frameworks/qwen-agent
+	url = https://github.com/QwenLM/Qwen-Agent.git
+	branch = main
+[submodule "coding-agents/external-frameworks/dify"]
+	path = coding-agents/external-frameworks/dify
+	url = https://github.com/langgenius/dify.git
+	branch = main
