@@ -78,8 +78,9 @@ Leverages the HarnessX paper (arXiv 2606.14249, July 2026) as the primary academ
 
 ### 5. Agent Failure Mode Taxonomy
 
-**Status:** Planned
+**Status:** Completed ✅ (July 2026)
 **Target:** Build a systematic taxonomy of how AI agents break in production
+**Report:** `docs/reports/failure-mode-taxonomy-2026.md`
 
 Rather than cataloguing platforms, this focuses on **failure modes** — the concrete ways agents go wrong in real-world scenarios. Each failure mode is studied across multiple platforms.
 
