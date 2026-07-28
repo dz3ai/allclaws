@@ -10,13 +10,13 @@
 
 ### Theme: From Cataloguing to Understanding
 
-The initial phase of AllClaws catalogued 30 platforms and analyzed their architectures. The remaining H2 2026 (July-December) shifts focus **from what exists to how agents fail, interoperate, and mature in production.**
+The initial phase of AllClaws catalogued 31 platforms and analyzed their architectures. The remaining H2 2026 (July-December) shifts focus **from what exists to how agents fail, interoperate, and mature in production.**
 
 **Key Questions:**
 1. How do agents fail in real-world production scenarios? Can we build a systematic taxonomy?
 2. How are the protocol wars shaping agent interoperability (MCP vs A2A vs proprietary)?
 3. What are the real economics of running agent systems — not just API costs but maintenance, review, and technical debt?
-4. What does the Chinese AI agent ecosystem look like beyond the 30 currently tracked platforms?
+4. What does the Chinese AI agent ecosystem look like beyond the 31 currently tracked platforms?
 
 ---
 
@@ -25,10 +25,10 @@ The initial phase of AllClaws catalogued 30 platforms and analyzed their archite
 ### 1. Complete Unified Platform Comparison
 
 **Status:** Completed ✅
-**Target:** Complete architecture documentation for all 30 platforms
+**Target:** Complete architecture documentation for all 31 platforms
 
 **Deliverables:**
-- [x] `architecture/platform_comparison.md` — Unified comparison of all 30 platforms
+- [x] `architecture/platform_comparison.md` — Unified comparison of all 31 platforms
 - [x] Standardized format for each platform (classification, architecture, diagrams)
 - [x] Cross-platform comparison matrices
 - [x] Chinese translation (`platform_comparison.zh-CN.md`)
@@ -48,7 +48,7 @@ The initial phase of AllClaws catalogued 30 platforms and analyzed their archite
 - What is the actual token overhead of MCP in production deployments?
 - Which MCP servers are most widely adopted?
 - How do MCP-native frameworks differ from MCP-adapter approaches?
-- What is the rate of MCP adoption across the 30 tracked platforms?
+- What is the rate of MCP adoption across the 31 tracked platforms?
 
 **Deliverables:**
 - MCP adoption report (native vs adapter vs resistant)
@@ -100,7 +100,7 @@ Rather than cataloguing platforms, this focuses on **failure modes** — the con
 **Status:** Planned
 **Target:** Document the rapidly growing Chinese AI agent ecosystem
 
-Currently only AgentScope represents the Chinese ecosystem among 30 tracked platforms. Major active projects (Qwen-Agent, Dify, ModelScope, ByteDance agent tools) and the unique constraints of the GFW — limited access to OpenAI APIs, reliance on domestic models (GLM, Qwen, DeepSeek) — create a parallel ecosystem worth studying.
+Currently only AgentScope represents the Chinese ecosystem among 31 tracked platforms. Major active projects (Qwen-Agent, Dify, ModelScope, ByteDance agent tools) and the unique constraints of the GFW — limited access to OpenAI APIs, reliance on domestic models (GLM, Qwen, DeepSeek) — create a parallel ecosystem worth studying.
 
 **Research Scope:**
 - Map 10-15 active Chinese AI agent projects (open-source and notable closed-source)
@@ -154,7 +154,7 @@ Currently only AgentScope represents the Chinese ecosystem among 30 tracked plat
 - Token efficiency (output/input ratio)
 
 **Deliverables:**
-- [x] Performance comparison across 30 platforms
+- [x] Performance comparison across 31 platforms
 - [x] Benchmark methodology documentation (EN + ZH)
 - [x] Performance regression detection (CI integration)
 - [x] Local benchmark environment setup
@@ -201,7 +201,7 @@ Current benchmarks measure startup time and dependencies — informative but dis
 **Status:** Planned
 **Target:** Analyze the emerging battle over agent communication standards
 
-Google's Agent-to-Agent (A2A) protocol, Anthropic's MCP, and proprietary solutions from OpenAI/Cursor are vying to become the standard for how agents communicate and share tools. This is a foundational infrastructure decision affecting all 30 tracked platforms.
+Google's Agent-to-Agent (A2A) protocol, Anthropic's MCP, and proprietary solutions from OpenAI/Cursor are vying to become the standard for how agents communicate and share tools. This is a foundational infrastructure decision affecting all 31 tracked platforms.
 
 **Research Questions:**
 - How do MCP, A2A, and proprietary protocols differ in latency, security, and expressiveness?
@@ -211,7 +211,7 @@ Google's Agent-to-Agent (A2A) protocol, Anthropic's MCP, and proprietary solutio
 
 **Deliverables:**
 - Protocol comparison matrix (MCP vs A2A vs proprietary)
-- Platform adoption survey across 30 tracked projects
+- Platform adoption survey across 31 tracked projects
 - Recommendations for protocol evaluation
 - Report: `docs/reports/protocol-wars-2026.md`
 
@@ -220,7 +220,7 @@ Google's Agent-to-Agent (A2A) protocol, Anthropic's MCP, and proprietary solutio
 **Status:** Planned
 **Target:** Establish governance rules for a maturing platform catalog
 
-At 30 platforms with growth momentum, AllClaws needs governance to maintain quality. This project formalizes: which platforms earn a spot, which get archived, and what "good" documentation looks like.
+At 31 platforms with growth momentum, AllClaws needs governance to maintain quality. This project formalizes: which platforms earn a spot, which get archived, and what "good" documentation looks like.
 
 **Research Questions:**
 - Should AllClaws cap at 35 platforms? What are the admission criteria?

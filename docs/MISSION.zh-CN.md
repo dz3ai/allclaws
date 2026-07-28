@@ -6,7 +6,7 @@ English | **[中文](MISSION.zh-CN.md)**
 
 ## 使命声明
 
-AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注理解**个人力量倍增器**和**企业自动化**范式之间正在出现的区别。我们跟踪 claw 生态和外部框架的 30 个平台，提供真实能力与营销声明对比的客观分析。
+AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注理解**个人力量倍增器**和**企业自动化**范式之间正在出现的区别。我们跟踪 claw 生态和外部框架的 31 个平台，提供真实能力与营销声明对比的客观分析。
 
 ---
 
@@ -30,9 +30,9 @@ AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注�
 
 ### 范围
 
-**跟踪的 30 个平台 + 2 个 Agent Harness 生态：**
+**跟踪的 31 个平台 + 2 个 Agent Harness 生态：**
 - **Claw 生态（11 个）：** OpenClaw、ClawTeam、GoClaw、IronClaw、Maxclaw、NanoClaw、Nanobot、ZeroClaw、HiClaw、Hermes-Agent、Claw-AI-Lab
-- **外部框架（13 个）：** SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、Kimi Code、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride
+- **外部框架（14 个）：** SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、Kimi Code、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride、OpenWorker
 - **CLI 编程代理（5 个）：** aider、copilot-cli、reasonix、kimi-cli、codex
 - **人类数字孪生（1 个）：** openhuman
 - **Agent Harnesses & Toolchains（5 个）：** UltraWorkers（claw-code 等）、HarnessX（Darwin Agent）、OmniCoreAgent、Harmonist（GammaLab）、SIA（hexo-ai）
@@ -57,7 +57,7 @@ AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注�
 
 ### 关于平台覆盖
 
-我们同时跟踪 claw 生态平台（11 个）和重要的外部框架（13 个），加上 CLI 编程代理（5 个）、人类数字孪生平台（1 个）和 5 个 agent harness & toolchain 生态（UltraWorkers、HarnessX、OmniCoreAgent、Harmonist、SIA），以提供全面的生态系统覆盖。我们的重点是理解架构模式，而不是推广任何特定实现。
+我们同时跟踪 claw 生态平台（11 个）和重要的外部框架（14 个），加上 CLI 编程代理（5 个）、人类数字孪生平台（1 个）和 5 个 agent harness & toolchain 生态（UltraWorkers、HarnessX、OmniCoreAgent、Harmonist、SIA），以提供全面的生态系统覆盖。我们的重点是理解架构模式，而不是推广任何特定实现。
 
 **理由：** "claw" 和 "外部" 之间的区别是历史性的，而非质量上的。LangGraph 和 CrewAI 等外部框架代表行业标准，必须理解这些标准才能进行完整的生态系统分析。
 
@@ -158,7 +158,7 @@ MCP 代表了一个岔路口：标准化 vs 本地控制。我们跟踪两种方
 
 ### 4. 全面覆盖
 
-跨专业 claw 生态和主要外部框架的 30 个平台，加上 CLI 编程代理和人类数字孪生平台，提供了无与伦比的生态系统可见性。
+跨专业 claw 生态和主要外部框架的 31 个平台，加上 CLI 编程代理和人类数字孪生平台，提供了无与伦比的生态系统可见性。
 
 ---
 

@@ -6,18 +6,18 @@
 
 ## 🎯 使命
 
-AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注理解**个人力量倍增器**和**企业自动化**范式之间正在出现的区别。我们跟踪 claw 生态和外部框架的 30 个平台，提供真实能力与营销声明对比的客观分析。
+AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注理解**个人力量倍增器**和**企业自动化**范式之间正在出现的区别。我们跟踪 claw 生态和外部框架的 31 个平台，提供真实能力与营销声明对比的客观分析。
 
 **完整使命：** [docs/MISSION.md](docs/MISSION.md)
 
 ## 🔥 关键洞察（2026 年 5 月）
 
-基于跟踪**30 个平台**，出现了几个关键趋势：
+基于跟踪**31 个平台**，出现了几个关键趋势：
 
 1. **个人与企业分叉** — 个人力量倍增器（1PC）和企业自动化范式之间出现明显分歧
 2. **MCP 争论激化** — 模型上下文协议在企业获得采用，但本地优先代理因 token 开销而抵制
 3. **"自我改进"声明受到审视** — Hermes-Agent 源代码分析显示，程序记忆 ≠ 自主学习
-4. **外部框架集成** — SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride 纳入生态比较
+4. **外部框架集成** — SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride、OpenWorker 纳入生态比较
 5. **CLI 编程代理与人类数字孪生** — aider（约 68K 星，git 感知 AI 结对编程）、copilot-cli（GitHub Copilot 终端代理）、reasonix（DeepSeek 原生编程代理，约 11.3K 星）、openhuman（Rust 人类数字孪生平台）、codex（OpenAI Rust CLI 编程代理，约 86.9K 星，沙箱执行）新增
 
 详见 [AI Agent Ecosystem Report: April-May 2026](_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md)。
@@ -29,7 +29,7 @@ AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注�
 ### 1. 架构分析与比较
 **状态：** ✅ 活跃开发中
 
-30 个跟踪平台的全面分析：
+31 个跟踪平台的全面分析：
 
 **Claw 生态（11 个平台）：**
 - **Openclaw** (TypeScript)：支持多渠道的可扩展 CLI
@@ -58,6 +58,7 @@ AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注�
 - **Agent Zero** (Python)：自主 AI 代理框架，具备工具使用能力（MIT）
 - **PraisonAI** (Python)：多代理 LLM 框架，低代码工作流构建器（MIT）
 - **Rocketride** (TypeScript)：near.ai 代理服务器，自主任务执行（MIT）
+- **OpenWorker** (Python/Rust)：Andrew Ng 开源桌面 AI 协作助手——生成完成的交付物（文档、电子表格、报告），25+ 集成，MCP 原生，审批门控操作，自带模型（MIT，约 9.8K 星）
 
 **CLI 编程代理（5 个平台）：**
 - **aider** (Python)：AI 结对编程 CLI，git 感知多模型支持（约 68K 星）
@@ -82,7 +83,7 @@ AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注�
 - `architecture/external_frameworks.md` - 外部框架深度分析
 - `architecture/agent_harnesses.md` - Agent 框架和工具链分析
 - `architecture/architecture_comparison.md` - Claw 生态分析（重定向到新比较）
-- `architecture/platform_comparison.md` - 统一 30 平台比较（中英文）
+- `architecture/platform_comparison.md` - 统一 31 平台比较（中英文）
 - `architecture/agent_harnesses.md` - 代理 harness 和工具链分析
 - `architecture/multi_agent_coordination_research.md` - 多代理协调趋势分析
 
@@ -217,8 +218,8 @@ bash tests/test_agent_validation.sh
 ## 📊 当前状态与路线图
 
 ### ✅ 已完成
-- [x] 30 个平台的架构分析（11 个 claw 生态 + 13 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）
-- [x] 外部框架集成（SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride）
+- [x] 31 个平台的架构分析（11 个 claw 生态 + 14 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）
+- [x] 外部框架集成（SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride、OpenWorker）
 - [x] 多代理协调趋势研究
 - [x] 月度生态系统更新跟踪（英文 + 中文）
 - [x] 跨平台静态分析测试框架（v2.1，165/177 通过，11 个 claw 平台）
@@ -233,7 +234,7 @@ bash tests/test_agent_validation.sh
 - [x] 安全权限和规则执行
 - [c] 全面的 .gitignore 敏感数据保护
 - [x] 双语文档（英文 + 中文）
-- [x] 统一平台比较（全部 30 个平台，中英文）
+- [x] 统一平台比较（全部 31 个平台，中英文）
 - [x] 代理 harness 和工具链分析（中英文）
 - [x] 博客：个人 harness 教程、企业 vs 1PC 分叉分析
 

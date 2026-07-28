@@ -6,18 +6,18 @@
 
 ## 🎯 Mission
 
-AllClaws conducts independent research on AI agent architectures and deployment models, with emphasis on understanding the emerging distinction between **personal-force-multiplier** and **enterprise-automation** paradigms. We track 30 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
+AllClaws conducts independent research on AI agent architectures and deployment models, with emphasis on understanding the emerging distinction between **personal-force-multiplier** and **enterprise-automation** paradigms. We track 31 platforms across both claw ecosystem and external frameworks to provide objective analysis of real capabilities versus marketing claims.
 
 **Full Mission:** [docs/MISSION.md](docs/MISSION.md)
 
 ## 🔥 Key Insights (May 2026)
 
-Based on tracking **30 platforms**, several key trends have emerged:
+Based on tracking **31 platforms**, several key trends have emerged:
 
 1. **The Personal vs Enterprise Fork** — Clear divergence between personal-force-multiplier (1PC) and enterprise-automation paradigms
 2. **MCP Debate Intensifies** — Model Context Protocol gaining enterprise adoption but facing resistance from local-first agents over token overhead
 3. **"Self-Improving" Claims Scrutiny** — After Hermes-Agent source code analysis, distinction between procedural memory and autonomous learning is critical
-4. **External Framework Integration** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride tracked for ecosystem comparison
+4. **External Framework Integration** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride, OpenWorker tracked for ecosystem comparison
 5. **CLI Coding Agents & Human Digital Twin** — aider (~68K stars, git-aware AI pair programming), copilot-cli (GitHub Copilot terminal agent), reasonix (DeepSeek-native coding agent, ~11.3K stars), openhuman (Rust human digital twin platform), codex (OpenAI's Rust-based CLI coding agent, ~86.9K stars, sandboxed execution) added
 6. **Evolutionary Harness Architectures** — HarnessX (Darwin Agent, arXiv:2606.14249) formalizes harness as a first-class evolvable object; 9-dimension taxonomy, trace-driven AEGIS evolution engine, +14.5% avg gain across 5 benchmarks (GAIA, ALFWorld, WebShop, τ³-Bench, SWE-bench Verified)
 
@@ -30,7 +30,7 @@ See [Latest Updates: April-May 2026](docs/LATEST_UPDATES.md) for full details.
 ### 1. Architecture Analysis & Comparison
 **Status:** ✅ Active Development
 
-Comprehensive analysis of AI agent platforms across 30 tracked frameworks:
+Comprehensive analysis of AI agent platforms across 31 tracked frameworks:
 
 **Claw Ecosystem (11 platforms):**
 - **Openclaw** (TypeScript): Extensible CLI with multi-channel support
@@ -59,6 +59,7 @@ Comprehensive analysis of AI agent platforms across 30 tracked frameworks:
 - **Agent Zero** (Python): Autonomous AI agent framework with tool-use capabilities (MIT)
 - **PraisonAI** (Python): Multi-agent LLM framework with low-code workflow builder (MIT)
 - **Rocketride** (TypeScript): near.ai agent server for autonomous task execution (MIT)
+- **OpenWorker** (Python/Rust): Andrew Ng's open-source desktop AI coworker — produces finished deliverables (docs, spreadsheets, reports) with 25+ integrations, MCP native, approval-gated actions, BYO model (MIT, ~9.8K stars)
 
 **CLI Coding Agents (5 platforms):**
 - **aider** (Python): AI pair programming CLI with git-aware multi-model support (~68K stars)
@@ -91,7 +92,7 @@ Comprehensive analysis of AI agent platforms across 30 tracked frameworks:
 - `architecture/external_frameworks.md` - External frameworks deep-dive
 - `architecture/agent_harnesses.md` - Agent harnesses and toolchains analysis
 - `architecture/architecture_comparison.md` - Claw ecosystem analysis (redirect to new comparison)
-- `architecture/platform_comparison.md` - Unified 30-platform comparison (EN + ZH)
+- `architecture/platform_comparison.md` - Unified 31-platform comparison (EN + ZH)
 - `architecture/agent_harnesses.md` - Agent harnesses & toolchains analysis
 - `architecture/multi_agent_coordination_research.md` - Multi-agent coordination trend analysis
 
@@ -173,7 +174,7 @@ Creating educational content about personal AI assistants:
 - [The AI Agent Fork: Enterprise vs 1PC](_posts/2026-05-06-ai-agent-fork-enterprise-vs-1pc.md) — Why both sides are right
 - [AI Agent Ecosystem Report: April-May 2026](_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md) — Monthly report
 - [Agent Harnesses & Toolchains](architecture/agent_harnesses.md) — UltraWorkers stack analysis
-- [Unified Platform Comparison](architecture/platform_comparison.md) — All 30 platforms
+- [Unified Platform Comparison](architecture/platform_comparison.md) — All 31 platforms
 - Multi-agent coordination trend analysis
 - Security considerations for personal AI agents
 - Framework documentation (English + Chinese)
@@ -230,7 +231,7 @@ bash tests/test_agent_validation.sh
 ## 📊 Current Status & Roadmap
 
 ### ✅ Completed
-- [x] Architecture analysis of 30 platforms (11 claw ecosystem + 13 external frameworks + 5 CLI coding agents + 1 human digital twin)
+- [x] Architecture analysis of 31 platforms (11 claw ecosystem + 14 external frameworks + 5 CLI coding agents + 1 human digital twin)
 - [x] External frameworks integration (SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride)
 - [x] Multi-agent coordination trend research
 - [x] Monthly ecosystem updates tracking (EN + ZH)
@@ -246,7 +247,7 @@ bash tests/test_agent_validation.sh
 - [x] Security privilege and rule enforcement
 - [x] Comprehensive .gitignore for sensitive data protection
 - [x] Bilingual documentation (English + Chinese)
-- [x] Unified platform comparison (all 30 platforms, EN + ZH)
+- [x] Unified platform comparison (all 31 platforms, EN + ZH)
 - [x] Agent harnesses & toolchains analysis (EN + ZH)
 - [x] Blog: personal harness tutorial, enterprise vs 1PC fork analysis
 

@@ -31,7 +31,8 @@
     "eliza",
     "agent-zero",
     "praisonai",
-    "rocketride-server"
+    "rocketride-server",
+    "openworker"
   ],
   "default_privilege_level": "standard",
   "audit_logging": true,
