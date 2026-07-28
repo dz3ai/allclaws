@@ -32,7 +32,7 @@ AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注�
 
 **跟踪的 34 个平台 + 2 个 Agent Harness 生态：**
 - **Claw 生态（11 个）：** OpenClaw、ClawTeam、GoClaw、IronClaw、Maxclaw、NanoClaw、Nanobot、ZeroClaw、HiClaw、Hermes-Agent、Claw-AI-Lab
-- **外部框架（17 个）：** SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、Kimi Code、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride、OpenWorker
+- **外部框架（17 个）：** SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、Kimi Code、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride、OpenWorker、Dify、MetaGPT、Qwen-Agent
 - **CLI 编程代理（5 个）：** aider、copilot-cli、reasonix、kimi-cli、codex
 - **人类数字孪生（1 个）：** openhuman
 - **Agent Harnesses & Toolchains（5 个）：** UltraWorkers（claw-code 等）、HarnessX（Darwin Agent）、OmniCoreAgent、Harmonist（GammaLab）、SIA（hexo-ai）

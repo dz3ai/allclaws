@@ -17,7 +17,7 @@ AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注�
 1. **个人与企业分叉** — 个人力量倍增器（1PC）和企业自动化范式之间出现明显分歧
 2. **MCP 争论激化** — 模型上下文协议在企业获得采用，但本地优先代理因 token 开销而抵制
 3. **"自我改进"声明受到审视** — Hermes-Agent 源代码分析显示，程序记忆 ≠ 自主学习
-4. **外部框架集成** — SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride、OpenWorker 纳入生态比较
+4. **外部框架集成** — SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride、OpenWorker、Dify、MetaGPT、Qwen-Agent 纳入生态比较
 5. **CLI 编程代理与人类数字孪生** — aider（约 68K 星，git 感知 AI 结对编程）、copilot-cli（GitHub Copilot 终端代理）、reasonix（DeepSeek 原生编程代理，约 11.3K 星）、openhuman（Rust 人类数字孪生平台）、codex（OpenAI Rust CLI 编程代理，约 86.9K 星，沙箱执行）新增
 
 详见 [AI Agent Ecosystem Report: April-May 2026](_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md)。
@@ -222,7 +222,7 @@ bash tests/test_agent_validation.sh
 
 ### ✅ 已完成
 - [x] 34 个平台的架构分析（11 个 claw 生态 + 14 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）
-- [x] 外部框架集成（SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride、OpenWorker）
+- [x] 外部框架集成（SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride、OpenWorker、Dify、MetaGPT、Qwen-Agent）
 - [x] 多代理协调趋势研究
 - [x] 月度生态系统更新跟踪（英文 + 中文）
 - [x] 跨平台静态分析测试框架（v2.1，165/177 通过，11 个 claw 平台）

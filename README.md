@@ -17,7 +17,7 @@ Based on tracking **34 platforms**, several key trends have emerged:
 1. **The Personal vs Enterprise Fork** — Clear divergence between personal-force-multiplier (1PC) and enterprise-automation paradigms
 2. **MCP Debate Intensifies** — Model Context Protocol gaining enterprise adoption but facing resistance from local-first agents over token overhead
 3. **"Self-Improving" Claims Scrutiny** — After Hermes-Agent source code analysis, distinction between procedural memory and autonomous learning is critical
-4. **External Framework Integration** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride, OpenWorker tracked for ecosystem comparison
+4. **External Framework Integration** — SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride, OpenWorker, Dify, MetaGPT, Qwen-Agent tracked for ecosystem comparison
 5. **CLI Coding Agents & Human Digital Twin** — aider (~68K stars, git-aware AI pair programming), copilot-cli (GitHub Copilot terminal agent), reasonix (DeepSeek-native coding agent, ~11.3K stars), openhuman (Rust human digital twin platform), codex (OpenAI's Rust-based CLI coding agent, ~86.9K stars, sandboxed execution) added
 6. **Evolutionary Harness Architectures** — HarnessX (Darwin Agent, arXiv:2606.14249) formalizes harness as a first-class evolvable object; 9-dimension taxonomy, trace-driven AEGIS evolution engine, +14.5% avg gain across 5 benchmarks (GAIA, ALFWorld, WebShop, τ³-Bench, SWE-bench Verified)
 
