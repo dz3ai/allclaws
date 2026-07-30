@@ -1,40 +1,41 @@
-# AllClaws 项目状态 — 2026-07-29
+# AllClaws 项目状态 — 2026-07-30
 
 ## 总览
 - 仓库: dz3ai/allclaws (GitHub)
 - 平台数: **34** (11 Claw + 17 External + 5 CLI + 1 Digital Twin)
-- 最近提交: `046cda3` — docs: mark Q3-5 Failure Mode Taxonomy as completed
-- 本地 HEAD: `046cda3` (07-28), **与 origin 同步** ✅
+- 最近提交: `22901ef` — fix(ci): replace sudo timedatectl with TZ env var for Jekyll Pages
+- 本地 HEAD: `22901ef` (07-30), **与 origin 同步** ✅
 - 分支: main
-- **07-29 为平稳日** — 无新提交，CI 正常运行
+- **⭐ 07-30 为开发日** — 发布 2 篇博客 + 修复 Jekyll CI + 更新 README roadmap
 
-## 今日活动 (2026-07-29, 周三) — 平稳日
-- ✅ Benchmark Suite #30446988299 — 周三 Daily Benchmarks 通过 (schedule)
-- ✅ 子模块 drift = 0，工作区干净（仅 3 个 untracked 子目录）
-- ✅ 晨间恢复 cron (06:00) 正常执行
-- 无新开发工作
+## 今日活动 (2026-07-30, 周四) — ⭐ 开发日
+**已推送 4 commits：**
+1. ✅ `3f1cdb1` — **blog: China's parallel AI agent ecosystem** (`_posts/2026-07-28-china-ai-agent-ecosystem.md`, 9.9KB)
+2. ✅ `791df86` — **blog: 13 AI agent failure modes in production** (`_posts/2026-07-28-agent-failure-modes.md`, 10.5KB)
+3. ✅ `52b6838` — **docs: update README roadmap — all old promises delivered**
+4. ✅ `22901ef` — **fix(ci): replace sudo timedatectl with TZ env var for Jekyll Pages** — 修复连续 3 次 Jekyll 部署失败
 
-## 昨日活动 (2026-07-28, 周二) — ⭐ 开发日
-**已推送 9 commits：**
-1. ✅ `3ca8c03` — **feat: add OpenWorker (andrewyng/openworker) as platform #31**
-2. ✅ `5036c98` — **docs: Q3-6 China AI Agent Ecosystem report** (42KB, 14 个中文 AI 项目)
-3. ✅ `b67d5ca` — docs: mark Q3-6 China AI Agent Ecosystem as completed
-4. ✅ `95e0a2b` — docs: enhance Q3-6 report with subagent research
-5. ✅ `d47d4f8` — chore: update PROJECT_STATUS for 2026-07-28
-6. ✅ `c4364ca` — docs: update platform count 31→34 (README/MISSION/ROADMAP/config + Dify/MetaGPT/Qwen-Agent)
-7. ✅ `2e435af` — feat: add Dify + MetaGPT + Qwen-Agent as platforms #32-34
-8. ✅ `b6fe521` — **docs: Q3-5 Agent Failure Mode Taxonomy report** (441 行, 34KB, 13 个失败模式)
-9. ✅ `046cda3` — docs: mark Q3-5 Failure Mode Taxonomy as completed (ROADMAP EN+ZH)
+**关键成果：**
+- 将 Q3-5 (Failure Mode Taxonomy) 和 Q3-6 (China AI Agent Ecosystem) 报告转化为博客文章发布
+- **Jekyll Pages CI 修复** — `sudo timedatectl set-timezone` 在 GitHub Actions runner 上被拒绝，改用 `TZ=Asia/Shanghai` env var
+- README roadmap 更新确认所有历史承诺已交付
+
+## 昨日活动 (2026-07-29, 周三) — 平稳日
+- ✅ Benchmark Suite #30446988299 — 周三 Daily Benchmarks 通过
+- ✅ 子模块 drift = 0，工作区干净
+- ✅ PROJECT_STATUS.md 更新并推送 (`a6a612e`)
 
 ## CI 状态（最新）
 | 工作流 | 状态 | 运行号 | 日期 | 说明 |
 |--------|------|--------|------|------|
-| Benchmark Suite (schedule) | ✅ | #30446988299 | 07-29 | 周三 Daily Benchmarks |
-| Agent Platform Tests (push) | ✅ | #30375228244 | 07-28 | Q3-5 ROADMAP mark |
-| Deploy Jekyll (push) | ✅ | #30375228264 | 07-28 | Q3-5 ROADMAP mark |
-| Agent Platform Tests (push) | ✅ | #30375143387 | 07-28 | Q3-5 report |
-| Agent Platform Tests (push) | ✅ | #30374708976 | 07-28 | Dify/MetaGPT/Qwen-Agent #32-34 |
-| Benchmark Suite (schedule) | ✅ | #30374058733 | 07-28 | platform count update push |
+| Benchmark Suite (schedule) | ✅ | #30536856261 | 07-30 | 周四 Daily Benchmarks |
+| Agent Platform Tests (push) | ✅ | #30556688255 | 07-30 | Jekyll CI fix |
+| Deploy Jekyll (push) | ✅ | #30556687932 | 07-30 | Jekyll CI fix ✅ 修复后首次成功 |
+| Agent Platform Tests (push) | ✅ | #30556367058 | 07-30 | README roadmap update |
+| Deploy Jekyll (push) | ❌→✅ | #30556366960 | 07-30 | README roadmap (TZ bug, 已在后续修复) |
+| Agent Platform Tests (push) | ✅ | #30555961001 | 07-30 | failure modes blog |
+| Deploy Jekyll (push) | ❌→✅ | #30555960940 | 07-30 | failure modes blog (TZ bug) |
+| Deploy Jekyll (push) | ❌→✅ | #30552140525 | 07-30 | china ecosystem blog (TZ bug) |
 
 ## 已完成 (累计)
 1–18. 详见历史 — 07-19 开发日全部完成
@@ -42,6 +43,9 @@
 20. ✅ **Q3-6 China AI Agent Ecosystem 报告完成** — `docs/reports/china-agent-ecosystem-2026.md` (42KB)
 21. ✅ **Dify / MetaGPT / Qwen-Agent 子模块添加** — #32-34, config.json 更新至 34 平台 (07-28)
 22. ✅ **Q3-5 Agent Failure Mode Taxonomy 报告完成** — `docs/reports/failure-mode-taxonomy-2026.md` (441 行, 13 个失败模式)
+23. ✅ **2 篇博客文章发布** — China ecosystem + Failure modes (07-30)
+24. ✅ **Jekyll Pages CI 修复** — sudo timedatectl → TZ env var (07-30)
+25. ✅ **README roadmap 更新** — 所有历史承诺标记为已交付 (07-30)
 
 ## ROADMAP 进度 (H2 2026)
 **10/12 完成** — 剩余 3 项 Q4 任务全部未启动：
@@ -68,7 +72,9 @@
 - docs/ROADMAP.md + .zh-CN.md — 路线图 (07-28: Q3-5 ✅ Q3-6 ✅, 34 platforms, 10/12 完成)
 - docs/LATEST_UPDATES.md + .zh-CN.md — 最新动态
 - docs/reports/china-agent-ecosystem-2026.md — 中国 AI 代理生态报告 (42KB, 2026-07-28)
-- docs/reports/failure-mode-taxonomy-2026.md — **🆕 Agent 失败模式分类学报告** (441 行, 2026-07-28)
+- docs/reports/failure-mode-taxonomy-2026.md — Agent 失败模式分类学报告 (441 行, 2026-07-28)
+- _posts/2026-07-28-china-ai-agent-ecosystem.md — **🆕 博客: 中国 AI 代理生态** (07-30 发布)
+- _posts/2026-07-28-agent-failure-modes.md — **🆕 博客: 13 个 AI 代理失败模式** (07-30 发布)
 - docs/reports/ — 研究报告目录 (MCP 5 阶段, 设计范式, 企业治理, 1PC 案例, 自改进验证, 中国生态, 失败模式)
 - docs/PROJECT_STATUS.md — 本文件
 
@@ -79,6 +85,6 @@
 - Rust: 1.95.0
 
 ## CI 状态（总览）
-- Benchmark Suite: ✅ green (最近 #30446988299, 2026-07-29 周三)
-- Agent Platform Tests: ✅ green (最近 #30375228244, 2026-07-28 push)
-- Deploy Jekyll: ✅ green (最近 #30375228264, 2026-07-28 push)
+- Benchmark Suite: ✅ green (最近 #30536856261, 2026-07-30 周四)
+- Agent Platform Tests: ✅ green (最近 #30556688255, 2026-07-30 push)
+- Deploy Jekyll: ✅ green (最近 #30556687932, 2026-07-30 push — TZ 修复后)
