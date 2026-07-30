@@ -33,7 +33,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Set timezone to Asia/Shanghai (+0800)
-        run: sudo timedatectl set-timezone Asia/Shanghai
+        run: echo "TZ=Asia/Shanghai" >> $GITHUB_ENV
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
