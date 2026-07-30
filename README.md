@@ -254,15 +254,27 @@ bash tests/test_agent_validation.sh
 - [x] Agent harnesses & toolchains analysis (EN + ZH)
 - [x] Blog: personal harness tutorial, enterprise vs 1PC fork analysis
 
-### 🔄 In Progress
-- [ ] Chinese translations (external_frameworks.zh-CN.md, MISSION.zh-CN.md, ROADMAP.zh-CN.md)
+### 🔄 In Progress (H2 2026 Extension)
+- [ ] Long-running agent benchmarks (end-to-end task evaluation, 30+ min tasks)
+- [ ] Protocol wars analysis (MCP vs A2A vs proprietary)
+- [ ] Platform governance policy (35-platform cap, quarterly stale review)
 
-### 📋 Planned
-- [ ] Cross-platform performance metrics (runtime benchmarks)
-- [ ] MCP ecosystem deep-dive report
-- [ ] Enterprise governance framework analysis
-- [ ] 1PC (one-person company) case studies
-- [ ] Runtime performance benchmarking extension
+### 📋 Planned (H1 2027 Preview)
+- [ ] Agent economics — real cost models beyond API pricing
+- [ ] Multi-agent orchestration patterns
+- [ ] Mobile-first and edge-deployed agents
+- [ ] Agent security & supply chain analysis
+
+### Recently Completed
+- [x] Chinese translations (external_frameworks.zh-CN.md, MISSION.zh-CN.md, ROADMAP.zh-CN.md)
+- [x] Cross-platform performance metrics (runtime benchmarks, 53+ metrics, N=5)
+- [x] MCP ecosystem deep-dive report (5 phases)
+- [x] Enterprise governance framework analysis
+- [x] 1PC (one-person company) case studies
+- [x] Runtime performance benchmarking extension
+- [x] Agent failure mode taxonomy (13 failure modes across 34 platforms)
+- [x] China AI agent ecosystem deep-dive (14 projects, 350K+ combined stars)
+- [x] Added Dify, MetaGPT, Qwen-Agent (China ecosystem Tier 1)
 
 ## 🤝 Contributing
 
