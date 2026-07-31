@@ -27,11 +27,18 @@ _PYTHON_IMPORTS = {
     "claw-ai-lab": ("import researchclaw", "import researchclaw"),
     "smolagents": ("import smolagents", "import smolagents"),
     "langgraph": ("import langgraph", "import langgraph"),
-    "mcp-agent": ("import mcp_agent", "import mcp_agent"),
     "crewai": ("import crewai", "import crewai"),
     "autogen": ("import autogen", "import autogen"),
     "swarms": ("import swarms", "import swarms"),
     "aider": ("import aider", "import aider"),
+    # China ecosystem (Q3-6)
+    "metagpt": ("import metagpt", "import metagpt"),
+    "qwen-agent": ("import qwen_agent", "import qwen_agent"),
+    "agentscope": ("import agentscope", "import agentscope"),
+    # Other external frameworks
+    "agent-zero": ("import agentzero", "import agentzero"),
+    "praisonai": ("import praisonai", "import praisonai"),
+    "openworker": ("import openworker", "import openworker"),
 }
 
 # TypeScript platform entry points (searched in order)
@@ -61,7 +68,6 @@ class RuntimeBenchmark:
         self._run_go_platforms()
         self._run_typescript_platforms()
         self._run_python_platforms()
-        self._skip_verilog()
         return self._build_result()
 
     # ------------------------------------------------------------------
@@ -333,8 +339,9 @@ class RuntimeBenchmark:
     # ------------------------------------------------------------------
 
     def _run_typescript_platforms(self):
-        platforms = ["openclaw", "nanoclaw", "quantumclaw",
-                     "openagents", "copilot-cli"]
+        platforms = ["openclaw", "nanoclaw",
+                     "openagents", "copilot-cli",
+                     "eliza", "dify"]
         for p in platforms:
             if p in self.skip or p not in self.platforms:
                 continue
@@ -615,14 +622,3 @@ class RuntimeBenchmark:
         print()
 
     # ------------------------------------------------------------------
-    # Verilog platform (skipped)
-    # ------------------------------------------------------------------
-
-    def _skip_verilog(self):
-        if "rtl-claw" not in self.skip and "rtl-claw" in self.platforms:
-            print("--- rtl-claw (Verilog) ---")
-            self._skip_platform("rtl-claw",
-                                "build-tool only — no runtime agent metrics applicable")
-            self._add_metric("rtl-claw", "runtime_benchmarks", 0, "N/A",
-                             "hardware description language, no runtime")
-            print()

@@ -1,7 +1,7 @@
 version: "3.8"
 
 # AllClaws Test Framework - Docker Compose
-# 定义 11 个 AI Agent 平台的沙盒测试环境
+# 定义 15 个 AI Agent 平台的沙盒测试环境
 
 services:
   # ============================================
@@ -149,6 +149,61 @@ services:
       - test-net
     environment:
       - PYTHONUNBUFFERED=1
+
+  # ============================================
+  # 新增平台 — 中国生态 (Q3-6)
+  # ============================================
+  metagpt-sandbox:
+    image: python:3.11-slim
+    container_name: metagpt-test
+    volumes:
+      - ../coding-agents/external-frameworks/metagpt:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  qwen-agent-sandbox:
+    image: python:3.11-slim
+    container_name: qwen-agent-test
+    volumes:
+      - ../coding-agents/external-frameworks/qwen-agent:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  openworker-sandbox:
+    image: python:3.11-slim
+    container_name: openworker-test
+    volumes:
+      - ../coding-agents/external-frameworks/openworker:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  dify-sandbox:
+    image: node:22-alpine
+    container_name: dify-test
+    volumes:
+      - ../coding-agents/external-frameworks/dify:/workspace:ro
+      - ./evals:/evals
+    working_dir: /workspace
+    command: tail -f /dev/null
+    networks:
+      - test-net
+    environment:
+      - NODE_ENV=test
 
   # ============================================
   # 评估服务
