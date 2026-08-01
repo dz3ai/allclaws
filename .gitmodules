@@ -43,15 +43,6 @@
 [submodule "openhuman"]
 	path = openhuman
 	url = https://github.com/tinyhumansai/openhuman.git
-[submodule "coding-agents/cli-agents/kimi-cli"]
-	path = coding-agents/cli-agents/kimi-cli
-	url = https://github.com/MoonshotAI/kimi-cli.git
-[submodule "coding-agents/kimi-code"]
-	path = coding-agents/kimi-code
-	url = https://github.com/MoonshotAI/kimi-code.git
-[submodule "coding-agents/cli-agents/codex"]
-	path = coding-agents/cli-agents/codex
-	url = https://github.com/openai/codex.git
 [submodule "agentscope"]
 	path = agentscope
 	url = https://github.com/agentscope-ai/agentscope.git
@@ -85,3 +76,12 @@
 	path = coding-agents/external-frameworks/dify
 	url = https://github.com/langgenius/dify.git
 	branch = main
+[submodule "coding-agents/cli-agents/kimi-cli"]
+	path = coding-agents/cli-agents/kimi-cli
+	url = https://github.com/MoonshotAI/kimi-cli.git
+[submodule "coding-agents/kimi-code"]
+	path = coding-agents/kimi-code
+	url = https://github.com/MoonshotAI/kimi-code.git
+[submodule "coding-agents/cli-agents/codex"]
+	path = coding-agents/cli-agents/codex
+	url = https://github.com/openai/codex.git
