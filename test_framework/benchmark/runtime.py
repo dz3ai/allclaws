@@ -747,6 +747,29 @@ class RuntimeBenchmark:
             else:
                 bin_path = path / main_entry.lstrip("./")
 
+            # Monorepo fallback: if root has no usable entry, search subdirs
+            if not bin_path.is_file():
+                for child in path.iterdir():
+                    if not child.is_dir() or child.name.startswith(".") or \
+                       child.name in ("node_modules", "dist", "target"):
+                        continue
+                    sub_pkg = child / "package.json"
+                    if sub_pkg.is_file():
+                        try:
+                            sub = _json.loads(sub_pkg.read_text())
+                            sub_bin = sub.get("bin", {})
+                            sub_main = sub.get("main", "")
+                            if isinstance(sub_bin, dict) and sub_bin:
+                                bin_path = child / list(sub_bin.values())[0].lstrip("./")
+                                break
+                            elif sub_main:
+                                candidate = child / sub_main.lstrip("./")
+                                if candidate.is_file():
+                                    bin_path = candidate
+                                    break
+                        except Exception:
+                            continue
+
             if bin_path.is_file():
                 m = sample_metric(
                     platform, "cold_start_time",
