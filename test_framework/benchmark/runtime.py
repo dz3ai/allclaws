@@ -68,6 +68,7 @@ class RuntimeBenchmark:
         self._run_go_platforms()
         self._run_typescript_platforms()
         self._run_python_platforms()
+        self._run_cli_platforms()
         return self._build_result()
 
     # ------------------------------------------------------------------
@@ -451,8 +452,10 @@ class RuntimeBenchmark:
 
     def _run_python_platforms(self):
         internal = ["clawteam", "nanobot", "hermes-agent", "claw-ai-lab"]
-        external = ["smolagents", "langgraph", "mcp-agent",
-                    "crewai", "autogen", "swarms", "aider"]
+        external = ["smolagents", "langgraph",
+                    "crewai", "autogen", "swarms", "aider",
+                    "metagpt", "qwen-agent", "agentscope",
+                    "agent-zero", "praisonai", "openworker"]
         for p in internal + external:
             if p in self.skip or p not in self.platforms:
                 continue
@@ -622,3 +625,212 @@ class RuntimeBenchmark:
         print()
 
     # ------------------------------------------------------------------
+    # CLI agent platforms
+    # ------------------------------------------------------------------
+
+    def _run_cli_platforms(self):
+        """Benchmark CLI coding agents.
+
+        These are not library imports — they are executable binaries.
+        We measure static metrics (source size, dependency count) and,
+        if the binary is available, cold-start time via --version/--help.
+        """
+        cli_platforms = ["kimi-cli", "kimi-code", "codex",
+                         "reasonix", "rocketride-server"]
+        for p in cli_platforms:
+            if p in self.skip or p not in self.platforms:
+                continue
+            self._benchmark_cli(p)
+
+    def _benchmark_cli(self, platform: str):
+        path = self._platform_path(platform)
+        print(f"--- {platform} (CLI Agent) ---")
+
+        if not path:
+            self._skip_platform(platform,
+                                "not checked out — tracked via documentation only")
+            print()
+            return
+
+        # Source size
+        self._add_metric(platform, "source_size",
+                         size_of(str(path)), "KB",
+                         "repo checkout size")
+
+        # Detect type and measure accordingly
+        has_pkg = (path / "package.json").exists()
+        has_cargo = (path / "Cargo.toml").exists()
+        has_py = (path / "pyproject.toml").exists() or \
+                 (path / "setup.py").exists()
+
+        if has_pkg:
+            self._benchmark_cli_node(platform, path)
+        elif has_cargo:
+            self._benchmark_cli_rust(platform, path)
+        elif has_py:
+            self._benchmark_cli_python(platform, path)
+        else:
+            self._skip_platform(platform, "unknown project type")
+
+        print()
+
+    def _benchmark_cli_node(self, platform: str, path: Path):
+        """Benchmark a Node-based CLI agent."""
+        import json as _json
+        try:
+            pkg = _json.loads((path / "package.json").read_text())
+        except Exception:
+            pkg = {}
+
+        deps = pkg.get("dependencies", {})
+        dev_deps = pkg.get("devDependencies", {})
+        total_deps = len(deps) + len(dev_deps)
+        self._add_metric(platform, "npm_deps", total_deps, "deps")
+
+        # node_modules size (if installed)
+        nm = path / "node_modules"
+        if nm.is_dir():
+            self._add_metric(platform, "install_footprint",
+                             size_of(str(nm)), "KB", "node_modules/")
+        else:
+            self._add_metric(platform, "install_footprint", 0, "KB",
+                             "node_modules/ not installed")
+
+        # dist/ size (if built)
+        dist = path / "dist"
+        bin_built = dist.is_dir() and any(dist.iterdir())
+        self._add_metric(platform, "binary_size",
+                         size_of(str(dist)) if bin_built else 0, "KB",
+                         "dist/" if bin_built else "no dist/ (not built)")
+
+        # Cold start: try bin entry --version
+        if self.toolchain.get("node"):
+            bin_field = pkg.get("bin", {})
+            main_entry = pkg.get("main", "./dist/index.js")
+
+            if isinstance(bin_field, dict) and bin_field:
+                bin_path = path / list(bin_field.values())[0].lstrip("./")
+            else:
+                bin_path = path / main_entry.lstrip("./")
+
+            if bin_path.is_file():
+                m = sample_metric(
+                    platform, "cold_start_time",
+                    ["timeout", "5", "node", str(bin_path), "--version"],
+                    "ms", runs=self.runs,
+                    notes=f"node {bin_path.name} --version",
+                )
+                self._add_metric(platform, m.metric, m.value, m.unit,
+                                 notes=m.notes, samples=m.samples,
+                                 stats=m.stats)
+
+                if self.toolchain.get("time_v"):
+                    _, peak_kb = measure_rss(
+                        ["timeout", "5", "node", str(bin_path), "--version"],
+                    )
+                    if peak_kb > 0:
+                        self._add_metric(platform, "memory_idle_mb",
+                                         round(peak_kb / 1024, 1), "MB")
+            else:
+                self._add_metric(platform, "cold_start_time", 0, "ms",
+                                 "entry point not found (not built)")
+        else:
+            self._add_metric(platform, "cold_start_time", 0, "ms",
+                             "node not available")
+
+    def _benchmark_cli_rust(self, platform: str, path: Path):
+        """Benchmark a Rust-based CLI agent (e.g. codex)."""
+        release_dir = path / "target" / "release"
+
+        if release_dir.is_dir():
+            for bin_file in release_dir.iterdir():
+                if bin_file.is_file() and os.access(bin_file, os.X_OK):
+                    self._add_metric(
+                        platform, f"binary_{bin_file.name}_size",
+                        size_of_raw(str(bin_file)), "KB",
+                    )
+        else:
+            self._add_metric(platform, "binary_size", 0, "KB",
+                             "no target/release (not built)")
+
+        self._add_metric(platform, "install_footprint",
+                         size_of_raw(str(path / "target")), "KB",
+                         "target/ directory")
+
+        # cargo check as build proxy
+        if self.toolchain.get("cargo"):
+            m = sample_metric(
+                platform, "build_proxy_time",
+                ["cargo", "check"], "ms", runs=self.runs,
+                notes="cargo check",
+            )
+            rc, _ = time_command(["cargo", "check"], timeout=300)
+            m.notes = "cargo check" if rc == 0 else \
+                f"cargo check failed (rc={rc})"
+            self._add_metric(platform, m.metric, m.value, m.unit,
+                             notes=m.notes, samples=m.samples, stats=m.stats)
+        else:
+            self._add_metric(platform, "build_proxy_time", 0, "ms",
+                             "cargo not available")
+
+        # Cold start if binary exists
+        main_bin = self._find_main_binary(release_dir, platform)
+        if main_bin:
+            m = sample_metric(
+                platform, "cold_start_time",
+                ["timeout", "5", str(main_bin), "--version"], "ms",
+                runs=self.runs, notes=f"{main_bin.name} --version",
+            )
+            self._add_metric(platform, m.metric, m.value, m.unit,
+                             notes=m.notes, samples=m.samples, stats=m.stats)
+        else:
+            self._add_metric(platform, "cold_start_time", 0, "ms",
+                             "binary not built")
+
+    def _benchmark_cli_python(self, platform: str, path: Path):
+        """Benchmark a Python-based CLI agent (e.g. kimi-code)."""
+        req = path / "requirements.txt"
+        pyproj = path / "pyproject.toml"
+        dep_count = 0
+        if req.is_file():
+            dep_count = sum(1 for line in req.read_text().splitlines()
+                            if line.strip() and not line.startswith("#"))
+        elif pyproj.is_file():
+            text = pyproj.read_text()
+            dep_count = text.count("\n")
+        self._add_metric(platform, "py_deps", dep_count, "deps")
+
+        # venv size
+        venv = path / ".venv"
+        if venv.is_dir():
+            self._add_metric(platform, "install_footprint",
+                             size_of(str(venv)), "KB", ".venv/")
+        else:
+            self._add_metric(platform, "install_footprint", 0, "KB",
+                             "no .venv")
+
+        # Cold start via import
+        venv_python = self._find_venv_python(path)
+        python_bin = venv_python or "python3"
+
+        import_stmt = _PYTHON_IMPORTS.get(platform)
+        if import_stmt:
+            cmd = [python_bin, "-c",
+                   f"import time; t=time.time(); {import_stmt[0]}; "
+                   f"print(f'{{(time.time()-t)*1000:.2f}}ms')"]
+            rc, out = time_command(cmd, timeout=30)
+            if rc == 0 and out.strip().endswith("ms"):
+                try:
+                    val = float(out.strip().rstrip("ms"))
+                    self._add_metric(platform, "cold_start_time",
+                                     round(val, 2), "ms",
+                                     f"python {import_stmt[1]}")
+                except ValueError:
+                    self._add_metric(platform, "cold_start_time", 0, "ms",
+                                     "import failed")
+            else:
+                self._add_metric(platform, "cold_start_time", 0, "ms",
+                                 "package not importable")
+        else:
+            self._add_metric(platform, "cold_start_time", 0, "ms",
+                             "no import mapping")
