@@ -1,43 +1,41 @@
-# AllClaws 项目状态 — 2026-07-31
+# AllClaws 项目状态 — 2026-08-01
 
 ## 总览
 - 仓库: dz3ai/allclaws (GitHub)
 - 平台数: **34** (11 Claw + 17 External + 5 CLI + 1 Digital Twin)
-- 最近提交: `2f54c46` — blog+submodules: July 2026 ecosystem report + update 14 submodules
-- 本地 HEAD: `2f54c46` (07-30), **与 origin 同步** ✅
+- 最近提交: `10a4472` — feat: monorepo entry resolution for CLI agent benchmarks
+- 本地 HEAD: `10a4472` (08-01), **与 origin 同步** ✅
 - 分支: main
-- **07-31 为平稳日** — 无新 commit，仅 Benchmark Suite 自动执行通过
+- **08-01 为⭐开发日** — Benchmark 引擎大升级，覆盖率 26%→76%
 
-## 今日活动 (2026-07-31, 周五) — 平稳日
-- ✅ Benchmark Suite #30626890818 — 周五 Daily Benchmarks 通过 (11:24 UTC)
-- ✅ 子模块 drift = 0，工作区干净（仅 docker-compose.yml 有未提交改动）
-- ⚠️ `test_framework/docker-compose.yml` 有未提交改动 — 添加 metagpt/dify/qwen-agent/openworker 4 个新平台沙盒定义 (11→15)
-- 无交互开发会话
-
-## 昨日活动 (2026-07-30, 周四) — ⭐ 开发日
-**07-30 共推送 6 commits（含晚间补充）：**
-1. ✅ `3f1cdb1` — **blog: China's parallel AI agent ecosystem** (9.9KB)
-2. ✅ `791df86` — **blog: 13 AI agent failure modes in production** (10.5KB)
-3. ✅ `52b6838` — **docs: update README roadmap — all old promises delivered**
-4. ✅ `22901ef` — **fix(ci): replace sudo timedatectl with TZ env var for Jekyll Pages**
-5. ✅ `6e2a54d` — **ci: enable Node 24 across all workflows**
-6. ✅ `2f54c46` — **blog+submodules: July 2026 ecosystem report + update 14 submodules** (月度生态报告博客 + 14 个子模块批量更新)
-7. ✅ `ecce195` — chore: update PROJECT_STATUS for 2026-07-30
+## 今日活动 (2026-08-01, 周六) — ⭐ 开发日（Benchmark 引擎升级）
+**08-01 共推送 4 commits：**
+1. ✅ `7e28878` — **feat: add CLI agent benchmarking + fix platform paths** (新增 CLI agent 基准测试方法，按语言分派 Node/Rust/Python)
+2. ✅ `611e348` — **feat: checkout kimi-cli, kimi-code, codex submodules** (3 个 CLI 子模块初始化)
+3. ✅ `178ddb9` — **fix: expand benchmark coverage — 58→140 metrics (9→26 platforms)** (pip install 框架 + 路径 fallback 修复)
+4. ✅ `10a4472` — **feat: monorepo entry resolution for CLI agent benchmarks** (codex monorepo 入口解析)
 
 **关键成果：**
-- 发布 3 篇博客（中国生态 + 失败模式 + 7 月月度报告）
-- Jekyll Pages CI 修复（`sudo timedatectl` → `TZ=Asia/Shanghai`）
-- 14 个子模块批量更新（Dify/MetaGPT/NanoBot/AgentScope 等）
-- CI 全线升级 Node 24
+- **Benchmark 覆盖率 26%→76%** — 从 9 平台扩展到 26 平台，指标从 58 增至 140
+- **CLI Agent 基准测试** — 新增 Node/Rust/Python 三种语言分派方法
+- **Monorepo 入口解析** — codex 等嵌套结构项目可自动发现入口
+- **真实测试数据采集** — reasonix (287ms cold start), codex (32.5ms), kimi-cli 等 CLI agent 获真实指标
+- docker-compose.yml 新平台沙盒定义已入库 (07-31 `db93e01`)
+
+## 昨日活动 (2026-07-31, 周五) — 平稳日
+- ✅ Benchmark Suite #30626890818 — 周五 Daily Benchmarks 通过
+- ✅ `db93e01` — fix: update benchmark + sandbox coverage for 34 platforms (晚间修复)
+- ✅ 子模块 drift = 0
+- ✅ PROJECT_STATUS.md 更新并推送
 
 ## CI 状态（最新）
 | 工作流 | 状态 | 运行号 | 日期 | 说明 |
 |--------|------|--------|------|------|
-| Benchmark Suite (schedule) | ✅ | #30626890818 | 07-31 | 周五 Daily Benchmarks |
-| Agent Platform Tests (push) | ✅ | #30558340919 | 07-30 | July report + submodule update |
-| Deploy Jekyll (push) | ✅ | #30558340376 | 07-30 | July report deploy ✅ |
-| Benchmark Suite (push) | ✅ | #30557594243 | 07-30 | Node 24 CI upgrade |
-| Deploy Jekyll (push) | ✅ | #30557593032 | 07-30 | Node 24 CI upgrade |
+| Benchmark Suite (push) | ✅ | #30704412369 | 08-01 | Monorepo entry resolution push |
+| Agent Platform Tests (push) | ✅ | #30704412352 | 08-01 | Monorepo entry resolution push |
+| Deploy Jekyll (push) | ✅ | #30704412354 | 08-01 | Monorepo entry resolution push |
+| Benchmark Suite (push) | ✅ | #30703414058 | 08-01 | Coverage expansion push |
+| Agent Platform Tests (push) | ✅ | #30703414061 | 08-01 | Coverage expansion push |
 
 ## 已完成 (累计)
 1–18. 详见历史 — 07-19 开发日全部完成
@@ -50,6 +48,8 @@
 25. ✅ **README roadmap 更新** — 所有历史承诺标记为已交付 (07-30)
 26. ✅ **CI Node 24 升级** — 所有 workflow 统一 Node 24 (07-30)
 27. ✅ **7 月月度生态报告博客** — `_posts/2026-07-30-ai-agent-ecosystem-report-july-2026.md` + 14 子模块更新 (07-30)
+28. ✅ **Benchmark 覆盖率大幅提升** — 9→26 平台, 58→140 metrics (76% 覆盖率) (08-01)
+29. ✅ **CLI Agent 基准测试** — Node/Rust/Python 分派 + Monorepo 入口解析 (08-01)
 
 ## ROADMAP 进度 (H2 2026)
 **10/12 完成** — 剩余 3 项 Q4 任务全部未启动：
@@ -59,16 +59,17 @@
 
 ## 进行中 / 待完成
 1. 🟡 **H2 ROADMAP 剩余 3 项 Q4 任务** — 全部计划中，未启动
-2. 🟡 **docker-compose.yml 未提交改动** — 4 个新平台沙盒定义待提交
+2. 🟡 **Benchmark 覆盖率仍有提升空间** — 26/34 平台已有指标，剩余 8 个需特殊处理（Docker 依赖/私有仓库等）
 3. 🟢 GitHub Issue #1 — 内容已覆盖但未关闭
 4. 🟢 本地 untracked 子目录: claw-ai-lab/, hermes-agent/, nanoclaw/（无变化）
 5. 🟢 **子模块 drift = 0** ✅
+6. 🟢 **工作区干净** ✅ (docker-compose.yml 已入库)
 
 ## 关键文件
-- test_framework/benchmark/ — Python benchmark 包 (7 files, v3.0)
+- test_framework/benchmark/ — Python benchmark 包 (v3.0, **CLI agent 分派 + Monorepo 解析**)
 - test_framework/config.json — **34 platforms 配置** (07-28 更新)
 - test_framework/scripts/run_runtime_benchmarks.sh — v3.0.0 Python engine wrapper
-- test_framework/docker-compose.yml — Sandboxed Tests 容器定义 (**⚠️ 有未提交改动: 11→15 平台**)
+- test_framework/docker-compose.yml — Sandboxed Tests 容器定义 (15 平台, 已入库 ✅)
 - .github/workflows/benchmark-suite.yml — CI workflow (Mon-Fri daily, Sat weekly, Sun submodule updates)
 - .github/workflows/agent-tests.yml — 静态分析 + 基准测试 (11 platforms, ✅ dispatch 已修复)
 - architecture/platform_comparison.md + .zh-CN.md — 平台对比矩阵
@@ -80,7 +81,7 @@
 - docs/reports/failure-mode-taxonomy-2026.md — Agent 失败模式分类学报告 (441 行, 2026-07-28)
 - _posts/2026-07-28-china-ai-agent-ecosystem.md — 博客: 中国 AI 代理生态 (07-30 发布)
 - _posts/2026-07-28-agent-failure-modes.md — 博客: 13 个 AI 代理失败模式 (07-30 发布)
-- _posts/2026-07-30-ai-agent-ecosystem-report-july-2026.md — **🆕 博客: 7 月月度生态报告** (07-30 发布)
+- _posts/2026-07-30-ai-agent-ecosystem-report-july-2026.md — 博客: 7 月月度生态报告 (07-30 发布)
 - docs/reports/ — 研究报告目录 (MCP 5 阶段, 设计范式, 企业治理, 1PC 案例, 自改进验证, 中国生态, 失败模式)
 - docs/PROJECT_STATUS.md — 本文件
 
@@ -91,6 +92,6 @@
 - Rust: 1.95.0
 
 ## CI 状态（总览）
-- Benchmark Suite: ✅ green (最近 #30626890818, 2026-07-31 周五)
-- Agent Platform Tests: ✅ green (最近 #30558340919, 2026-07-30 push)
-- Deploy Jekyll: ✅ green (最近 #30558340376, 2026-07-30 push)
+- Benchmark Suite: ✅ green (最近 #30704412369, 2026-08-01 push)
+- Agent Platform Tests: ✅ green (最近 #30704412352, 2026-08-01 push)
+- Deploy Jekyll: ✅ green (最近 #30704412354, 2026-08-01 push)
