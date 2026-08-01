@@ -231,7 +231,23 @@ class RuntimeBenchmark:
         path = self._platform_path(platform)
         print(f"--- {platform} (Go) ---")
 
-        if not path or not (path / "go.mod").exists():
+        if not path:
+            self._skip_platform(platform, "not found or no go.mod")
+            print()
+            return
+
+        # go.mod might be in root or a subdirectory (monorepo)
+        go_mod = path / "go.mod"
+        if not go_mod.exists():
+            # Search one level deep
+            for child in path.iterdir():
+                child_mod = child / "go.mod"
+                if child_mod.exists():
+                    go_mod = child_mod
+                    path = child
+                    break
+
+        if not go_mod.exists():
             self._skip_platform(platform, "not found or no go.mod")
             print()
             return
@@ -471,13 +487,31 @@ class RuntimeBenchmark:
             print()
             return
 
-        # Check for manifest files
+        # Manifest files might be in root or a subdirectory (monorepo)
         has_pyproject = (path / "pyproject.toml").is_file()
         has_requirements = (path / "requirements.txt").is_file()
+        has_setup = (path / "setup.py").is_file()
 
-        if not has_pyproject and not has_requirements:
+        # Search up to 2 levels deep for monorepos
+        # (e.g. claw-ai-lab/backend/agent/, praisonai/src/praisonai-agents/)
+        if not has_pyproject and not has_requirements and not has_setup:
+            for child in path.rglob("pyproject.toml"):
+                if ".venv" in str(child) or "node_modules" in str(child):
+                    continue
+                path = child.parent
+                has_pyproject = True
+                break
+            if not has_pyproject:
+                for child in path.rglob("requirements.txt"):
+                    if ".venv" in str(child) or "node_modules" in str(child):
+                        continue
+                    path = child.parent
+                    has_requirements = True
+                    break
+
+        if not has_pyproject and not has_requirements and not has_setup:
             self._skip_platform(platform,
-                                "no pyproject.toml or requirements.txt")
+                                "no pyproject.toml, requirements.txt, or setup.py")
             print()
             return
 
