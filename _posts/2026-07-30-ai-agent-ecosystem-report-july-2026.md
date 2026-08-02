@@ -4,12 +4,12 @@ title: "AI Agent Ecosystem Report: July 2026"
 date: 2026-07-30 23:50:00 +0800
 author: Danny Zeng
 categories: [Monthly Report]
-tags: [ecosystem, monthly-report, dify, openworker, nanobot, agentscope, mcp, context-compaction]
+tags: [ecosystem, monthly-report, dify, openworker, nanobot, agentscope, mcp, context-compaction, benchmark, architecture]
 ---
 
-July 2026 was the month AI agent platforms grew up. Not in capability — they've been capable for a while — but in the unglamorous engineering that separates demos from production systems. Context compaction became a first-class feature. Security hardening moved from afterthought to release blocker. And the Chinese ecosystem, long ignored by Western observers, revealed itself as a parallel universe with its own gravity.
+July 2026 was the month AI agent platforms grew up. Not in capability — they've been capable for a while — but in the unglamorous engineering that separates demos from production systems. Context compaction became a first-class feature. Security hardening moved from afterthought to release blocker. The Chinese ecosystem revealed itself as a parallel universe with its own gravity. And the benchmark infrastructure that tracks all of it leaped from 26% to 76% platform coverage.
 
-AllClaws tracked 34 platforms this month (up from 30 at the start of July), added 4 new submodules, published 6 research reports, and shipped 4 blog posts. Here's what the ecosystem did.
+AllClaws tracked 34 platforms this month (up from 30 at the start of July), added 7 new submodules, published 7 research reports, shipped 6 blog posts, and upgraded its benchmark engine to cover 26 of 34 platforms with 140 real metrics. Here's what the ecosystem did.
 
 ---
 
@@ -19,7 +19,7 @@ The single most significant technical theme of July 2026 was the industry-wide p
 
 **OpenWorker** shipped a four-part compaction series (OPE-27) that hardened their smoke tests against per-turn event loops, added a pure compaction module with tests, built an engine hook with failure policy and persistence, and wired up settings overrides with a GUI divider. This wasn't a patch — it was a full architecture for managing what happens when an agent's context window fills up.
 
-**Nanobot** (HKUDS, v0.3.0) shipped "preserve Responses reasoning state and compact context" — allowing the agent to maintain reasoning chains across context compression boundaries. Their v0.3.0 release on July 25 is the most significant Nanobot release since launch, including fixes for session idle locks, buffered output bounds, and invalid idle-compaction timestamp tolerance.
+**Nanobot** (HKUDS, v0.3.0) shipped "preserve Responses reasoning state and compact context" — allowing the agent to maintain reasoning chains across context compression boundaries. Their v0.3.0 release on July 25 is the most significant Nanobot release since launch, including fixes for session idle locks, buffered output bounds, and invalid idle-compaction timestamp tolerance. The AgentLoop/AgentRunner separation introduced in this release is now the cleanest separation of concerns we've seen in any Python agent platform.
 
 **Hermes-Agent** fixed compression summary role selection — choosing the summary role by template-visible alternation rather than naively reusing the last role. A subtle fix, but one that prevents compaction from corrupting conversation semantics.
 
@@ -73,12 +73,25 @@ AllClaws added three Chinese platforms this month — Dify, MetaGPT, and Qwen-Ag
 
 Multiple platforms shipped point releases focused on stability rather than features:
 
-- **HiClaw v1.2.0** — Worker storage sync I/O amplification fix, diagnostic loop prevention, legacy storage prefix compatibility
+- **HiClaw v1.2.0** — Worker storage sync I/O amplification fix, diagnostic loop prevention, legacy storage prefix compatibility. The bigger story: v1.1.0's complete rewrite from single-container monolith to Kubernetes CRD operator pattern with stateless workers.
 - **Dify v1.16.1** — security fixes and bug fixes
 - **Nanobot v0.3.0** — reasoning state preservation, session lock fixes, output bounding
 - **OpenWorker v0.1.6** — compaction hardening, MCP pinning
 
 The industry is transitioning from "ship features fast" to "make existing features actually work." This is the inflection point where agent platforms stop being experiments and start being infrastructure.
+
+---
+
+## Trend 6: Benchmark Infrastructure Matures
+
+The most significant AllClaws-internal change this month was the leap in benchmark coverage. The runtime benchmark engine evolved from a 9-platform prototype to a 26-platform production system:
+
+- **58 → 140 metrics**: Ghost platform references cleaned up (quantumclaw, mcp-agent, rtl-claw), monorepo path resolution added, `setup.py` support, recursive manifest search
+- **CLI agent benchmarking**: New `_run_cli_platforms()` method handles Node, Rust, and Python CLI agents with dispatch logic. kimi-cli, kimi-code, codex, reasonix, and rocketride-server all produce real data
+- **Real cold-start measurements**: reasonix (287ms, 81.8MB after npm install + build) and codex (32.5ms, 52.7MB after pnpm install) — the first real CLI agent performance data in the project
+- **Docker sandbox expansion**: 11 → 15 sandbox services, now covering Dify, MetaGPT, Qwen-Agent, and OpenWorker
+
+The benchmark gap is closing. Of 34 tracked platforms, 26 now have real metrics (76% coverage). The remaining 8 are either not checked out (5 external frameworks) or are pure documentation repositories (copilot-cli, openagents, openfang).
 
 ---
 
@@ -88,16 +101,15 @@ The industry is transitioning from "ship features fast" to "make existing featur
 |----------|------------|----------------|
 | Dify | v1.16.0 + v1.16.1, UI refactoring, skill packages | 🔴 Very High |
 | OpenWorker | Compaction engine (OPE-27), MCP<2 pin, v0.1.6 | 🔴 Very High |
-| Nanobot | v0.3.0, context compaction, session fixes | 🟠 High |
+| Nanobot | v0.3.0, AgentLoop/AgentRunner split, context compaction | 🟠 High |
 | AgentScope | Kimi K3, permission hooks, workspace backends | 🟠 High |
 | Hermes-Agent | Compression fixes, composer parity, CI hardening | 🟠 High |
-| HiClaw | v1.2.0, Worker sync fix, diagnostic loop fix | 🟡 Medium |
+| HiClaw | v1.2.0 bugfix + v1.1.0 K8s operator rewrite | 🟡 Medium |
 | GoClaw | MCP credential refresh, Codex retry, Upsert store | 🟡 Medium |
 | Agent Zero | Cerebras provider, proxy support, Linux hardening | 🟡 Medium |
 | Nanoclaw | Hardened agent image, container hardening | 🟡 Medium |
 | Eliza | CI stabilization, multi-provider rewrite, e2e fixes | 🟡 Medium |
 | Copilot CLI | v1.0.69-76 (7 releases, changelog only) | 🟢 Low |
-| Dify | v1.16.1 security patch | 🔴 Very High |
 | MetaGPT | No activity (stalled since Jan 2026) | ⚫ Stale |
 | Coze Studio | No activity since Apr 2026 | ⚫ Stale |
 
@@ -107,24 +119,42 @@ The industry is transitioning from "ship features fast" to "make existing featur
 
 This month AllClaws itself underwent significant changes:
 
-- **Platforms**: 30 → 34 (added OpenWorker, Dify, MetaGPT, Qwen-Agent)
-- **Reports**: Published Q3-5 (Failure Mode Taxonomy, 13 modes) and Q3-6 (China Ecosystem, 14 projects)
-- **Blog posts**: 4 new posts (China ecosystem, failure modes, and 2 ecosystem analyses)
-- **CI**: Fixed Jekyll Pages deploy (timezone), Node 24 migration, sandbox health check
-- **ROADMAP**: All original H2 2026 items completed; 6 new items added (Q3-5/Q3-6 done, Q4 items planned)
+**Platforms**: 30 → 34 (added OpenWorker, Dify, MetaGPT, Qwen-Agent). Also checked out kimi-cli, kimi-code, and codex as full submodules.
+
+**Research reports**: Published 7 reports this month:
+- Q3-5 Failure Mode Taxonomy (13 failure modes across 34 platforms, 441 lines)
+- Q3-6 China AI Agent Ecosystem (14 projects, 350K+ combined stars, 325 lines)
+- Architecture Drift Report (9 platforms analyzed, 4 trends identified, 285 lines)
+- Plus 4 prior MCP deep-dive phases and design paradigm analysis
+
+**Blog posts**: 6 new posts — China ecosystem, failure modes, 2 ecosystem analyses, monthly report, and the ecosystem report itself.
+
+**Architecture documentation**: 5 documents comprehensively updated (+642 lines, EN + ZH synced):
+- `external_frameworks.md` — 7 → 11 frameworks (added OpenWorker, Dify, MetaGPT, Qwen-Agent)
+- `architecture_comparison.md` — HiClaw v1.1.0 multi-container rewrite, Nanobot v0.3.0 AgentLoop/AgentRunner, comparison matrix expanded to 17 columns
+- `governance_frameworks_analysis.md` — AgentScope workspace backend + permission hooks
+- `mcp_ecosystem_deep_dive.md` — Part 6: Context Compaction & MCP Tool State
+
+**Benchmark engine**: v3.0.0 Python suite, 140 metrics across 26 platforms (76% coverage), CLI agent benchmarking with monorepo entry resolution, real cold-start data for reasonix and codex.
+
+**CI**: All workflows green — fixed Jekyll Pages deploy (timezone), Node 24 migration (FORCE_JAVASCRIPT_ACTIONS_TO_NODE24), sandbox health check (15 containers), Benchmark Suite daily runs passing.
+
+**ROADMAP**: All original 7 H2 2026 items completed. 6 new items added (Q3-5/Q3-6 done, Q4-4/Q4-5/Q4-6 planned). README roadmap section updated to reflect actual delivery status.
 
 ---
 
 ## Looking Forward: August 2026
 
-Three things to watch:
+Four things to watch:
 
 1. **MCP 2.0 fallout** — OpenWorker's pinning of `mcp<2` signals that MCP 2.0 has breaking changes. As more platforms encounter this, expect a wave of compatibility fixes (or a coordinated migration).
 
 2. **MetaGPT's fate** — At 69K stars with no activity for 6 months, MetaGPT is approaching the "archived" threshold. If August passes without a commit, it enters our stale review queue.
 
-3. **Context compaction convergence** — OpenWorker, Nanobot, and Hermes-Agent are independently solving the same problem. Expect a shared pattern to emerge, possibly formalized in an MCP extension or a cross-platform standard.
+3. **Context compaction convergence** — OpenWorker, Nanobot, and Hermes-Agent are independently solving the same problem. Expect a shared pattern to emerge, possibly formalized in an MCP extension or a cross-platform standard. Our architecture docs now track this across three documents.
+
+4. **Benchmark coverage ceiling** — At 76% (26/34), the remaining gaps require either submodule checkouts (5 external frameworks) or fundamental structure changes (copilot-cli is docs-only). The next frontier is npm install + build for all Node-based platforms to get real cold-start data across the full ecosystem.
 
 ---
 
-*AllClaws tracks 34 AI agent platforms across 5 categories. Data collected via GitHub API, July 30, 2026. Full research reports available at [github.com/dz3ai/allclaws](https://github.com/dz3ai/allclaws).*
+*AllClaws tracks 34 AI agent platforms across 5 categories. Data collected via GitHub API and local benchmark suite, August 1, 2026. Full research reports available at [github.com/dz3ai/allclaws](https://github.com/dz3ai/allclaws).*
