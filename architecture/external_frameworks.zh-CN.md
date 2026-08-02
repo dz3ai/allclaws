@@ -10,7 +10,7 @@
 
 ## 概述
 
-本文档提供 7 个重要外部 AI 代理框架的详细分析：
+本文档提供 11 个重要外部 AI 代理框架的详细分析：
 
 | 框架 | 语言 | Stars | 主要关注点 | 跟踪级别 |
 |------|------|-------|-----------|----------|
@@ -21,6 +21,10 @@
 | **AutoGen** | Python | N/A | 多代理对话 | 完整 |
 | **Swarms** | Python | ~5k | 企业编排 | 完整 |
 | **OpenAgents** | TypeScript | N/A | 分布式代理网络 | 摘要 |
+| **OpenWorker** | Python/Rust/TS | ~9.8k | 桌面原生代理协作者 | 完整 |
+| **Dify** | Python/TS | ~150k | 可视化工作流平台 | 完整 |
+| **MetaGPT** | Python | ~69k | SOP 驱动多代理框架 | 摘要 |
+| **Qwen-Agent** | Python | ~16.9k | Qwen 耦合代理框架 | 摘要 |
 
 **集成级别：** 外部框架通过文档分析而非 git 子模块跟踪。它们代表与 claw 生态平台进行比较的行业标准。
 
@@ -388,6 +392,216 @@ OpenAgents 代表代理部署的**分布式云**方法，与 QuantumClaw 的**�
 
 ---
 
+## 8. OpenWorker
+
+**状态：** 活跃 | **语言：** Python、Rust、TypeScript | **Stars：** ~9.8k
+**许可证：** MIT
+**仓库：** [github.com/openworker/openworker](https://github.com/openworker/openworker)
+
+### 概述
+
+OpenWorker 是一个基于 Andrew Ng 的 **aisuite** 库构建的桌面原生 AI 代理协作者。它没有实现自定义代理循环，而是使用 aisuite 的统一聊天补全 API 跨 LLM 提供商工作。其设计以人在环路的协作为中心——代理在桌面上与用户并肩工作，后果性操作需要明确的批准才能执行。
+
+### 架构
+
+| 组件 | 技术 | 角色 |
+|------|------|------|
+| `coworker/` | Python | 代理引擎、模型提供商、连接器、MCP 客户端、记忆、自动化 |
+| `surfaces/gui/` | React + Tauri | 桌面应用 UI，监管服务器 |
+| `stt/` | Rust | 语音转文本侧车，用于语音输入 |
+
+**核心组件：**
+- **代理引擎**（`coworker/`）— 基于 Python 的代理循环，使用 aisuite 进行提供商抽象
+- **桌面界面**（`surfaces/gui/`）— React + Tauri 前端，监管后端服务器
+- **语音输入**（`stt/`）— Rust 语音转文本侧车，用于免手操作
+- **MCP 客户端** — 原生 MCP 工具集成，支持逐工具控制
+- **压缩引擎** — OPE-27（四部分系列）：纯压缩模块、带失败策略的引擎钩子、持久化和设置覆盖
+
+### 关键设计决策
+
+- **aisuite 基础** — 不是自定义代理循环。使用 aisuite 进行跨 LLM 提供商的统一聊天补全 API，减少框架特定复杂性。
+- **审批门控操作** — 写入、发送和 Shell 命令需要人工批准。无人值守运行将请求暂存在收件箱中，而非自动执行。
+- **MCP 原生** — 任何 MCP 兼容工具均可插入，支持逐工具控制，与 mcp-agent 的 MCP 原生方向一致。
+- **自带模型（BYO model）** — 开箱支持 OpenAI、Anthropic、GLM、DeepSeek、Kimi、Qwen 和 Ollama。
+- **OPE-27 压缩架构** — 跟踪生态中最复杂的压缩系统：纯压缩模块、带失败策略的引擎钩子、持久化层和设置覆盖。将上下文压缩视为一等架构关注点。
+
+**架构分类：** 桌面原生、人在环路、单代理。
+
+### 与 Claw 生态的比较
+
+| 方面 | OpenWorker | IronClaw | Nanobot |
+|------|-----------|----------|---------|
+| **界面** | 桌面 GUI（Tauri） | CLI + 配置 | CLI 优先 |
+| **代理循环** | aisuite（借用） | 自定义 Go 循环 | 自定义 AgentLoop/AgentRunner |
+| **审批模型** | 逐操作明确门控 | 基于配置 | 通道级 |
+| **压缩** | OPE-27（四部分，持久化） | 手动上下文管理 | AgentRunner 感知 |
+| **MCP** | 原生，逐工具控制 | 适配器 | 适配器 |
+
+### 战略价值
+
+OpenWorker 代表**桌面原生、人在环路**的代理方法，在精神上最接近 Hermes-Agent 的协作模型，但具有更明确的审批门控架构。其 OPE-27 压缩引擎是跟踪生态中最复杂的上下文管理系统，是多小时代理会话应如何处理上下文限制的参考实现。aisuite 基础表明，借用成熟的抽象（而非重新发明代理循环）可以用更少的代码生成功能完整的桌面代理。
+
+---
+
+## 9. Dify (LangGenius)
+
+**状态：** 活跃（极度活跃） | **语言：** Python、TypeScript | **Stars：** ~150k
+**版本：** v1.16.1 | **许可证：** 修改版 Apache 2.0（开源核心）
+**仓库：** [github.com/langgenius/dify](https://github.com/langgenius/dify)
+
+### 概述
+
+Dify 是一个用于构建 LLM 应用程序的可视化工作流平台——GitHub 上 Star 数最多的代理项目，约 150K Stars。它使非开发者能够通过拖放可视化构建器组装代理工作流、RAG 管道和工具集成。可部署于云端、VPC 或自托管，Dify 在代理生态中占据管道引擎位置，相当于中国生态系统对"如果 LangChain 有 UI 而且在生产中真正可用会怎样？"的回答。
+
+### 架构
+
+| 组件 | 技术 | 角色 |
+|------|------|------|
+| `api/` | Python（uv，v1.3.0 起不再用 poetry） | 后端 API、工作流引擎、RAG |
+| `web/` | TypeScript（React、pnpm） | 可视化工作流构建器 UI |
+| `docker/` | Docker Compose | 中间件编排 |
+
+**基础设施栈：** PostgreSQL、Redis、Weaviate（向量数据库）。
+
+**核心组件：**
+- **可视化工作流构建器** — 拖放管道节点；每个节点单独返回 200 OK
+- **工作流引擎**（`api/`）— 执行可视化管道，处理 RAG 和工具路由
+- **技能包** — 一等可部署工件（v1.16.0+ 引入可配置上传大小限制）
+- **RAG 管道** — 集成的检索增强生成，使用 Weaviate 向量存储
+
+### 关键设计决策
+
+- **可视化管道，非代码** — 代理行为通过拖放工作流节点而非程序化定义来定义。每个节点单独返回 200 OK，这使得失败调试更困难（没有事务性管道语义）。
+- **技能包作为一等工件** — 技能是可部署、可版本化的工件——将代理能力视为可独立管理的单元的模型。
+- **开源核心许可** — 修改版 Apache 2.0，有两个限制：（1）多租户 SaaS 部署需要商业许可证；（2）前端的 LOGO 和版权信息不能移除。这是 MongoDB 和 Elastic 完善的"开源核心"模式，应用于代理基础设施。
+- **uv 优于 poetry** — 后端切换到 uv 包管理器（v1.3.0），反映现代 Python 工具的采用。
+- **多模型支持** — 与 LLM 提供商无关，支持西方和中国模型系列。
+
+**架构分类：** 可视化工作流、平台即服务、多租户。
+
+### 与 Claw 生态的比较
+
+| 方面 | Dify | RocketRide | GoClaw |
+|------|------|-----------|--------|
+| **代理定义** | 可视化拖放 | 可视化 / 配置 | 代码（Go） |
+| **目标用户** | 非开发者 + 开发者 | 非开发者 | 开发者 |
+| **部署** | 云端 / VPC / 自托管 | 自托管 | Kubernetes |
+| **许可** | 开源核心（修改版 Apache 2.0） | 开放 | 开放 |
+| **规模** | 150K Stars，23K Forks | 小众 | 企业 |
+
+### 战略价值
+
+Dify 代表**可视化、平台优先**的代理开发方法——与 SmolAgents 等代码优先框架或 Nanobot 等 CLI 优先 claws 的极性相反。其 150K Star 数使其成为世界上采用最广的代理平台，修改版 Apache 2.0 许可证是跟踪集中最商业化的。平台优先模式（vs 西方的框架优先）揭示了根本的生态分歧：中国开发者通过可视化 UI 构建代理，西方开发者 `pip install` 框架。Dify 的规模使其在任何跨生态比较中都无法被忽视。
+
+---
+
+## 10. MetaGPT
+
+**状态：** 停滞（最后提交 2026 年 1 月，最后发布 2025 年 3 月） | **语言：** Python | **Stars：** ~69k
+**版本：** v0.8.2 | **许可证：** MIT
+**仓库：** [github.com/geekan/MetaGPT](https://github.com/geekan/MetaGPT)
+
+### 概述
+
+MetaGPT 是一个由标准操作流程（SOP）驱动的角色扮演多代理框架。其基础隐喻是"AI 软件公司"——代理被分配产品经理、架构师、工程师和 QA 工程师等角色，然后通过预定义的角色序列协作生产软件。这一概念影响了整个多代理子领域，包括 ChatDev 和 CrewAI 等西方项目。尽管开发放缓（6 个多月不活跃），其概念贡献和 69K Star 数使其成为关键的参考实现。
+
+### 架构
+
+| 组件 | 技术 | 角色 |
+|------|------|------|
+| `metagpt/actions/` | Python | 动作原语（WriteCode、WriteTest 等） |
+| `metagpt/environment/` | Python | 代理沟通的共享环境 |
+| `metagpt/configs/` | Python | 模型和工具配置 |
+| `metagpt/document_store/` | Python | RAG 和文档检索 |
+
+**核心组件：**
+- **动作**（`metagpt/actions/`）— 可重用的动作原语（WriteCode、WriteTest、Summarize 等）
+- **环境**（`metagpt/environment/`）— 代理之间的共享沟通通道
+- **角色** — 定义的 personas（PM、架构师、工程师、QA），具有特定的动作集和交付物
+- **文档存储**（`metagpt/document_store/`）— 代理知识的 RAG 和检索
+- **数据解释器** — 独立的数据分析模式（v0.8.0+），与多代理软件开发模式并存
+
+### 关键设计决策
+
+- **SOP 隐喻** — 代理遵循预定义的角色序列：产品经理 → 架构师 → 工程师 → QA 工程师。每个角色有特定的动作和交付物，模拟真实的软件开发流程。
+- **角色层级产生沟通开销** — 当测试失败时，QA 向工程师报告，但没有人可以质疑架构。角色扮演隐喻在演示中很优雅，但在生产中很脆弱：僵化的层级阻止了上游决策的流程中修正。
+- **数据解释器模式** — v0.8.0 在多代理软件开发模式之外增加了独立的数据分析模式，扩展到软件生成之外。
+- **MIT 许可证** — 唯一使用 MIT 许可证的主要中国代理项目，反映其学术/研究起源。
+
+**当前状态：** 停滞。最后提交 2026 年 1 月，最后发布 2025 年 3 月（v0.8.2）。69K Stars 但 6 个多月不活跃——可能处于维护模式或在大版本之间。
+
+**架构分类：** 多代理角色扮演、SOP 驱动、研究导向。
+
+### 与 Claw 生态的比较
+
+| 方面 | MetaGPT | ClawTeam | CrewAI |
+|------|---------|----------|--------|
+| **协调** | SOP 角色层级 | 领导-工作者 | 基于角色的故事 |
+| **代理数量** | 固定角色（PM→架构→工程→QA） | 动态工作者 | 可配置 |
+| **纠错** | 僵化——QA 不能质疑架构 | 双向 | 灵活 |
+| **状态** | 停滞（6+ 月不活跃） | 活跃 | 活跃 |
+| **关注点** | 软件开发隐喻 | 通用任务 | 通用任务 |
+
+### 战略价值
+
+MetaGPT 代表多代理系统的 **SOP 驱动角色层级**范式——影响了 CrewAI、ChatDev 和更广泛多代理子领域的概念先驱。其关键教训是警示性的：僵化的角色层级产生优雅的演示但脆弱的生产系统，因为层级阻止了流程中的架构修正。这与 ClawTeam 的双向领导-工作者模型和 CrewAI 的灵活角色分配形成直接对比。尽管已停滞，MetaGPT 仍然是理解基于 SOP 的多代理模式及其局限性的重要参考实现。
+
+---
+
+## 11. Qwen-Agent (阿里巴巴)
+
+**状态：** 放缓（最后推送 2026 年 3 月） | **语言：** Python | **Stars：** ~16.9k
+**许可证：** Apache 2.0
+**仓库：** [github.com/QwenLM/Qwen-Agent](https://github.com/QwenLM/Qwen-Agent)
+
+### 概述
+
+Qwen-Agent 是阿里巴巴的第一方代理框架，与 Qwen 模型系列（Qwen ≥ 3.0）紧密耦合。与将提供商灵活性视为美德的模型无关框架不同，Qwen-Agent 将模型-框架协同设计视为一项特性：通过同时控制模型和框架，它可以共同设计函数调用格式、优化上下文窗口使用，并将代理推理模式与模型的训练分布对齐。它具有函数调用、MCP、代码解释器、RAG 等功能，并附带 Chrome 扩展——模糊了开发者框架和面向消费者产品之间的界限。
+
+### 架构
+
+| 组件 | 技术 | 角色 |
+|------|------|------|
+| `qwen_agent/agents/` | Python | 代理实现（ReAct、工具调用） |
+| `qwen_agent/llm/` | Python | LLM 后端（Qwen、OpenAI 兼容） |
+| `qwen_agent/tools/` | Python | 内置工具 + 工具注册 |
+| `qwen_agent/memory/` | Python | 对话记忆管理 |
+| `qwen_agent/multi_agent_hub.py` | Python | 多代理协调 |
+| `qwen_agent/gui/` | Python | Web GUI 界面 |
+
+**核心组件：**
+- **代理**（`qwen_agent/agents/`）— ReAct、工具调用和自定义代理实现
+- **LLM 后端**（`qwen_agent/llm/`）— Qwen 原生，OpenAI 兼容接口
+- **工具**（`qwen_agent/tools/`）— 内置工具加动态工具注册，包括 MCP 支持
+- **记忆**（`qwen_agent/memory/`）— 对话上下文管理
+- **多代理中枢**（`qwen_agent/multi_agent_hub.py`）— 多代理场景的协调层
+- **GUI**（`qwen_agent/gui/`）— 框架内自带 Web 界面，不同于大多数将 UI 委托给单独项目的框架
+
+### 关键设计决策
+
+- **模型耦合设计** — 为 Qwen 模型系列（Qwen-2.5、Qwen-VL、Qwen ≥ 3.0）优化。框架和模型是协同设计的，能够实现比模型无关框架更紧密的集成。权衡是锁定：迁移到 DeepSeek 或 GLM 需要重新调整集成层。
+- **setup.py（非 pyproject.toml）** — 较旧的 Python 打包风格，与阿里巴巴内部约定一致。与基于现代 pyproject.toml 的框架相比，这表明代码库 lineage 较老。
+- **包含 GUI** — `qwen_agent/gui/` 在框架内自带 Web 界面，不同于大多数将 UI 委托给单独项目的框架。结合 Chrome 扩展，Qwen-Agent 同时面向终端用户和开发者。
+- **MCP 采用** — 模型上下文协议出现在 Qwen-Agent 的功能列表中，确认 MCP 采用不仅是西方现象。中国第一方框架已采用 Anthropic 的开放标准。
+
+**架构分类：** 模型耦合框架、单代理 + 多代理。
+
+### 与 Claw 生态的比较
+
+| 方面 | Qwen-Agent | IronClaw | SmolAgents |
+|------|-----------|----------|------------|
+| **模型耦合** | 仅 Qwen（协同设计） | 自带模型 | HF 中心 |
+| **MCP** | 已采用 | 适配器 | 无 |
+| **打包** | setup.py（传统） | Go 模块 | pip 包 |
+| **UI** | Web GUI + Chrome 扩展 | CLI | 仅库 |
+| **优化** | 模型特定调优 | 通用 | 最小核心 |
+
+### 战略价值
+
+Qwen-Agent 代表**模型耦合框架**范式——有意识地为单一模型系列深度优化，而非在多个模型间广泛抽象。这与模型无关框架（LangChain、CrewAI、claw 平台）的设计哲学根本不同：紧密耦合允许实现浅层多提供商集成无法达到的 Qwen 特定优化。其 MCP 采用确认了协议的跨生态覆盖范围。协同设计教训是可操作的：当平台同时控制模型和框架时，集成深度会创建附加框架无法复制的能力。
+
+---
+
 ## 跨框架分析
 
 ### 分类法比较
@@ -401,13 +615,20 @@ OpenAgents 代表代理部署的**分布式云**方法，与 QuantumClaw 的**�
 | **AutoGen** | 云 | 对话 | 两者 | 多 |
 | **Swarms** | 云 | 自定义 | 企业 | 多 |
 | **OpenAgents** | 云 | 自定义 | 企业 | 多 |
+| **OpenWorker** | 桌面 | MCP | 个人 | 单一 |
+| **Dify** | 云/VPC/自托管 | 可视化管道 | 两者 | 平台 |
+| **MetaGPT** | 本地 | SOP 角色 | 研究 | 多 |
+| **Qwen-Agent** | 混合 | 模型耦合 | 两者 | 单一 + 多 |
 
 ### 关键见解
 
-1. **MCP 生态** — mcp-agent 代表 MCP 原生方法；claw 平台将 MCP 添加为适配器
-2. **多代理模式** — 四种不同的模式：对话式（AutoGen）、基于角色（CrewAI）、领导-工作者（ClawTeam）、基于图（LangGraph）
-3. **企业 vs 个人** — 企业编排（LangGraph、Swarms）和个人助手（SmolAgents、mcp-agent）之间存在明显分歧
-4. **语言分化** — Python 主导外部框架；TypeScript 正在增长（OpenAgents）
+1. **MCP 生态** — mcp-agent 和 OpenWorker 代表 MCP 原生方法；claw 平台将 MCP 添加为适配器。Qwen-Agent 确认 MCP 采用是跨生态的，不仅是西方现象。
+2. **多代理模式** — 六种不同的模式：对话式（AutoGen）、基于角色（CrewAI）、领导-工作者（ClawTeam）、基于图（LangGraph）、SOP 角色层级（MetaGPT）和可视化管道（Dify）。
+3. **企业 vs 个人** — 企业编排（LangGraph、Swarms、Dify）和个人/桌面助手（SmolAgents、mcp-agent、OpenWorker）之间存在明显分歧。
+4. **语言分化** — Python 主导外部框架；TypeScript 正在增长（OpenAgents、Dify web 层）；Rust 出现在专用组件中（OpenWorker STT）。
+5. **压缩即架构** — OpenWorker（OPE-27）将上下文压缩视为一等架构关注点——跟踪集中最复杂的方法。
+6. **模型耦合 vs 无关性** — Qwen-Agent 的刻意模型耦合与模型无关的规范（LangGraph、CrewAI、claw 平台）形成对比。深度集成 vs 提供商灵活性是一个活跃的架构辩论。
+7. **可视化 vs 代码定义** — Dify（可视化节点）、MetaGPT（Python SOP）和 OpenWorker（aisuite 工具包）代表定义代理行为的基本不同范式。生态系统尚未收敛到声明式代理定义格式。
 
 ### 与 Claw 生态的集成
 
@@ -417,12 +638,16 @@ OpenAgents 代表代理部署的**分布式云**方法，与 QuantumClaw 的**�
 - **mcp-agent vs 启用 MCP 的 claws** — 原生 vs 适配器方法
 - **CrewAI vs ClawTeam** — 角色扮演 vs 任务依赖协调
 - **Swarms vs GoClaw/HiClaw** — Python vs Go 企业编排
+- **OpenWorker vs Hermes-Agent** — 桌面协作模型，不同的审批门控哲学
+- **Dify vs RocketRide** — 可视化平台优先 vs 轻量级管道方法
+- **MetaGPT vs ClawTeam** — 僵化 SOP 层级 vs 双向领导-工作者协调
+- **Qwen-Agent vs IronClaw** — 模型耦合优化 vs 自带模型灵活性
 
 ---
 
 ## 结论
 
-这 7 个外部框架代表了 AI 代理开发的重要行业方法：
+这 11 个外部框架代表了 AI 代理开发的重要行业方法：
 
 - **SmolAgents** 演示了最小代码生成方法
 - **LangGraph** 领导基于图的编排
@@ -431,10 +656,14 @@ OpenAgents 代表代理部署的**分布式云**方法，与 QuantumClaw 的**�
 - **AutoGen** 代表对话式代理协调
 - **Swarms** 专注于 Python 企业编排
 - **OpenAgents** 探索分布式云部署
+- **OpenWorker** 展示了桌面原生、审批门控的协作，具有最复杂的压缩架构（OPE-27）
+- **Dify** 以前所未有的规模（150K Stars）主导可视化平台优先方法，具有最商业化的许可模式
+- **MetaGPT** 开创了 SOP 驱动的多代理"AI 软件公司"隐喻——有影响力但已停滞，关于僵化角色层级脆弱性的教训值得借鉴
+- **Qwen-Agent** 展示了模型-框架协同设计作为一种有意识的架构选择，具有跨生态的 MCP 采用
 
-与 13 个 claw 生态平台一起跟踪这些框架，提供了 2026 年 AI 代理格局的全面覆盖。
+与 13 个 claw 生态平台一起跟踪这些框架，提供了 2026 年 AI 代理格局的全面覆盖，涵盖西方和中国生态系统、代码优先和可视化优先范式，以及模型无关和模型耦合哲学。
 
 ---
 
-*最后更新：2026 年 5 月 5 日*
+*最后更新：2026 年 8 月*
 *所属：AllClaws 个人 AI 代理生态系统研究*

@@ -446,11 +446,65 @@ Are you a single user with local tools?
 
 ---
 
+## Part 6: Context Compaction & MCP Tool State
+
+### The Hidden Problem: Compaction Must Preserve Tool Registration
+
+Context compaction — summarizing old conversation turns to free context-window space — is standard practice in long-running agent sessions. But when MCP tools are involved, compaction introduces a subtle failure mode: **if compaction discards MCP tool registration state along with conversation history, the agent loses awareness of its available tools mid-session.** Three platforms in the AllClaws ecosystem address this, each illuminating a different facet of the problem.
+
+### OpenWorker: OPE-27 Compaction Module
+
+OpenWorker's OPE-27 design implements context compaction as a **dedicated module with engine integration**, rather than ad-hoc string truncation:
+
+- **Pure compaction module** — separation of compaction logic from the agent engine, enabling independent testing and swapping of summarization strategies
+- **Engine hook** — the engine calls into the compaction module at a defined seam, rather than compaction being inline string manipulation
+- **Failure policy** — explicit handling when compaction fails or produces insufficient reduction (retry, fallback summarizer, or error escalation), rather than silent context corruption
+- **Persistence** — compacted state is persisted, so a restarted session resumes from the compacted context without re-summarizing from scratch
+
+**MCP 2.0 incompatibility:** OPE-27 pins `mcp<2` because **MCP 2.0 removed `streamablehttp_client`**, a transport component the compaction pipeline's connection management depends on. This is a concrete example of protocol churn breaking agent infrastructure — the kind of version-pinning tax that adapter platforms must actively manage even when their integration is otherwise stable.
+
+### Nanobot: AgentRunner-Aware Compaction (v0.3.0)
+
+Nanobot v0.3.0 introduces compaction that is **aware of the AgentRunner's reasoning state**:
+
+- Preserves intermediate reasoning traces across compression boundaries, not just final outputs
+- The compaction layer has visibility into the agent's step-by-step reasoning chain and retains structured summaries of reasoning state
+- Prevents the "reasoning amnesia" problem where compaction collapses multi-step problem-solving into a flat summary that loses the agent's working hypotheses and intermediate conclusions
+
+**Relevance to MCP:** Nanobot has an available-but-not-core MCP bridge. Its compaction approach (preserving structured reasoning state) is the pattern MCP-integrating platforms should adopt: tool-call results and their interpretation should survive compaction as structured state, not be flattened into prose that obscures which tools produced which conclusions.
+
+### Hermes-Agent: Template-Visible Role Alternation
+
+Hermes-Agent's compaction strategy ensures **role alternation is visible in the compacted template**, preserving the conversation's turn structure even after summarization:
+
+- Summary messages retain explicit user/assistant/tool role markers
+- Compaction produces template-injectable content that the model parses as a coherent multi-turn exchange, not a single undifferentiated blob
+- This matters for MCP because tool-call/result turn boundaries must remain distinguishable after compaction — a flattened summary conflates "what the tool returned" with "what the agent concluded," degrading downstream tool-use accuracy
+
+### Key Insight: Compaction as an MCP State Boundary
+
+The shared lesson across all three implementations:
+
+> **Context compaction must preserve MCP tool registration state and tool-call/result boundaries, not just conversational history.**
+
+A compaction strategy that summarizes turns but loses the following will silently break MCP-dependent agent workflows in long sessions:
+
+| What Compaction Can Lose | Consequence |
+|--------------------------|-------------|
+| Which MCP tools are registered | The agent forgets it has tools available |
+| Which tool produced which result | The agent can't reason accurately about prior tool outputs |
+| Turn boundaries between tool calls and agent reasoning | Tool-use patterns degrade; the model loses its tool-calling rhythm |
+
+The mature pattern, emerging across OpenWorker, Nanobot, and Hermes-Agent, is to treat compaction as a **structured state transformation** that explicitly carries forward tool registration, tool-call provenance, and reasoning context — not as lossy text summarization.
+
+---
+
 ## See Also
 
 - [Unified Platform Comparison](platform_comparison.md) — Full architecture comparison across all 20 platforms
 - [External Frameworks](external_frameworks.md) — LangGraph, CrewAI, AutoGen, and other external frameworks
 - [Agent Harnesses & Toolchains](agent_harnesses.md) — UltraWorkers stack and claw-code MCP lifecycle
+- [Enterprise Governance Frameworks](governance_frameworks_analysis.md) — Identity, audit, credential isolation, HITL
 - [Monthly Report: April-May 2026](../_posts/2026-05-05-ai-agent-ecosystem-report-april-may-2026.md) — MCP debate coverage
 - [The AI Agent Fork: Enterprise vs 1PC](../_posts/2026-05-06-ai-agent-fork-enterprise-vs-1pc.md) — MCP as the divider
 

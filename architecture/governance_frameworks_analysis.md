@@ -252,6 +252,31 @@ spec:
       prefixes: ["teams/engineering/*"]
 ```
 
+### AgentScope: Workspace Backend Abstraction & Permission Hooks
+
+AgentScope introduces a governance model centered on **pluggable workspace isolation** combined with a **programmatic authorization choke point**, addressing deployment flexibility and action-level control in a single coherent design.
+
+**Workspace Backend Abstraction:**
+- Agents execute inside isolated *workspace environments* with a swappable backend layer
+- Three pluggable isolation backends:
+  - **Apple Container** — macOS-native lightweight isolation
+  - **Bubblewrap** — Linux namespace-based sandboxing (`bwrap`)
+  - **Docker** — container-based isolation for portability across hosts
+- The backend is selected at workspace creation time, decoupling the agent runtime from the specific isolation technology — environments can be developed once and deployed across backends without code changes
+
+**Permission Hook System:**
+- `on_check_permission` middleware hook (PR #2001) provides a single programmatic choke point for authorizing every agent action
+- Every tool call, command execution, or resource access passes through the hook before execution
+- Enterprises can implement custom authorization policies (RBAC, ABAC, dynamic allowlists) at this seam without modifying agent logic
+- Fails closed: if no permission hook resolves, actions are denied by default
+
+**Connection Optimization:**
+- `AsyncClient` reuse (PR #2063) reduces connection overhead across workspace operations by pooling HTTP connections within a workspace lifecycle, rather than opening fresh connections per tool call
+
+**Governance Position:**
+
+AgentScope sits between the heavyweight enterprise infrastructure of GoClaw (RBAC + audit + multi-tenant) and the security-first approach of IronClaw (WASM + capability model). Its distinct contribution is the **backend abstraction seam** — letting governance teams choose the isolation technology per deployment without rewriting agent code — plus a clean authorization hook that avoids the scattered permission-check pattern seen in platforms that bolt on governance post-hoc.
+
 ---
 
 ## Part 6: Risk Analysis Framework

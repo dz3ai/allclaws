@@ -463,28 +463,33 @@ graph TD
 
 ## Nanobot Architecture Summary
 
-**Overview:** Nanobot is an ultra-lightweight personal AI assistant with just ~4,000 lines of core agent code — 99% smaller than OpenClaw. It delivers core agent functionality with minimal footprint for faster startup, lower resource usage, and quicker iterations.
+**Overview:** Nanobot is an ultra-lightweight personal AI assistant with just ~4,000 lines of core agent code — 99% smaller than OpenClaw. As of v0.3.0, the agent core has been refactored from a monolithic agent loop into a clean separation of concerns: `Channel → MessageBus → AgentLoop → AgentRunner → Provider`. The `AgentLoop` owns the channel-facing turn lifecycle, while the `AgentRunner` owns the provider/tool conversation loop. Context compaction preserves reasoning state across compaction boundaries, and session lock fixes eliminate idle-lock deadlocks.
 
 **Key Principles:**
 - Ultra-lightweight design (~4,000 LOC core agent code)
+- Clean separation of concerns (AgentLoop vs AgentRunner)
 - Research-ready with clean, readable code
 - Lightning fast with minimal footprint
-- Easy-to-use with one-click deployment
+- Context compaction that preserves reasoning state
 - MCP (Model Context Protocol) support
 - Multiple LLM providers via LiteLLM
 
-**Core Architecture:**
+**Core Architecture (v0.3.0 AgentLoop/AgentRunner separation):**
 - **Language:** Python 3.11+
 - **Entry Point:** `nanobot/__main__.py` (CLI entrypoint via Typer)
-- **Modules:**
-  - `nanobot/agent/` (agent orchestration and reasoning)
+- **Request Flow:** `Channel → MessageBus → AgentLoop → AgentRunner → Provider`
+- **Agent Core Modules:**
+  - `nanobot/agent/loop.py` — **AgentLoop**: owns the channel-facing turn. Receives messages from the MessageBus, manages the turn lifecycle (start, stream, end), and delegates the provider/tool conversation to the AgentRunner. One AgentLoop per active channel-facing conversation turn.
+  - `nanobot/agent/runner.py` — **AgentRunner**: owns the provider/tool conversation loop. Iterates the think→act→observe cycle against the LLM provider, dispatches tool calls, and returns the final result to the AgentLoop. This is where multi-step tool-use conversations happen.
+  - `nanobot/agent/context.py` — **Context**: manages the conversation context window, including reasoning-state preservation across compaction boundaries.
+  - `nanobot/session/manager.py` — **SessionManager**: handles session persistence and **context compaction** — compacts history while preserving reasoning state so the agent doesn't lose its chain of thought. Also includes **session lock fixes** that prevent idle-lock deadlocks when a session is left open but inactive.
+- **Other Modules:**
   - `nanobot/channels/` (channel implementations: Telegram, Discord, Slack, WhatsApp, Feishu, QQ, Email, Matrix)
   - `nanobot/cli/` (CLI commands and interface)
   - `nanobot/config/` (configuration management via Pydantic)
   - `nanobot/providers/` (LLM providers via LiteLLM: Anthropic, OpenAI, DeepSeek, Qwen, Moonshot, VolcEngine, MiniMax, Mistral, etc.)
   - `nanobot/skills/` (skill system with ClawHub integration)
   - `nanobot/cron/` (scheduled task management)
-  - `nanobot/session/` (session history management)
   - `nanobot/utils/` (utility functions and helpers)
   - `nanobot/heartbeat/` (heartbeat and health monitoring)
   - `nanobot/bus/` (message bus for agent communication)
@@ -504,43 +509,46 @@ graph TD
 - **Channels:** Telegram, Discord, Slack, WhatsApp, Feishu, QQ, Email, Matrix, CLI
 - **Memory:** Session history management with configurable retention
 - **Database:** SQLite (for local data persistence)
-- **Features:** 24/7 real-time market analysis, full-stack software engineering, smart daily routine management, personal knowledge assistant, multimodal support, scheduled tasks (cron), subagent support, MCP integration, ClawHub skill marketplace
+- **Features:** 24/7 real-time market analysis, full-stack software engineering, smart daily routine management, personal knowledge assistant, multimodal support, scheduled tasks (cron), subagent support, MCP integration, ClawHub skill marketplace, context compaction with reasoning-state preservation
 
 ### Architecture Diagram
 
 ```mermaid
 graph TB
-    A[CLI Entry: __main__.py] --> B[Agent Orchestrator]
-    B --> C[Reasoning Engine]
-    C --> D[Tool Execution]
-    D --> D1[Skills]
-    D --> D2[MCP Bridge]
-    D --> D3[Custom Tools]
-    B --> E[Session Manager]
-    E --> E1[Session History]
-    E --> E2[Memory Retention]
-    B --> F[Cron Scheduler]
-    F --> F1[Scheduled Tasks]
-    F --> F2[Reminders]
-    B --> G[Channel Manager]
-    G --> G1[Telegram]
-    G --> G2[Discord]
-    G --> G3[Slack]
-    G --> G4[WhatsApp]
-    G --> G5[Feishu]
-    G --> G6[QQ]
-    G --> G7[Email]
-    G --> G8[Matrix]
-    G --> G9[CLI]
-    B --> H[Provider Manager]
-    H --> H1[Anthropic]
-    H --> H2[OpenAI]
-    H --> H3[DeepSeek]
-    H --> H4[Qwen]
-    H --> H5[Others via LiteLLM]
-    B --> I[ClawHub Integration]
-    I --> I1[Skill Search]
-    I --> I2[Skill Install]
+    subgraph Ingest["Ingestion"]
+        CH["Channels"]
+        CH --> TG["Telegram"]
+        CH --> DC["Discord"]
+        CH --> SL["Slack"]
+        CH --> WA["WhatsApp"]
+        CH --> FS["Feishu"]
+        CH --> QQ["QQ"]
+        CH --> EM["Email"]
+        CH --> MX["Matrix"]
+        CH --> CLI_CH["CLI"]
+    end
+    CH --> BUS["MessageBus"]
+    BUS --> LOOP["AgentLoop<br/>(nanobot/agent/loop.py)<br/>owns channel-facing turn"]
+    LOOP --> RUNNER["AgentRunner<br/>(nanobot/agent/runner.py)<br/>owns provider/tool conversation loop"]
+    RUNNER --> CTX["Context<br/>(nanobot/agent/context.py)<br/>reasoning-state preservation"]
+    RUNNER --> TOOLS["Tool Execution"]
+    TOOLS --> T1["Skills"]
+    TOOLS --> T2["MCP Bridge"]
+    TOOLS --> T3["Custom Tools"]
+    RUNNER --> PROV["Provider Manager"]
+    PROV --> P1["Anthropic"]
+    PROV --> P2["OpenAI"]
+    PROV --> P3["DeepSeek"]
+    PROV --> P4["Qwen"]
+    PROV --> P5["Others via LiteLLM"]
+    LOOP --> SM["SessionManager<br/>(nanobot/session/manager.py)<br/>compaction + session lock"]
+    SM --> SM1["Session History"]
+    SM --> SM2["Context Compaction"]
+    LOOP --> CRON["Cron Scheduler"]
+    CRON --> CR1["Scheduled Tasks"]
+    LOOP --> CLAW["ClawHub Integration"]
+    CLAW --> CL1["Skill Search"]
+    CLAW --> CL2["Skill Install"]
 ```
 
 ## Zeroclaw Architecture Summary
@@ -589,33 +597,34 @@ graph TB
 
 ## HiClaw Architecture Summary
 
-**Overview:** HiClaw is an enterprise-grade multi-agent runtime that brings Kubernetes-style declarative resources to AI agent orchestration. It provides Manager-Workers architecture with team templates, worker marketplace, and centralized skill registry.
+**Overview:** HiClaw is an enterprise-grade multi-agent runtime that brings Kubernetes-style declarative resources to AI agent orchestration. As of v1.1.0, HiClaw has been rewritten from a single all-in-one container into a set of specialized, independently deployable containers organized around a Kubernetes-native operator pattern. The platform reconciles custom resources (Worker, Manager, Team, Human CRDs) and schedules stateless workers on demand.
 
 **Key Principles:**
-- Kubernetes-style declarative resources (YAML definitions)
-- Manager-Workers orchestration pattern
+- Kubernetes-native operator pattern with CRD reconciliation
+- Specialized, single-responsibility containers (split from former monolith)
+- Manager-Workers orchestration with declarative YAML resources
+- Stateless, on-demand worker scaling
 - Enterprise-grade multi-tenant support
 - Worker template marketplace
-- Nacos-based skill discovery
 
 **Core Architecture:**
-- **Language:** Go + Shell scripts
-- **Entry Point:** `hiclaw` CLI with Docker Compose
-- **Modules:**
-  - Worker resources (declarative YAML definitions)
-  - Team resources (multi-agent team configuration)
-  - Human resources (human-in-the-loop agent definitions)
-  - Manager CoPaw runtime (alternative manager implementation)
-  - Nacos skills registry (centralized skill discovery)
-  - Worker template marketplace (community templates)
+- **Language:** Go (controller/operator), Node or Python (manager), Shell scripts
+- **Entry Point:** `hiclaw` CLI + container orchestration (Docker Compose / Kubernetes)
+- **Containers (v1.1.0 multi-container rewrite):**
+  - `agentteams-controller` — Go operator that reconciles Worker, Manager, Team, and Human custom resources (CRDs); the control-plane component
+  - `agentteams-controller-embedded` — embedded/local-mode variant of the controller for single-node or development deployments without a full Kubernetes cluster
+  - `agentteams-manager` — the orchestration manager (Node or Python-based) that coordinates teams, handles task assignment, and communicates with workers
+  - `agentteams-worker` — stateless, on-demand worker containers that execute agent tasks; scaled horizontally and disposable
+- **Migration from v1.0:** The former single all-in-one container (bundling Higress, Tuwunel, MinIO, Element Web) has been decomposed so each concern runs in its own container with its own lifecycle, scaling characteristics, and update cadence.
 - **Deployment:**
-  - Docker Compose for local development
-  - Kubernetes support for production
-  - PostgreSQL for state persistence
+  - Docker Compose for local development (multi-service)
+  - Kubernetes for production (CRD-based, operator-managed)
+  - PostgreSQL for controller/manager state persistence
   - MinIO for shared filesystem storage
 - **Features:**
-  - Declarative worker/team/human resources
+  - Declarative Worker/Manager/Team/Human CRDs reconciled by the controller
   - Manager-Workers orchestration pattern
+  - Stateless, horizontally-scalable workers
   - Template-based worker creation
   - Centralized credential management
   - Multi-tenant workspace isolation
@@ -625,18 +634,31 @@ graph TB
 
 ```mermaid
 graph TB
-    A[CLI Entry: hiclaw] --> B[Resource Manager]
-    B --> C[Worker Resources]
-    B --> D[Team Resources]
-    B --> E[Human Resources]
-    C --> F[Worker Templates]
-    D --> G[Team Definitions]
-    E --> H[Human Agents]
-    B --> I[Manager CoPaw Runtime]
-    I --> J[Nacos Skills Registry]
-    I --> K[PostgreSQL State]
-    I --> L[MinIO File Storage]
-    B --> M[Docker/Kubernetes Deploy]
+    subgraph ControlPlane["Control Plane"]
+        CTRL["agentteams-controller<br/>(Go operator, CRD reconciliation)"]
+        CTRL_EMB["agentteams-controller-embedded<br/>(local/dev mode)"]
+    end
+    subgraph DataPlane["Data Plane"]
+        MGR["agentteams-manager<br/>(orchestration, task assignment)"]
+        W1["agentteams-worker<br/>(stateless, on-demand)"]
+        W2["agentteams-worker<br/>(stateless, on-demand)"]
+        WN["agentteams-worker<br/>(stateless, on-demand)"]
+    end
+    subgraph Storage
+        PG["PostgreSQL"]
+        MINIO["MinIO"]
+    end
+    A["hiclaw CLI"] --> CTRL
+    A --> CTRL_EMB
+    CTRL -->|"reconciles CRDs"| MGR
+    CTRL_EMB -->|"local mode"| MGR
+    MGR --> W1
+    MGR --> W2
+    MGR --> WN
+    MGR --> PG
+    W1 --> MINIO
+    W2 --> MINIO
+    WN --> MINIO
 ```
 
 ## QuantumClaw Architecture Summary
