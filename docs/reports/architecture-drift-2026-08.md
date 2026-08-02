@@ -7,13 +7,17 @@
 
 ## Executive Summary
 
-AllClaws architecture documentation has not been updated since July 15, 2026.
+AllClaws architecture documentation was last updated July 15, 2026.
 Since then, 4 new platforms were added (OpenWorker, Dify, MetaGPT, Qwen-Agent),
 and at least 5 existing platforms shipped significant architectural changes.
 This report maps the drift and identifies documentation priorities.
 
-**Coverage gap: 4 platforms with zero architecture documentation,
-5 platforms with outdated documentation.**
+> **UPDATE (August 2, 2026):** All 5 identified documentation gaps have been
+> resolved. Architecture docs now cover all 34 platforms (EN + ZH).
+> See [Part 6: Resolution Status](#part-6-resolution-status) for details.
+
+**Original coverage gap (now resolved):** 4 platforms with zero architecture
+documentation, 5 platforms with outdated documentation.
 
 ---
 
@@ -266,20 +270,51 @@ declarative agent definition format — MCP standardizes tools but not agents.
 
 ---
 
-## Part 5: Recommended Documentation Updates
+## Part 5: Recommended Documentation Updates — ALL COMPLETED ✅
 
-### Priority 1: Add 4 New Platforms to `external_frameworks.md`
-Add architecture sections for OpenWorker, Dify, MetaGPT, Qwen-Agent.
+> All 5 priorities were resolved on August 2, 2026 (commits `ae37fa0`, `3604868`, `b0f88e9`).
 
-### Priority 2: Update `architecture_comparison.md` for HiClaw v1.1.0
-The multi-container rewrite invalidates the existing single-container
-description.
+### ✅ Priority 1: Add 4 New Platforms to `external_frameworks.md`
+**Done.** Added OpenWorker (#8), Dify (#9), MetaGPT (#10), Qwen-Agent (#11) sections
+with Overview, Architecture, Key Design Decisions, Comparison to Claw Ecosystem,
+and Strategic Value. EN + ZH synced. 7→11 frameworks. (+245 lines each)
 
-### Priority 3: Update `architecture_comparison.md` for Nanobot v0.3.0
-Add AgentLoop/AgentRunner separation and compaction architecture.
+### ✅ Priority 2: Update `architecture_comparison.md` for HiClaw v1.1.0
+**Done.** Replaced single-container description with multi-container CRD operator
+architecture: agentteams-controller, stateless workers, embedded vs Kubernetes modes.
+Comparison matrix expanded from 13 to 17 platform columns. (+156 lines changed)
 
-### Priority 4: Add compaction architecture to `mcp_ecosystem_deep_dive.md`
-Document how compaction interacts with MCP tool state.
+### ✅ Priority 3: Update `architecture_comparison.md` for Nanobot v0.3.0
+**Done.** Added AgentLoop/AgentRunner separation diagram, context compaction
+preserving reasoning state, session lock fixes. Updated modularity row in
+comparison matrix.
 
-### Priority 5: Add AgentScope workspace backends to `governance_frameworks_analysis.md`
-The permission hook system is a new governance model.
+### ✅ Priority 4: Add compaction architecture to `mcp_ecosystem_deep_dive.md`
+**Done.** Added Part 6: Context Compaction & MCP Tool State. Covers OpenWorker
+OPE-27 (pure module + engine hook + failure policy + persistence), Nanobot
+AgentRunner-aware compaction, Hermes-Agent role alternation, and the key insight
+that compaction must preserve MCP tool registration state. EN + ZH synced. (+54 lines EN, +25 lines ZH)
+
+### ✅ Priority 5: Add AgentScope workspace backends to `governance_frameworks_analysis.md`
+**Done.** Added AgentScope section under Part 5: Deployment & Isolation. Covers
+workspace backend abstraction (Apple Container, Bubblewrap, Docker), `on_check_permission`
+middleware hook (PR #2001), AsyncClient reuse (PR #2063). EN + ZH synced. (+25 lines EN, +16 lines ZH)
+
+---
+
+## Part 6: Resolution Status
+
+| Document | Change | Lines | Commit |
+|----------|--------|-------|--------|
+| `external_frameworks.md` + `.zh-CN.md` | +4 platform sections, updated analysis & conclusion | +245 each | `ae37fa0` |
+| `architecture_comparison.md` | HiClaw v1.1.0 rewrite, Nanobot v0.3.0 split, matrix +4 columns | +156 changed | `ae37fa0`, `3604868` |
+| `governance_frameworks_analysis.md` + `.zh-CN.md` | AgentScope workspace + permission hooks | +25 EN, +16 ZH | `ae37fa0`, `b0f88e9` |
+| `mcp_ecosystem_deep_dive.md` + `.zh-CN.md` | Part 6: Compaction & MCP Tool State | +54 EN, +25 ZH | `ae37fa0`, `b0f88e9` |
+
+**Total: 5 documents updated, +642 insertions, -83 deletions (EN). ZH synced separately (+41 lines).**
+
+### Additional work since original report
+
+- **Failure Mode Taxonomy reorganized** (`failure-mode-taxonomy-2026.md`): 13 modes reordered from random sequence into 7 logical groups following agent execution lifecycle (Reasoning → Tool Interaction → Control Flow → Memory → Architecture → Verification → Security). All cross-references renumbered. Commit `800c4ea`.
+- **Benchmark engine upgraded**: Coverage 58→140 metrics (26%→76%), CLI agent benchmarking added, real cold-start data for reasonix (287ms) and codex (32.5ms). Commits `7e28878`, `178ddb9`, `10a4472`.
+- **July monthly report updated**: Added Trend 6 (benchmark infrastructure), expanded project updates with architecture doc work. Commit `23fac48`.
