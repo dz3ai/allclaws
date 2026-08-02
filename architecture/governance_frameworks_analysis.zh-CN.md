@@ -248,6 +248,22 @@ approvalCfg.Allowlist = []string{"git", "npm", "cargo", "go"}
 
 ---
 
+### AgentScope：Workspace Backend 抽象与权限钩子
+
+AgentScope 引入了以**可插拔 workspace 隔离**为核心、结合**程序化授权拦截点**的治理模型，在单一设计中同时解决部署灵活性和操作级控制问题。
+
+**Workspace Backend 抽象：**
+- AgentScope 支持多种隔离后端：Apple Container、Bubblewrap 和 Docker，在创建 workspace 时选择
+- Agent 在隔离环境中运行，隔离技术可按部署场景插拔
+- PR #2063 将 OpenAI `AsyncClient` 实例跨调用复用，显著降低多 Agent 场景的连接开销
+
+**权限钩子系统：**
+- `on_check_permission` 中间件钩子（PR #2001）为授权 Agent 操作提供单一程序化拦截点
+- 默认 fail-closed——未显式授权的操作被拒绝
+- 定位：在 GoClaw 的重量级基础设施治理和 IronClaw 的安全优先方案之间，AgentScope 提供了中间路线
+
+---
+
 ## 参见
 
 - [统一平台比较](platform_comparison.zh-CN.md) — 全部 20 个平台的完整架构比较
