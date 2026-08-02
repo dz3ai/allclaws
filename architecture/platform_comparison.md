@@ -1,23 +1,23 @@
-# Unified Platform Comparison: All 30 AI Agent Platforms
+# Unified Platform Comparison: All 34 AI Agent Platforms
 
 **[中文](platform_comparison.zh-CN.md)** | English
 
-> Standardized architecture comparison across all 30 platforms tracked by AllClaws — 11 claw ecosystem platforms, 13 external frameworks, 5 CLI coding agents, and 1 human digital twin platform. Updated June 2026.
+> Standardized architecture comparison across all 34 platforms tracked by AllClaws — 11 claw ecosystem platforms, 17 external frameworks, 5 CLI coding agents, and 1 human digital twin platform. Updated August 2026.
 
 ---
 
 ## Overview
 
-This document provides a standardized, side-by-side architecture comparison of all 30 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
+This document provides a standardized, side-by-side architecture comparison of all 34 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
 
-The 30 platforms divide into four groups:
+The 34 platforms divide into four groups:
 
 - **Claw Ecosystem (11):** Platforms originating within or closely associated with the Claw/OpenClaw ecosystem.
-- **External Frameworks (13):** Industry-reference frameworks tracked for ecosystem comparison.
+- **External Frameworks (17):** Industry-reference frameworks tracked for ecosystem comparison.
 - **CLI Coding Agents (5):** AI-powered terminal-based coding assistants (aider, reasonix, copilot-cli, kimi-cli, codex).
 - **Human Digital Twin (1):** Academic/research platform (openhuman).
 
-### Key Cross-Cutting Patterns (May 2026)
+### Key Cross-Cutting Patterns (August 2026)
 
 **Convergence — what all platforms agree on:**
 1. Streaming responses are table stakes
@@ -677,7 +677,7 @@ graph TB
 
 ---
 
-## Part 2: External Frameworks (13 Platforms)
+## Part 2: External Frameworks (17 Platforms)
 
 ---
 
@@ -1311,6 +1311,135 @@ graph TB
 
 ---
 
+---
+
+## OpenWorker
+
+**Classification:** Python / Rust / TypeScript | ~12K stars | Desktop-Native-Agent
+**Repository:** [github.com/andrewyng/openworker](https://github.com/andrewyng/openworker)
+**Status:** Active (v0.1.6)
+
+### Overview
+
+Andrew Ng's desktop-native agent coworker built on aisuite. Combines a Python agent engine with a React/Tauri desktop UI and a Rust speech-to-text sidecar. Features approval-gated actions for all consequential operations (writes, sends, shell commands) and native MCP tool integration with per-tool control.
+
+### Key Principles
+
+- aisuite foundation (unified chat-completions API across LLM providers)
+- Approval-gated actions (human-in-the-loop for consequential operations)
+- MCP native (any MCP-compatible tool plugs in)
+- BYO model (OpenAI, Anthropic, GLM, DeepSeek, Kimi, Qwen, Ollama)
+- Context compaction (OPE-27: pure module + engine hook + failure policy + persistence)
+
+### Core Architecture
+
+- **Language:** Python (engine), Rust (STT), TypeScript (GUI)
+- **Entry Point:** Desktop application
+- **Architecture Pattern:** Single-agent, human-in-the-loop
+- **Key Modules:** `coworker/` (agent engine, model providers, connectors, MCP client, memory, automations), `surfaces/gui/` (React + Tauri desktop app), `stt/` (Rust speech-to-text sidecar)
+- **MCP Status:** Native — per-tool control with approval gates
+- **Deployment:** Desktop application
+- **LLM Support:** OpenAI, Anthropic, GLM, DeepSeek, Kimi, Qwen, Ollama
+- **Memory:** Conversation context with compaction
+- **Database:** Not specified
+- **Security:** Approval gates for all consequential actions
+
+---
+
+## Dify
+
+**Classification:** Python + TypeScript | ~150K stars | Visual-Workflow-Platform
+**Repository:** [github.com/langgenius/dify](https://github.com/langgenius/dify)
+**Status:** Active (v1.16.1)
+
+### Overview
+
+Visual workflow platform for LLM applications. Drag-and-drop workflow nodes define agent behavior without code. Open-core licensing (modified Apache 2.0). The most commercially oriented platform tracked by AllClaws. Infrastructure: PostgreSQL, Redis, Weaviate (vector DB).
+
+### Key Principles
+
+- Visual pipeline (drag-and-drop workflow nodes, not code)
+- Open-core licensing (modified Apache 2.0 with multi-tenant and LOGO restrictions)
+- Skill packages (v1.16.0: configurable upload limits, skills as deployable artifacts)
+- Multi-tenant platform-as-a-service
+
+### Core Architecture
+
+- **Language:** Python (backend, uv since v1.3.0), TypeScript (React, pnpm)
+- **Entry Point:** Docker Compose deployment
+- **Architecture Pattern:** Visual workflow, platform-as-a-service
+- **Key Modules:** `api/` (backend API, workflow engine, RAG), `web/` (visual workflow builder UI), `docker/` (middleware orchestration)
+- **MCP Status:** N/A
+- **Deployment:** Docker Compose (self-hosted) or cloud
+- **LLM Support:** OpenAI, Anthropic, GLM, DeepSeek, Qwen, Ollama, and 100+ providers
+- **Memory:** Per-conversation session management
+- **Database:** PostgreSQL, Redis, Weaviate (vector DB)
+- **Security:** Multi-tenant workspace isolation
+
+---
+
+## MetaGPT
+
+**Classification:** Python | ~69K stars | Multi-Agent-Role-Playing
+**Repository:** [github.com/geekan/MetaGPT](https://github.com/geekan/MetaGPT)
+**Status:** Stalled (last commit January 2026, last release v0.8.2 March 2025)
+
+### Overview
+
+Role-playing multi-agent framework driven by Standard Operating Procedures (SOP). Agents follow pre-defined role sequences: Product Manager → Architect → Engineer → QA Engineer. Each role has specific actions and deliverables. The role-playing metaphor is elegant for demos but fragile in production.
+
+### Key Principles
+
+- SOP (Standard Operating Procedure) metaphor
+- Role hierarchy (PM → Architect → Engineer → QA)
+- Data Interpreter mode (v0.8.0: separate data analysis alongside software dev)
+- Research-oriented design
+
+### Core Architecture
+
+- **Language:** Python
+- **Entry Point:** CLI / library import
+- **Architecture Pattern:** Multi-agent role-playing, SOP-driven
+- **Key Modules:** `metagpt/actions/` (action primitives), `metagpt/environment/` (shared environment for agent communication), `metagpt/configs/` (model/tool config), `metagpt/document_store/` (RAG and document retrieval)
+- **MCP Status:** N/A
+- **Deployment:** Hybrid (local + cloud)
+- **LLM Support:** OpenAI-compatible API
+- **Memory:** Shared environment state
+- **Database:** Not specified
+- **Security:** Not specified
+
+---
+
+## Qwen-Agent
+
+**Classification:** Python | ~16.9K stars | Model-Coupled-Framework
+**Repository:** [github.com/QwenLM/Qwen-Agent](https://github.com/QwenLM/Qwen-Agent)
+**Status:** Active
+
+### Overview
+
+Framework for building agents with Alibaba's Qwen models. Model-coupled design — the framework and model are co-designed, unlike model-agnostic frameworks. Includes a built-in web GUI, unlike most frameworks that delegate UI to separate projects.
+
+### Key Principles
+
+- Model-coupled design (optimized for Qwen model family)
+- Co-designed framework + model synergy
+- Built-in GUI (`qwen_agent/gui/`)
+- setup.py packaging (consistent with Alibaba conventions)
+
+### Core Architecture
+
+- **Language:** Python
+- **Entry Point:** CLI / library import / Web GUI
+- **Architecture Pattern:** Model-coupled framework, single + multi-agent
+- **Key Modules:** `qwen_agent/agents/` (ReAct, tool-calling), `qwen_agent/llm/` (Qwen, OpenAI-compatible), `qwen_agent/tools/` (built-in tools + registration), `qwen_agent/memory/` (conversation memory), `qwen_agent/multi_agent_hub.py` (multi-agent coordination)
+- **MCP Status:** N/A
+- **Deployment:** Hybrid (local + cloud)
+- **LLM Support:** Qwen-2.5, Qwen-VL, OpenAI-compatible
+- **Memory:** Conversation memory management
+- **Database:** Not specified
+- **Security:** Not specified
+
 ## Part 3: CLI Coding Agents (5 Platforms)
 
 ---
@@ -1621,16 +1750,20 @@ graph TD
 | agent-zero | Python | Personal-Force-Multiplier | ~18.3K |
 | praisonai | Python | Enterprise-Automation | ~8.4K |
 | rocketride-server | Python/C++ | Enterprise-Automation | ~5.0K |
+| OpenWorker | Python / Rust / TS | Desktop-Native-Agent | ~12K |
+| Dify | Python + TypeScript | Visual-Workflow-Platform | ~150K |
+| MetaGPT | Python | Multi-Agent-Role-Playing | ~69K |
+| Qwen-Agent | Python | Model-Coupled-Framework | ~16.9K |
 
 ### MCP Adoption Matrix
 
 | MCP Status | Platforms |
 |------------|-----------|
-| **Native** | Hermes-Agent, AgentScope |
+| **Native** | Hermes-Agent, AgentScope, OpenWorker |
 | **Adapter** | OpenClaw, GoClaw, IronClaw, ZeroClaw, HiClaw, OpenFang, kimi-code, eliza, rocketride-server |
 | **Resistant** | NanoClaw |
 | **None** | ClawTeam, Maxclaw, Nanobot |
-| **N/A** | Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, aider, reasonix, openhuman, kimi-cli, codex, agent-zero, praisonai |
+| **N/A** | Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, aider, reasonix, openhuman, kimi-cli, codex, agent-zero, praisonai, Dify, MetaGPT, Qwen-Agent |
 
 ### Architecture Pattern Matrix
 
@@ -1656,6 +1789,10 @@ graph TD
 | **Terminal agent (TUI + ACP)** | kimi-cli |
 | **Terminal agent (sandboxed)** | codex |
 | **Plugin-based agent OS (monorepo)** | eliza |
+| **Desktop-native (human-in-loop)** | OpenWorker |
+| **Visual workflow pipeline** | Dify |
+| **SOP role-playing multi-agent** | MetaGPT |
+| **Model-coupled framework** | Qwen-Agent |
 | **Single-agent autonomous** | agent-zero |
 | **Multi-agent Workforce** | praisonai |
 | **Node-graph pipeline engine** | rocketride-server |
@@ -1695,7 +1832,7 @@ graph TD
 | praisonai | Hybrid (local + cloud) | RAG-backed vector store | Not specified |
 | rocketride-server | Docker + server | 8+ vector databases | Docker |
 
-### Full 30-Platform Comparison Table
+### Full 34-Platform Comparison Table
 
 | Platform | Language | Stars | MCP | Architecture | Deployment | Field |
 |----------|----------|-------|-----|-------------|------------|-------|
@@ -1742,6 +1879,6 @@ graph TD
 
 ---
 
-*Last updated: May 2026*
-*Platforms tracked: 30 (11 claw ecosystem + 13 external frameworks + 5 CLI coding agents + 1 human digital twin)*
+*Last updated: August 2026*
+*Platforms tracked: 34 (11 claw ecosystem + 17 external frameworks + 5 CLI coding agents + 1 human digital twin)*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*

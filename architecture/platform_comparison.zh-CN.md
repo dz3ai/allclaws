@@ -1,23 +1,23 @@
-# 统一平台比较：全部 30 个 AI 代理平台
+# 统一平台比较：全部 34 个 AI 代理平台
 
 **[English](platform_comparison.md)** | 中文
 
-> AllClaws 跟踪的全部 30 个平台的标准化架构比较 — 11 个 claw 生态平台、13 个外部框架、5 个 CLI 编程代理和 1 个人类数字孪生平台。2026 年 6 月更新。
+> AllClaws 跟踪的全部 34 个平台的标准化架构比较 — 11 个 claw 生态平台、17 个外部框架、5 个 CLI 编程代理和 1 个人类数字孪生平台。2026 年 8 月更新。
 
 ---
 
 ## 概述
 
-本文档以标准化格式并排比较 AllClaws 研究项目跟踪的全部 30 个 AI 代理平台的架构。每个平台条目遵循统一格式，涵盖分类、设计原则、核心架构和架构图（如有）。
+本文档以标准化格式并排比较 AllClaws 研究项目跟踪的全部 34 个 AI 代理平台的架构。每个平台条目遵循统一格式，涵盖分类、设计原则、核心架构和架构图（如有）。
 
-30 个平台分为四组：
+34 个平台分为四组：
 
 - **Claw 生态（11 个）：** 起源于 Claw/OpenClaw 生态或与之紧密关联的平台。
-- **外部框架（13 个）：** 用于生态比较的行业参考框架。
+- **外部框架（17 个）：** 用于生态比较的行业参考框架。
 - **CLI 编程代理（5 个）：** 基于终端的 AI 编程助手（aider、reasonix、copilot-cli、kimi-cli、codex）。
 - **人类数字孪生（1 个）：** 学术/研究平台（openhuman）。
 
-### 关键跨平台模式（2026 年 5 月）
+### 关键跨平台模式（2026 年 8 月）
 
 **趋同 — 所有平台的共识：**
 1. 流式响应已成为基本要求
@@ -677,7 +677,7 @@ graph TB
 
 ---
 
-## 第二部分：外部框架（13 个平台）
+## 第二部分：外部框架（17 个平台）
 
 ---
 
@@ -1273,6 +1273,135 @@ graph TB
 
 ---
 
+---
+
+## OpenWorker
+
+**分类：** Python / Rust / TypeScript | ~12K 星 | 桌面原生 Agent
+**仓库：** [github.com/andrewyng/openworker](https://github.com/andrewyng/openworker)
+**状态：** 活跃（v0.1.6）
+
+### 概述
+
+吴恩达团队开发的桌面原生 Agent 协作工具，基于 aisuite 构建。结合 Python Agent 引擎、React/Tauri 桌面 UI 和 Rust 语音转文字侧车进程。所有关键操作（写入、发送、shell 命令）均采用审批门控，原生集成 MCP 工具并支持逐工具控制。
+
+### 关键原则
+
+- aisuite 基础（跨 LLM 提供商的统一 chat-completions API）
+- 审批门控操作（关键操作需人工确认）
+- MCP 原生（任何 MCP 兼容工具均可插入，支持逐工具控制）
+- BYO 模型（OpenAI、Anthropic、GLM、DeepSeek、Kimi、Qwen、Ollama）
+- 上下文压缩（OPE-27：纯模块 + 引擎钩子 + 失败策略 + 持久化）
+
+### 核心架构
+
+- **语言：** Python（引擎）、Rust（语音转文字）、TypeScript（GUI）
+- **入口点：** 桌面应用
+- **架构模式：** 单 Agent、人在环路
+- **核心模块：** `coworker/`（Agent 引擎、模型提供商、连接器、MCP 客户端、记忆、自动化）、`surfaces/gui/`（React + Tauri 桌面应用）、`stt/`（Rust 语音转文字侧车）
+- **MCP 状态：** 原生 — 逐工具控制 + 审批门控
+- **部署：** 桌面应用
+- **LLM 支持：** OpenAI、Anthropic、GLM、DeepSeek、Kimi、Qwen、Ollama
+- **记忆：** 对话上下文 + 压缩
+- **数据库：** 未指定
+- **安全：** 所有关键操作需审批门控
+
+---
+
+## Dify
+
+**分类：** Python + TypeScript | ~150K 星 | 可视化工作流平台
+**仓库：** [github.com/langgenius/dify](https://github.com/langgenius/dify)
+**状态：** 活跃（v1.16.1）
+
+### 概述
+
+面向 LLM 应用的可视化工作流平台。拖拽式工作流节点定义 Agent 行为，无需代码。Open-core 许可（修改版 Apache 2.0）。AllClaws 跟踪的最商业化导向的平台。基础设施：PostgreSQL、Redis、Weaviate（向量数据库）。
+
+### 关键原则
+
+- 可视化管道（拖拽式工作流节点，而非代码）
+- Open-core 许可（修改版 Apache 2.0，带多租户和 LOGO 限制）
+- Skill 包（v1.16.0：可配置上传限制，Skill 作为可部署制品）
+- 多租户平台即服务
+
+### 核心架构
+
+- **语言：** Python（后端，v1.3.0 起使用 uv）、TypeScript（React、pnpm）
+- **入口点：** Docker Compose 部署
+- **架构模式：** 可视化工作流、平台即服务
+- **核心模块：** `api/`（后端 API、工作流引擎、RAG）、`web/`（可视化工作流构建器 UI）、`docker/`（中间件编排）
+- **MCP 状态：** N/A
+- **部署：** Docker Compose（自托管）或云
+- **LLM 支持：** OpenAI、Anthropic、GLM、DeepSeek、Qwen、Ollama 及 100+ 提供商
+- **记忆：** 按对话的会话管理
+- **数据库：** PostgreSQL、Redis、Weaviate（向量数据库）
+- **安全：** 多租户工作空间隔离
+
+---
+
+## MetaGPT
+
+**分类：** Python | ~69K 星 | 多 Agent 角色扮演
+**仓库：** [github.com/geekan/MetaGPT](https://github.com/geekan/MetaGPT)
+**状态：** 停滞（最后提交 2026 年 1 月，最后发版 v0.8.2 2025 年 3 月）
+
+### 概述
+
+SOP（标准操作流程）驱动的角色扮演多 Agent 框架。Agent 遵循预定义角色序列：产品经理 → 架构师 → 工程师 → QA 工程师。每个角色有特定的动作和交付物。角色扮演隐喻在 Demo 中很优雅，但在生产环境中很脆弱。
+
+### 关键原则
+
+- SOP（标准操作流程）隐喻
+- 角色层级（PM → 架构师 → 工程师 → QA）
+- Data Interpreter 模式（v0.8.0：在软件开发之外增加独立数据分析模式）
+- 研究导向设计
+
+### 核心架构
+
+- **语言：** Python
+- **入口点：** CLI / 库导入
+- **架构模式：** 多 Agent 角色扮演、SOP 驱动
+- **核心模块：** `metagpt/actions/`（动作原语）、`metagpt/environment/`（共享通信环境）、`metagpt/configs/`（模型/工具配置）、`metagpt/document_store/`（RAG 与文档检索）
+- **MCP 状态：** N/A
+- **部署：** 混合（本地 + 云）
+- **LLM 支持：** OpenAI 兼容 API
+- **记忆：** 共享环境状态
+- **数据库：** 未指定
+- **安全：** 未指定
+
+---
+
+## Qwen-Agent
+
+**分类：** Python | ~16.9K 星 | 模型耦合框架
+**仓库：** [github.com/QwenLM/Qwen-Agent](https://github.com/QwenLM/Qwen-Agent)
+**状态：** 活跃
+
+### 概述
+
+基于阿里通义千问模型的 Agent 构建框架。模型耦合设计——框架与模型协同设计，不同于模型无关框架。内置 Web GUI，不同于大多数将 UI 委托给独立项目的框架。
+
+### 关键原则
+
+- 模型耦合设计（为 Qwen 模型族深度优化）
+- 框架与模型协同设计
+- 内置 GUI（`qwen_agent/gui/`）
+- setup.py 打包方式（符合阿里内部惯例）
+
+### 核心架构
+
+- **语言：** Python
+- **入口点：** CLI / 库导入 / Web GUI
+- **架构模式：** 模型耦合框架、单 Agent + 多 Agent
+- **核心模块：** `qwen_agent/agents/`（ReAct、工具调用）、`qwen_agent/llm/`（Qwen、OpenAI 兼容）、`qwen_agent/tools/`（内置工具 + 注册）、`qwen_agent/memory/`（对话记忆）、`qwen_agent/multi_agent_hub.py`（多 Agent 协调）
+- **MCP 状态：** N/A
+- **部署：** 混合（本地 + 云）
+- **LLM 支持：** Qwen-2.5、Qwen-VL、OpenAI 兼容
+- **记忆：** 对话记忆管理
+- **数据库：** 未指定
+- **安全：** 未指定
+
 ## 第三部分：CLI 编程代理（5 个平台）
 
 ---
@@ -1549,17 +1678,21 @@ graph TD
 | eliza | TypeScript | 个人/企业（混合） | ~18.7K |
 | agent-zero | Python | 个人力量倍增器 | ~18.3K |
 | praisonai | Python | 企业自动化 | ~8.4K |
-| rocketride-server | Python/C++ | 企业自动化 | ~5.0K |
+| rocketride-server | Python/C++ | 企业级自动化 | ~5.0K |
+| OpenWorker | Python / Rust / TS | 桌面原生 Agent | ~12K |
+| Dify | Python + TypeScript | 可视化工作流平台 | ~150K |
+| MetaGPT | Python | 多 Agent 角色扮演 | ~69K |
+| Qwen-Agent | Python | 模型耦合框架 | ~16.9K |
 
 ### MCP 采用矩阵
 
 | MCP 状态 | 平台 |
 |----------|------|
-| **原生** | Hermes-Agent、AgentScope |
+| **原生** | Hermes-Agent, AgentScope, OpenWorker |
 | **适配器** | OpenClaw、GoClaw、IronClaw、ZeroClaw、HiClaw、OpenFang、kimi-code、eliza、rocketride-server |
 | **抵制** | NanoClaw |
 | **无** | ClawTeam、Maxclaw、Nanobot |
-| **N/A** | Claw-AI-Lab、SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、aider、reasonix、copilot-cli、openhuman、codex、agent-zero、praisonai |
+| **N/A** | Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, aider, reasonix, openhuman, kimi-cli, codex, agent-zero, praisonai, Dify, MetaGPT, Qwen-Agent |
 
 ### 架构模式矩阵
 
@@ -1582,7 +1715,11 @@ graph TD
 | **终端代理（ACP）** | copilot-cli |
 | **Agent OS（Hands）** | OpenFang |
 | **CLI → LLM → Shell 执行** | codex |
-| **插件代理 OS（monorepo）** | eliza |
+| **基于插件的 Agent OS（monorepo）** | eliza |
+| **桌面原生（人在环路）** | OpenWorker |
+| **可视化工作流管道** | Dify |
+| **SOP 角色扮演多 Agent** | MetaGPT |
+| **模型耦合框架** | Qwen-Agent |
 | **单代理自主** | agent-zero |
 | **多代理劳动力** | praisonai |
 | **节点图管道引擎** | rocketride-server |
@@ -1667,5 +1804,5 @@ graph TD
 ---
 
 *最后更新：2026 年 5 月*
-*跟踪平台：30 个（11 个 claw 生态 + 13 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）*
+*跟踪平台：34 个（11 个 claw 生态 + 17 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）*
 *所属：AllClaws 个人 AI 代理生态系统研究*
