@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How 15 AI Agent Platforms Present Themselves: A CLI Command Comparison"
+title: "How 16 AI Agent Platforms Present Themselves: A CLI Command Comparison"
 date: 2026-08-12 17:00:00 +0800
 author: Danny Zeng
 categories: [Research, Comparison]
@@ -9,7 +9,7 @@ tags: [cli, command-interface, agent-platform, comparison, ux, developer-experie
 
 Every AI agent platform has a different answer to the same question: **how does a user interact with you?** Some give you a single command and a chat loop. Some give you 80 subcommands. Some give you a TUI, some a REPL, some just print text to stdout.
 
-After running `--help` on every available CLI and reading the source code of the ones we couldn't install, here is a structured comparison of how 15 AI agent platforms present their capabilities to users — and what those choices reveal about their design philosophy.
+After running `--help` on every available CLI and reading the source code of the ones we couldn't install, here is a structured comparison of how 16 AI agent platforms present their capabilities to users — and what those choices reveal about their design philosophy.
 
 ---
 
@@ -173,7 +173,47 @@ ZeroClaw has the most *consistent* CLI of any platform — clean, well-structure
 
 ---
 
-### 7. Nanobot (`nanobot`)
+### 7. OpenCode (`opencode`)
+
+**Language:** TypeScript | **Version:** v1.17.18 | **Stars:** ~5K
+
+OpenCode is "the open source coding agent" — a TUI-first coding assistant with ACP and MCP support, plus a unique headless server mode for remote collaboration.
+
+**Subcommands (21):**
+
+| Category | Commands |
+|----------|----------|
+| Core | `opencode [project]` (TUI, default), `run [message..]`, `attach <url>` |
+| Server | `serve` (headless), `web` (server + browser UI) |
+| Protocol | `acp` (ACP server), `mcp` (MCP management) |
+| Providers & Models | `providers` (a.k.a. `auth`), `models [provider]` |
+| GitHub | `github` (GitHub agent), `pr <number>` (fetch PR branch, then TUI) |
+| Session | `session` (manage), `export [sessionID]`, `import <file>` |
+| Agent & Plugins | `agent` (manage agents), `plugin <module>` (install & configure) |
+| Ops | `debug`, `stats` (token usage/cost), `db`, `upgrade`, `uninstall`, `completion` |
+
+**Invocation modes:**
+- `opencode` — Launch TUI (default)
+- `opencode run "prompt"` — Run with a message (non-interactive)
+- `opencode serve` — Headless server
+- `opencode web` — Server + browser UI
+- `opencode attach <url>` — Connect to remote server
+- `opencode --mini` — Minimal interactive interface
+- `opencode -c` / `-s <id>` — Continue last or specific session
+
+**Notable design choices:**
+- `--fork` to fork a session when continuing (branch from a previous state)
+- `--pure` to run without external plugins
+- `--mdns` for mDNS service discovery on local network (find running instances)
+- `--cors` for cross-origin configuration on the headless server
+- `pr <number>` fetches a GitHub PR branch then launches the TUI — a workflow-specific command no other platform has
+- `stats` for token usage and cost tracking as a first-class command
+
+**Design philosophy:** "TUI-first, server-optional." OpenCode's default experience is a TUI, but it uniquely offers both a headless `serve` mode and a `web` mode with browser UI. The `attach <url>` command and mDNS discovery suggest a design that supports both local development and remote collaboration — you can run opencode on a server and attach to it from your laptop. The `pr` command bridges GitHub workflow into the agent loop, treating PR review as a first-class use case.
+
+---
+
+### 8. Nanobot (`nanobot`)
 
 **Language:** Python 3.11+ | **Stars:** ~37K | **Entry Point:** `nanobot/__main__.py` (Typer)
 
@@ -190,7 +230,7 @@ Nanobot takes the "ultra-lightweight" philosophy into its CLI design.
 
 ---
 
-### 8. Maxclaw (`maxclaw`)
+### 9. Maxclaw (`maxclaw`)
 
 **Language:** Go 1.24+ | **Stars:** ~189 | **Binaries:** `maxclaw`, `maxclaw-gateway`
 
@@ -207,7 +247,7 @@ Maxclaw ships two binaries — one for the agent, one for the gateway.
 
 ---
 
-### 9. NanoClaw (`nanoclaw`)
+### 10. NanoClaw (`nanoclaw`)
 
 **Language:** TypeScript (Node.js) | **Entry Point:** `src/index.ts`
 
@@ -225,7 +265,7 @@ NanoClaw is the most container-centric platform — its "CLI" is fundamentally a
 
 ---
 
-### 10. HiClaw (`hiclaw`)
+### 11. HiClaw (`hiclaw`)
 
 **Language:** Go + Shell | **Deployment:** Docker Compose / Kubernetes
 
@@ -242,7 +282,7 @@ HiClaw is the only platform to use Kubernetes-style declarative resources.
 
 ---
 
-### 11. Hermes-Agent (Source Analysis vs Live Capture)
+### 12. Hermes-Agent (Source Analysis vs Live Capture)
 
 The architecture docs describe Hermes as a simpler platform than what the live `--help` reveals. The docs note:
 - Entry point: `hermes` CLI
@@ -253,7 +293,7 @@ The live CLI (v0.20.0) shows a platform that has evolved far beyond "single-agen
 
 ---
 
-### 12. aider (`aider`)
+### 13. aider (`aider`)
 
 **Language:** Python | **Stars:** ~68K | **Entry Point:** `aider` CLI
 
@@ -270,7 +310,7 @@ aider is the most focused CLI — it does one thing (code editing with AI) and d
 
 ---
 
-### 13. Claude Code (`claude`)
+### 14. Claude Code (`claude`)
 
 **Language:** TypeScript (Anthropic) | **Entry Point:** `claude`
 
@@ -286,7 +326,7 @@ Claude Code is Anthropic's official CLI coding agent. Not directly testable from
 
 ---
 
-### 14. kimi-cli (`kimi-cli`)
+### 15. kimi-cli (`kimi-cli`)
 
 **Language:** Python | **Stars:** ~8.8K | **Version:** 1.24.0
 
@@ -325,7 +365,7 @@ kimi-cli from MoonshotAI has the most *options-dense* help of any platform relat
 
 ---
 
-### 15. Codex (`codex`)
+### 16. Codex (`codex`)
 
 **Language:** Rust | **Stars:** ~86.9K | **Entry Point:** `codex` CLI
 
@@ -347,6 +387,7 @@ OpenAI's Codex is the most starred CLI agent and the simplest architecturally.
 
 ```
 Hermes       ████████████████████████████████████████████  81+
+OpenCode     ████████████████████████████████  21
 ZeroClaw     ██████████████████████  22
 kimi-cli     ████████  9
 ClawTeam     ████████  ~8 groups
@@ -360,6 +401,7 @@ aider        ██  1
 | Platform | REPL | TUI | One-shot | Print/Pipe | Git worktree | ACP server | Wire protocol |
 |----------|------|-----|----------|------------|-------------|------------|---------------|
 | **Hermes** | Yes | Yes | `-z` | Yes | `-w` | `acp` | No |
+| **OpenCode** | No | Yes | `run` | No | `--fork` | `acp` | No |
 | **kimi-cli** | Yes | `term` | `-p` | `--print` / `--quiet` | No | `acp` | `--wire` |
 | **ZeroClaw** | Yes | No | `-m` | No | No | No | No |
 | **aider** | Yes | No | No | No | No | No | No |
@@ -380,18 +422,18 @@ aider        ██  1
 
 ### Operational Commands Coverage
 
-| Capability | Hermes | ZeroClaw | kimi-cli | ClawTeam | GoClaw | aider | codex |
-|-----------|---------|----------|----------|----------|--------|-------|-------|
-| Cron/scheduling | Yes | Yes | No | Yes (tasks) | Yes | No | No |
-| Monitoring/dashboard | Yes | Yes | Yes (vis) | Yes (board) | Yes | No | No |
-| Session resume | Yes | No | Yes (`-S`, `-C`) | No | No | No | No |
-| Session export | Yes | No | Yes (`export`) | No | No | No | No |
-| Backup/restore | Yes | Yes (migrate) | No | No | No | No | No |
-| Doctor/debug | Yes | Yes | No | No | No | No | No |
-| Security audit | Yes | No | No | No | Yes | No | No |
-| MCP management | Yes | No | Yes (`mcp`) | No | Yes | No | No |
-| Skills/plugins | Yes | Yes | Yes (`--skills-dir`) | No | Yes | No | No |
-| Shell completion | Yes | Yes | No | No | No | No | No |
+| Capability | Hermes | ZeroClaw | kimi-cli | OpenCode | ClawTeam | GoClaw | aider | codex |
+|-----------|---------|----------|----------|----------|----------|--------|-------|-------|
+| Cron/scheduling | Yes | Yes | No | No | Yes (tasks) | Yes | No | No |
+| Monitoring/dashboard | Yes | Yes | Yes (vis) | Yes (stats) | Yes (board) | Yes | No | No |
+| Session resume | Yes | No | Yes (`-S`, `-C`) | Yes (`-c`, `-s`) | No | No | No | No |
+| Session export | Yes | No | Yes (`export`) | Yes (`export`) | No | No | No | No |
+| Backup/restore | Yes | Yes (migrate) | No | No | No | No | No | No |
+| Doctor/debug | Yes | Yes | No | Yes (`debug`) | No | No | No | No |
+| Security audit | Yes | No | No | No | No | Yes | No | No |
+| MCP management | Yes | No | Yes (`mcp`) | Yes (`mcp`) | No | Yes | No | No |
+| Skills/plugins | Yes | Yes | Yes (`--skills-dir`) | Yes (`plugin`) | No | Yes | No | No |
+| Shell completion | Yes | Yes | No | Yes (`completion`) | No | No | No | No |
 
 ---
 
@@ -443,13 +485,14 @@ The CLI is the most honest interface a platform has. Documentation can overstate
 - **Hermes** prioritizes completeness — every feature gets a command
 - **ZeroClaw** prioritizes consistency — every command has examples and clean help
 - **kimi-cli** prioritizes configurability — every invocation can be finely tuned
+- **OpenCode** prioritizes remote collaboration — serve, attach, mDNS discovery
 - **aider** prioritizes focus — one loop, done well
 - **codex** prioritizes safety — one binary, sandboxed, minimal
 - **ClawTeam** prioritizes orchestration — commands for teams, not for chat
 - **GoClaw** prioritizes infrastructure — commands for deployment, not interaction
 
-The best CLIs of 2026 combine Hermes' completeness with ZeroClaw's consistency and kimi-cli's configurability. Nobody has done all three yet.
+The best CLIs of 2026 combine Hermes' completeness with ZeroClaw's consistency, kimi-cli's configurability, and OpenCode's remote collaboration. Nobody has done all four yet.
 
 ---
 
-*Live CLI captures from Hermes v0.20.0, kimi-cli v1.24.0, zeroclaw v0.1.7. Architecture documentation from the AllClaws platform comparison covering all tracked platforms. See [platform_comparison.md](https://github.com/dz3ai/allclaws/blob/main/architecture/platform_comparison.md) for full architecture details.*
+*Live CLI captures from Hermes v0.20.0, OpenCode v1.17.18, kimi-cli v1.24.0, zeroclaw v0.1.7. Architecture documentation from the AllClaws platform comparison covering all tracked platforms. See [platform_comparison.md](https://github.com/dz3ai/allclaws/blob/main/architecture/platform_comparison.md) for full architecture details.*
