@@ -1,0 +1,11 @@
+# ClawTeam Multi-Task Coordination Analysis
+
+ClawTeam implements leader-worker orchestration for concurrent task execution. The leader agent receives human prompts, creates tasks with dependency chains, and spawns worker agents when tasks become ready. As documented in architecture_comparison.md, worker agents operate in parallel across N git worktrees and tmux windows, each reporting status back to the leader through a centralized task creation system.
+
+Task dependency tracking uses TOML-based blocked-by chains with automatic unblocking. When a task completes, the system automatically resolves dependent tasks—multi_agent_coordination_research.md shows the pattern: `auth-module` status "completed" → `api-endpoints` auto-unblocks → `frontend` unblocks. This dependency-aware queue prevents workers from starting blocked tasks, ensuring correct execution order without manual coordination.
+
+Inter-agent communication combines point-to-point messaging and broadcast capabilities. According to the architecture diagram, workers exchange messages through `inboxes/` JSON files (point-to-point) and receive broadcasts from the leader. This dual-mode approach supports targeted coordination ("Here's the OpenAPI spec") and team-wide announcements ("Auth endpoints ready"). File-based messaging provides simplicity and crash safety; optional ZeroMQ P2P enables cross-machine communication when needed.
+
+Parallel execution safety is achieved through git worktree isolation—each worker modifies its own worktree, eliminating merge conflicts. Monitoring occurs through three interfaces: Kanban board with live updates, web UI dashboard, and tiled tmux view of all agents. The leader merges completed worktrees back into main branch, coordinating the final integration.
+
+The key innovation: ClawTeam combines task-level dependencies (blocked-by chains), agent-level isolation (worktrees), and communication primitives (inboxes + broadcast) into a cohesive multi-agent workflow. This enables autonomous software engineering scenarios where 5 parallel agents complete full-stack apps in ~3 hours versus 8+ hours for single agents—a 2.7× speedup documented in multi_agent_coordination_research.md through parallel task execution without overhead.

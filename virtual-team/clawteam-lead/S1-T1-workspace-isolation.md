@@ -1,0 +1,9 @@
+# ClawTeam Workspace Isolation Analysis
+
+ClawTeam organizes work into isolated environments through git worktree-based architecture. Each worker agent receives its own git worktree from the parent repository, creating a filesystem boundary that prevents merge conflicts during parallel development. This design enables N agents to work simultaneously on the same codebase without interference, as demonstrated in AllClaws research documenting per-agent worktrees for "parallel development without conflicts."
+
+The isolation boundary spans three layers: filesystem (git worktrees), process (tmux-backed spawning), and state (JSON files). The state directory at `~/.clawteam/` contains four subdirectories: `teams/` for team configuration, `tasks/` for task state and dependencies, `inboxes/` for point-to-point messaging, and `workspaces/` for git worktree references. According to platform_comparison.md, this file-based state uses fcntl locking for crash safety without requiring a database—zero-config isolation that persists across restarts.
+
+Zero-config team templates in TOML format define project-level isolation. A single command like `clawteam launch hedge-fund --team fund1` creates an entire team with specialized roles (analysts, risk manager, portfolio manager), each receiving isolated worktrees and state. This template-based approach eliminates manual workspace setup overhead, letting teams scale from single-agent to multi-agent workflows without reconfiguring environments.
+
+The key insight: ClawTeam treats isolation as a first-class primitive rather than an afterthought. Git worktrees provide rollback capability and conflict-free branches, file-based state with fcntl locking ensures crash recovery, and TOML templates make multi-agent teams reproducible. For projects needing parallel task execution without infrastructure complexity, this architecture trades database capabilities for simplicity and developer familiarity.
