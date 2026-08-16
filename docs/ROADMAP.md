@@ -37,7 +37,7 @@ The initial phase of AllClaws catalogued 34 platforms and analyzed their archite
 - **Claw Ecosystem (11):** OpenClaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, ZeroClaw, HiClaw, Hermes-Agent, Claw-AI-Lab
 - **CLI Coding Agents (5):** aider, copilot-cli, reasonix, kimi-cli, codex
 - **Human Digital Twin (1):** openhuman
-- **External Frameworks (13):** SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, kimi-code, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride
+- **External Frameworks (17):** SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, kimi-code, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride, OpenWorker, Dify, MetaGPT, Qwen-Agent
 
 ### 2. MCP Ecosystem Deep-Dive
 
@@ -236,6 +236,34 @@ At 34 platforms with growth momentum, AllClaws needs governance to maintain qual
 - Quality checklist for platform analysis
 - Stale project archiving criteria and timeline
 
+### 7. Category Coverage Gap-Closure (added August 2026)
+
+**Status:** Planned
+**Target:** Close ecosystem category gaps that AllClaws's own research reports have identified but never tracked
+
+An August 2026 coverage audit cross-referenced the tracking set against our own research reports and found several categories that are described in reports but absent from the tracking set. This item formalizes their evaluation and runs in coordination with Q4-6 governance (admission criteria, the 35-platform cap question).
+
+**Research Questions:**
+- Do computer-use / GUI agents deserve first-class category tracking? Do UI-TARS (ByteDance, 11.2K stars) and browser-use (~60K stars) represent a top-3 paradigm of 2026?
+- Is agent memory infrastructure (Letta/MemGPT, Mem0) a distinct layer of the ecosystem, or a feature all platforms have?
+- Which China-ecosystem leftovers (ChatDev 2.0 at 33.8K stars, LangBot at 17.1K stars) merit tracking?
+- Do A2A-native platforms exist and mature enough to track (input to Q4-5 protocol wars)?
+
+**Candidate evaluation list:**
+- UI-TARS (bytedance/UI-TARS) — GUI automation, China
+- browser-use — browser automation, Western
+- ChatDev (OpenBMB/ChatDev) — multi-agent software company, China
+- LangBot (langbot-app/langbot) — messaging bridge with WeChat as first-class citizen, China
+- Letta (formerly MemGPT) — memory layer
+- Mem0 — memory layer
+
+**Deliverables:**
+- TRACK/SKIP/MONITOR recommendation per category (using the platform evaluation criteria)
+- Category coverage matrix for the tracking set (new "category" dimension)
+- If admission criteria are met: 1-3 new platforms (subject to Q4-6 governance decisions)
+
+**Intentionally excluded categories (confirmed, do not re-evaluate):** observability/ops (Langfuse), sandbox infrastructure (E2B), voice-first consumer assistants, robotics/embodied AI (robot-toolkit is a separate project).
+
 ---
 
 ## Ongoing Activities
@@ -349,4 +377,4 @@ For discussions, questions, or collaboration opportunities:
 
 ---
 
-*Last updated: July 19, 2026*
+*Last updated: August 16, 2026*

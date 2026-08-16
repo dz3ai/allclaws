@@ -37,7 +37,7 @@ AllClaws 的初期阶段对 34 个平台进行了编目并分析了其架构。2
 - **Claw 生态（11 个）：** OpenClaw、ClawTeam、GoClaw、IronClaw、Maxclaw、NanoClaw、Nanobot、ZeroClaw、HiClaw、Hermes-Agent、Claw-AI-Lab
 - **CLI 编程代理（5 个）：** aider、copilot-cli、reasonix、kimi-cli、codex
 - **人类数字孪生（1 个）：** openhuman
-- **外部框架（13 个）：** SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、kimi-code、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride
+- **外部框架（17 个）：** SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、kimi-code、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride、OpenWorker、Dify、MetaGPT、Qwen-Agent
 
 ### 2. MCP 生态系统深度分析
 
@@ -232,6 +232,34 @@ Google 的 Agent-to-Agent (A2A) 协议、Anthropic 的 MCP 以及 OpenAI/Cursor 
 - 平台分析质量检查清单
 - 停滞项目归档标准和时限
 
+### 7. 类别覆盖缺口闭合（2026 年 8 月新增）
+
+**状态：** 计划中
+**目标：** 闭合自身研究报告已识别但尚未跟踪的生态系统类别缺口
+
+2026 年 8 月的覆盖审计将跟踪集与自身研究报告交叉比对，发现若干类别被描述过但从未进入跟踪。本项正式评估它们，并与 Q4-6 治理工作（准入标准、35 上限）协同执行。
+
+**研究问题：**
+- 计算机操作（computer-use / GUI）代理是否值得作为一等类别跟踪？UI-TARS（字节跳动，11.2K 星）和 browser-use（约 60K 星）是否代表 2026 年的第三大范式？
+- 智能体记忆基础设施（Letta/MemGPT、Mem0）是独立一层，还是所有平台的功能？
+- 哪些中国生态剩余项目（ChatDev 2.0 33.8K 星、LangBot 17.1K 星）值得进入跟踪集？
+- A2A 原生平台是否存在且足够成熟可跟踪（Q4-5 协议战争的输入）？
+
+**候选评估列表：**
+- UI-TARS（bytedance/UI-TARS）— GUI 自动化，中国
+- browser-use — 浏览器操作，西方
+- ChatDev（OpenBMB/ChatDev）— 多代理软件公司，中国
+- LangBot（langbot-app/langbot）— WeChat 一等公民的消息桥，中国
+- Letta（前身为 MemGPT）— 记忆层
+- Mem0 — 记忆层
+
+**交付成果：**
+- 每个类别的 TRACK/SKIP/MONITOR 建议（使用平台评估标准）
+- 跟踪集的类别覆盖矩阵（新增"类别"维度）
+- 若达到准入标准：新增 1-3 个平台（须符合 Q4-6 治理决策）
+
+**有意排除的类别（已确认，无需重新评估）：** 可观测性/运维（Langfuse）、沙箱基础设施（E2B）、语音优先消费助手、机器人/具身智能（robot-toolkit 为独立项目）。
+
 ---
 
 ## 持续活动
@@ -343,4 +371,4 @@ Google 的 Agent-to-Agent (A2A) 协议、Anthropic 的 MCP 以及 OpenAI/Cursor 
 
 ---
 
-*最后更新：2026 年 7 月 19 日*
+*最后更新：2026 年 8 月 16 日*
