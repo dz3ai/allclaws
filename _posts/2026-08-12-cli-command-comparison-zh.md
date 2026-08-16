@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "16 个 AI Agent 平台如何展示自己：CLI 命令对比"
+title: "17 个 AI Agent 平台如何展示自己：CLI 命令对比"
 date: 2026-08-12 17:10:00 +0800
 author: Danny Zeng
 categories: [研究, 对比]
@@ -10,13 +10,13 @@ lang: zh
 
 每一个 AI agent 平台对同一个问题都有不同的答案：**用户如何与你交互？** 有的给你一条命令和一个聊天循环。有的给你 80 个子命令。有的给你 TUI，有的给你 REPL，有的只是往 stdout 打印文本。
 
-在本机所有可安装的 CLI 上运行了 `--help`、并阅读了无法安装的那些的源代码之后，这里是一份关于 16 个 AI agent 平台如何向用户展示能力的结构化对比——以及这些选择揭示了怎样的设计哲学。
+在本机所有可安装的 CLI 上运行了 `--help`、并阅读了无法安装的那些的源代码之后，这里是一份关于 17 个 AI agent 平台如何向用户展示能力的结构化对比——以及这些选择揭示了怎样的设计哲学。
 
 ---
 
 ## 方法论
 
-我从本机安装的三个平台（Hermes、kimi-cli、zeroclaw）抓取了活的 `--help` 输出，并从 AllClaws 架构文档跟踪的其余平台的源代码和文档中提取了 CLI 架构细节。每个平台的条目涵盖：
+我从本机安装的五个平台（Hermes、kimi-cli、zeroclaw、opencode、reasonix）抓取了活的 `--help` 输出，并从 AllClaws 架构文档跟踪的其余平台的源代码和文档中提取了 CLI 架构细节。每个平台的条目涵盖：
 
 - **命令名**：你输入什么来启动它
 - **子命令数量**：有多少个不同的命令可用
@@ -176,7 +176,7 @@ ZeroClaw 拥有所有平台中最*一致*的 CLI——干净、结构良好、�
 
 ### 7. OpenCode (`opencode`)
 
-**语言：** TypeScript | **版本：** v1.17.18 | **星标：** ~5K
+**语言：** TypeScript | **版本：** v1.18.18 | **星标：** ~198K
 
 OpenCode 是"开源编程 agent"——TUI 优先的编程助手，支持 ACP 和 MCP，外加独特的 headless 服务器模式用于远程协作。
 
@@ -207,6 +207,9 @@ OpenCode 是"开源编程 agent"——TUI 优先的编程助手，支持 ACP 和
 - `--pure` 不加载外部插件运行
 - `--mdns` 用于局域网 mDNS 服务发现（找到运行中的实例）
 - `--cors` 用于 headless 服务器的跨域配置
+- `--auto` 自动批准所有未被显式拒绝的权限（文档明示危险的模式）
+- `--port` / `--hostname` 显式绑定服务器；`--mdns-domain` 自定义发现域名
+- `--replay-limit` 限制 mini 模式恢复时的会话回放条数
 - `pr <number>` 拉取 GitHub PR 分支后启动 TUI——其他平台没有的工作流专属命令
 - `stats` 把 token 用量和成本追踪作为一等命令
 
@@ -382,14 +385,52 @@ OpenAI 的 Codex 是星标最多的 CLI agent，也是架构上最简单的。
 
 ---
 
+### 17. Reasonix (`reasonix` / `dsnix`)
+
+**语言：** TypeScript | **版本：** v0.52.0 | **星标：** ~34.6K | **入口：** `dist/cli/index.js` | **冷启动：** ~287ms
+
+Reasonix（esengine/DeepSeek-Reasonix）是"DeepSeek 原生编程 agent"——也是本次对比中唯一拥有**两个命令名**的平台：`reasonix` 和 `dsnix` 指向同一个二进制。它的 CLI 哲学围绕一个经济性理念构建：DeepSeek 的上下文缓存。子命令的存在就是为了让缓存命中率可见、可干预。
+
+**子命令（19 个）：**
+
+| 类别 | 命令 |
+|------|------|
+| 安装与健康 | `setup`（交互式向导）、`doctor`、`doctor-cache`、`update`、`version` |
+| 核心聊天 | `chat`（带实时缓存/成本面板的 Ink TUI）、`code [dir]`（带文件系统工具的编程聊天） |
+| 非交互 | `run <task>`（流式 one-shot）、`desktop`（面向桌面客户端的 headless JSON-RPC） |
+| ACP | `acp`（stdio NDJSON 上的 Agent Client Protocol） |
+| 可观测性 | `stats [transcript]`（使用情况仪表盘）、`events <name>`（内核事件日志美化打印）、`replay <transcript>`（转录稿浏览 TUI）、`diff <a> <b>`（分栏转录稿对比） |
+| 会话 | `sessions`、`prune-sessions`（删除空闲 ≥N 天的会话，`--dry-run`）、`-c/--continue`、`-r/--resume`、`-n/--new` |
+| 成本与数据 | `commit`（从暂存 diff 起草提交消息）、`mcp`（MCP 发现 + 配置测试）、`index`（本地语义搜索索引） |
+
+**设计哲学：** "成本是一等公民。" Reasonix 是这里唯一把**会话美元预算内置到调用里**的 CLI：`--budget <usd>` 在 80% 时警告，100% 时*拒绝下一轮*（不只是警告——是硬门禁）。`chat` TUI 在你输入时显示实时缓存命中/成本面板，`stats` 把历史转录稿变成使用仪表盘，`doctor-cache` 是专门针对缓存稳定性的健康检查。kimi-cli 让每个*行为*可配置，Reasonix 让每个*成本维度*可见：预算上限、按转录稿记账、缓存健康。它是 kimi-cli 配置优先设计的经济学优先对照。
+
+**值得关注的设计选择：**
+- `--budget <usd>` — 每会话花费上限，80% 警告，100% 硬拒绝
+- `--effort low|medium|high|max` — 每种调用模式都有的推理强度旋钮
+- `--no-mouse` — 关闭 SGR 鼠标跟踪，恢复终端原生拖选（其他 CLI 都没处理的痛点）
+- `--no-proxy` — 单次运行绕过代理，适合 GFW 邻近网络
+- `--dashboard-port` / `--dashboard-host` — 内嵌 Web 仪表盘的固定端口 + 局域网绑定（SSH 隧道友好）
+- `--mcp <spec>` 可重复，配 `--mcp-prefix` 给工具名加命名空间
+- `--profile` — 记录 V8 CPU profile，用于性能 bug 报告
+- 双语帮助输出（中文描述 + 英文命令名）
+- `diff <a> <b>` — 唯一能*分栏对比两份 agent 转录稿*的 CLI
+- `code` 上的 `dry-run` 标志用于 ssh:// 目标——解析 URI、检查本地 SSH、打印计划步骤，不执行任何远程命令
+
+**交叉引用：** Reasonix 实现了 one-shot（`run`）、TUI（`chat`）、ACP 服务器（`acp`）、MCP 管理（`mcp`）、会话恢复（`-c`/`-r`）和自更新（`update`）——与 Hermes 和 OpenCode 相同的六个能力点，代码量只是零头。
+
+
+---
+
 ## 跨平台分析
 
 ### 子命令数量光谱
 
 ```
 Hermes       ████████████████████████████████████████████  81+
-OpenCode     ████████████████████████████  21
+OpenCode     ████████████████████████  21
 ZeroClaw     ██████████████████  22
+Reasonix     ██████████████████  19
 kimi-cli     ████████  9
 ClawTeam     ████████  ~8 组
 GoClaw       █████  ~5
@@ -404,6 +445,7 @@ aider        ██  1
 | **Hermes** | ✓ | ✓ | `-z` | ✓ | `-w` | `acp` | ✗ |
 | **OpenCode** | ✗ | ✓ | `run` | ✗ | `--fork` | `acp` | ✗ |
 | **kimi-cli** | ✓ | `term` | `-p` | `--print` / `--quiet` | ✗ | `acp` | `--wire` |
+| **Reasonix** | ✗ | `chat`/`code` | `run` | ✗ | ✗ | `acp` | `desktop` JSON-RPC |
 | **ZeroClaw** | ✓ | ✗ | `-m` | ✗ | ✗ | ✗ | ✗ |
 | **aider** | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | **codex** | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
@@ -416,6 +458,7 @@ aider        ██  1
 | 方式 | 平台 | 说明 |
 |------|------|------|
 | 标志优先 | kimi-cli、ZeroClaw | 每个选项都是 CLI 标志，配置文件可选 |
+| 标志优先、成本感知 | Reasonix | 每个选项都是标志，外加每会话 `--budget` 上限 |
 | 配置文件优先 | GoClaw、HiClaw | JSON5/YAML 配置文件，CLI 用于覆盖 |
 | 交互优先 | Hermes、OpenClaw | `setup` 向导，然后是配置文件 |
 | 零配置 | ClawTeam、Nanobot | 安装后立即可用 |
@@ -423,18 +466,19 @@ aider        ██  1
 
 ### 运维命令覆盖
 
-| 能力 | Hermes | ZeroClaw | kimi-cli | OpenCode | ClawTeam | GoClaw | aider | codex |
-|------|--------|----------|----------|----------|----------|--------|-------|-------|
-| Cron/调度 | ✓ | ✓ | ✗ | ✗ | ✓（tasks） | ✓ | ✗ | ✗ |
-| 监控/仪表盘 | ✓ | ✓ | ✓（vis） | ✓（stats） | ✓（board） | ✓ | ✗ | ✗ |
-| 会话恢复 | ✓ | ✗ | ✓（`-S`、`-C`） | ✓（`-c`、`-s`） | ✗ | ✗ | ✗ | ✗ |
-| 会话导出 | ✓ | ✗ | ✓（`export`） | ✓（`export`） | ✗ | ✗ | ✗ | ✗ |
-| 备份/恢复 | ✓ | ✓（migrate） | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| Doctor/调试 | ✓ | ✓ | ✗ | ✓（`debug`） | ✗ | ✗ | ✗ | ✗ |
-| 安全审计 | ✓ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ |
-| MCP 管理 | ✓ | ✗ | ✓（`mcp`） | ✓（`mcp`） | ✗ | ✓ | ✗ | ✗ |
-| 技能/插件 | ✓ | ✓ | ✓（`--skills-dir`） | ✓（`plugin`） | ✗ | ✓ | ✗ | ✗ |
-| Shell 补全 | ✓ | ✓ | ✗ | ✓（`completion`） | ✗ | ✗ | ✗ | ✗ |
+| 能力 | Hermes | ZeroClaw | kimi-cli | OpenCode | ClawTeam | GoClaw | aider | codex | Reasonix |
+|------|--------|----------|----------|----------|----------|--------|-------|-------|----------|
+| Cron/调度 | ✓ | ✓ | ✗ | ✗ | ✓（tasks） | ✓ | ✗ | ✗ | ✗ |
+| 监控/仪表盘 | ✓ | ✓ | ✓（vis） | ✓（stats） | ✓（board） | ✓ | ✗ | ✗ | ✓（stats + Web 仪表盘） |
+| 会话恢复 | ✓ | ✗ | ✓（`-S`、`-C`） | ✓（`-c`、`-s`） | ✗ | ✗ | ✗ | ✗ | ✓（`-c`、`-r`） |
+| 会话导出 | ✓ | ✗ | ✓（`export`） | ✓（`export`） | ✗ | ✗ | ✗ | ✗ | ✓（`--transcript` JSONL） |
+| 成本/预算上限 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓（`--budget`） |
+| 备份/恢复 | ✓ | ✓（migrate） | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Doctor/调试 | ✓ | ✓ | ✗ | ✓（`debug`） | ✗ | ✗ | ✗ | ✗ | ✓（`doctor`、`doctor-cache`） |
+| 安全审计 | ✓ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| MCP 管理 | ✓ | ✗ | ✓（`mcp`） | ✓（`mcp`） | ✗ | ✓ | ✗ | ✗ | ✓（`mcp`） |
+| 技能/插件 | ✓ | ✓ | ✓（`--skills-dir`） | ✓（`plugin`） | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Shell 补全 | ✓ | ✓ | ✗ | ✓（`completion`） | ✗ | ✗ | ✗ | ✗ | ✗ |
 
 ---
 
@@ -476,6 +520,7 @@ ClawTeam 占据独特位置：它是*其他* agent 的操作系统，不是自�
 - **Hermes** 没有 one-shot *纯打印*模式下同时输出 JSON 的能力（kimi-cli 的 `--output-format stream-json` 更管道友好）。
 - **ZeroClaw** 没有会话恢复。每次 `agent` 调用都是全新的。
 - **kimi-cli** 尽管有最丰富的每次调用配置，却没有 cron 或调度。
+- **Reasonix** 没有调度，也没有 shell 补全。它的成本工具无可匹敌，但你说不了"每天早上跑这个"——预期模式是用系统 cron 驱动它的 `run` one-shot。
 
 ---
 
@@ -491,11 +536,12 @@ CLI 是一个平台最诚实的接口。文档可以夸大能力。营销可以�
 - **codex** 优先安全——单二进制，沙箱，极简
 - **ClawTeam** 优先编排——命令面向团队，而非聊天
 - **GoClaw** 优先基础设施——命令面向部署，而非交互
+- **Reasonix** 优先经济学——每次调用都有预算上限和缓存可见性
 
-2026 年最好的 CLI 会把 Hermes 的完整性、ZeroClaw 的一致性、kimi-cli 的可配置性和 OpenCode 的远程协作结合起来。还没有人做到全部四点。
+2026 年最好的 CLI 会把 Hermes 的完整性、ZeroClaw 的一致性、kimi-cli 的可配置性、OpenCode 的远程协作和 Reasonix 的成本纪律结合起来。还没有人做到全部五点。
 
 ---
 
-*实测 CLI 抓取自 Hermes v0.20.0、OpenCode v1.17.18、kimi-cli v1.24.0、zeroclaw v0.1.7。架构文档来自覆盖所有被跟踪平台的 AllClaws 平台对比。完整架构细节见 [platform_comparison.md](https://github.com/dz3ai/allclaws/blob/main/architecture/platform_comparison.md)。*
+*实测 CLI 抓取自 Hermes v0.20.0、OpenCode v1.18.18、kimi-cli v1.24.0、zeroclaw v0.1.7、reasonix v0.52.0。架构文档来自覆盖所有被跟踪平台的 AllClaws 平台对比。完整架构细节见 [platform_comparison.md](https://github.com/dz3ai/allclaws/blob/main/architecture/platform_comparison.md)。*
 
 *[English version](/allclaws/blog/2026/08/12/cli-command-comparison/)*

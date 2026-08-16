@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How 16 AI Agent Platforms Present Themselves: A CLI Command Comparison"
+title: "How 17 AI Agent Platforms Present Themselves: A CLI Command Comparison"
 date: 2026-08-12 17:00:00 +0800
 author: Danny Zeng
 categories: [Research, Comparison]
@@ -9,13 +9,13 @@ tags: [cli, command-interface, agent-platform, comparison, ux, developer-experie
 
 Every AI agent platform has a different answer to the same question: **how does a user interact with you?** Some give you a single command and a chat loop. Some give you 80 subcommands. Some give you a TUI, some a REPL, some just print text to stdout.
 
-After running `--help` on every available CLI and reading the source code of the ones we couldn't install, here is a structured comparison of how 16 AI agent platforms present their capabilities to users — and what those choices reveal about their design philosophy.
+After running `--help` on every available CLI and reading the source code of the ones we couldn't install, here is a structured comparison of how 17 AI agent platforms present their capabilities to users — and what those choices reveal about their design philosophy.
 
 ---
 
 ## Methodology
 
-I captured live `--help` output from three platforms installed on this system (Hermes, kimi-cli, zeroclaw), and extracted CLI architecture details from source code and documentation for the remaining platforms tracked in the AllClaws architecture docs. Each platform's entry covers:
+I captured live `--help` output from five platforms installed on this system (Hermes, kimi-cli, zeroclaw, opencode, reasonix), and extracted CLI architecture details from source code and documentation for the remaining platforms tracked in the AllClaws architecture docs. Each platform's entry covers:
 
 - **Command name**: What you type to start it
 - **Subcommand count**: How many distinct commands are available
@@ -175,7 +175,7 @@ ZeroClaw has the most *consistent* CLI of any platform — clean, well-structure
 
 ### 7. OpenCode (`opencode`)
 
-**Language:** TypeScript | **Version:** v1.17.18 | **Stars:** ~5K
+**Language:** TypeScript | **Version:** v1.18.18 | **Stars:** ~198K
 
 OpenCode is "the open source coding agent" — a TUI-first coding assistant with ACP and MCP support, plus a unique headless server mode for remote collaboration.
 
@@ -206,6 +206,9 @@ OpenCode is "the open source coding agent" — a TUI-first coding assistant with
 - `--pure` to run without external plugins
 - `--mdns` for mDNS service discovery on local network (find running instances)
 - `--cors` for cross-origin configuration on the headless server
+- `--auto` to auto-approve any permission not explicitly denied (the documented-dangerous mode)
+- `--port` / `--hostname` to bind the server explicitly; `--mdns-domain` to customize discovery
+- `--replay-limit` to cap mini-mode session replay on resume
 - `pr <number>` fetches a GitHub PR branch then launches the TUI — a workflow-specific command no other platform has
 - `stats` for token usage and cost tracking as a first-class command
 
@@ -381,14 +384,52 @@ OpenAI's Codex is the most starred CLI agent and the simplest architecturally.
 
 ---
 
+### 17. Reasonix (`reasonix` / `dsnix`)
+
+**Language:** TypeScript | **Version:** v0.52.0 | **Stars:** ~34.6K | **Entry Point:** `dist/cli/index.js` | **Cold start:** ~287ms
+
+Reasonix (esengine/DeepSeek-Reasonix) is the "DeepSeek-native coding agent" — and the only platform in this comparison with **two command names**: both `reasonix` and `dsnix` map to the same binary. Its CLI philosophy is built around one economic idea: DeepSeek's context cache. Subcommands exist to make cache hit rates visible and steerable.
+
+**Subcommands (19):**
+
+| Category | Commands |
+|----------|----------|
+| Setup & health | `setup` (interactive wizard), `doctor`, `doctor-cache`, `update`, `version` |
+| Core chat | `chat` (Ink TUI with live cache/cost panel), `code [dir]` (coding chat with filesystem tools) |
+| Non-interactive | `run <task>` (streaming one-shot), `desktop` (headless JSON-RPC for desktop client) |
+| ACP | `acp` (Agent Client Protocol over stdio NDJSON) |
+| Observability | `stats [transcript]` (usage dashboard), `events <name>` (kernel event log pretty-printer), `replay <transcript>` (transcript browser TUI), `diff <a> <b>` (side-by-side transcript comparison) |
+| Sessions | `sessions`, `prune-sessions` (delete idle ≥N days, `--dry-run`), `-c/--continue`, `-r/--resume`, `-n/--new` |
+| Cost & data | `commit` (draft commit messages from staged diff), `mcp` (MCP discovery + setup test), `index` (local semantic search index) |
+
+**Design philosophy:** "Cost as a first-class citizen." Reasonix is the only CLI here with a **session dollar budget built into the invocation**: `--budget <usd>` warns at 80% and *refuses the next turn* at 100% (not just warns — a hard gate). The `chat` TUI shows a live cache-hit/cost panel while you type, `stats` turns historical transcripts into a usage dashboard, and `doctor-cache` is a dedicated health check for cache stability. Where kimi-cli makes every *behavior* configurable, Reasonix makes every *cost dimension* visible: budget caps, per-transcript accounting, cache health. It's the economics-first counterpart to kimi-cli's configuration-first design.
+
+**Notable design choices:**
+- `--budget <usd>` — per-session spend cap with 80% warning and hard refusal at 100%
+- `--effort low|medium|high|max` — reasoning-effort dial on every invocation mode
+- `--no-mouse` — disables SGR mouse tracking to restore native terminal selection (a pain point no other CLI addresses)
+- `--no-proxy` — per-run proxy bypass, useful behind GFW-adjacent networks
+- `--dashboard-port` / `--dashboard-host` — stable port + LAN binding for the embedded web dashboard (SSH-tunnel friendly)
+- `--mcp <spec>` repeatable with `--mcp-prefix` to namespace tool names
+- `--profile` — records a V8 CPU profile for perf-bug reports
+- Bilingual help output (Chinese descriptions with English command names)
+- `diff <a> <b>` — the only CLI that can *diff two agent transcripts* side-by-side
+- `dry-run` flag on `code` for ssh:// targets — parse the URI, check local SSH, print planned steps, execute nothing
+
+**Cross-links:** Reasonix implements one-shot (`run`), TUI (`chat`), ACP server (`acp`), MCP management (`mcp`), session resume (`-c`/`-r`), and self-update (`update`) — the same six capability points as Hermes and OpenCode, in a fraction of the codebase.
+
+
+---
+
 ## Cross-Platform Analysis
 
 ### Subcommand Count Spectrum
 
 ```
 Hermes       ████████████████████████████████████████████  81+
-OpenCode     ████████████████████████████████  21
-ZeroClaw     ██████████████████████  22
+OpenCode     ████████████████████████  21
+ZeroClaw     ██████████████████  22
+Reasonix     ██████████████████  19
 kimi-cli     ████████  9
 ClawTeam     ████████  ~8 groups
 GoClaw       █████  ~5
@@ -403,6 +444,7 @@ aider        ██  1
 | **Hermes** | Yes | Yes | `-z` | Yes | `-w` | `acp` | No |
 | **OpenCode** | No | Yes | `run` | No | `--fork` | `acp` | No |
 | **kimi-cli** | Yes | `term` | `-p` | `--print` / `--quiet` | No | `acp` | `--wire` |
+| **Reasonix** | No | `chat`/`code` | `run` | No | No | `acp` | `desktop` JSON-RPC |
 | **ZeroClaw** | Yes | No | `-m` | No | No | No | No |
 | **aider** | Yes | No | No | No | No | No | No |
 | **codex** | Yes | No | No | No | No | No | No |
@@ -415,6 +457,7 @@ aider        ██  1
 | Approach | Platforms | Notes |
 |----------|-----------|-------|
 | Flags-first | kimi-cli, ZeroClaw | Every option is a CLI flag, config files optional |
+| Flags-first, cost-aware | Reasonix | Every option is a flag plus per-session `--budget` caps |
 | Config-file-first | GoClaw, HiClaw | JSON5/YAML config files, CLI for overrides |
 | Interactive-first | Hermes, OpenClaw | `setup` wizard, then config file |
 | Zero-config | ClawTeam, Nanobot | Works immediately after install |
@@ -422,18 +465,19 @@ aider        ██  1
 
 ### Operational Commands Coverage
 
-| Capability | Hermes | ZeroClaw | kimi-cli | OpenCode | ClawTeam | GoClaw | aider | codex |
-|-----------|---------|----------|----------|----------|----------|--------|-------|-------|
-| Cron/scheduling | Yes | Yes | No | No | Yes (tasks) | Yes | No | No |
-| Monitoring/dashboard | Yes | Yes | Yes (vis) | Yes (stats) | Yes (board) | Yes | No | No |
-| Session resume | Yes | No | Yes (`-S`, `-C`) | Yes (`-c`, `-s`) | No | No | No | No |
-| Session export | Yes | No | Yes (`export`) | Yes (`export`) | No | No | No | No |
-| Backup/restore | Yes | Yes (migrate) | No | No | No | No | No | No |
-| Doctor/debug | Yes | Yes | No | Yes (`debug`) | No | No | No | No |
-| Security audit | Yes | No | No | No | No | Yes | No | No |
-| MCP management | Yes | No | Yes (`mcp`) | Yes (`mcp`) | No | Yes | No | No |
-| Skills/plugins | Yes | Yes | Yes (`--skills-dir`) | Yes (`plugin`) | No | Yes | No | No |
-| Shell completion | Yes | Yes | No | Yes (`completion`) | No | No | No | No |
+| Capability | Hermes | ZeroClaw | kimi-cli | OpenCode | ClawTeam | GoClaw | aider | codex | Reasonix |
+|-----------|--------|----------|----------|----------|----------|--------|-------|-------|----------|
+| Cron/scheduling | Yes | Yes | No | No | Yes (tasks) | Yes | No | No | No |
+| Monitoring/dashboard | Yes | Yes | Yes (vis) | Yes (stats) | Yes (board) | Yes | No | No | Yes (stats + web dashboard) |
+| Session resume | Yes | No | Yes (`-S`, `-C`) | Yes (`-c`, `-s`) | No | No | No | No | Yes (`-c`, `-r`) |
+| Session export | Yes | No | Yes (`export`) | Yes (`export`) | No | No | No | No | Yes (`--transcript` JSONL) |
+| Cost/budget cap | No | No | No | No | No | No | No | No | Yes (`--budget`) |
+| Backup/restore | Yes | Yes (migrate) | No | No | No | No | No | No | No |
+| Doctor/debug | Yes | Yes | No | Yes (`debug`) | No | No | No | No | Yes (`doctor`, `doctor-cache`) |
+| Security audit | Yes | No | No | No | No | Yes | No | No | No |
+| MCP management | Yes | No | Yes (`mcp`) | Yes (`mcp`) | No | Yes | No | No | Yes (`mcp`) |
+| Skills/plugins | Yes | Yes | Yes (`--skills-dir`) | Yes (`plugin`) | No | Yes | No | No | No |
+| Shell completion | Yes | Yes | No | Yes (`completion`) | No | No | No | No | No |
 
 ---
 
@@ -475,6 +519,7 @@ Every platform is missing something:
 - **Hermes** has no one-shot *print-only* mode that also outputs JSON (kimi-cli's `--output-format stream-json` is more pipe-friendly).
 - **ZeroClaw** has no session resume. Each `agent` invocation is fresh.
 - **kimi-cli** has no cron or scheduling despite having the richest per-invocation configuration.
+- **Reasonix** has no scheduling and no shell completion. Its cost tooling is unmatched, but you can't say "run this every morning" — the expected pattern is its `run` one-shot driven by system cron.
 
 ---
 
@@ -490,9 +535,10 @@ The CLI is the most honest interface a platform has. Documentation can overstate
 - **codex** prioritizes safety — one binary, sandboxed, minimal
 - **ClawTeam** prioritizes orchestration — commands for teams, not for chat
 - **GoClaw** prioritizes infrastructure — commands for deployment, not interaction
+- **Reasonix** prioritizes economics — budget caps and cache visibility in every invocation
 
-The best CLIs of 2026 combine Hermes' completeness with ZeroClaw's consistency, kimi-cli's configurability, and OpenCode's remote collaboration. Nobody has done all four yet.
+The best CLIs of 2026 combine Hermes' completeness with ZeroClaw's consistency, kimi-cli's configurability, OpenCode's remote collaboration, and Reasonix's cost discipline. Nobody has done all five yet.
 
 ---
 
-*Live CLI captures from Hermes v0.20.0, OpenCode v1.17.18, kimi-cli v1.24.0, zeroclaw v0.1.7. Architecture documentation from the AllClaws platform comparison covering all tracked platforms. See [platform_comparison.md](https://github.com/dz3ai/allclaws/blob/main/architecture/platform_comparison.md) for full architecture details.*
+*Live CLI captures from Hermes v0.20.0, OpenCode v1.18.18, kimi-cli v1.24.0, zeroclaw v0.1.7, reasonix v0.52.0. Architecture documentation from the AllClaws platform comparison covering all tracked platforms. See [platform_comparison.md](https://github.com/dz3ai/allclaws/blob/main/architecture/platform_comparison.md) for full architecture details.*
