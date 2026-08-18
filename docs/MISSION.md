@@ -30,12 +30,12 @@ A world where AI agent platforms are understood by their actual capabilities, no
 
 ### Scope
 
-**34 Platforms + 2 Agent Harness Ecosystems Tracked:**
+**34 Platforms + 7 Agent Harness Ecosystems Tracked:**
 - **Claw Ecosystem (11):** OpenClaw, ClawTeam, GoClaw, IronClaw, Maxclaw, NanoClaw, Nanobot, ZeroClaw, HiClaw, Hermes-Agent, Claw-AI-Lab
 - **External Frameworks (17):** SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, Kimi Code, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride, OpenWorker, Dify, MetaGPT, Qwen-Agent
 - **CLI Coding Agents (5):** aider, copilot-cli, reasonix, kimi-cli, codex
 - **Human Digital Twin (1):** openhuman
-- **Agent Harnesses & Toolchains (5):** UltraWorkers (claw-code, oh-my-codex, clawhip, oh-my-openagent), HarnessX (Darwin Agent), OmniCoreAgent, Harmonist (GammaLab), SIA (hexo-ai)
+- **Agent Harnesses & Toolchains (7):** UltraWorkers (claw-code, oh-my-codex, clawhip, oh-my-openagent), HarnessX (Darwin Agent), OmniCoreAgent, Harmonist (GammaLab), SIA (hexo-ai), DeepSeek Harness (dsh), Pi
 
 **What We Cover:**
 - Architecture and design patterns
