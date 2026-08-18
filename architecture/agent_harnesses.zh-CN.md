@@ -32,6 +32,30 @@ Agent 框架位于代理平台的**下方**：
 - **OmniCoreAgent** — Python 生产级 agent harness，MCP + memory + subagents
 - **Harmonist** — Python 便携式多 agent 编排，机械化协议强制执行
 - **SIA** — Python 自改进 AI 框架，harness + 权重双重改进
+- **DeepSeek Harness (dsh)** — DeepSeek 官方 TypeScript 插件树 harness，基于 Cordis 组合框架（2026 年 8 月新增）
+- **Pi** — Earendil Works 的 TypeScript 自扩展编程 agent harness（2026 年 8 月新增）
+
+---
+
+## DeepSeek Harness (dsh) 与 Pi — 2026 年 8 月新增
+
+两大 2026 年 8 月评估的 harness 候选（Q4-7 类别缺口闭合），代表组合哲学的两个极端：
+
+| 维度 | **DeepSeek Harness (dsh)** | **Pi** |
+|------|------|------|
+| 出品方 | DeepSeek 官方（模型厂商第一方 harness） | Earendil Works（badlogic 主导，mitsuhiko 为第二贡献者） |
+| 发布 | 2026-08-13，4 天 158.8K 星；v0.1.0-rc.7 | 2025-08，一年 93.0K 星；正式 npm 多包发布 |
+| 哲学 | *「一切皆插件」*——Cordis 组合框架（时空可组合性论文），无特权核心 | *「自扩展编程 agent」*——稳定核心 + TS 扩展模块在边缘生长 |
+| 扩展模型 | 插件树 + 三类事件域（session/agent/capability），waterfall 事件强制 `next()` 委托 | `pi.registerTool()` / 事件订阅 / `ctx.ui` 自定义 TUI / `pi.appendEntry()` 持久化 |
+| 状态管理 | append-only SessionEvent log，「model-visible means logged」运行时不变式；turn/step 显式状态机 | appendEntry + session-manager，tree 分支导航 |
+| 护栏 | sandbox backend 缝隙 + approval policy（base bundle 内置） | **刻意不内置权限系统**——三种容器化模式外置隔离（Gondolin micro-VM / Docker / OpenShell） |
+| 上下文 | prompt 分段装配 + `agent/pre-step` 可重写/拒绝输入 | 结构化压缩 + 分支摘要；**压缩请求禁用 prompt-cache 写**（cache 意识最细） |
+| 遥测 | telemetry 插件 | pi-telemetry 包——vendor-neutral 契约 + 一致性测试 |
+| 成熟度风险 | rc 版本，官方承诺破坏性变更 | 一年生产打磨，供应链加固（依赖钉死精确版本） |
+
+**对 AllClaws 的意义**：dsh 是「harness 成为独立学科」的最强证据——前沿模型厂商断定差异化在 harness 层而非模型层；其组合代数把 HarnessX 理论化的替换属性工程化。Pi 代表应用极：在生产打磨最薄弱处（压缩细节、遥测契约、自扩展）恰好最深。两者的权限立场（缝隙内置 vs 刻意外置）恰好张开了 A2 护栏设计空间。**均为 Q4-7 harness 类别候选**：dsh 为组合形式化（MONITOR 级，rc 未稳），Pi 为扩展实用主义（可直接 TRACK）。
+
+详见英文版完整章节：[agent_harnesses.md](agent_harnesses.md)
 
 ---
 
@@ -331,5 +355,5 @@ claw-code 是 "Claude Code agent harness 架构的 clean-room 重写" —— 表
 
 ---
 
-*最后更新：2026 年 5 月 5 日*
+*最后更新：2026 年 8 月 18 日*
 *属于：AllClaws 个人 AI 代理生态系统研究*

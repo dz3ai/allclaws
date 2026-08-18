@@ -32,6 +32,8 @@ Agent harnesses sit **below** agent platforms in the stack:
 - **OmniCoreAgent** — Python production agent harness with MCP, memory, subagents, REST serving
 - **Harmonist** — Python portable multi-agent orchestration with mechanical protocol enforcement
 - **SIA** — Python self-improving AI framework with harness + weight co-improvement
+- **DeepSeek Harness (dsh)** — TypeScript plugin-tree harness from DeepSeek, built on Cordis composition (added August 2026)
+- **Pi** — TypeScript self-extensible coding-agent harness from Earendil Works (added August 2026)
 
 ---
 
@@ -507,6 +509,78 @@ SIA is the open-source counterpart to HarnessX's co-evolution research. While Ha
 
 ---
 
+## DeepSeek Harness (dsh)
+
+**Repository:** [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)
+**Language:** TypeScript (pnpm monorepo) + Python SDK
+**License:** MIT
+**Stars:** ~158.8K (as of August 17, 2026)
+**Created:** August 13, 2026
+**Version:** v0.1.0-rc.7 (developer preview — breaking changes expected)
+
+**Philosophy:** *"Everything is a Plugin."*
+
+### Overview
+
+DeepSeek Harness is the first first-party agent harness from a frontier model vendor. Built on [Cordis](https://github.com/cordiverse/cordis) — a composition framework described in the paper *A Programming Paradigm for Spatiotemporal Composability* — dsh treats the entire product as a plugin tree: the model adapter, tool registry, session log, and the agent loop itself are all plugins, replaceable from configuration. There is no privileged core to patch.
+
+### Architecture
+
+- **Cordis context**: plugins contribute services, typed events, and reversible effects to a shared context; registrations unwind when their plugin unloads
+- **Three event domains**: session events (durable, appended to the log), agent events (`agent/*` — observe/intercept in-flight work), capability events (`fs/*`, `tools/*`, `telemetry/*` — attach policy at seams without importing the loop). Waterfall events (`agent/pre-step`, `agent/request`, `llm/stream`, `tools/*`) require `next()` delegation
+- **Turn/step state machine**: a turn opens before its first input claim and closes once nothing is owed; `agent/pre-step` may rewrite or reject claimed messages — a rejected turn still closes durably, recording the attempt
+- **Session log as single source of truth**: "Model-visible means logged" is a runtime-inforced invariant — fork, resume, transcripts, telemetry, and persistence all derive from the append-only `SessionEvent` stream
+- **Capability seams**: swappable Service Definition / Provider / Consumer triples; pointing `ctx.fs` + `ctx.subprocess` at a remote sandbox moves Bash, PTY, and LSP together with no provider forks. Subagent providers range from child agents to delegated turns in another product
+- **Profile/bundle layering**: compositions of ordered bundle layers (`dsh-base` → `dsh-web-app` / `dsh-headless`), every config row patchable by higher layers
+
+### Key Stats (August 2026)
+
+- 158.8K stars, 16.5K forks within 4 days of release — the fastest launch in the harness category
+- Web UI first (`dsh web`), headless one-shot runner, Python SDK
+- Bilingual documentation (EN/ZH) with generated config catalog and extension cookbook
+
+### Relevance to AllClaws
+
+dsh is the strongest evidence yet for harness engineering as a distinct discipline: a frontier model vendor concluded that the harness layer — not the model — is where product differentiation lives. Its "everything is a plugin" composition algebra operationalizes the substitution property HarnessX theorized (typed, independently replaceable processors). The rc status makes it a MONITOR-tier candidate under Q4-7: architecturally essential, version-wise premature. Its event-waterfall design (mandatory `next()` delegation) is the most formal interception seam in any tracked or candidate harness.
+
+---
+
+## Pi
+
+**Repository:** [earendil-works/pi](https://github.com/earendil-works/pi)
+**Language:** TypeScript (npm monorepo)
+**License:** MIT
+**Stars:** ~93.0K (as of August 18, 2026)
+**Created:** August 2025 (one year of production iteration)
+**Version:** Multi-package npm releases with SHA256SUMS-signed source archives
+
+**Philosophy:** *"A self-extensible coding agent — ask it to build the extension you need."*
+
+### Overview
+
+Pi is a pragmatic agent harness from Earendil Works (led by Mario Zechner/badlogic, with Armin Ronacher/mitsuhiko as the #2 contributor). Where dsh is a composition constitution, Pi is a layered toolkit: five packages (pi-agent-core, pi-ai, pi-coding-agent, pi-tui, pi-telemetry) with a stable core and TypeScript-module extensions growing at the edges.
+
+### Architecture
+
+- **Extension model**: TS modules registering tools (`pi.registerTool()`), commands, event subscriptions (block/modify tool calls, inject context, customize compaction), custom TUI components (`ctx.ui`), and session-persistent state (`pi.appendEntry()`) — hot-reloadable from `~/.pi/agent/extensions/` or `.pi/extensions/`
+- **Self-extension as paradigm**: the README's first extension doc line is "pi can create extensions — ask it to build one for your use case." The agent authoring its own harness extensions is the product thesis
+- **Deliberately no permission system**: filesystem/process/network/credential boundaries are out of harness scope; three documented containerization patterns (Gondolin micro-VM extension, plain Docker, OpenShell policy sandbox) externalize isolation
+- **Compaction engineering**: auto-compaction plus branch summarization with structured summary formats, cumulative file tracking, and cache-aware one-off prompts — compaction and branch-summary requests use fresh routing session IDs and disable prompt-cache writes because they won't be reused
+- **Vendor-neutral telemetry**: pi-telemetry defines provider-independent contracts, a reference adapter, conformance tests, and typed schemas — telemetry as a first-class package
+- **Supply-chain hardening**: dependencies pinned to exact versions, npm changes treated as reviewed code changes, reproducible offline builds from signed source archives
+
+### Key Stats (August 2026)
+
+- 93.0K stars, 11.5K forks, 1 year old
+- Top contributors: badlogic (3,539 commits), mitsuhiko (526), christianklotz (142)
+- Test suite with faux provider (no real API calls or paid tokens in CI)
+
+### Relevance to AllClaws
+
+Pi represents the applied pole of the harness discipline: a year of production polish in exactly the areas the 34-platform comparison found weakest — compaction detail (cache-aware summarization), telemetry contracts, and self-extension. Its refusal to ship a permission system is a philosophical position ("boundaries are a deployment concern, not a harness concern") that inverts dsh's sandbox-seam approach — the two stances bracket the A2 guardrail design space. With a one-year history, 93K stars, and Ronacher's involvement, Pi passes the admission bar without the "too new" caveat that dsh carries. Both are Q4-7 harness-category candidates: dsh as composition formalism, Pi as extension pragmatism.
+
+---
+
 ## Comparison with Agent Platforms
 
 | Aspect | Agent Platforms | Agent Harnesses |
@@ -739,5 +813,5 @@ New harness ecosystems may be added based on:
 
 ---
 
-*Last updated: 2026 July 15*
+*Last updated: August 18, 2026*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*
