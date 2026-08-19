@@ -219,17 +219,10 @@ Google's Agent-to-Agent (A2A) protocol, Anthropic's MCP, and proprietary solutio
 
 ### 6. Platform Governance & Quality Thresholds
 
-**Status:** 🔄 In Progress — draft delivered August 18, 2026 (`docs/governance.md` + `.zh-CN.md`)
+**Status:** ✅ Completed (August 18, 2026) — [`docs/governance.md`](governance.md) (+ [中文](governance.zh-CN.md))
 **Target:** Establish governance rules for a maturing platform catalog
 
-At 34 platforms with growth momentum, AllClaws needs governance to maintain quality. This project formalizes: which platforms earn a spot, which get archived, and what "good" documentation looks like.
-
-**Draft rulings (pending review):**
-- 35-platform cap applies to Tier-1 (full platform) tracking only
-- Three-tier model: Tier 1 (full, 14-file) / Tier 2 (ecosystem sections) / Tier 3 (watchlist)
-- Admission criteria codified from the July evaluation batches
-- 8 Q4-7 candidates pre-ruled (Pi → Tier 2 now; dsh → Tier 3 until 1.0)
-- Quarterly review process defined (first Monday of quarter-months)
+Delivered rulings: 35-cap applies to Tier-1 only; three-tier tracking model (full platform / ecosystem sections / watchlist); admission criteria codified; minimum viable analysis defined; archival criteria + quarterly review process; 8 Q4-7 candidates pre-ruled (Pi → Tier 2, dsh → Tier 3 until 1.0).
 
 **Research Questions:**
 - Should AllClaws cap at 35 platforms? What are the admission criteria?
@@ -384,4 +377,4 @@ For discussions, questions, or collaboration opportunities:
 
 ---
 
-*Last updated: August 16, 2026*
+*Last updated: August 18, 2026*
