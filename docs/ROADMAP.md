@@ -332,7 +332,7 @@ New platforms may be added based on:
 
 ## Stale / Inactive Projects
 
-The following projects have had no recent activity and are candidates for archiving under the new quarterly review process:
+*Superseded by the governance §5 queue (upstream-verified August 19, 2026). Summary: GoClaw and ClawTeam were removed from this list (both active upstream — the April dates below were stale data); MaxClaw, Claw-AI-Lab, and Qwen-Agent are pre-stale and watched; MetaGPT meets the stale bar but is held (report citations); AutoGen watched (4 months). See [`docs/governance.md`](governance.md) §5 for the live table and the pending 6mo→4mo stale-definition revision (decided September 2026).*
 
 | Project | Last Activity | Stars | Status |
 |---------|--------------|-------|--------|

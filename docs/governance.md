@@ -78,7 +78,7 @@ An entry missing #4 or #5 is a placeholder, not an analysis. Tier-2 sections mus
 
 ## 5. Stale Platforms and Archival
 
-**Stale definition:** no commits for 6+ months. The quarterly review (§6) moves stale platforms to a decision, not automatically to archival.
+**Stale definition:** no commits for 6+ months. *(Revision proposed Aug 19, 2026: reduce to 4 months — rationale: at 2026 ecosystem iteration speed, 6 months ≈ two paradigm generations; a platform with 4 months of silence + zero report citations is decidable. Decision deferred to the September 2026 monthly review; until adopted, the 6-month rule stands.)*
 
 **Archival criteria — ALL must hold:**
 
@@ -90,15 +90,17 @@ An entry missing #4 or #5 is a placeholder, not an analysis. Tier-2 sections mus
 
 **Demotion alternative:** a stale platform with historical significance demotes to Tier 2 (section retained in architecture docs, infrastructure removed) instead of full archival.
 
-**Current queue (August 2026):**
+**Current queue (verified against upstream, August 19, 2026 — supersedes the ROADMAP stale list):**
 
-| Platform | Last activity | Review | Notes |
-|----------|--------------|--------|-------|
-| Claw-AI-Lab | No tags | Q3 2026 | Academic; retained for lab-pipeline pattern |
-| ClawTeam | Apr 2026 | Q3 2026 | Orchchestration reference; virtual-team experiment evidence |
-| GoClaw | Apr 2026 | Q3 2026 | Enterprise-governance reference (Q3-3 report) |
-| MaxClaw | May 2026 | Q3 2026 | Low impact; weakest retention case |
-| AutoGen | Apr 2026 | Q4 2026 | Maintenance mode; enterprise multi-agent reference |
+| Platform | Last upstream activity | Stale per §5? | Disposition |
+|----------|----------------------|---------------|-------------|
+| MaxClaw | 2026-06-13 (docs-only commit, then silence) | Not yet (2mo) — **pre-stale** | Watch: 2026-10-13 (4mo under proposed revision) or 2026-12-13 (6mo under current rule). 0 report citations; weakest retention case |
+| Claw-AI-Lab | 2026-06-15 | Not yet (2mo) — pre-stale | Watch: same dates. Sole lab-pipeline representative → condition #2 likely fails |
+| Qwen-Agent | 2026-03-04 | Not yet (5.5mo) — pre-stale | Watch: 2026-09-04 (6mo). China-ecosystem representative → condition #2 contested |
+| MetaGPT | 2026-01-21 | **Yes (7mo)** | Held: cited as core evidence in 2 reports (Q3-6) → condition #2 fails. Re-check at next review |
+| AutoGen | 2026-04-15 | Not yet (4mo) | Watch: 2026-10-15. Cited in 8 reports → condition #2 fails regardless |
+| ~~GoClaw~~ | ~~Apr 2026~~ → **2026-08-15 active** | No | **Removed from stale list** — ROADMAP data was outdated (last PR merge Aug 15) |
+| ~~ClawTeam~~ | ~~Apr 2026~~ → **2026-07-03 active** (v0.3.0) | No | **Removed from stale list** — ROADMAP data was outdated |
 
 ## 6. Quarterly Review Process
 
@@ -142,5 +144,6 @@ Confirmed exclusions (do not re-evaluate without new evidence): observability/op
 | Date | Change |
 |------|--------|
 | 2026-08-18 | Initial draft: 35-cap ruling (Tier-1 only), three-tier model, codified admission criteria, minimum viable analysis, archival criteria, quarterly process, 8-candidate watchlist |
+| 2026-08-19 | Archival-candidate sweep (upstream-verified): GoClaw/ClawTeam removed from stale list (ROADMAP data was outdated); MaxClaw confirmed the only real candidate but under the 6-month bar — watched (2026-10-13 under the 4-month revision / 2026-12-13 under current rule); MetaGPT stale but held (2 report citations); **proposal: stale definition 6mo → 4mo, decided at the September 2026 monthly review** |
 
 *Part of: AllClaws Personal AI Agent Ecosystem Research. Companion docs: [ROADMAP.md](ROADMAP.md) (Q4-6, Q4-7), [MISSION.md](MISSION.md) (scope).*
