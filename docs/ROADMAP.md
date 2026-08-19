@@ -200,8 +200,10 @@ Current benchmarks measure startup time and dependencies — informative but dis
 
 ### 5. Protocol Wars: MCP vs A2A vs Proprietary
 
-**Status:** Planned
+**Status:** ✅ Completed (August 18, 2026) — [`docs/reports/protocol-wars-2026.md`](reports/protocol-wars-2026.md)
 **Target:** Analyze the emerging battle over agent communication standards
+
+**Key findings:** four contenders, three layers, no head-to-head war — MCP owns tools (13 impls), ACP owns client↔agent (5 impls, stealth winner), A2A owns discovery (1 production impl — eliza Feed), vendor APIs remain the default (30+). Layer adoption tracks the 1PC/enterprise fork; the one live conflict is MCP sampling expanding into A2A's delegation territory.
 
 Google's Agent-to-Agent (A2A) protocol, Anthropic's MCP, and proprietary solutions from OpenAI/Cursor are vying to become the standard for how agents communicate and share tools. This is a foundational infrastructure decision affecting all 34 tracked platforms.
 

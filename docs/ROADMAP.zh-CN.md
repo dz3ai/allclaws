@@ -196,8 +196,10 @@ AllClaws 的初期阶段对 34 个平台进行了编目并分析了其架构。2
 
 ### 5. 协议战争：MCP vs A2A vs 专有协议
 
-**状态：** 计划中
+**状态：** ✅ 已完成（2026 年 8 月 18 日）——[`docs/reports/protocol-wars-2026.md`](reports/protocol-wars-2026.md)
 **目标：** 分析代理通信标准新兴之战
+
+**关键发现**：四个竞争者、三个层次、没有正面战争——MCP 占据工具层（13 实现）、ACP 占据客户端↔agent 层（5 实现，隐形赢家）、A2A 占据发现层（1 个生产实现——eliza Feed）、厂商 API 仍是默认（30+）。层次采用跟随 1PC/企业分叉；唯一活冲突是 MCP sampling 向 A2A 委派领域的扩张。
 
 Google 的 Agent-to-Agent (A2A) 协议、Anthropic 的 MCP 以及 OpenAI/Cursor 的专有方案正在竞相成为代理之间如何通信和共享工具的标准。这是影响所有 34 个跟踪平台的基础设施决策。
 
