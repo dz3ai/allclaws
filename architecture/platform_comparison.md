@@ -2,18 +2,18 @@
 
 **[中文](platform_comparison.zh-CN.md)** | English
 
-> Standardized architecture comparison across all 34 platforms tracked by AllClaws — 11 claw ecosystem platforms, 17 external frameworks, 5 CLI coding agents, and 1 human digital twin platform. Updated August 2026.
+> Standardized architecture comparison across all 35 platforms tracked by AllClaws — 11 claw ecosystem platforms, 18 external frameworks, 5 CLI coding agents, and 1 human digital twin platform. Updated August 2026.
 
 ---
 
 ## Overview
 
-This document provides a standardized, side-by-side architecture comparison of all 34 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
+This document provides a standardized, side-by-side architecture comparison of all 35 AI agent platforms tracked by the AllClaws research project. Each platform entry follows a uniform format covering classification, design principles, core architecture, and an architecture diagram (where available).
 
-The 34 platforms divide into four groups:
+The 35 platforms divide into four groups:
 
 - **Claw Ecosystem (11):** Platforms originating within or closely associated with the Claw/OpenClaw ecosystem.
-- **External Frameworks (17):** Industry-reference frameworks tracked for ecosystem comparison.
+- **External Frameworks (18):** Industry-reference frameworks tracked for ecosystem comparison.
 - **CLI Coding Agents (5):** AI-powered terminal-based coding assistants (aider, reasonix, copilot-cli, kimi-cli, codex).
 - **Human Digital Twin (1):** Academic/research platform (openhuman).
 
@@ -677,7 +677,7 @@ graph TB
 
 ---
 
-## Part 2: External Frameworks (17 Platforms)
+## Part 2: External Frameworks (18 Platforms)
 
 ---
 
@@ -1440,6 +1440,58 @@ Framework for building agents with Alibaba's Qwen models. Model-coupled design �
 - **Database:** Not specified
 - **Security:** Not specified
 
+---
+
+## browser-use
+
+**Classification:** Python | ~109.7K stars | Computer-Use (Browser)
+**Repository:** [github.com/browser-use/browser-use](https://github.com/browser-use/browser-use)
+**Status:** Active (daily commits)
+**Admitted:** August 18, 2026 — platform #35 (Tier 1), first computer-use representative, per governance Q4-7 ruling
+
+### Overview
+
+The leading browser-automation agent framework: an AI agent that autonomously interacts with the web via Chromium (CDP), processing DOM state and repeatedly querying an LLM to decide the next action until the task completes. Fills the computer-use category gap identified in the August 2026 coverage audit — the largest untracked paradigm in the ecosystem.
+
+### Key Principles
+
+- Browser-native agent loop (task → navigate → observe DOM → act → repeat)
+- Pydantic v2 typed action schemas (robust validation + LLM-call integrity)
+- Cloud/production duality — `@sandbox()` decorator promotes local code to managed production agents
+- Model-agnostic via LiteLLM (ChatBrowserUse, OpenAI, Anthropic, Google, local)
+
+### Core Architecture
+
+- **Language:** Python 3.11+
+- **Entry Point:** library (`from browser_use import Agent`) + `browser-use` CLI
+- **Architecture Pattern:** Single-agent computer-use loop (browser actor + controller + DOM service)
+- **Key Modules:** `browser_use/agent/` (agent loop, message manager, views), `browser_use/browser/` (Chromium CDP session), `browser_use/controller/` (typed action registry), `browser_use/dom/` (DOM tree extraction + serialization), `browser_use/actor/`, `browser_use/beta/`
+- **MCP Status:** Ships as MCP server (`mcp-name: com.browser-use/browser-use`) — browser control exposed as MCP tools for other agents
+- **Deployment:** Local (uv/pip) or Browser-Use Cloud (`@sandbox`)
+- **LLM Support:** Any LiteLLM provider; ChatBrowserUse recommended
+- **Memory:** Task-scoped history; persistent cloud profiles (cookies/auth)
+- **Database:** None local; cloud persistence
+- **Security:** Sandboxed browser context; optional stealth proxies; profile isolation
+- **Testing:** pytest + pre-commit
+
+### Architecture Diagram
+
+```mermaid
+graph TD
+    A[Task Input] --> B[Agent Loop]
+    B --> C[Message Manager]
+    B --> D[LLM: any provider]
+    D --> E[Action Decision]
+    E --> F[Controller: typed action registry]
+    F --> G[Browser: Chromium CDP]
+    G --> H[DOM Service: tree extraction]
+    H --> I[Serialized page state]
+    I --> B
+    F --> J[ActionResult: structured]
+    J --> B
+    B --> K[Done / final answer]
+```
+
 ## Part 3: CLI Coding Agents (5 Platforms)
 
 ---
@@ -1750,6 +1802,7 @@ graph TD
 | agent-zero | Python | Personal-Force-Multiplier | ~18.3K |
 | praisonai | Python | Enterprise-Automation | ~8.4K |
 | rocketride-server | Python/C++ | Enterprise-Automation | ~5.0K |
+| browser-use | Python | Computer-Use (Browser) | ~109.7K |
 | OpenWorker | Python / Rust / TS | Desktop-Native-Agent | ~12K |
 | Dify | Python + TypeScript | Visual-Workflow-Platform | ~150K |
 | MetaGPT | Python | Multi-Agent-Role-Playing | ~69K |
@@ -1763,6 +1816,7 @@ graph TD
 | **Adapter** | OpenClaw, GoClaw, IronClaw, ZeroClaw, HiClaw, OpenFang, kimi-code, eliza, rocketride-server |
 | **Resistant** | NanoClaw |
 | **None** | ClawTeam, Maxclaw, Nanobot |
+| **MCP server** | browser-use |
 | **N/A** | Claw-AI-Lab, SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, aider, reasonix, openhuman, kimi-cli, codex, agent-zero, praisonai, Dify, MetaGPT, Qwen-Agent |
 
 ### Architecture Pattern Matrix
@@ -1796,6 +1850,7 @@ graph TD
 | **Single-agent autonomous** | agent-zero |
 | **Multi-agent Workforce** | praisonai |
 | **Node-graph pipeline engine** | rocketride-server |
+| **Computer-use (browser)** | browser-use |
 
 ### Deployment & Database Matrix
 
@@ -1831,8 +1886,9 @@ graph TD
 | agent-zero | Local + Docker | Not specified | Docker (tool isolation) |
 | praisonai | Hybrid (local + cloud) | RAG-backed vector store | Not specified |
 | rocketride-server | Docker + server | 8+ vector databases | Docker |
+| browser-use | Local / Cloud sandbox | None (cloud persistence) | Chromium sandbox |
 
-### Full 34-Platform Comparison Table
+### Full 35-Platform Comparison Table
 
 | Platform | Language | Stars | MCP | Architecture | Deployment | Field |
 |----------|----------|-------|-----|-------------|------------|-------|
@@ -1866,6 +1922,7 @@ graph TD
 | agent-zero | Python | ~18.3K | N/A | Single-agent autonomous | Local + Docker | Personal |
 | praisonai | Python | ~8.4K | N/A | Multi-agent Workforce | Hybrid | Enterprise |
 | rocketride-server | Python/C++ | ~5.0K | Adapter | Node-graph pipeline engine | Docker + server | Enterprise |
+| browser-use | Python | ~109.7K | MCP server | Computer-use (browser) loop | Local / Cloud | Personal/Enterprise |
 
 ---
 
@@ -1880,5 +1937,5 @@ graph TD
 ---
 
 *Last updated: August 2026*
-*Platforms tracked: 34 (11 claw ecosystem + 17 external frameworks + 5 CLI coding agents + 1 human digital twin)*
+*Platforms tracked: 35 (11 claw ecosystem + 18 external frameworks + 5 CLI coding agents + 1 human digital twin)*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*

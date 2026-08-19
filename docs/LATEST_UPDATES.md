@@ -23,6 +23,8 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 11. **Agent Zero Added** — Agent Zero (Python, frdel, MIT) added as 11th external framework; autonomous AI agent framework with tool-use capabilities
 12. **PraisonAI Added** — PraisonAI (Python, MervinPraison, MIT) added as 12th external framework; multi-agent LLM framework with low-code workflow builder
 13. **Rocketride Added** — Rocketride (TypeScript, nearai, MIT) added as 13th external framework; near.ai agent server for autonomous task execution
+14. **browser-use Added (August 2026)** — browser-use (Python, MIT, ~110K stars) added as 18th external framework and platform #35; first computer-use (browser) representative per governance Q4-7 ruling. Chromium CDP agent loop, typed action schemas, ships as MCP server
+15. **Harness Ecosystems Expanded (August 2026)** — DeepSeek Harness (dsh, first-party frontier-vendor harness on Cordis plugin-tree composition) and Pi (Earendil Works, self-extensible harness) added as harness ecosystems #6-7; Pi Tier 2, dsh Tier 3 until 1.0
 
 ---
 

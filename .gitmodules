@@ -85,3 +85,6 @@
 [submodule "coding-agents/cli-agents/codex"]
 	path = coding-agents/cli-agents/codex
 	url = https://github.com/openai/codex.git
+[submodule "browser-use"]
+	path = browser-use
+	url = https://github.com/browser-use/browser-use.git

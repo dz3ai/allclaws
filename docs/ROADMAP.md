@@ -10,7 +10,7 @@
 
 ### Theme: From Cataloguing to Understanding
 
-The initial phase of AllClaws catalogued 34 platforms and analyzed their architectures. The remaining H2 2026 (July-December) shifts focus **from what exists to how agents fail, interoperate, and mature in production.**
+The initial phase of AllClaws catalogued 34 platforms (reaching 35 by August 2026) and analyzed their architectures. The remaining H2 2026 (July-December) shifts focus **from what exists to how agents fail, interoperate, and mature in production.**
 
 **Key Questions:**
 1. How do agents fail in real-world production scenarios? Can we build a systematic taxonomy?
@@ -240,7 +240,7 @@ Delivered rulings: 35-cap applies to Tier-1 only; three-tier tracking model (ful
 
 ### 7. Category Coverage Gap-Closure (added August 2026)
 
-**Status:** Planned
+**Status:** ✅ Completed (August 18, 2026) — browser-use admitted as platform #35 (first computer-use representative); Pi → Tier 2; dsh → Tier 3 until 1.0; UI-TARS verified stale (held); ChatDev/Letta → Tier-2 candidates pending; Mem0 held. Full rulings in [`docs/governance.md`](governance.md) §7.
 **Target:** Close ecosystem category gaps that AllClaws's own research reports have identified but never tracked
 
 An August 2026 coverage audit cross-referenced the tracking set against our own research reports and found several categories that are described in reports but absent from the tracking set. This item formalizes their evaluation and runs in coordination with Q4-6 governance (admission criteria, the 35-platform cap question).

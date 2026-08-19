@@ -2,18 +2,18 @@
 
 **[English](platform_comparison.md)** | 中文
 
-> AllClaws 跟踪的全部 34 个平台的标准化架构比较 — 11 个 claw 生态平台、17 个外部框架、5 个 CLI 编程代理和 1 个人类数字孪生平台。2026 年 8 月更新。
+> AllClaws 跟踪的全部 35 个平台的标准化架构比较 — 11 个 claw 生态平台、18 个外部框架、5 个 CLI 编程代理和 1 个人类数字孪生平台。2026 年 8 月更新。
 
 ---
 
 ## 概述
 
-本文档以标准化格式并排比较 AllClaws 研究项目跟踪的全部 34 个 AI 代理平台的架构。每个平台条目遵循统一格式，涵盖分类、设计原则、核心架构和架构图（如有）。
+本文档以标准化格式并排比较 AllClaws 研究项目跟踪的全部 35 个 AI 代理平台的架构。每个平台条目遵循统一格式，涵盖分类、设计原则、核心架构和架构图（如有）。
 
-34 个平台分为四组：
+35 个平台分为四组：
 
 - **Claw 生态（11 个）：** 起源于 Claw/OpenClaw 生态或与之紧密关联的平台。
-- **外部框架（17 个）：** 用于生态比较的行业参考框架。
+- **外部框架（18 个）：** 用于生态比较的行业参考框架。
 - **CLI 编程代理（5 个）：** 基于终端的 AI 编程助手（aider、reasonix、copilot-cli、kimi-cli、codex）。
 - **人类数字孪生（1 个）：** 学术/研究平台（openhuman）。
 
@@ -677,7 +677,7 @@ graph TB
 
 ---
 
-## 第二部分：外部框架（17 个平台）
+## 第二部分：外部框架（18 个平台）
 
 ---
 
@@ -1402,6 +1402,40 @@ SOP（标准操作流程）驱动的角色扮演多 Agent 框架。Agent 遵循�
 - **数据库：** 未指定
 - **安全：** 未指定
 
+---
+
+## browser-use
+
+**分类：** Python | ~109.7K 星 | 计算机操作（浏览器）
+**仓库：** [github.com/browser-use/browser-use](https://github.com/browser-use/browser-use)
+**状态：** 活跃（每日提交）
+**准入：** 2026 年 8 月 18 日——第 35 个平台（Tier 1），首个计算机操作类别代表，依据治理 Q4-7 裁决
+
+### 概述
+
+领先的浏览器自动化 agent 框架：通过 Chromium（CDP）自主与 Web 交互的 AI agent，处理 DOM 状态并反复查询 LLM 决定下一步动作，直到任务完成。填补 2026 年 8 月覆盖审计识别的计算机操作类别缺口——生态中最大的未跟踪范式。
+
+### 关键原则
+
+- 浏览器原生 agent 循环（任务 → 导航 → 观察 DOM → 动作 → 循环）
+- Pydantic v2 类型化动作 schema（强校验 + LLM 调用完整性）
+- 云/生产双轨——`@sandbox()` 装饰器把本地代码升级为托管生产 agent
+- 经 LiteLLM 模型无关（ChatBrowserUse、OpenAI、Anthropic、Google、本地）
+
+### 核心架构
+
+- **语言：** Python 3.11+
+- **入口点：** 库（`from browser_use import Agent`）+ `browser-use` CLI
+- **架构模式：** 单 agent 计算机操作循环（浏览器 actor + controller + DOM service）
+- **核心模块：** `browser_use/agent/`（agent 循环、消息管理器、视图）、`browser_use/browser/`（Chromium CDP 会话）、`browser_use/controller/`（类型化动作注册表）、`browser_use/dom/`（DOM 树提取 + 序列化）、`browser_use/actor/`、`browser_use/beta/`
+- **MCP 状态：** 以 MCP server 形态发布（`mcp-name: com.browser-use/browser-use`）——浏览器控制作为 MCP 工具暴露给其他 agent
+- **部署：** 本地（uv/pip）或 Browser-Use Cloud（`@sandbox`）
+- **LLM 支持：** 任意 LiteLLM 提供商；推荐 ChatBrowserUse
+- **记忆：** 任务级历史；云端持久 profile（cookie/认证）
+- **数据库：** 本地无；云端持久化
+- **安全：** 沙箱浏览器上下文；可选隐身代理；profile 隔离
+- **测试：** pytest + pre-commit
+
 ## 第三部分：CLI 编程代理（5 个平台）
 
 ---
@@ -1679,6 +1713,7 @@ graph TD
 | agent-zero | Python | 个人力量倍增器 | ~18.3K |
 | praisonai | Python | 企业自动化 | ~8.4K |
 | rocketride-server | Python/C++ | 企业级自动化 | ~5.0K |
+| browser-use | Python | 计算机操作（浏览器） | ~109.7K |
 | OpenWorker | Python / Rust / TS | 桌面原生 Agent | ~12K |
 | Dify | Python + TypeScript | 可视化工作流平台 | ~150K |
 | MetaGPT | Python | 多 Agent 角色扮演 | ~69K |
@@ -1723,6 +1758,7 @@ graph TD
 | **单代理自主** | agent-zero |
 | **多代理劳动力** | praisonai |
 | **节点图管道引擎** | rocketride-server |
+| **计算机操作（浏览器）** | browser-use |
 
 ### 部署与数据库矩阵
 
@@ -1756,8 +1792,9 @@ graph TD
 | agent-zero | 本地 + Docker | 未指定 | Docker（工具隔离） |
 | praisonai | 混合（本地 + 云端） | RAG 向量存储 | 未指定 |
 | rocketride-server | Docker + 服务器 | 8+ 向量数据库 | Docker |
+| browser-use | 本地 / 云沙箱 | 无（云端持久化） | Chromium 沙箱 |
 
-### 完整 30 平台比较表
+### 完整 35 平台比较表
 
 | 平台 | 语言 | Stars | MCP | 架构 | 部署 | 领域 |
 |------|------|-------|-----|------|------|------|
@@ -1790,6 +1827,7 @@ graph TD
 | agent-zero | Python | ~18.3K | N/A | 单代理自主 | 本地 + Docker | 个人 |
 | praisonai | Python | ~8.4K | N/A | 多代理劳动力 | 混合 | 企业 |
 | rocketride-server | Python/C++ | ~5.0K | 适配器 | 节点图管道引擎 | Docker + 服务器 | 企业 |
+| browser-use | Python | ~109.7K | MCP server | 计算机操作（浏览器）循环 | 本地 / 云 | 个人/企业 |
 
 ---
 
@@ -1804,5 +1842,5 @@ graph TD
 ---
 
 *最后更新：2026 年 5 月*
-*跟踪平台：34 个（11 个 claw 生态 + 17 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）*
+*跟踪平台：35 个（11 个 claw 生态 + 18 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）*
 *所属：AllClaws 个人 AI 代理生态系统研究*

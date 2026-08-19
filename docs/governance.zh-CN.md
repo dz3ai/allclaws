@@ -121,9 +121,9 @@ Q4-7 候选池 + 2026 年 8 月两个 harness 评估，按 §3 裁决：
 | 候选 | 类别 | 层级裁决 | 理由 | 重估时间 |
 |------|------|---------|------|---------|
 | **Pi** (earendil-works/pi) | Harness——扩展实用主义 | **即刻 Tier 2**（TRACK） | 一年持续、93K★、自扩展 + 遥测契约新模式；harness 形态 → Tier 2 非 Tier 1 | —（已完成：`agent_harnesses.md` §Pi） |
+| **browser-use** | 计算机操作（浏览器） | **Tier 1 — 已准入 2026-08-18** | 类别缺口（Q4-7）；~109.7K★、MIT、每日提交、2024-10 持续至今；填补计算机操作范式——最大的未跟踪类别 | —（已完成：第 35 平台，完整 checklist） |
 | **deepseek-harness (dsh)** | Harness——组合形式化 | **Tier 3 → 1.0 时 Tier 2** | 第一方前沿厂商 harness、158.8K★，但 v0.1.0-rc 且声明破坏性变更 | 2026-Q4 或首个稳定版 |
-| **browser-use** | 计算机操作（浏览器） | **Tier 3 → Tier 1 候选** | 类别缺口（Q4-7）；先核实持续活动 + 形式因子 | Q4-6 复审 |
-| **UI-TARS** (bytedance) | 计算机操作（GUI） | **Tier 3 → Tier 1 候选** | 类别缺口；字节出品；核实 2026-01 后活动 | Q4-6 复审 |
+| **UI-TARS** (bytedance) | 计算机操作（GUI） | **Tier 3 → 保留（核实为停滞）** | 复核 2026-08-18：源码最后提交 2025-09-05，近一年无活动——不满足「活跃开发」硬标准。计算机操作类别已由 browser-use 覆盖 | Q4 复审（若复活） |
 | **ChatDev** (OpenBMB) | 多代理 SOP（中国） | **Tier 3 → Tier 2 候选** | 与 MetaGPT 重叠（SOP 角色扮演）+ 停滞风险（姊妹项目 XAgent 已死）；Tier 2 足够 | Q4-6 复审 |
 | **LangBot** (langbot-app) | 消息桥（WeChat） | **Tier 3 → Tier 1 候选** | 类别缺口（WeChat 一等公民）；核实企业相关性 | Q4-6 复审 |
 | **Letta** (前 MemGPT) | 记忆基础设施 | **Tier 3 → Tier 2 候选** | 记忆层独立于平台（A1 上下文证据）；Tier 2 作类别代表 | Q4-6 复审 |

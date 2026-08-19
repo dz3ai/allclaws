@@ -121,9 +121,9 @@ The Q4-7 candidate pool, plus the two harness evaluations from August 2026, rule
 | Candidate | Category | Tier ruling | Reasoning | Re-evaluate |
 |-----------|----------|-------------|-----------|-------------|
 | **Pi** (earendil-works/pi) | Harness — extension pragmatism | **Tier 2 now** (TRACK) | 1yr sustained, 93K★, novel self-extension + telemetry contracts; harness form → Tier 2, not Tier 1 | — (done: `agent_harnesses.md` §Pi) |
+| **browser-use** | Computer-use (browser) | **Tier 1 — ADMITTED Aug 18, 2026** | Category gap (Q4-7); ~109.7K★, MIT, daily commits, sustained 2024-10→now; fills the computer-use paradigm, the largest untracked category | — (done: platform #35, full checklist) |
 | **deepseek-harness (dsh)** | Harness — composition formalism | **Tier 3 → Tier 2 on 1.0** | First-party frontier-vendor harness, 158.8K★, but v0.1.0-rc with declared breaking changes | 2026-Q4 or first stable release |
-| **browser-use** | Computer-use (browser) | **Tier 3 → Tier 1 candidate** | Category gap (Q4-7); verify sustained activity + form factor first | Q4-6 review |
-| **UI-TARS** (bytedance) | Computer-use (GUI) | **Tier 3 → Tier 1 candidate** | Category gap; ByteDance provenance; verify post-Jan-2026 activity | Q4-6 review |
+| **UI-TARS** (bytedance) | Computer-use (GUI) | **Tier 3 → hold (verified stale)** | Re-verified 2026-08-18: last source commit 2025-09-05, ~1 year dormant — fails the active-development hard criterion. Computer-use category covered by browser-use | Q4 review (if revived) |
 | **ChatDev** (OpenBMB) | Multi-agent SOP (China) | **Tier 3 → Tier 2 candidate** | Overlaps MetaGPT (SOP role-play) + stale risk (XAgent sibling dead); Tier 2 suffices | Q4-6 review |
 | **LangBot** (langbot-app) | Messaging bridge (WeChat) | **Tier 3 → Tier 1 candidate** | Category gap (WeChat first-class); verify enterprise relevance | Q4-6 review |
 | **Letta** (ex-MemGPT) | Memory infrastructure | **Tier 3 → Tier 2 candidate** | Memory layer distinct from platforms (A1 context evidence); Tier 2 as category representative | Q4-6 review |

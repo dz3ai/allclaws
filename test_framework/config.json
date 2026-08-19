@@ -35,7 +35,8 @@
     "openworker",
     "dify",
     "metagpt",
-    "qwen-agent"
+    "qwen-agent",
+    "browser-use"
   ],
   "default_privilege_level": "standard",
   "audit_logging": true,
@@ -73,7 +74,8 @@
     "dify": "../coding-agents/external-frameworks/dify",
     "metagpt": "../coding-agents/external-frameworks/metagpt",
     "qwen-agent": "../coding-agents/external-frameworks/qwen-agent",
-    "openworker": "../coding-agents/external-frameworks/openworker"
+    "openworker": "../coding-agents/external-frameworks/openworker",
+    "browser-use": "../browser-use"
   },
   "platform_languages": {
     "openclaw": "TypeScript",
@@ -105,7 +107,8 @@
     "eliza": "TypeScript",
     "agent-zero": "Python",
     "praisonai": "Python",
-    "rocketride-server": "Python"
+    "rocketride-server": "Python",
+    "browser-use": "Python"
   },
   "test_categories": [
     "static_analysis",

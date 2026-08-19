@@ -6,13 +6,13 @@
 
 ## 🎯 使命
 
-AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注理解**个人力量倍增器**和**企业自动化**范式之间正在出现的区别。我们跟踪 claw 生态和外部框架的 34 个平台，提供真实能力与营销声明对比的客观分析。
+AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注理解**个人力量倍增器**和**企业自动化**范式之间正在出现的区别。我们跟踪 claw 生态和外部框架的 35 个平台，提供真实能力与营销声明对比的客观分析。
 
 **完整使命：** [docs/MISSION.md](docs/MISSION.md)
 
 ## 🔥 关键洞察（2026 年 5 月）
 
-基于跟踪**34 个平台**，出现了几个关键趋势：
+基于跟踪**35 个平台**，出现了几个关键趋势：
 
 1. **个人与企业分叉** — 个人力量倍增器（1PC）和企业自动化范式之间出现明显分歧
 2. **MCP 争论激化** — 模型上下文协议在企业获得采用，但本地优先代理因 token 开销而抵制
@@ -29,7 +29,7 @@ AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注�
 ### 1. 架构分析与比较
 **状态：** ✅ 活跃开发中
 
-34 个跟踪平台的全面分析：
+35 个跟踪平台的全面分析：
 
 **Claw 生态（11 个平台）：**
 - **Openclaw** (TypeScript)：支持多渠道的可扩展 CLI
@@ -62,6 +62,7 @@ AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注�
 - **Dify** (TypeScript/Python)：中国最大的代理平台——150K+ 星，可视化工作流 + RAG + 代理编排，支持自托管/VPC/云部署。修改版 Apache 2.0（open-core：多租户和 LOGO 限制）
 - **MetaGPT** (Python)：多代理"AI 软件公司"——角色协作（PM、架构师、工程师、QA），MIT 许可，69K+ 星。首个将公司隐喻形式化的框架
 - **Qwen-Agent** (Python)：阿里巴巴通义千问官方代理框架——函数调用、MCP 原生、代码解释器、RAG、Chrome 扩展。Apache 2.0，16K+ 星
+- **browser-use** (Python)：领先的计算机操作（浏览器）agent——Chromium CDP 循环 + 类型化动作 schema，以 MCP server 形态发布，本地或托管云。MIT，~110K 星。首个计算机操作类别代表（2026 年 8 月准入，第 35 平台）
 
 **CLI 编程代理（5 个平台）：**
 - **aider** (Python)：AI 结对编程 CLI，git 感知多模型支持（约 68K 星）
@@ -86,7 +87,7 @@ AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注�
 - `architecture/external_frameworks.md` - 外部框架深度分析
 - `architecture/agent_harnesses.md` - Agent 框架和工具链分析
 - `architecture/architecture_comparison.md` - Claw 生态分析（重定向到新比较）
-- `architecture/platform_comparison.md` - 统一 34 平台比较（中英文）
+- `architecture/platform_comparison.md` - 统一 35 平台比较（中英文）
 - `architecture/agent_harnesses.md` - 代理 harness 和工具链分析
 - `architecture/multi_agent_coordination_research.md` - 多代理协调趋势分析
 
@@ -221,7 +222,7 @@ bash tests/test_agent_validation.sh
 ## 📊 当前状态与路线图
 
 ### ✅ 已完成
-- [x] 34 个平台的架构分析（11 个 claw 生态 + 14 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）
+- [x] 35 个平台的架构分析（11 个 claw 生态 + 15 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）
 - [x] 外部框架集成（SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride、OpenWorker、Dify、MetaGPT、Qwen-Agent）
 - [x] 多代理协调趋势研究
 - [x] 月度生态系统更新跟踪（英文 + 中文）
@@ -237,7 +238,7 @@ bash tests/test_agent_validation.sh
 - [x] 安全权限和规则执行
 - [c] 全面的 .gitignore 敏感数据保护
 - [x] 双语文档（英文 + 中文）
-- [x] 统一平台比较（全部 34 个平台，中英文）
+- [x] 统一平台比较（全部 35 个平台，中英文）
 - [x] 代理 harness 和工具链分析（中英文）
 - [x] 博客：个人 harness 教程、企业 vs 1PC 分叉分析
 

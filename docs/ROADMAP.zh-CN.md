@@ -236,7 +236,7 @@ Google 的 Agent-to-Agent (A2A) 协议、Anthropic 的 MCP 以及 OpenAI/Cursor 
 
 ### 7. 类别覆盖缺口闭合（2026 年 8 月新增）
 
-**状态：** 计划中
+**状态：** ✅ 已完成（2026 年 8 月 18 日）——browser-use 准入为第 35 平台（首个计算机操作代表）；Pi → Tier 2；dsh → Tier 3 至 1.0；UI-TARS 核实停滞（保留）；ChatDev/Letta → Tier-2 候选待议；Mem0 保留。完整裁决见 [`docs/governance.zh-CN.md`](governance.zh-CN.md) §7。
 **目标：** 闭合自身研究报告已识别但尚未跟踪的生态系统类别缺口
 
 2026 年 8 月的覆盖审计将跟踪集与自身研究报告交叉比对，发现若干类别被描述过但从未进入跟踪。本项正式评估它们，并与 Q4-6 治理工作（准入标准、35 上限）协同执行。
