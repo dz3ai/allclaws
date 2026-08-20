@@ -44,7 +44,7 @@ AllClaws 针对 AI 代理架构和部署模式进行独立研究，重点关注�
 - **Hermes-Agent** (Python)：具有上下文压缩的研究支持代理
 - **Claw-AI-Lab** (Python)：学术研究平台
 
-**外部框架（13 个平台）：**
+**外部框架（18 个平台）：**
 - **SmolAgents** (Python)：Hugging Face 的约 1K LOC 代码代理框架
 - **LangGraph** (Python/TS)：基于图的有状态多代理工作流
 - **CrewAI** (Python)：角色扮演自主代理
@@ -124,7 +124,7 @@ bash scripts/run_tests.sh
 - **输出**：带时间戳的 JSON + Markdown 报告，存于 `test_framework/results/`
 
 ### 3. 基准测试引擎
-**状态：** ✅ v1.0 — 跨平台指标采集完成
+**状态：** ✅ v3.0 — Python 引擎，26 个平台 140 项指标
 
 纯外部基准测试引擎，无需构建或运行时依赖即可测量所有 11 个平台的仓库特征。
 
@@ -209,8 +209,8 @@ cd test_framework
 # 运行跨平台测试（v2.0）
 bash scripts/run_tests.sh
 
-# 运行基准测试（v1.0）
-bash scripts/run_benchmarks.sh
+# 运行基准测试（v3.0 Python 引擎）
+python3 -m benchmark.cli runtime --runs 5
 
 # 传统：设置和验证
 ./scripts/setup.sh
@@ -222,35 +222,43 @@ bash tests/test_agent_validation.sh
 ## 📊 当前状态与路线图
 
 ### ✅ 已完成
-- [x] 35 个平台的架构分析（11 个 claw 生态 + 15 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）
-- [x] 外部框架集成（SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride、OpenWorker、Dify、MetaGPT、Qwen-Agent）
+- [x] 35 个平台的架构分析（11 个 claw 生态 + 18 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）
+- [x] 外部框架集成（SmolAgents、LangGraph、CrewAI、AutoGen、Swarms、OpenAgents、OpenFang、AgentScope、Eliza、Agent Zero、PraisonAI、Rocketride、OpenWorker、Dify、MetaGPT、Qwen-Agent、browser-use）
+- [x] 统一平台比较（全部 35 个平台，中英文）
 - [x] 多代理协调趋势研究
 - [x] 月度生态系统更新跟踪（英文 + 中文）
 - [x] 跨平台静态分析测试框架（v2.1，165/177 通过，11 个 claw 平台）
-- [x] 基准测试执行引擎（v1.0，11 个 claw 平台 182 项指标）
+- [x] 基准测试引擎（v3.0 Python——26 个平台 140 项运行时指标）
 - [x] 完善的使命声明（个人与企业范式分析）
 - [x] 声明验证（Hermes-Agent "自我改进"分析）
-- [x] 多代理协调趋势研究
-- [x] 月度生态系统更新跟踪（英文 + 中文）
-- [x] 跨平台静态分析测试框架（v2.1，165/177 通过）
-- [x] 基准测试执行引擎（v1.0，182 项指标）
 - [x] 代理配置模式和验证
 - [x] 安全权限和规则执行
-- [c] 全面的 .gitignore 敏感数据保护
+- [x] 全面的 .gitignore 敏感数据保护
 - [x] 双语文档（英文 + 中文）
-- [x] 统一平台比较（全部 35 个平台，中英文）
 - [x] 代理 harness 和工具链分析（中英文）
 - [x] 博客：个人 harness 教程、企业 vs 1PC 分叉分析
 
-### 🔄 进行中
-- [ ] 中文翻译（external_frameworks.zh-CN.md、MISSION.zh-CN.md、ROADMAP.zh-CN.md）
+### 🔄 进行中（H2 2026）
+- [ ] Q4-4：长时运行代理基准测试（端到端任务评估，30+ 分钟任务）——路线图最后一个未完成项（12/13 已完成）
 
-### 📋 计划中
-- [ ] 跨平台性能指标（运行时基准测试）
-- [ ] MCP 生态深度分析报告
-- [ ] 企业治理框架分析
-- [ ] 1PC（一人公司）案例研究
-- [ ] 运行时性能基准测试扩展
+### 📋 计划中（H1 2027 预览）
+- [ ] 代理经济学——超越 API 定价的真实成本模型
+- [ ] 多代理编排模式
+- [ ] 移动优先与边缘部署代理
+- [ ] 代理安全与供应链分析
+
+### 近期完成（H2 2026）
+- [x] 中文翻译（external_frameworks.zh-CN.md、MISSION.zh-CN.md、ROADMAP.zh-CN.md）
+- [x] 跨平台性能指标（运行时基准测试，59 项指标，N=5 采样）
+- [x] MCP 生态深度分析报告（5 个阶段）
+- [x] 企业治理框架分析
+- [x] 1PC（一人公司）案例研究
+- [x] 代理失败模式分类（35 个平台 13 种失败模式）
+- [x] 中国 AI 代理生态深度分析（14 个项目，35 万+ 累计星标）
+- [x] 新增 Dify、MetaGPT、Qwen-Agent（中国生态 Tier 1）与 browser-use（第 35 号平台，首个 computer-use 代表）
+- [x] 协议之争分析（Q4-5）——MCP/ACP/A2A 分层而非战争
+- [x] 平台治理与质量门槛（Q4-6）——三层跟踪模型、Tier-1 上限 35
+- [x] 品类覆盖缺口闭合（Q4-7）——评估 6 个候选，browser-use 入选
 
 ## 🤝 贡献
 
@@ -283,7 +291,7 @@ bash tests/test_agent_validation.sh
 - **Hermes-Agent**：https://github.com/NousResearch/hermes-agent
 - **Claw-AI-Lab**：https://github.com/Claw-AI-Lab/Claw-AI-Lab
 
-**外部框架（13 个平台）：**
+**外部框架（18 个平台）：**
 - **SmolAgents**：https://github.com/huggingface/smolagents
 - **LangGraph**：https://github.com/langchain-ai/langgraph
 - **CrewAI**：https://github.com/crewaiinc/crewai
@@ -320,4 +328,4 @@ bash tests/test_agent_validation.sh
 
 ---
 
-*最后更新：2026 年 5 月 29 日*
+*最后更新：2026 年 8 月 20 日*

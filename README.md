@@ -45,7 +45,7 @@ Comprehensive analysis of AI agent platforms across 35 tracked frameworks:
 - **Hermes-Agent** (Python): Research-backed agent with context compaction
 - **Claw-AI-Lab** (Python): Academic research platform
 
-**External Frameworks (13 platforms):**
+**External Frameworks (18 platforms):**
 - **SmolAgents** (Python): Hugging Face's ~1K LOC code-agent framework
 - **LangGraph** (Python/TS): Graph-based stateful multi-agent workflows
 - **CrewAI** (Python): Role-playing autonomous agents
@@ -133,7 +133,7 @@ bash scripts/run_tests.sh
 - **Output**: timestamped JSON + Markdown reports in `test_framework/results/`
 
 ### 3. Benchmark Engine
-**Status:** ✅ v1.0 — Cross-Platform Metrics Collection Complete
+**Status:** ✅ v3.0 — Python Engine, 140 Metrics Across 26 Platforms
 
 A pure-external benchmark engine that measures repository characteristics across all 11 platforms without requiring builds or runtime dependencies.
 
@@ -222,8 +222,8 @@ cd test_framework
 # Run cross-platform tests (v2.0)
 bash scripts/run_tests.sh
 
-# Run benchmarks (v1.0)
-bash scripts/run_benchmarks.sh
+# Run benchmarks (v3.0 Python engine)
+python3 -m benchmark.cli runtime --runs 5
 
 # Legacy: setup and validate
 ./scripts/setup.sh
@@ -236,29 +236,23 @@ bash tests/test_agent_validation.sh
 
 ### ✅ Completed
 - [x] Architecture analysis of 35 platforms (11 claw ecosystem + 18 external frameworks + 5 CLI coding agents + 1 human digital twin)
-- [x] External frameworks integration (SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride)
+- [x] External frameworks integration (SmolAgents, LangGraph, CrewAI, AutoGen, Swarms, OpenAgents, OpenFang, AgentScope, Eliza, Agent Zero, PraisonAI, Rocketride, OpenWorker, Dify, MetaGPT, Qwen-Agent, browser-use)
+- [x] Unified platform comparison (all 35 platforms, EN + ZH)
 - [x] Multi-agent coordination trend research
 - [x] Monthly ecosystem updates tracking (EN + ZH)
 - [x] Cross-platform static analysis test framework (v2.1, 165/177 pass for 11 claw platforms)
-- [x] Benchmark execution engine (v1.0, 182 metrics across 11 claw platforms)
+- [x] Benchmark engine (v3.0 Python — 140 runtime metrics across 26 platforms)
 - [x] Refined mission statement (personal vs enterprise paradigm analysis)
 - [x] Claims verification (Hermes-Agent "self-improving" analysis)
-- [x] Multi-agent coordination trend research
-- [x] Monthly ecosystem updates tracking (EN + ZH)
-- [x] Cross-platform static analysis test framework (v2.1, 165/177 pass)
-- [x] Benchmark execution engine (v1.0, 182 metrics across 13 platforms)
 - [x] Agent configuration schema and validation
 - [x] Security privilege and rule enforcement
 - [x] Comprehensive .gitignore for sensitive data protection
 - [x] Bilingual documentation (English + Chinese)
-- [x] Unified platform comparison (all 35 platforms, EN + ZH)
 - [x] Agent harnesses & toolchains analysis (EN + ZH)
 - [x] Blog: personal harness tutorial, enterprise vs 1PC fork analysis
 
-### 🔄 In Progress (H2 2026 Extension)
-- [ ] Long-running agent benchmarks (end-to-end task evaluation, 30+ min tasks)
-- [ ] Protocol wars analysis (MCP vs A2A vs proprietary)
-- [ ] Platform governance policy (35-platform cap, quarterly stale review)
+### 🔄 In Progress (H2 2026)
+- [ ] Q4-4: Long-running agent benchmarks (end-to-end task evaluation, 30+ min tasks) — the last open ROADMAP item (12 of 13 done)
 
 ### 📋 Planned (H1 2027 Preview)
 - [ ] Agent economics — real cost models beyond API pricing
@@ -266,16 +260,18 @@ bash tests/test_agent_validation.sh
 - [ ] Mobile-first and edge-deployed agents
 - [ ] Agent security & supply chain analysis
 
-### Recently Completed
+### Recently Completed (H2 2026)
 - [x] Chinese translations (external_frameworks.zh-CN.md, MISSION.zh-CN.md, ROADMAP.zh-CN.md)
-- [x] Cross-platform performance metrics (runtime benchmarks, 53+ metrics, N=5)
+- [x] Cross-platform performance metrics (runtime benchmarks, 59 metrics, N=5 sampling)
 - [x] MCP ecosystem deep-dive report (5 phases)
 - [x] Enterprise governance framework analysis
 - [x] 1PC (one-person company) case studies
-- [x] Runtime performance benchmarking extension
 - [x] Agent failure mode taxonomy (13 failure modes across 35 platforms)
 - [x] China AI agent ecosystem deep-dive (14 projects, 350K+ combined stars)
-- [x] Added Dify, MetaGPT, Qwen-Agent (China ecosystem Tier 1)
+- [x] Added Dify, MetaGPT, Qwen-Agent (China ecosystem Tier 1) and browser-use (#35, first computer-use representative)
+- [x] Protocol wars analysis (Q4-5) — MCP/ACP/A2A layering, not war
+- [x] Platform governance & quality thresholds (Q4-6) — three-tier tracking model, Tier-1 cap of 35
+- [x] Category coverage gap-closure (Q4-7) — 6 candidates evaluated, browser-use admitted
 
 ## 🤝 Contributing
 
@@ -308,7 +304,7 @@ This is an active research project. Contributions welcome in:
 - **Hermes-Agent**: https://github.com/NousResearch/hermes-agent
 - **Claw-AI-Lab**: https://github.com/Claw-AI-Lab/Claw-AI-Lab
 
-**External Frameworks (13 platforms):**
+**External Frameworks (18 platforms):**
 - **SmolAgents**: https://github.com/huggingface/smolagents
 - **LangGraph**: https://github.com/langchain-ai/langgraph
 - **CrewAI**: https://github.com/crewaiinc/crewai
@@ -352,4 +348,4 @@ This project represents ongoing research into AI agent architectures. For discus
 
 ---
 
-*Last updated: July 15, 2026*
+*Last updated: August 20, 2026*
