@@ -2,7 +2,7 @@
 
 **[English](LATEST_UPDATES.md)** | 中文
 
-> 追踪 11 个 claw 生态平台、13 个外部框架、5 个 CLI 编程代理和 1 个人类数字孪生平台的重大更新 — 架构革新、MCP 采用争论、企业 vs 个人模式、安全发展（2026 年 4-5 月）。
+> 追踪 11 个 claw 生态平台、18 个外部框架、5 个 CLI 编程代理和 1 个人类数字孪生平台的重大更新 — 架构革新、MCP 采用争论、企业 vs 个人模式、安全发展（2026 年 4-8 月）。
 
 ---
 
@@ -23,6 +23,61 @@
 11. **Agent Zero 添加** — Agent Zero（Python，frdel，MIT）作为第 11 个外部框架添加；自主 AI 代理框架，具备工具使用能力
 12. **PraisonAI 添加** — PraisonAI（Python，MervinPraison，MIT）作为第 12 个外部框架添加；多代理 LLM 框架，低代码工作流构建器
 13. **Rocketride 添加** — Rocketride（TypeScript，nearai，MIT）作为第 13 个外部框架添加；near.ai 代理服务器，自主任务执行
+14. **browser-use 添加（2026 年 8 月）** — browser-use（Python，MIT，约 11 万星）作为第 18 个外部框架、第 35 号平台添加；依据治理 Q4-7 裁决成为首个计算机操作（浏览器）类别代表。Chromium CDP 代理循环、类型化动作 schema，以 MCP server 形态发布
+15. **Harness 生态扩张（2026 年 8 月）** — DeepSeek Harness（dsh，首个厂商一方 harness，基于 Cordis 插件树组合）与 Pi（Earendil Works，自扩展 harness）作为 harness 生态 #6-7 添加；Pi 列 Tier 2，dsh 待 1.0 前列 Tier 3
+
+---
+
+## 研究里程碑（H2 2026）
+
+平台跟踪之外的已完成研究——完整路线图状态见 [ROADMAP.zh-CN.md](ROADMAP.zh-CN.md)（13 项已完成 12 项）：
+
+- [x] MCP 生态深度分析（5 个阶段）— [reports/mcp-deep-dive-phase4-5-synthesis.md](reports/mcp-deep-dive-phase4-5-synthesis.md)
+- [x] 企业治理框架分析 — [reports/enterprise-governance-analysis.md](reports/enterprise-governance-analysis.md)
+- [x] 1PC（一人公司）案例研究 — [reports/1pc-case-studies-2026.md](reports/1pc-case-studies-2026.md)
+- [x] 代理失败模式分类（35 个平台 13 种失败模式）— [reports/failure-mode-taxonomy-2026.md](reports/failure-mode-taxonomy-2026.md)
+- [x] 中国 AI 代理生态深度分析（14 个项目，35 万+ 累计星标）— [reports/china-agent-ecosystem-2026.md](reports/china-agent-ecosystem-2026.md)
+- [x] Harness 工程对比 — [reports/harness-engineering-comparison.md](reports/harness-engineering-comparison.md)
+- [x] 协议之争分析（Q4-5）— MCP/ACP/A2A 分层而非战争 — [reports/protocol-wars-2026.md](reports/protocol-wars-2026.md)
+- [x] 平台治理与质量门槛（Q4-6）— 三层跟踪模型、Tier-1 上限 35 — [governance.zh-CN.md](governance.zh-CN.md)
+- [x] 品类覆盖缺口闭合（Q4-7）— 评估 6 个候选，browser-use 以 #35 入选（首个 computer-use 代表）
+- [ ] 长时运行代理基准测试（Q4-4）— 进行中，路线图最后一个未完成项
+
+## 测试与基准结果
+
+**静态测试（2026 年 4 月 12 日）：165 通过 / 12 失败 / 177 总计**，覆盖 11 个 claw 平台。
+
+| 平台 | 语言 | 文件数 | 结果 |
+|----------|----------|-------|--------|
+| Openclaw | TypeScript | 5941 .ts | 13/13 通过 |
+| ClawTeam | Python | 75 .py | 12/13 通过 |
+| GoClaw | Go | 524 .go | 11/14 通过 |
+| IronClaw | Rust | 287 .rs | 14/14 通过 |
+| Maxclaw | Go | 118 .go | 13/14 通过 |
+| NanoClaw | TypeScript | 61 .ts | 13/13 通过 |
+| Nanobot | Python | 88 .py | 10/13 通过 |
+| Zeroclaw | Rust | 227 .rs | 14/14 通过 |
+| HiClaw | Go | ~400 .go | 13/14 通过 |
+| Hermes-Agent | Python | ~60 .py | 11/13 通过 |
+| Claw-AI-Lab | Python | ~50 .py | 11/13 通过 |
+
+**运行时基准（v3.0 Python 引擎）：26 个平台 140 项指标** — 冷启动、内存、延迟、二进制大小，N=5 采样 + 统计分析。最新数据在 CI 产物中（`benchmark-suite.yml`，每日）；方法论见 [test_framework/docs/runtime_benchmark_methodology.md](../test_framework/docs/runtime_benchmark_methodology.md)。
+
+**静态仓库指标（2026 年 4 月 12 日）：13 个平台 182 项指标**
+
+| 平台 | 仓库大小 (KB) | 源文件数 | 代码行数 | 依赖数 | 测试文件数 |
+|----------|----------------|-------------|-----------|--------------|-----------|
+| Openclaw | 193,592 | 5,760 .ts | 146,967 | 73 npm | 2,227 |
+| ClawTeam | 19,728 | 75 .py | 13,407 | 16 pip | 26 |
+| GoClaw | 21,848 | 501 .go | 92,815 | 149 go | 38 |
+| IronClaw | 23,216 | 362 .rs | 191,946 | 51 cargo | 48 |
+| Maxclaw | 18,880 | 118 .go | 30,499 | 33 go | 45 |
+| NanoClaw | 19,768 | 51 .ts | 10,606 | 14 npm | 17 |
+| Nanobot | 66,200 | 88 .py | 18,960 | 49 pip | 26 |
+| Zeroclaw | 24,640 | 259 .rs | 161,169 | 45 cargo | 18 |
+| HiClaw | ~25,000 | ~400 .go | ~35,000 | ~40 go | ~30 |
+| Hermes-Agent | ~8,000 | ~60 .py | ~8,000 | ~15 pip | ~12 |
+| Claw-AI-Lab | ~10,000 | ~50 .py | ~7,000 | ~25 pip | ~8 |
 
 ---
 
@@ -689,10 +744,15 @@ Rocketride 是由 nearai 为 near.ai 平台开发的基于 TypeScript 的代理�
 | Agent Zero | N/A | Python | N/A | 个人 |
 | PraisonAI | N/A | Python | N/A | 个人/企业 |
 | Rocketride | N/A | TypeScript | N/A | 企业 |
+| OpenWorker | 约 9.8K | Python/Rust | 原生 | 个人/企业 |
+| Dify | 约 15 万 | TypeScript/Python | 原生 | 企业 |
+| MetaGPT | 约 6.9 万 | Python | N/A | 企业 |
+| Qwen-Agent | 约 1.6 万 | Python | 原生 | 个人/企业 |
+| browser-use | 约 11 万 | Python | 原生（server）| 个人 |
 
 ---
 
-*最后更新：2026 年 5 月 29 日*
+*最后更新：2026 年 8 月 20 日*
 *所属：AllClaws 个人 AI 代理生态系统研究*
-*跟踪平台：30 个（11 个 claw 生态 + 13 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）*
-*下次更新：2026 年 6 月*
+*跟踪平台：35 个（11 个 claw 生态 + 18 个外部框架 + 5 个 CLI 编程代理 + 1 个人类数字孪生）*
+*下次更新：2026 年 9 月*

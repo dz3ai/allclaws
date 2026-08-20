@@ -2,7 +2,7 @@
 
 English | **[中文](LATEST_UPDATES.zh-CN.md)**
 
-> Tracking major changes across 11 claw ecosystem platforms, 13 external frameworks, 5 CLI coding agents, and 1 human digital twin platform — architecture innovations, MCP adoption debates, enterprise vs personal patterns, and security developments from April to May 2026.
+> Tracking major changes across 11 claw ecosystem platforms, 18 external frameworks, 5 CLI coding agents, and 1 human digital twin platform — architecture innovations, MCP adoption debates, enterprise vs personal patterns, and security developments from April to August 2026.
 
 ---
 
@@ -25,6 +25,59 @@ April-May 2026 revealed four defining trends shaping the ecosystem:
 13. **Rocketride Added** — Rocketride (TypeScript, nearai, MIT) added as 13th external framework; near.ai agent server for autonomous task execution
 14. **browser-use Added (August 2026)** — browser-use (Python, MIT, ~110K stars) added as 18th external framework and platform #35; first computer-use (browser) representative per governance Q4-7 ruling. Chromium CDP agent loop, typed action schemas, ships as MCP server
 15. **Harness Ecosystems Expanded (August 2026)** — DeepSeek Harness (dsh, first-party frontier-vendor harness on Cordis plugin-tree composition) and Pi (Earendil Works, self-extensible harness) added as harness ecosystems #6-7; Pi Tier 2, dsh Tier 3 until 1.0
+
+---
+
+## Research Milestones (H2 2026)
+
+Completed research beyond platform tracking — full roadmap status in [ROADMAP.md](ROADMAP.md) (12 of 13 items done):
+
+- [x] MCP ecosystem deep-dive (5 phases) — [reports/mcp-deep-dive-phase4-5-synthesis.md](reports/mcp-deep-dive-phase4-5-synthesis.md)
+- [x] Enterprise governance framework analysis — [reports/enterprise-governance-analysis.md](reports/enterprise-governance-analysis.md)
+- [x] 1PC (one-person company) case studies — [reports/1pc-case-studies-2026.md](reports/1pc-case-studies-2026.md)
+- [x] Agent failure mode taxonomy (13 failure modes across 35 platforms) — [reports/failure-mode-taxonomy-2026.md](reports/failure-mode-taxonomy-2026.md)
+- [x] China AI agent ecosystem deep-dive (14 projects, 350K+ combined stars) — [reports/china-agent-ecosystem-2026.md](reports/china-agent-ecosystem-2026.md)
+- [x] Harness engineering comparison — [reports/harness-engineering-comparison.md](reports/harness-engineering-comparison.md)
+- [x] Protocol wars analysis (Q4-5) — MCP/ACP/A2A layering, not war — [reports/protocol-wars-2026.md](reports/protocol-wars-2026.md)
+- [x] Platform governance & quality thresholds (Q4-6) — three-tier tracking model, Tier-1 cap of 35 — [governance.md](governance.md)
+- [x] Category coverage gap-closure (Q4-7) — 6 candidates evaluated, browser-use admitted as #35 (first computer-use representative)
+- [ ] Long-running agent benchmarks (Q4-4) — in progress, the last open roadmap item
+
+## Test & Benchmark Results
+
+**Static tests (April 12, 2026): 165 pass / 12 fail / 177 total** across 11 claw platforms.
+
+| Platform | Language | Files | Result |
+|----------|----------|-------|--------|
+| Openclaw | TypeScript | 5941 .ts | 13/13 pass |
+| ClawTeam | Python | 75 .py | 12/13 pass |
+| GoClaw | Go | 524 .go | 11/14 pass |
+| IronClaw | Rust | 287 .rs | 14/14 pass |
+| Maxclaw | Go | 118 .go | 13/14 pass |
+| NanoClaw | TypeScript | 61 .ts | 13/13 pass |
+| Nanobot | Python | 88 .py | 10/13 pass |
+| Zeroclaw | Rust | 227 .rs | 14/14 pass |
+| HiClaw | Go | ~400 .go | 13/14 pass |
+| Hermes-Agent | Python | ~60 .py | 11/13 pass |
+| Claw-AI-Lab | Python | ~50 .py | 11/13 pass |
+
+**Runtime benchmarks (v3.0 Python engine): 140 metrics across 26 platforms** — cold start, memory, latency, binary size, N=5 sampling with statistics. Latest numbers live in CI artifacts (`benchmark-suite.yml`, daily); methodology in [test_framework/docs/runtime_benchmark_methodology.md](../test_framework/docs/runtime_benchmark_methodology.md).
+
+**Static repository metrics (April 12, 2026): 182 metrics across 13 platforms**
+
+| Platform | Repo Size (KB) | Source Files | Source LOC | Dependencies | Test Files |
+|----------|----------------|-------------|-----------|--------------|-----------|
+| Openclaw | 193,592 | 5,760 .ts | 146,967 | 73 npm | 2,227 |
+| ClawTeam | 19,728 | 75 .py | 13,407 | 16 pip | 26 |
+| GoClaw | 21,848 | 501 .go | 92,815 | 149 go | 38 |
+| IronClaw | 23,216 | 362 .rs | 191,946 | 51 cargo | 48 |
+| Maxclaw | 18,880 | 118 .go | 30,499 | 33 go | 45 |
+| NanoClaw | 19,768 | 51 .ts | 10,606 | 14 npm | 17 |
+| Nanobot | 66,200 | 88 .py | 18,960 | 49 pip | 26 |
+| Zeroclaw | 24,640 | 259 .rs | 161,169 | 45 cargo | 18 |
+| HiClaw | ~25,000 | ~400 .go | ~35,000 | ~40 go | ~30 |
+| Hermes-Agent | ~8,000 | ~60 .py | ~8,000 | ~15 pip | ~12 |
+| Claw-AI-Lab | ~10,000 | ~50 .py | ~7,000 | ~25 pip | ~8 |
 
 ---
 
@@ -692,10 +745,15 @@ Rocketride is a TypeScript-based agent server developed by nearai for the near.a
 | Agent Zero | N/A | Python | N/A | Personal |
 | PraisonAI | N/A | Python | N/A | Personal/Enterprise |
 | Rocketride | N/A | TypeScript | N/A | Enterprise |
+| OpenWorker | ~9.8K | Python/Rust | Native | Personal/Enterprise |
+| Dify | ~150K | TypeScript/Python | Native | Enterprise |
+| MetaGPT | ~69K | Python | N/A | Enterprise |
+| Qwen-Agent | ~16K | Python | Native | Personal/Enterprise |
+| browser-use | ~110K | Python | Native (server) | Personal |
 
 ---
 
-*Last updated: May 29, 2026*
+*Last updated: August 20, 2026*
 *Part of: AllClaws Personal AI Agent Ecosystem Research*
-*Platforms tracked: 30 (11 claw ecosystem + 13 external frameworks + 5 CLI coding agents + 1 human digital twin)*
-*Next update: June 2026*
+*Platforms tracked: 35 (11 claw ecosystem + 18 external frameworks + 5 CLI coding agents + 1 human digital twin)*
+*Next update: September 2026*
