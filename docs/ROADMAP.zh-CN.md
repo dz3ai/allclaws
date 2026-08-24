@@ -177,7 +177,7 @@ AllClaws 的初期阶段对 34 个平台进行了编目并分析了其架构。2
 
 ### 4. 长时间运行代理基准测试
 
-**状态：** 计划中
+**状态：** 🔄 进行中 — 执行计划见 [`docs/reports/long-running-benchmark-research-plan.md`](reports/long-running-benchmark-research-plan.md)
 **目标：** 将基准套件从微基准升级为端到端任务评估
 
 当前基准测量启动时间和依赖项——有信息量但与实际工作脱节。下一阶段跟踪代理完成持续的、现实的任务。

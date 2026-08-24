@@ -181,7 +181,7 @@ Currently only AgentScope represents the Chinese ecosystem among 34 tracked plat
 
 ### 4. Long-Running Agent Benchmarks
 
-**Status:** Planned
+**Status:** 🔄 In Progress — execution plan at [`docs/reports/long-running-benchmark-research-plan.md`](reports/long-running-benchmark-research-plan.md)
 **Target:** Upgrade benchmark suite from micro-benchmarks to end-to-end task evaluation
 
 Current benchmarks measure startup time and dependencies — informative but disconnected from real work. The next evolution tracks agents completing sustained, realistic tasks.
