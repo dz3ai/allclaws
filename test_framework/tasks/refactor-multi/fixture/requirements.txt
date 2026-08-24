@@ -1,0 +1,2 @@
+# invcalc is stdlib-only by design: no runtime dependencies to install.
+# (Listed here so tooling that expects the file finds it.)
