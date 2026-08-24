@@ -1,0 +1,43 @@
+diff --git a/tinyweb/models.py b/tinyweb/models.py
+index 6e3d1c7..34c8e71 100644
+--- a/tinyweb/models.py
++++ b/tinyweb/models.py
+@@ -76,21 +76,14 @@ def get_item(iid):
+ def search_items(query):
+     """Case-insensitive substring search over item names (per README).
+ 
+-    BUG (issue-001): current implementation matches case-sensitively and
+-    scans keywords×items (quadratic). Should be case-insensitive, linear.
++    Case-insensitive on both sides; single linear scan per item.
+     """
+     query = (query or "").strip()
+     if not query:
+         return list_items()
++    lowered = query.lower()
+     results = []
+-    keywords = query.split()
+     for item in _items.values():
+-        matched = 0
+-        for keyword in keywords:
+-            for word in item["name"].split():
+-                if keyword in word:
+-                    matched += 1
+-                    break
+-        if matched == len(keywords):
++        if lowered in item["name"].lower():
+             results.append(dict(item))
+     return results
+diff --git a/tinyweb/routes.py b/tinyweb/routes.py
+index ed09b4b..f753bcf 100644
+--- a/tinyweb/routes.py
++++ b/tinyweb/routes.py
+@@ -39,8 +39,7 @@ def _user_or_error(uid):
+     try:
+         return models.get_user(uid)
+     except models.UserNotFound:
+-        # BUG (issue-001): should be 404, not 200-with-error-body
+-        raise ApiError(200, f"user {uid} not found") from None
++        raise ApiError(404, f"user {uid} not found") from None
+ 
+ 
+ def handle_list_users():

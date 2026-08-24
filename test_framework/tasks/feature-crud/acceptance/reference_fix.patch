@@ -1,0 +1,173 @@
+diff --git a/taskboard/__init__.py b/taskboard/__init__.py
+index e5d25e8..5187889 100644
+--- a/taskboard/__init__.py
++++ b/taskboard/__init__.py
+@@ -5,9 +5,12 @@ from .board import (
+     InvalidTransition,
+     TaskNotFound,
+     ValidationError,
++    add_comment,
+     create_task,
++    delete_comment,
+     delete_task,
+     get_task,
++    list_comments,
+     list_tasks,
+     move_task,
+     update_task,
+@@ -22,9 +25,12 @@ __all__ = [
+     "InvalidTransition",
+     "TaskNotFound",
+     "ValidationError",
++    "add_comment",
+     "create_task",
++    "delete_comment",
+     "delete_task",
+     "get_task",
++    "list_comments",
+     "list_tasks",
+     "load_board",
+     "make_server",
+diff --git a/taskboard/api.py b/taskboard/api.py
+index 54d4e5f..1acb00b 100644
+--- a/taskboard/api.py
++++ b/taskboard/api.py
+@@ -22,7 +22,7 @@ def _task_or_404(task_id):
+ 
+ 
+ class Handler(BaseHTTPRequestHandler):
+-    """Routes: GET/POST /tasks, GET/PUT/DELETE /tasks/<id>, POST /tasks/<id>/move."""
++    """Routes: task CRUD + move, and the comments endpoints."""
+ 
+     def log_message(self, format, *args):  # silence default stderr logging
+         pass
+@@ -72,6 +72,8 @@ class Handler(BaseHTTPRequestHandler):
+             self._send(status, payload)
+         except ApiError as e:
+             self._send(e.status, {"error": e.message})
++        except board.CommentNotFound as e:
++            self._send(404, {"error": f"comment {e} not found"})
+         except board.ValidationError as e:
+             self._send(400, {"error": str(e)})
+         except board.TaskNotFound as e:
+@@ -102,6 +104,17 @@ class Handler(BaseHTTPRequestHandler):
+         if match and method == "POST":
+             return self._move_task, match.group(1)
+ 
++        match = re.fullmatch(r"/tasks/([^/]+)/comments", path)
++        if match:
++            if method == "POST":
++                return self._create_comment, match.group(1)
++            if method == "GET":
++                return self._list_comments, match.group(1)
++
++        match = re.fullmatch(r"/tasks/([^/]+)/comments/([^/]+)", path)
++        if match and method == "DELETE":
++            return self._delete_comment, match  # full match: (task_id, comment_id)
++
+         raise ApiError(404, f"no route for {method} {path}")
+ 
+     # ------------------------------------------------------------ handlers
+@@ -160,6 +173,41 @@ class Handler(BaseHTTPRequestHandler):
+             raise ApiError(400, str(e)) from None
+         return 200, task
+ 
++    # -------------------------------------------------------- comments
++
++    def _create_comment(self, tid):
++        _task_or_404(tid)
++        data = self._read_json()
++        for field in ("author", "body"):
++            if field not in data:
++                raise ApiError(400, f"{field} is required")
++        try:
++            comment = board.add_comment(tid, data["author"], data["body"])
++        except board.TaskNotFound:
++            raise ApiError(404, f"task {tid} not found") from None
++        except board.ValidationError as e:
++            raise ApiError(400, str(e)) from None
++        return 201, comment
++
++    def _list_comments(self, tid):
++        _task_or_404(tid)
++        try:
++            comments = board.list_comments(tid)
++        except board.TaskNotFound:
++            raise ApiError(404, f"task {tid} not found") from None
++        return 200, {"comments": comments}
++
++    def _delete_comment(self, match):
++        tid, cid = match.group(1), match.group(2)
++        try:
++            _task_or_404(tid)
++            board.delete_comment(tid, cid)
++        except board.TaskNotFound:
++            raise ApiError(404, f"task {tid} not found") from None
++        except board.CommentNotFound:
++            raise ApiError(404, f"comment {cid} not found") from None
++        return 204, None
++
+ 
+ def make_server(host="127.0.0.1", port=8765):
+     """Build a ready-to-serve ThreadingHTTPServer."""
+diff --git a/taskboard/board.py b/taskboard/board.py
+index 7050f6a..0b3ad4b 100644
+--- a/taskboard/board.py
++++ b/taskboard/board.py
+@@ -125,6 +125,56 @@ def move_task(task_id, to_column):
+     return dict(task)
+ 
+ 
++# ------------------------------------------------------------- comments
++
++MAX_AUTHOR_LEN = 80
++MAX_BODY_LEN = 2000
++
++
++def _validate_comment_fields(author, body):
++    if not isinstance(author, str) or not author.strip() or len(author) > MAX_AUTHOR_LEN:
++        raise ValidationError("author must be a non-empty string of at most 80 chars")
++    if not isinstance(body, str) or not 1 <= len(body) <= MAX_BODY_LEN:
++        raise ValidationError(f"body must be 1-{MAX_BODY_LEN} chars")
++
++
++def add_comment(task_id, author, body):
++    """Create a comment on a task; returns the comment dict."""
++    if task_id not in _tasks:
++        raise TaskNotFound(task_id)
++    _validate_comment_fields(author, body)
++    comment_id = f"c-{next(_comment_ids):06d}"
++    comment = {
++        "id": comment_id,
++        "task_id": task_id,
++        "author": author,
++        "body": body,
++        "created_at": _utcnow_iso(),
++    }
++    _comments.setdefault(task_id, []).append(comment)
++    return dict(comment)
++
++
++def list_comments(task_id):
++    """Comments on a task, ordered by created_at ascending."""
++    if task_id not in _tasks:
++        raise TaskNotFound(task_id)
++    clist = _comments.get(task_id, [])
++    return [dict(c) for c in sorted(clist, key=lambda c: (c["created_at"], c["id"]))]
++
++
++def delete_comment(task_id, comment_id):
++    """Remove one comment from a task."""
++    if task_id not in _tasks:
++        raise TaskNotFound(task_id)
++    clist = _comments.get(task_id, [])
++    for i, comment in enumerate(clist):
++        if comment["id"] == comment_id:
++            del clist[i]
++            return
++    raise CommentNotFound(comment_id)
++
++
+ # ------------------------------------------------------------- internals
+ 
+ def all_tasks_raw():

@@ -1,0 +1,16 @@
+{
+  "id": "gh-issue-001",
+  "type": "github-issue",
+  "fixture_repo": "fixture",
+  "task_prompt": "Fix the bug described in issue-001.md in the repository root. The issue describes two defects: the /users/<id> endpoint returns the wrong status code for missing users, and the item search endpoint is case-sensitive where the documented API promises case-insensitive matching. Reproduce with '/usr/bin/python3 -m pytest tests/ -q' (two tests fail), fix the defects, and make the full suite green. Rules: do not weaken or edit the tests in tests/; no third-party dependencies may be added; keep the public API documented in README.md unchanged.",
+  "timeout_minutes": 20,
+  "max_turns": 150,
+  "difficulty": "easy",
+  "acceptance": {
+    "method": "pytest",
+    "command": "/usr/bin/python3 -m pytest acceptance/tests/ -q",
+    "pass_criteria": "exit 0"
+  },
+  "cost_cap_usd": 2.0,
+  "notes": "S1 bug fix from issue text. Hidden tests: 404 contract, case-insensitive search, regression on list/create endpoints."
+}

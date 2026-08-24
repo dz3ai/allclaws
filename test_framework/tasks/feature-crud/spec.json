@@ -1,0 +1,16 @@
+{
+  "id": "feature-crud",
+  "type": "feature-crud",
+  "fixture_repo": "fixture",
+  "task_prompt": "Read feature-request.md in the repository root and implement the comments feature it describes, following its API contract exactly (HTTP routes, status codes, validation rules, Python API functions exported from the taskboard package). Rules: (1) every test in tests/ must stay green without editing those tests; (2) new code follows the existing code style; (3) no third-party dependencies may be added. When done, run '/usr/bin/python3 -m pytest tests/ -q' to confirm the existing suite still passes.",
+  "timeout_minutes": 45,
+  "max_turns": 300,
+  "difficulty": "hard",
+  "acceptance": {
+    "method": "pytest",
+    "command": "/usr/bin/python3 -m pytest acceptance/tests/ -q",
+    "pass_criteria": "exit 0"
+  },
+  "cost_cap_usd": 3.0,
+  "notes": "S3 CRUD feature implementation. Hidden tests exercise the comments API over live HTTP (ephemeral port) + Python API + validation + 404/400 + regression on existing endpoints."
+}

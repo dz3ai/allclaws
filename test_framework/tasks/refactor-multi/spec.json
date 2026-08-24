@@ -1,0 +1,16 @@
+{
+  "id": "refactor-multi",
+  "type": "multi-file-refactor",
+  "fixture_repo": "fixture",
+  "task_prompt": "Read issue.md in the repository root and complete the refactor it describes. Rules: (1) every test in tests/ must stay green without editing those tests; (2) the public API documented in README.md must keep identical function names and parameter signatures; (3) follow the structural acceptance criteria in issue.md exactly (extracted engine module, single shared percentage helper, dataclass-based models with dict compatibility). Work in the repository root. When done, run '/usr/bin/python3 -m pytest tests/ -q' to confirm the existing suite passes.",
+  "timeout_minutes": 40,
+  "max_turns": 250,
+  "difficulty": "medium",
+  "acceptance": {
+    "method": "pytest+diff-shape",
+    "command": "/usr/bin/python3 -m pytest acceptance/tests/ -q",
+    "pass_criteria": "exit 0"
+  },
+  "cost_cap_usd": 3.0,
+  "notes": "S2 multi-file refactor. Structural checks: invcalc/engine.py exists and is used by core; percentage-round formula appears at most once across the package; models.py uses dataclass/NamedTuple with to_dict(); public API signatures unchanged; existing behavior preserved."
+}

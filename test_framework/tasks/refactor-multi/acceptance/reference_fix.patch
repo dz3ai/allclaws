@@ -1,0 +1,414 @@
+diff --git a/invcalc/compat.py b/invcalc/compat.py
+new file mode 100644
+index 0000000..26c3a9d
+--- /dev/null
++++ b/invcalc/compat.py
+@@ -0,0 +1,19 @@
++"""invcalc.compat — helpers shared across modules (dict/model duck-typing)."""
++
++
++def record_get(record, key, default=None):
++    """Read a field from a plain dict OR a model object with attributes."""
++    if isinstance(record, dict):
++        return record.get(key, default)
++    return getattr(record, key, default)
++
++
++def record_as_dict(record):
++    """Normalize a record (dict or to_dict()-capable model) to a dict."""
++    if isinstance(record, dict):
++        return dict(record)
++    if hasattr(record, "to_dict"):
++        return record.to_dict()
++    if hasattr(record, "_asdict"):
++        return dict(record._asdict())
++    return dict(vars(record))
+diff --git a/invcalc/core.py b/invcalc/core.py
+index 3cdce2b..f8b49b0 100644
+--- a/invcalc/core.py
++++ b/invcalc/core.py
+@@ -1,110 +1,48 @@
+-"""invcalc.core — invoice calculation engine (monolith, pre-refactor).
++"""invcalc.core — orchestration layer (all math delegated to engine)."""
+ 
+-Everything calculation-related lives here in 1.0: line math, tax, discounts,
+-formatting. See issue.md for the refactor brief.
+-"""
+-
+-from .models import invoice_summary
+-
+-EARLY_PAY_TIER1_DAYS = 10
+-EARLY_PAY_TIER1_RATE = 2.0
+-EARLY_PAY_TIER2_DAYS = 3
+-EARLY_PAY_TIER2_RATE = 1.0
+-
+-
+-def calculate_line_total(quantity, unit_price, discount_pct=0.0):
+-    """Net total for one line: quantity * unit_price minus discount_pct."""
+-    if quantity < 0:
+-        raise ValueError("quantity must be >= 0")
+-    if unit_price < 0:
+-        raise ValueError("unit_price must be >= 0")
+-    if not 0 <= discount_pct <= 100:
+-        raise ValueError("discount_pct must be within 0-100")
+-    gross = quantity * unit_price
+-    discount = round(gross * discount_pct / 100, 2)
+-    return round(gross - discount, 2)
+-
+-
+-def calculate_tax(amount, tax_rate_pct):
+-    """Sales tax for an amount at tax_rate_pct percent."""
+-    if amount < 0:
+-        raise ValueError("amount must be >= 0")
+-    if tax_rate_pct < 0:
+-        raise ValueError("tax_rate_pct must be >= 0")
+-    return round(amount * tax_rate_pct / 100, 2)
++from .compat import record_as_dict, record_get
++from .engine import (
++    apply_early_payment_discount,
++    calculate_line_total,
++    calculate_tax,
++)
++from .engine import calculate_invoice_total as _engine_invoice_total
++from .models import invoice_summary as _models_summary
+ 
+ 
+ def calculate_invoice_total(lines, tax_rate_pct=0.0):
+-    """Totals for a list of line records (dicts with quantity/unit_price).
+-
+-    Returns {"subtotal", "tax", "grand_total"} — all rounded to 2 dp.
+-    """
+-    if tax_rate_pct < 0:
+-        raise ValueError("tax_rate_pct must be >= 0")
+-    subtotal = 0.0
+-    tax_total = 0.0
+-    for line in lines:
+-        qty = line["quantity"]
+-        price = line["unit_price"]
+-        disc = line.get("discount_pct", 0.0)
+-        if qty < 0:
+-            raise ValueError("quantity must be >= 0")
+-        if price < 0:
+-            raise ValueError("unit_price must be >= 0")
+-        if not 0 <= disc <= 100:
+-            raise ValueError("discount_pct must be within 0-100")
+-        gross = qty * price
+-        discount = round(gross * disc / 100, 2)
+-        line_net = round(gross - discount, 2)
+-        subtotal = round(subtotal + line_net, 2)
+-        tax_total = round(tax_total + round(line_net * tax_rate_pct / 100, 2), 2)
+-    grand = round(subtotal + tax_total, 2)
+-    return {"subtotal": subtotal, "tax": tax_total, "grand_total": grand}
+-
+-
+-def apply_early_payment_discount(amount, days_early):
+-    """Early payment discount on an amount.
+-
+-    2% when paid 10+ days early, 1% for 3-9 days early, else no discount.
+-    """
+-    if amount < 0:
+-        raise ValueError("amount must be >= 0")
+-    if days_early < 0:
+-        raise ValueError("days_early must be >= 0")
+-    if days_early >= EARLY_PAY_TIER1_DAYS:
+-        rate = EARLY_PAY_TIER1_RATE
+-    elif days_early >= EARLY_PAY_TIER2_DAYS:
+-        rate = EARLY_PAY_TIER2_RATE
+-    else:
+-        rate = 0.0
+-    discount = round(amount * rate / 100, 2)
+-    return round(amount - discount, 2)
++    """Totals for a list of line records (public API, delegates to engine)."""
++    return _engine_invoice_total(lines, tax_rate_pct)
+ 
+ 
+ def format_invoice(invoice):
+     """Render an invoice record as a human-readable multi-line string."""
+-    totals = calculate_invoice_total(invoice.get("lines", []), invoice.get("tax_rate_pct", 0.0))
+-    currency = invoice.get("currency", "USD")
+-    lines = [
+-        f"Invoice {invoice.get('id', '?')} — {invoice.get('customer', '?')} [{currency}]",
++    rec = record_as_dict(invoice)
++    totals = _engine_invoice_total(rec.get("lines", []), rec.get("tax_rate_pct", 0.0))
++    currency = rec.get("currency", "USD")
++    out = [
++        f"Invoice {rec.get('id', '?')} — {rec.get('customer', '?')} [{currency}]",
+         "-" * 48,
+     ]
+-    for line in invoice.get("lines", []):
+-        qty = line["quantity"]
+-        price = line["unit_price"]
+-        disc = line.get("discount_pct", 0.0)
++    for line in rec.get("lines", []):
++        qty = record_get(line, "quantity")
++        price = record_get(line, "unit_price")
++        disc = record_get(line, "discount_pct", 0.0)
+         net = calculate_line_total(qty, price, disc)
+-        lines.append(f"  {line.get('description', 'item'):<24} x{qty:<6g} @{price:<10g} = {net:.2f}")
+-    lines += [
++        out.append(
++            f"  {record_get(line, 'description', 'item'):<24} "
++            f"x{qty:<6g} @{price:<10g} = {net:.2f}"
++        )
++    out += [
+         "-" * 48,
+         f"  Subtotal:   {totals['subtotal']:.2f} {currency}",
+         f"  Tax:        {totals['tax']:.2f} {currency}",
+         f"  TOTAL:      {totals['grand_total']:.2f} {currency}",
+-        f"  Status:     {invoice.get('status', 'draft')}",
++        f"  Status:     {rec.get('status', 'draft')}",
+     ]
+-    return "\n".join(lines)
++    return "\n".join(out)
+ 
+ 
+ def summarize(invoice):
+-    """Compact summary (thin wrapper kept for internal use)."""
+-    return invoice_summary(invoice)
++    """Compact summary (kept for internal use)."""
++    return _models_summary(invoice)
+diff --git a/invcalc/engine.py b/invcalc/engine.py
+new file mode 100644
+index 0000000..fc73995
+--- /dev/null
++++ b/invcalc/engine.py
+@@ -0,0 +1,82 @@
++"""invcalc.engine — pure calculation logic (extracted from core per issue.md).
++
++All percentage math routes through percentage_of() — the single helper.
++"""
++
++from .compat import record_get
++
++TIER1_DAYS = 10
++TIER1_RATE = 2.0
++TIER2_DAYS = 3
++TIER2_RATE = 1.0
++
++
++def percentage_of(amount, pct):
++    """THE single percentage helper: pct% of amount, 2 decimal places."""
++    return round(amount * pct / 100, 2)
++
++
++def validate_non_negative(name, value):
++    if value < 0:
++        raise ValueError(f"{name} must be >= 0")
++
++
++def validate_discount_pct(pct):
++    if not 0 <= pct <= 100:
++        raise ValueError("discount_pct must be within 0-100")
++
++
++def calculate_line_total(quantity, unit_price, discount_pct=0.0):
++    """Net total for one line: quantity * unit_price minus discount_pct."""
++    validate_non_negative("quantity", quantity)
++    validate_non_negative("unit_price", unit_price)
++    validate_discount_pct(discount_pct)
++    gross = quantity * unit_price
++    return round(gross - percentage_of(gross, discount_pct), 2)
++
++
++def calculate_tax(amount, tax_rate_pct):
++    """Sales tax for an amount at tax_rate_pct percent."""
++    validate_non_negative("amount", amount)
++    validate_non_negative("tax_rate_pct", tax_rate_pct)
++    return percentage_of(amount, tax_rate_pct)
++
++
++def calculate_invoice_total(lines, tax_rate_pct=0.0):
++    """Totals for line records (dicts or Line models) -> subtotal/tax/grand_total."""
++    validate_non_negative("tax_rate_pct", tax_rate_pct)
++    subtotal = 0.0
++    tax_total = 0.0
++    for line in lines:
++        qty = record_get(line, "quantity")
++        price = record_get(line, "unit_price")
++        disc = record_get(line, "discount_pct", 0.0)
++        validate_non_negative("quantity", qty)
++        validate_non_negative("unit_price", price)
++        validate_discount_pct(disc)
++        gross = qty * price
++        line_net = round(gross - percentage_of(gross, disc), 2)
++        subtotal = round(subtotal + line_net, 2)
++        tax_total = round(tax_total + percentage_of(line_net, tax_rate_pct), 2)
++    return {
++        "subtotal": subtotal,
++        "tax": tax_total,
++        "grand_total": round(subtotal + tax_total, 2),
++    }
++
++
++def early_payment_rate(days_early):
++    """Applicable early-payment discount rate in percent."""
++    if days_early >= TIER1_DAYS:
++        return TIER1_RATE
++    if days_early >= TIER2_DAYS:
++        return TIER2_RATE
++    return 0.0
++
++
++def apply_early_payment_discount(amount, days_early):
++    """Early payment discount: 2% at 10+ days early, 1% at 3-9, else 0."""
++    validate_non_negative("amount", amount)
++    validate_non_negative("days_early", days_early)
++    rate = early_payment_rate(days_early)
++    return round(amount - percentage_of(amount, rate), 2)
+diff --git a/invcalc/models.py b/invcalc/models.py
+index 99bc2ea..9ccccdd 100644
+--- a/invcalc/models.py
++++ b/invcalc/models.py
+@@ -1,41 +1,102 @@
+-"""invcalc.models — dict-based record helpers (pre-dataclass)."""
++"""invcalc.models — typed records: dataclasses with dict compatibility."""
+ 
+ import itertools
++from dataclasses import dataclass, field
++
++from .compat import record_as_dict
+ 
+ _ids = itertools.count(1)
+ 
+ REQUIRED_INVOICE_KEYS = ("id", "customer", "lines", "tax_rate_pct", "currency", "status")
+ 
+ 
++def _next_line_id():
++    return next(_ids)
++
++
++def _next_invoice_id():
++    return f"INV-{next(_ids):06d}"
++
++
++@dataclass
++class Line:
++    """One invoice line. Same fields as the legacy dict form."""
++
++    description: str
++    quantity: float
++    unit_price: float
++    discount_pct: float = 0.0
++    id: int = field(default_factory=_next_line_id)
++
++    def to_dict(self) -> dict:
++        return {
++            "id": self.id,
++            "description": self.description,
++            "quantity": self.quantity,
++            "unit_price": self.unit_price,
++            "discount_pct": self.discount_pct,
++        }
++
++
++@dataclass
++class Invoice:
++    """One invoice record, dict-compatible via get()/__getitem__/to_dict()."""
++
++    customer: str
++    lines: list = field(default_factory=list)
++    tax_rate_pct: float = 0.0
++    currency: str = "USD"
++    status: str = "draft"
++    id: str = field(default_factory=_next_invoice_id)
++
++    def to_dict(self) -> dict:
++        return {
++            "id": self.id,
++            "customer": self.customer,
++            "lines": [record_as_dict(line) for line in self.lines],
++            "tax_rate_pct": self.tax_rate_pct,
++            "currency": self.currency,
++            "status": self.status,
++        }
++
++    def get(self, key, default=None):
++        """Dict-style access so legacy callers keep working."""
++        return getattr(self, key, default)
++
++    def __getitem__(self, key):
++        try:
++            return getattr(self, key)
++        except AttributeError as e:
++            raise KeyError(key) from e
++
++
+ def new_line(description, quantity, unit_price, discount_pct=0.0):
+-    """Create a line record as a plain dict."""
+-    return {
+-        "id": next(_ids),
+-        "description": description,
+-        "quantity": quantity,
+-        "unit_price": unit_price,
+-        "discount_pct": discount_pct,
+-    }
++    """Create a Line record (was a plain dict in 1.0)."""
++    return Line(
++        description=description,
++        quantity=quantity,
++        unit_price=unit_price,
++        discount_pct=discount_pct,
++    )
+ 
+ 
+ def new_invoice(customer, lines=None, tax_rate_pct=0.0, currency="USD"):
+-    """Create an invoice record as a plain dict."""
+-    return {
+-        "id": f"INV-{next(_ids):06d}",
+-        "customer": customer,
+-        "lines": list(lines or []),
+-        "tax_rate_pct": tax_rate_pct,
+-        "currency": currency,
+-        "status": "draft",
+-    }
++    """Create an Invoice record (was a plain dict in 1.0)."""
++    return Invoice(
++        customer=customer,
++        lines=list(lines or []),
++        tax_rate_pct=tax_rate_pct,
++        currency=currency,
++    )
+ 
+ 
+ def invoice_summary(invoice):
+-    """Compact summary of an invoice record (safe on partial dicts)."""
++    """Compact summary of an invoice (dict or Invoice)."""
++    rec = record_as_dict(invoice)
+     return {
+-        "id": invoice.get("id"),
+-        "customer": invoice.get("customer"),
+-        "n_lines": len(invoice.get("lines", [])),
+-        "tax_rate_pct": invoice.get("tax_rate_pct", 0.0),
+-        "status": invoice.get("status", "draft"),
++        "id": rec.get("id"),
++        "customer": rec.get("customer"),
++        "n_lines": len(rec.get("lines", [])),
++        "tax_rate_pct": rec.get("tax_rate_pct", 0.0),
++        "status": rec.get("status", "draft"),
+     }
+diff --git a/invcalc/storage.py b/invcalc/storage.py
+index cef9186..821a5a8 100644
+--- a/invcalc/storage.py
++++ b/invcalc/storage.py
+@@ -3,15 +3,17 @@
+ import json
+ import os
+ 
+-from .core import calculate_invoice_total
++from .compat import record_as_dict
++from .engine import calculate_invoice_total as _engine_invoice_total
+ from .models import REQUIRED_INVOICE_KEYS
+ 
+ 
+ def save_invoice(invoice, path):
+     """Persist an invoice record to `path` as indented JSON."""
+-    payload = dict(invoice)
+-    payload["totals"] = calculate_invoice_total(
+-        invoice.get("lines", []), invoice.get("tax_rate_pct", 0.0)
++    rec = record_as_dict(invoice)
++    payload = dict(rec)
++    payload["totals"] = _engine_invoice_total(
++        rec.get("lines", []), rec.get("tax_rate_pct", 0.0)
+     )
+     with open(path, "w", encoding="utf-8") as fh:
+         json.dump(payload, fh, indent=2, sort_keys=True)
