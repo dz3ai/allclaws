@@ -154,20 +154,18 @@ Completed research beyond platform tracking — full roadmap status in [ROADMAP.
 
 ## IronClaw
 
-**Rust | Rapid growth | v0.28.2 — May 2026**
+**Rust | Rapid growth | v1.0.0 — August 2026**
 
-**Status:** Most active claw platform
+**Status:** Shipped 1.0 — v1.0.0 tagged 2026-07-27, hardening through August (300+ commits/month, API-verified). Tracking branch fixed: `staging` → `main` (upstream default switched; staging frozen since May)
 
 ### Architecture Evolution
-- Multi-tenant auth maturity
-- Layered memory system enhancements
-- WASM extension ecosystem growth
+- Typed e2e provider journeys (composed from typed facts)
+- Notification automation with persisted auth gates
+- Extension output ownership enforcement
 
-### New Features
-- **MCP adapter integration** (non-native approach)
-- Additional LLM providers
-- Risk-based command approval refinement
-- i18n expansion
+### Historical (pre-1.0)
+- Multi-tenant auth maturity, layered memory system, WASM extension ecosystem
+- MCP adapter integration (non-native approach), risk-based command approval
 
 ### Security
 - Continued cargo-d enforcement
