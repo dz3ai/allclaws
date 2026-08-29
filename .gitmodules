@@ -10,6 +10,7 @@
 [submodule "ironclaw"]
 	path = ironclaw
 	url = https://github.com/nearai/ironclaw.git
+	branch = main
 [submodule "goclaw"]
 	path = goclaw
 	url = https://github.com/nextlevelbuilder/goclaw.git
