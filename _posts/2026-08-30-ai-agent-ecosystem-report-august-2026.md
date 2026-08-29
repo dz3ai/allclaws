@@ -41,11 +41,11 @@ August is also the month the floor dropped out for a tier of platforms. Zero ups
 | reasonix | 2026-05-29 | 3 months | CLI category pioneer; now the stalest tracked CLI agent |
 | aider | 2026-05-22 | 3+ months | Former default recommendation for git-aware pair programming |
 | ClawTeam | 2026-07-04 | ~2 months | Shipped v0.3.0, then went quiet |
-| Qwen-Agent | 2026-03-04 | ~6 months | Crossed the 6-month bar this month |
+| Qwen-Agent | 2026-03-04 | ~6 months | Crosses the 6-month bar on September 4 |
 | MetaGPT | 2026-01-21 | 7 months | Still cited as core evidence in 2 reports — held, not archived |
 | MaxClaw / Claw-AI-Lab / Rocketride-main | Jun–Jul | 1.5–2 months | Pre-stale watch |
 
-Qwen-Agent crossing the six-month line matters most: it's a China-ecosystem representative, and under the governance rules it fails no archival criterion except strategic significance — a contested call the September review will have to make. The 4-month stale definition revision (proposed August 19) would already capture reasonix and aider today; that proposal is now live with three real test cases instead of a hypothetical.
+Qwen-Agent matters most here: it crosses the six-month line on September 4, and as a China-ecosystem representative, under the governance rules it fails no archival criterion except strategic significance — a contested call the September review will have to make. The 4-month stale definition revision (proposed August 19) would already capture reasonix and aider today; that proposal is now live with three real test cases instead of a hypothetical.
 
 One of those three test cases belongs to us: this report corrects the record on Rocketride. Our previous "stale" reading came from tracking `main` while development moved to `develop` — 108 commits of live work we nearly archived.
 
