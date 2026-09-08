@@ -41,6 +41,7 @@
 [submodule "coding-agents/cli-agents/reasonix"]
 	path = coding-agents/cli-agents/reasonix
 	url = https://github.com/esengine/DeepSeek-Reasonix.git
+	branch = main-v2
 [submodule "openhuman"]
 	path = openhuman
 	url = https://github.com/tinyhumansai/openhuman.git
