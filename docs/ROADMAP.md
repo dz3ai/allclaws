@@ -266,6 +266,31 @@ An August 2026 coverage audit cross-referenced the tracking set against our own 
 
 **Intentionally excluded categories (confirmed, do not re-evaluate):** observability/ops (Langfuse), sandbox infrastructure (E2B), voice-first consumer assistants, robotics/embodied AI (robot-toolkit is a separate project).
 
+### 8. Emerging Paradigm Deep-Dives (added September 2026)
+
+**Status:** 📋 Planned
+**Target:** Elevate the five cross-platform paradigm shifts surfaced by the September 8 weekly submodule report ([`docs/reports/weekly/2026-09-08-submodule-weekly.md`](reports/weekly/2026-09-08-submodule-weekly.md)) from one-week observations into structured research
+
+Five paradigms emerged independently across multiple tracked platforms in the same week — the strongest convergence signal recorded so far:
+
+1. **Append-only DAG session logs** — Reasonix schema-2 (fork/rewind as heads, replay-free projections). Direct infrastructure prerequisite for Q4-4 long-running benchmarks.
+2. **Layered memory pipelines** — Codex Memory v2 (consolidation/read prompts, versioned isolated storage), IronClaw AfterTurn curation, NanoBot Dream two-phase. The extract→consolidate→retrieve pipeline is standardizing.
+3. **Subagent observability** — Hermes subagent dock (live tail, steer/stop via parent), IronClaw background receipt spawns + healing sweeps. Focus shifts from "can spawn" to "can observe and own".
+4. **Realtime voice agents** — AgentScope realtime voice agent (DashScope + local transport), first tracked representative.
+5. **Local model integration as default** — PraisonAI desktop bridging Ollama/LM Studio/vLLM with `Agent(llm="local")` auto-discovery.
+
+**Research Questions:**
+- Which of the five are durable architecture shifts vs release-cycle noise? (re-check at 4 weeks)
+- How do the session-log and memory implementations differ in data model — do they converge on a common shape?
+- Does subagent observability correlate with the approval/governance patterns documented in the enterprise governance report (Q3-3)?
+- What breaks when realtime voice (streaming) meets the session/memory paradigms (persistence)?
+
+**Deliverables:**
+- Per-paradigm mini-report (data model, platform implementations, maturity) in `docs/reports/`
+- Cross-paradigm synthesis: which combinations compound (session log × memory layering × long-running agents)
+- Platform comparison matrix updates where a paradigm has landed (architecture pattern rows)
+- Feeder analysis for Q4-4: which platforms' session infrastructure is mature enough for long-running benchmarks
+
 ---
 
 ## Ongoing Activities
@@ -379,4 +404,4 @@ For discussions, questions, or collaboration opportunities:
 
 ---
 
-*Last updated: August 18, 2026*
+*Last updated: September 8, 2026*

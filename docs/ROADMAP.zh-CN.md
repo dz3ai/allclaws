@@ -262,6 +262,31 @@ Google 的 Agent-to-Agent (A2A) 协议、Anthropic 的 MCP 以及 OpenAI/Cursor 
 
 **有意排除的类别（已确认，无需重新评估）：** 可观测性/运维（Langfuse）、沙箱基础设施（E2B）、语音优先消费助手、机器人/具身智能（robot-toolkit 为独立项目）。
 
+### 8. 新范式深度研究（2026 年 9 月新增）
+
+**状态：** 📋 计划中
+**目标：** 将 9 月 8 日周报（[`docs/reports/weekly/2026-09-08-submodule-weekly.md`](reports/weekly/2026-09-08-submodule-weekly.md)）发现的五个跨平台范式信号，从单周观察升级为结构化研究
+
+五个范式在同一周内于多个被跟踪平台独立出现——这是迄今记录到的最强趋同信号：
+
+1. **Append-only DAG session log** —— Reasonix schema-2（fork/rewind 即 heads、投影免重放）。Q4-4 长时运行基准测试的直接基础设施前提。
+2. **Memory 分层管道** —— Codex Memory v2（consolidation/read prompts、版本化隔离存储）、IronClaw AfterTurn curation、NanoBot Dream 两阶段。抽取→固化→检索管道正在标准化。
+3. **Subagent 可观测性** —— Hermes subagent dock（live tail、通过 parent steer/stop）、IronClaw 后台 receipt spawns + healing sweeps。重心从"能 spawn"转向"能观测、能负责"。
+4. **Realtime voice agent** —— AgentScope realtime voice agent（DashScope + 本地传输），首个被跟踪的代表性实现。
+5. **本地模型接入成标配** —— PraisonAI desktop 打通 Ollama/LM Studio/vLLM，`Agent(llm="local")` 自动发现。
+
+**研究问题：**
+- 五个范式中有哪些是持久架构转变、哪些是发布周期噪声？（4 周后复查）
+- session log 与 memory 的实现在数据模型上有何差异——会收敛到共同形态吗？
+- subagent 可观测性与企业治理报告（Q3-3）记录的审批/治理模式是否相关？
+- realtime voice（流式）与 session/memory（持久化）范式相遇时，什么会先坏掉？
+
+**交付成果：**
+- 每范式一份 mini-report（数据模型、平台实现、成熟度），存放于 `docs/reports/`
+- 跨范式综合分析：哪些组合会产生复合效应（session log × memory 分层 × 长时运行 agent）
+- 范式落地时同步更新平台对比矩阵（architecture pattern 行）
+- 为 Q4-4 提供输入：哪些平台的 session 基础设施成熟到可以跑长时运行基准
+
 ---
 
 ## 持续活动
@@ -373,4 +398,4 @@ Google 的 Agent-to-Agent (A2A) 协议、Anthropic 的 MCP 以及 OpenAI/Cursor 
 
 ---
 
-*最后更新：2026 年 8 月 18 日*
+*最后更新：2026 年 9 月 8 日*
