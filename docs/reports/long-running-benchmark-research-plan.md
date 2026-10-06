@@ -175,7 +175,8 @@ Guardrails: per-run `cost_cap_usd`, weekly spend tally in report job, nightly-ra
 
 Recorded 2026-10-07 at Phase 2 close (append-only; sections above unchanged):
 
-- **Live-capable platforms today:** kimi-cli, codex, opencode, smolagents, hermes — drivers ready. reasonix blocked: no Go toolchain on this host (`prepare()` raises PrepareError until installed). aider venv absent — restoration in progress. zeroclaw consciously unbuilt (the plan's "optional stretch" label stands).
+- **Live-capable platforms today:** kimi-cli, codex, opencode, smolagents, hermes — drivers ready. reasonix blocked: no Go toolchain on this host (`prepare()` raises PrepareError until installed). zeroclaw consciously unbuilt (the plan's "optional stretch" label stands).
+- **aider venv restored (2026-10-07, same day):** `uv venv --python 3.12` + `uv pip install -e` with a pypi mirror (plain `uv sync` fails resolving aider's broad `requires-python` range on uv's default 3.14). Live-capable cohort = 6/8 platforms = 75% — Phase 2 exit bar (≥70%) met on live-capable basis.
 - **Fatigue data scope for Phase 3 v1:** solve-rate + `fatigue_flagged` only. Per-window token/turn trends are n/a — triage-burndown runs as one continuous session per agent, so no window-level token/turn producer exists; `window_metrics` stays as the future hook for drivers that can report it.
 - **HERMES_HOME runbook note:** hermes loads dotenv at import time, which overrides shell exports — pin model/keys via HERMES_HOME (not shell env) when launching a batch.
 - **Unproven in live runs:** opencode `--auto` flag semantics; hermes and smolagents single-file harnesses (argv shapes smoke-verified only, no live launch yet).
