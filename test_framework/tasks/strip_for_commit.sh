@@ -6,7 +6,10 @@
 set -eu
 cd "$(cd "$(dirname "$0")" && pwd)"
 
-for d in gh-issue-001 refactor-multi feature-crud triage-burndown legacy-migrate; do
+# auto-discover task dirs (any dir carrying a spec.json) — no hardcoded list
+for d in */; do
+  d="${d%/}"
+  [ -f "$d/spec.json" ] || continue
   rm -rf "$d/fixture/.git"
   rm -f "$d/.verify_existing.log" "$d/.verify_acceptance.log"
   rm -rf "$d/fixture/acceptance_run" "$d/fixture/.pytest_cache"
