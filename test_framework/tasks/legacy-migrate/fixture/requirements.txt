@@ -1,0 +1,2 @@
+# inventory is stdlib-only by design: the oldorm/neworm engines are vendored.
+

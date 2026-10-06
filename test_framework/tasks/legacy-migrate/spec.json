@@ -1,0 +1,16 @@
+{
+  "id": "legacy-migrate",
+  "type": "legacy-migrate",
+  "fixture_repo": "fixture",
+  "task_prompt": "This repository ships two vendored libraries: oldorm/ (legacy 0.x API) and neworm/ (its 2.x successor, with breaking changes), plus an application in inventory/ that still uses the oldorm 0.x API exclusively. Migrate inventory/ from oldorm 0.x to neworm 2.x by following MIGRATION.md in the repository root: replace every old API usage with its documented neworm equivalent. The application's behavior must not change — '/usr/bin/python3 -m pytest tests/ -q' is green before the migration and must be green after, with every test in tests/ untouched. After the migration inventory/ must not import oldorm at all and must not use its deprecated surface (session.query, Model.validate, model.dict, session.save, class Meta, or old (instance, old) hook callbacks). Rules: do not edit or weaken any test in tests/; do not edit the oldorm/ or neworm/ libraries; no third-party dependencies.",
+  "timeout_minutes": 45,
+  "max_turns": 200,
+  "difficulty": "hard",
+  "acceptance": {
+    "method": "pytest",
+    "command": "/usr/bin/python3 -m pytest acceptance/tests/ -q",
+    "pass_criteria": "exit 0"
+  },
+  "cost_cap_usd": 2.0,
+  "notes": "S5 legacy-migrate: vendored oldorm 0.x -> neworm 2.x breaking-change upgrade (plan's pydantic v1->v2 example adapted to be network-free). Hidden acceptance = behavior mirror + AST deprecated-surface scanner over inventory/ (oldorm imports, .query/.validate/.dict/.save calls, class Meta, old (instance, old) callbacks). Reference fix rewrites all 6 inventory modules; fixture tests unchanged."
+}
