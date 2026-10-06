@@ -202,6 +202,21 @@ def run_one(
                 result.extra["score"] = score.to_dict()
         result.extra.setdefault("score", {"passed": False, "details": "not scored"})
         result.extra["diff_stats"] = scoring.diff_stats(worktree)
+        # triage-burndown fatigue windows (plan §Fatigue Detection Protocol);
+        # drivers may have attached result.extra["window_metrics"] in
+        # collect() — passed through to score_windows untouched. Never
+        # crashes the run: any failure degrades to [] + note.
+        if spec.type == "triage-burndown":
+            try:
+                result.extra["windows"] = scoring.score_windows(
+                    spec,
+                    worktree,
+                    run_dir,
+                    window_metrics=result.extra.get("window_metrics"),
+                )
+            except Exception as e:
+                result.extra["windows"] = []
+                result.notes += f" | window scoring failed: {e}"
 
     except PrepareError as e:
         result = RunResult(
