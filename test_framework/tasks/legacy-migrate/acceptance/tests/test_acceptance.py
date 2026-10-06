@@ -8,6 +8,9 @@ Two layers:
       names the agent uses:
         * any `oldorm` import
         * any `.query(` call
+        * any `.filter(` call (oldorm Query.filter; neworm's documented API
+          has no filter method — select().where(...) is the only filter
+          surface, so ANY .filter( under inventory/ is a shim evasion)
         * any `.validate(` call on models (0.x validation entry point)
         * any `.dict(` call (0.x serialization)
         * any `.save(` call (0.x persistence)
@@ -36,6 +39,7 @@ from inventory import (
     get_stock,
     issue_stock,
     list_items,
+    list_orders,
     low_stock,
     open_order_units,
     order_ledger,
@@ -123,6 +127,10 @@ def test_no_query_calls():
     assert _collect_violations(_call_attr("query", "use session.select")) == []
 
 
+def test_no_filter_calls():
+    assert _collect_violations(_call_attr("filter", "use session.select + .where")) == []
+
+
 def test_no_validate_calls():
     assert _collect_violations(_call_attr("validate", "use Model.model_validate")) == []
 
@@ -194,6 +202,11 @@ class TestBehaviorOrders:
             fulfill_order("ORD-9999")
         with pytest.raises(UnknownSku):
             create_order("ghost", 1)
+
+    def test_list_orders_lists_created(self):
+        receive_stock("widget", 5, 1.0)
+        order = create_order("widget", 2)
+        assert [o["oid"] for o in list_orders()] == [order["oid"]]
 
     def test_ledger_newest_first(self):
         receive_stock("widget", 10, 1.0)
