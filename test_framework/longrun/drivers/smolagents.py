@@ -15,9 +15,10 @@ PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple before running —
 mirror install of the full litellm tree took ~4 min.
 
 Usage contract (harness -> collect()): the harness prints the agent's final
-answer to stdout, then exactly one machine-readable line
+answer to stdout, then exactly one machine-readable line as the LAST
+non-empty stdout line:
     LONGRUN_USAGE {"tokens_in": <int|null>, "tokens_out": <int|null>}
-collect() scans stdout for that line; when absent (or nulls) it falls back to
+collect() parses only that last line; when absent (or nulls) it falls back to
 the chars/4 estimate per base.py.
 """
 
@@ -26,6 +27,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import sys
 from pathlib import Path
 
 from longrun.drivers.base import (
@@ -60,23 +62,40 @@ class SmolagentsDriver(DriverBase):
         """Idempotent: create the venv + install smolagents (network exempt).
 
         Skips creation when <venv>/bin/python exists AND `import smolagents`
-        succeeds through that interpreter. Uses /usr/bin/python3 -m venv and
-        the venv's own pip — nothing from Path.home().
+        succeeds through that interpreter; any probe failure (nonzero exit,
+        TimeoutExpired, OSError — e.g. stale/hung venv python) falls through
+        to recreate the venv. Uses /usr/bin/python3 -m venv and the venv's
+        own pip — nothing from Path.home().
         """
         if not HARNESS_PATH.is_file():
             raise PrepareError(f"smolagents harness missing at {HARNESS_PATH}")
 
         venv_python = self._venv / "bin" / "python"
         if venv_python.is_file():
-            probe = subprocess.run(
-                [str(venv_python), "-c", "import smolagents"],
-                capture_output=True,
-                text=True,
-                timeout=120,
-            )
-            if probe.returncode == 0:
-                self._python = venv_python
-                return
+            try:
+                probe = subprocess.run(
+                    [str(venv_python), "-c", "import smolagents"],
+                    capture_output=True,
+                    text=True,
+                    timeout=120,
+                )
+            except (subprocess.TimeoutExpired, OSError) as e:
+                # Probe failure means the venv is unusable: recreate it below
+                # instead of escaping prepare() (run_one only catches
+                # PrepareError). Keep the probe's stderr for the log.
+                probe_stderr = str(e)
+            else:
+                if probe.returncode == 0:
+                    self._python = venv_python
+                    return
+                probe_stderr = (probe.stderr or "").strip()
+            if probe_stderr:
+                tail = probe_stderr.strip().splitlines()[-3:]
+                print(
+                    "smolagents: usage probe failed, recreating venv: "
+                    + " | ".join(tail),
+                    file=sys.stderr,
+                )
 
         try:
             proc = subprocess.run(
@@ -116,6 +135,8 @@ class SmolagentsDriver(DriverBase):
 
     # ------------------------------------------------------------------
     def run(self, worktree: Path, spec: TaskSpec) -> ProcSpec:
+        """Build ProcSpec; LONGRUN_MODEL, when present and non-empty, is
+        passed as --model (empty LONGRUN_MODEL treated as unset)."""
         assert self._python is not None, "prepare() not called"
         argv = [
             str(self._python),
@@ -123,7 +144,7 @@ class SmolagentsDriver(DriverBase):
             "--prompt", spec.task_prompt,  # verbatim, explicit flag channel
         ]
         model = os.environ.get("LONGRUN_MODEL")
-        if model:
+        if model is not None and model != "":  # explicit: present and non-empty
             argv += ["--model", model]
         return ProcSpec(
             argv=argv,
@@ -146,18 +167,23 @@ class SmolagentsDriver(DriverBase):
             stdout = outcome.stdout_path.read_text(encoding="utf-8", errors="replace")
         except OSError:
             stdout = ""
-        for line in stdout.splitlines():
-            if line.startswith(USAGE_PREFIX):
-                try:
-                    data = json.loads(line[len(USAGE_PREFIX):])
-                except ValueError:
-                    data = {}
-                if isinstance(data, dict):
-                    # type(x) is int (not isinstance) so JSON true/false can't pass
-                    if type(data.get("tokens_in")) is int:
-                        tokens_in = data["tokens_in"]
-                    if type(data.get("tokens_out")) is int:
-                        tokens_out = data["tokens_out"]
+        non_empty = [ln for ln in stdout.splitlines() if ln.strip()]
+        usage_found = False
+        # Only the LAST non-empty stdout line carries usage: a decoy line in
+        # the middle of a killed run's partial answer must not be parsed.
+        if non_empty and non_empty[-1].startswith(USAGE_PREFIX):
+            last = non_empty[-1]
+            try:
+                data = json.loads(last[len(USAGE_PREFIX):])
+            except ValueError:
+                data = None
+            if isinstance(data, dict):
+                usage_found = True
+                # type(x) is int (not isinstance) so JSON true/false can't pass
+                if type(data.get("tokens_in")) is int:
+                    tokens_in = data["tokens_in"]
+                if type(data.get("tokens_out")) is int:
+                    tokens_out = data["tokens_out"]
 
         if tokens_in is None and tokens_out is None:
             chars = len(stdout)
@@ -183,7 +209,7 @@ class SmolagentsDriver(DriverBase):
             transcript_path=None,
             notes=(
                 "smolagents LONGRUN_USAGE line parsed"
-                if tokens_out is not None
+                if usage_found
                 else "smolagents: chars/4 estimate (no usable usage line)"
             ),
         )
@@ -211,8 +237,8 @@ if __name__ == "__main__":
     assert ps.argv[ps.argv.index("--prompt") + 1] == "smoke test prompt", (
         "prompt not verbatim"
     )
-    if "LONGRUN_MODEL" in os.environ:
-        model = os.environ["LONGRUN_MODEL"]
+    model = os.environ.get("LONGRUN_MODEL") or ""
+    if model:  # empty LONGRUN_MODEL treated as unset
         assert ps.argv[-2:] == ["--model", model], "--model missing/wrong"
         print(f"--model OK: {model}")
     else:
