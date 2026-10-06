@@ -9,23 +9,28 @@ from typing import Any
 
 
 def load_runs(run_dir: Path) -> list[dict[str, Any]]:
-    """Load every <platform>/<task-id>/result.json under a timestamped run dir.
+    """Load every result.json under a timestamped run dir.
 
-    result.json files carry no "repeat" key (runner.run_grid stamps it onto
-    the in-memory grid summary only, after _write_result); a grid runs with
-    repeats=1 unless told otherwise, so a missing repeat defaults to 1. This
-    keeps the fatigue section's per-repeat grouping (longrun.fatigue.
-    summarize requires int repeats) working for single-pass runs.
+    Phase 2 layout: <platform>/<task-id>/rep<N>/result.json (repeat-aware run
+    dirs — plan §Fatigue Detection Protocol needs all repeats on disk). The
+    pre-Phase-2 flat layout <platform>/<task-id>/result.json is kept as a
+    fallback so older run dirs still load; payloads lacking "repeat" default
+    to 1 (a grid runs repeats=1 unless told otherwise).
     """
     runs = []
-    for result_path in sorted(run_dir.glob("*/*/result.json")):
-        try:
-            run = json.loads(result_path.read_text(encoding="utf-8"))
-        except (json.JSONDecodeError, OSError):
-            continue
-        if type(run) is dict:
-            run.setdefault("repeat", 1)
-            runs.append(run)
+    seen: set[Path] = set()
+    for pattern in ("*/*/rep*/result.json", "*/*/result.json"):
+        for result_path in sorted(run_dir.glob(pattern)):
+            if result_path in seen:
+                continue
+            seen.add(result_path)
+            try:
+                run = json.loads(result_path.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError):
+                continue
+            if type(run) is dict:
+                run.setdefault("repeat", 1)
+                runs.append(run)
     return runs
 
 

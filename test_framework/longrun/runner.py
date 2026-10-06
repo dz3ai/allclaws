@@ -144,9 +144,15 @@ def run_one(
     scratch_root: Path | None = None,
     skip_scoring: bool = False,
     dry_run: bool = False,
+    repeat: int = 1,
 ) -> dict:
-    """Full lifecycle for one (platform, task) run. Returns the result dict."""
-    run_dir = results_root / driver.name / spec.id
+    """Full lifecycle for one (platform, task, repeat) run. Returns the dict.
+
+    Artifacts land under results_root/<driver>/<task-id>/rep<repeat>/ so
+    repeats persist side by side (plan §Fatigue Detection Protocol: 3
+    repeats per agent; report/fatigue group result dicts by "repeat").
+    """
+    run_dir = results_root / driver.name / spec.id / f"rep{repeat}"
     run_dir.mkdir(parents=True, exist_ok=True)
     scratch_root = scratch_root or (results_root / "_scratch")
     worktree = None
@@ -161,6 +167,7 @@ def run_one(
             payload = {
                 "platform": driver.name,
                 "task_id": spec.id,
+                "repeat": repeat,
                 "status": "dry-run",
                 "argv": proc_spec.argv,
                 "env_keys": sorted(proc_spec.env.keys()),
@@ -238,8 +245,8 @@ def run_one(
             _archive_artifacts(run_dir, worktree, proc_spec_artifacts(result) if 'result' in dir() else [])
             cleanup_worktree(worktree)
 
-    _write_result(run_dir, result)
-    return result.to_dict() | {"score": result.extra.get("score", {})}
+    _write_result(run_dir, result, repeat)
+    return result.to_dict() | {"score": result.extra.get("score", {}), "repeat": repeat}
 
 
 def proc_spec_artifacts(result: RunResult) -> list[str]:
@@ -258,9 +265,12 @@ def _archive_artifacts(run_dir: Path, worktree: Path, artifacts: list[str]) -> N
             shutil.copy2(src, keep / Path(rel).name)
 
 
-def _write_result(run_dir: Path, result: RunResult) -> None:
+def _write_result(run_dir: Path, result: RunResult, repeat: int = 1) -> None:
     payload = result.to_dict()
     payload["extra"] = result.extra
+    # repeat stamped here (not post-hoc in run_grid) so the DISK payload
+    # carries it; run_grid's returned-dict stamping stays as a belt-and-braces
+    payload["repeat"] = repeat
     (run_dir / "result.json").write_text(
         json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8"
     )
@@ -308,7 +318,7 @@ def run_grid(
                 except DriverError as e:
                     print(f"[longrun] SKIP {driver_name}: {e}", flush=True)
                     continue
-                res = run_one(driver, spec, run_root, dry_run=dry_run)
+                res = run_one(driver, spec, run_root, dry_run=dry_run, repeat=repeat)
                 res["repeat"] = repeat
                 all_results.append(res)
                 # record spend from reported tokens (model-pinned per batch)
