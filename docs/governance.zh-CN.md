@@ -122,9 +122,9 @@ Q4-7 候选池 + 2026 年 8 月两个 harness 评估，按 §3 裁决：
 
 | 候选 | 类别 | 层级裁决 | 理由 | 重估时间 |
 |------|------|---------|------|---------|
-| **Pi** (earendil-works/pi) | Harness——扩展实用主义 | **即刻 Tier 2**（TRACK） | 一年持续、93K★、自扩展 + 遥测契约新模式；harness 形态 → Tier 2 非 Tier 1 | —（已完成：`agent_harnesses.md` §Pi） |
+| **Pi** (earendil-works/pi) | Harness——扩展实用主义 | **即刻 Tier 2**（TRACK）→ **Q4 评审 Tier-1 晋升候选** | 14 个月持续（2025-08 创建）、自扩展 + 遥测契约新模式；harness 形态 → 8 月 18 日裁决 Tier 2 非 Tier 1。**此后：v1.0.0 于 2026-10-01 发布**（5 天内 4 个补丁版、每日推送），**93K★ → 112.9K★**、14.3K fork，生态成形中（awesome-pi-agent 1.1K★、pi-book 336★、OpenPipal 可视化客户端、Java 移植、中文深读）。1.0 里程碑正是本文件既定的晋升触发器（参照 dsh「1.0 时 Tier 3 → Tier 2」规则），且 kimi-cli 归档即将腾出一个 Tier-1 席位 | **Q4 评审（约 2026-10-13）：Pi vs LangBot** 竞争腾出的 Tier-1 席位——准入前核实完整平台形态（TUI + coding-agent CLI 或已越过纯 harness 门槛）；若维持 Tier 2，刷新 `agent_harnesses.md` §Pi 数据（1.0 部分已完成） |
 | **browser-use** | 计算机操作（浏览器） | **Tier 1 — 已准入 2026-08-18** | 类别缺口（Q4-7）；~109.7K★、MIT、每日提交、2024-10 持续至今；填补计算机操作范式——最大的未跟踪类别 | —（已完成：第 35 平台，完整 checklist） |
-| **deepseek-harness (dsh)** | Harness——组合形式化 | **Tier 3 → 1.0 时 Tier 2** | 第一方前沿厂商 harness、158.8K★，但 v0.1.0-rc 且声明破坏性变更 | 2026-Q4 或首个稳定版 |
+| **deepseek-harness (dsh)** | Harness——组合形式化 | **Tier 3 → 1.0 时 Tier 2**（维持——仍全为预发布） | 第一方前沿厂商 harness；**158.8K★ → 244.5K★**、29.3K fork（2026-10-06）。发布列车 v0.1.7-rc.2（9-24）→ v0.2.0-rc.2（9-29）→ v0.2.1-alpha.1（10-03）；1.0 触发器**未**达成。评审新证据：实验性 **Claude Code Mods 桥**（10-02——首个跨 harness 兼容层）、**「让 Agent 创建插件」**自扩展（与 Pi 路线趋同）、自动化任务改为可选插件包（0.2.0 自证插件模型） | **Q4 评审（约 2026-10-13）**携十月数据，或首个稳定版——`agent_harnesses.md` §dsh 已刷新 |
 | **UI-TARS** (bytedance) | 计算机操作（GUI） | **Tier 3 → 保留（核实为停滞）** | 复核 2026-08-18：源码最后提交 2025-09-05，近一年无活动——不满足「活跃开发」硬标准。计算机操作类别已由 browser-use 覆盖 | Q4 复审（若复活） |
 | **ChatDev** (OpenBMB) | 多代理 SOP（中国） | **Tier 3 → Tier 2 候选** | 与 MetaGPT 重叠（SOP 角色扮演）+ 停滞风险（姊妹项目 XAgent 已死）；Tier 2 足够 | Q4-6 复审 |
 | **LangBot** (langbot-app) | 消息桥（WeChat） | **Tier 3 → Tier 1 候选** | 类别缺口（WeChat 一等公民）；核实企业相关性 | Q4-6 复审 |
@@ -145,5 +145,7 @@ Q4-7 候选池 + 2026 年 8 月两个 harness 评估，按 §3 裁决：
 |------|------|
 | 2026-08-18 | 初稿：35 上限裁决（仅 Tier 1）、三档层级模型、准入标准正式化、最小可行分析、归档标准、季度流程、8 候选观察名单 |
 | 2026-08-19 | 归档候选排查（上游实测）：GoClaw/ClawTeam 移出停滞名单（ROADMAP 数据过时）；MaxClaw 确认为唯一真候选但未满 6 个月——入观察（2026-10-13 按 4 个月修订案 / 2026-12-13 按现行规则）；MetaGPT 满停滞但 2 报告引用保留；**提案：stale 定义 6 个月 → 4 个月，2026 年 9 月月度评审裁决** |
+| 2026-10-06 | Pi 观察名单刷新（上游实测）：v1.0.0 于 2026-10-01 发布（5 天内 4 个补丁版）、93K★→112.9K★、14.3K fork、生态成形中（awesome-pi-agent 1.1K★、pi-book 336★、OpenPipal 客户端、Java 移植、中文深读）——列为 Q4 评审（约 10-13）**Tier-1 晋升候选**，与 LangBot 竞争 kimi-cli 归档腾出的席位；`agent_harnesses.md` §Pi 已同步十月数据 |
+| 2026-10-06 | dsh 观察名单刷新（上游实测）：8 月 17 日以来 158.8K★→244.5K★、29.3K fork；仍全为预发布（v0.2.1-alpha.1，10 月 3 日）——1.0 晋升触发器未达成，维持 Tier 3；Q4 评审新证据：实验性 Claude Code Mods 桥（首个跨 harness 兼容层，10-02）、「让 Agent 创建插件」自扩展（与 Pi 路线趋同）、0.2.0 自动化任务改为可选插件包（自证插件模型）；`agent_harnesses.md` §dsh 已同步十月数据 |
 
 *属于：AllClaws 个人 AI 代理生态系统研究。配套文档：[ROADMAP.zh-CN.md](ROADMAP.zh-CN.md)（Q4-6、Q4-7）、[MISSION.zh-CN.md](MISSION.zh-CN.md)（范围）。*
