@@ -13,13 +13,15 @@ Contract (driver: longrun/drivers/hermes.py):
            stderr, no try/except — collect() falls back to chars/4).
 
 Choice rationale (plan §Scope Ruling: "Library → single-file harness"):
-run_agent.main is a plain kwarg function (run_agent.py:1490-1494). Its only
-argv front-ends are the console script (`hermes-agent = "run_agent:main"`,
+run_agent.main is a plain kwarg function (run_agent.py:1490-1494). Its argv
+front-ends are the console script (`hermes-agent = "run_agent:main"`,
 pyproject.toml:434 — called with NO arguments, so it would run the default
 demo query, run_agent.py:1543-1544) and fire (run_agent.py:1559-1561; `fire`
-is not a declared pyproject dependency). The harness therefore calls
-run_agent.main directly with explicit kwargs: VERBATIM prompt, no fire, no
-argv-parsing edge cases.
+IS a declared dependency, "fire==0.7.1", pyproject.toml:43, but its argv
+scanning re-tokenizes a multi-KB verbatim prompt). The harness therefore
+calls run_agent.main directly with explicit kwargs: the prompt crosses as a
+Python str with zero argv mangling, and the console-script footgun is
+bypassed entirely.
 
 Model selection: --model ID → run_agent.main(model=ID) (OpenRouter format
 "provider/model", run_agent.py:1500-1503). Omitted → main's model="" default,

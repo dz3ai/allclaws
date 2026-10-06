@@ -11,13 +11,14 @@ verification (2026-10-07, submodule at hermes-agent, v2026.9.21-414-ge2f8a0731b)
   `hermes-agent` would run run_agent.main's DEFAULT demo query (query=None →
   "Tell me about the latest developments in Python 3.13 ...", run_agent.py:
   1543-1544) — unusable for verbatim prompts.
-- The only argv front-end besides that is fire, present solely under
-  __main__ (run_agent.py:1559-1561: `import fire; fire.Fire(main)`), and
-  `fire` is NOT a declared dependency in pyproject.toml [project] — so
-  `python run_agent.py` / `-m run_agent` can die on `import fire`. Hence the
-  thin harness (_hermes_harness.py, sibling file): it imports run_agent and
-  calls run_agent.main(query=..., model=..., max_turns=...) directly — kwarg
-  call, no fire, no console script, no argv-parsing edge cases.
+- fire IS a declared dependency (`"fire==0.7.1"`, pyproject.toml:43; mirrored
+  in uv.lock), so `python run_agent.py --query=...` would work. The harness
+  still calls run_agent.main(query=..., model=..., max_turns=...) directly
+  (_hermes_harness.py, sibling file): fire's argv scanning re-tokenizes a
+  multi-KB verbatim prompt (flag-like substrings and legacy fire formatting
+  inside the prompt text are exactly the fragility a benchmark must not
+  inherit), a direct kwarg call passes the prompt with zero argv mangling,
+  and the console-script demo-query footgun above stands independently.
 - ONE prompt, non-interactive: run_agent.main (run_agent.py:1490-1494) takes
   query=..., builds ONE AIAgent (run_agent.py:1533-1538) and runs one
   conversation (agent.run_conversation, run_agent.py:1548) — no stdin read,
@@ -32,9 +33,10 @@ verification (2026-10-07, submodule at hermes-agent, v2026.9.21-414-ge2f8a0731b)
   LONGRUN_MODEL (present AND non-empty) → harness --model → main(model=...).
   Credentials are never set by the driver: the runner injects them via
   os.environ, and hermes additionally loads ~/.hermes/.env at import time
-  (run_agent.py:112-117; the home .env overrides stale shell exports —
-  hermes_cli/env_loader.py:391-398). Optional HERMES_HOME passthrough
-  (ProcSpec.env merges OVER os.environ) isolates agent state hermetically.
+  (run_agent.py:112-117; the home .env OVERRIDES stale shell exports —
+  hermes_cli/env_loader.py:391-398). Mitigation on hosts with a stale
+  ~/.hermes/.env: point HERMES_HOME at a scratch dir — the env passthrough
+  (ProcSpec.env merges OVER os.environ) reroutes hermes' dotenv/state root.
 - Missing keys are NOT a PrepareError: AIAgent construction raises
   RuntimeError when no provider is configured (agent/agent_init.py:882-888,
   "No LLM provider configured. Run `hermes model` ..."), and run_agent.main
@@ -89,6 +91,7 @@ from pathlib import Path
 
 from longrun.drivers.base import (
     STATUS_FAIL,
+    STATUS_PARTIAL,
     STATUS_PASS,
     STATUS_TIMEOUT,
     DriverBase,
@@ -271,12 +274,21 @@ class HermesDriver(DriverBase):
 
         chars = len(stdout)
         try:
-            chars += outcome.stderr_path.stat().st_size
+            # decode stderr the same way so both streams are counted in
+            # characters (st_size would mix bytes into a char count)
+            chars += len(
+                outcome.stderr_path.read_text(encoding="utf-8", errors="replace")
+            )
         except OSError:
             pass
 
         if outcome.timed_out:
             status = STATUS_TIMEOUT
+        elif outcome.exit_code == 0 and turns is None:
+            # exit 0 alone is NOT trustworthy here: run_agent.main swallows
+            # agent-init RuntimeError (no provider keys) and still exits 0
+            # (run_agent.py:1539-1541). No summary block → nothing ran.
+            status = STATUS_PARTIAL
         else:
             status = STATUS_PASS if outcome.exit_code == 0 else STATUS_FAIL
 
@@ -291,7 +303,7 @@ class HermesDriver(DriverBase):
             transcript_path=None,
             notes=(
                 "hermes: chars/4 estimate"
-                + (f", turns from summary block" if turns is not None else "")
+                + (", turns from summary block" if turns is not None else "")
                 + ("; NOTE exit 0 also occurs when agent init fails without "
                    "provider keys (run_agent.py:1539-1541 banner on stdout)"
                    if outcome.exit_code == 0 and turns is None else "")
