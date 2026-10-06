@@ -1,0 +1,95 @@
+diff --git a/metricslite/counters.py b/metricslite/counters.py
+index 340aee5..9997157 100644
+--- a/metricslite/counters.py
++++ b/metricslite/counters.py
+@@ -16,11 +16,12 @@ class Counter:
+ 
+     def inc(self, key: str, by: int = 1) -> None:
+         """Add ``by`` to the bucket named by ``key`` (creating it if needed)."""
+-        self._counts[key] = self._counts.get(key, 0) + by
++        canonical = key.lower()
++        self._counts[canonical] = self._counts.get(canonical, 0) + by
+ 
+     def get(self, key: str) -> int:
+         """Current total for ``key`` (0 for a bucket never incremented)."""
+-        return self._counts.get(key, 0)
++        return self._counts.get(key.lower(), 0)
+ 
+     def merge(self, other: "Counter") -> None:
+         """Add every bucket of ``other`` into this counter."""
+diff --git a/metricslite/percentiles.py b/metricslite/percentiles.py
+index 4cd0fdf..e1fe6a8 100644
+--- a/metricslite/percentiles.py
++++ b/metricslite/percentiles.py
+@@ -7,6 +7,7 @@ Percentiles use linear interpolation over an inclusive rank
+ from __future__ import annotations
+ 
+ import bisect
++import math
+ from typing import Sequence
+ 
+ 
+@@ -19,8 +20,15 @@ def percentile(samples: Sequence[float], p: float) -> float:
+     unsorted.
+     """
+     ordered = sorted(samples)
+-    rank = int(len(ordered) * p / 100)
+-    return float(ordered[rank])
++    if not ordered:
++        raise ValueError("samples must be non-empty")
++    rank = (len(ordered) - 1) * p / 100
++    lo = math.floor(rank)
++    hi = math.ceil(rank)
++    if lo == hi:
++        return float(ordered[lo])
++    weight = rank - lo
++    return float(ordered[lo] * (1.0 - weight) + ordered[hi] * weight)
+ 
+ 
+ def median(samples: Sequence[float]) -> float:
+diff --git a/metricslite/rolling.py b/metricslite/rolling.py
+index d840f7a..cda8539 100644
+--- a/metricslite/rolling.py
++++ b/metricslite/rolling.py
+@@ -13,7 +13,7 @@ class RollingMean:
+     averages the samples seen so far.
+     """
+ 
+-    def __init__(self, window: int = 3) -> None:
++    def __init__(self, window: int = 5) -> None:
+         if window < 1:
+             raise ValueError("window must be >= 1")
+         self._window = int(window)
+diff --git a/metricslite/summary.py b/metricslite/summary.py
+index 5994e35..b7658fa 100644
+--- a/metricslite/summary.py
++++ b/metricslite/summary.py
+@@ -13,6 +13,8 @@ def summarize(samples: Sequence[float]) -> dict:
+     int; mean/min/max are floats.
+     """
+     count = len(samples)
++    if count == 0:
++        raise ValueError("samples must be non-empty")
+     total = 0.0
+     for value in samples:
+         total += float(value)
+diff --git a/metricslite/timers.py b/metricslite/timers.py
+index ecea16b..91623ce 100644
+--- a/metricslite/timers.py
++++ b/metricslite/timers.py
+@@ -24,13 +24,13 @@ class Timer:
+         """Start measuring. Raises RuntimeError if already running."""
+         if self._start is not None:
+             raise RuntimeError("timer already started")
+-        self._start = time.time()
++        self._start = time.monotonic()
+ 
+     def stop(self) -> float:
+         """Stop measuring and return elapsed seconds (timer becomes idle)."""
+         if self._start is None:
+             raise RuntimeError("timer not started")
+-        self._elapsed = time.time() - self._start
++        self._elapsed = time.monotonic() - self._start
+         self._start = None
+         return self._elapsed
+ 

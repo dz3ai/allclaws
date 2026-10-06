@@ -1,0 +1,16 @@
+{
+  "id": "triage-burndown",
+  "type": "triage-burndown",
+  "fixture_repo": "fixture",
+  "task_prompt": "You are working the metricslite triage queue in this repository. The queue is five open issues, documented in issues/issue-001.md through issues/issue-005.md. Work through them strictly in order, one issue at a time: read the issue, run its repro command, fix only that issue, and confirm its documented test is green before moving on to the next issue. Each issue names the test in tests/ that documents it (tests/test_issue_001.py through tests/test_issue_005.py). Reproduce and check with '/usr/bin/python3 -m pytest tests/ -q' — at the start five tests fail, one per issue; by the end the full suite must be green. Rules: do not edit or weaken any test in tests/; keep the public API documented in README.md unchanged; stdlib only, no third-party dependencies.",
+  "timeout_minutes": 60,
+  "max_turns": 200,
+  "difficulty": "medium",
+  "acceptance": {
+    "method": "pytest",
+    "command": "/usr/bin/python3 -m pytest acceptance/tests/ -q",
+    "pass_criteria": "exit 0"
+  },
+  "cost_cap_usd": 2.0,
+  "notes": "S4 fatigue instrument: 5 independent same-difficulty bugs solved in one continuous session; per-window (per-issue) scoring feeds the fatigue engine via acceptance/check_windows.py, which prints the one-line {\"windows\": [{\"window\": N, \"solved\": bool}]} contract."
+}

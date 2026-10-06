@@ -4,9 +4,9 @@
 #     runner.make_worktree lazily git-inits each run copy)
 #   - drop test-run droppings (.verify logs, caches, acceptance_run)
 set -eu
-cd /home/dannyz/src/github/allclaws/test_framework/tasks
+cd "$(cd "$(dirname "$0")" && pwd)"
 
-for d in gh-issue-001 refactor-multi feature-crud; do
+for d in gh-issue-001 refactor-multi feature-crud triage-burndown; do
   rm -rf "$d/fixture/.git"
   rm -f "$d/.verify_existing.log" "$d/.verify_acceptance.log"
   rm -rf "$d/fixture/acceptance_run" "$d/fixture/.pytest_cache"
