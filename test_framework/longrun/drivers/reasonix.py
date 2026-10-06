@@ -14,7 +14,9 @@ Non-interactive invocation verified from source (2026-10-06), cmd/reasonix:
   when empty, usage error + exit 2 when both empty (internal/cli/cli.go:558-565).
   Usage line: `reasonix run [--model NAME] ... <task>`
   (internal/i18n/messages_en.go:627). Note: argv edges get TrimSpace'd and
-  multiple positionals are joined with single spaces (cli.go:558).
+  multiple positionals are joined with single spaces (cli.go:558); the flag
+  set is interspersed (cli.go:478), so the driver guards the prompt with a
+  `--` terminator to keep a leading `-` from being flag-parsed.
 - Approval: `reasonix run` is headless — "there is no key loop to answer
   approval or ask prompts" (internal/cli/cli.go:661-670). Unattended mode is
   selected via permission mode; we pass `--permission-mode workspace-write`
@@ -41,6 +43,7 @@ smoke-testable via a stubbed _binary_path (kimi_cli.py precedent).
 
 from __future__ import annotations
 
+import json
 import os
 import shutil
 import subprocess
@@ -52,6 +55,7 @@ from longrun.drivers.base import (
     STATUS_TIMEOUT,
     DriverBase,
     PrepareError,
+    ProcOutcome,
     ProcSpec,
     RunResult,
     estimate_tokens,
@@ -85,14 +89,19 @@ class ReasonixDriver(DriverBase):
                     f"{candidate} (Makefile build target: CGO_ENABLED=0 go build "
                     "-o bin/reasonix ./cmd/reasonix)"
                 )
-            proc = subprocess.run(
-                [go, "build", "-o", str(candidate), "./cmd/reasonix"],
-                cwd=str(self._submodule),
-                env={**os.environ, "CGO_ENABLED": "0"},
-                capture_output=True,
-                text=True,
-                timeout=900,
-            )
+            try:
+                proc = subprocess.run(
+                    [go, "build", "-o", str(candidate), "./cmd/reasonix"],
+                    cwd=str(self._submodule),
+                    env={**os.environ, "CGO_ENABLED": "0"},
+                    capture_output=True,
+                    text=True,
+                    timeout=900,
+                )
+            except (subprocess.TimeoutExpired, OSError) as e:
+                # runner.run_one only catches PrepareError (base.py contract);
+                # a hung/failed build must degrade, not crash the runner.
+                raise PrepareError(f"go build failed: {e}") from e
             if proc.returncode != 0 or not candidate.is_file():
                 tail = (proc.stderr or proc.stdout or "").strip().splitlines()[-3:]
                 raise PrepareError(
@@ -112,7 +121,9 @@ class ReasonixDriver(DriverBase):
         if model:
             argv += ["--model", model]    # verified flag (cli.go:479)
         argv += ["--metrics", METRICS_REL]  # JSON usage summary (cli.go:482)
-        argv.append(spec.task_prompt)     # positional prompt, VERBATIM (cli.go:558)
+        # `--` terminator: pflag stops flag-parsing there (SetInterspersed,
+        # cli.go:478), so a prompt starting with "-" stays positional VERBATIM.
+        argv += ["--", spec.task_prompt]  # positional prompt (cli.go:558)
         return ProcSpec(
             argv=argv,
             cwd=Path(worktree),
@@ -126,28 +137,29 @@ class ReasonixDriver(DriverBase):
         )
 
     # ------------------------------------------------------------------
-    def collect(self, worktree, outcome, proc, spec):
+    def collect(
+        self, worktree: Path, outcome: ProcOutcome, proc: ProcSpec, spec: TaskSpec
+    ) -> RunResult:
         tokens_in = tokens_out = tokens_cached = None
         turns = None
         cost_usd = None
-        metrics_path = worktree / METRICS_REL
+        metrics_path = Path(worktree).resolve() / METRICS_REL  # absolute, like base.collect
         if metrics_path.is_file():
-            import json
-
             try:
                 data = json.loads(metrics_path.read_text(encoding="utf-8"))
             except (OSError, ValueError):
                 data = {}
             if isinstance(data, dict):
-                if isinstance(data.get("prompt_tokens"), int):
+                # type(x) is int (not isinstance) so JSON true/false can't pass
+                if type(data.get("prompt_tokens")) is int:
                     tokens_in = data["prompt_tokens"]
-                if isinstance(data.get("completion_tokens"), int):
+                if type(data.get("completion_tokens")) is int:
                     tokens_out = data["completion_tokens"]
-                if isinstance(data.get("cache_hit_tokens"), int):
+                if type(data.get("cache_hit_tokens")) is int:
                     tokens_cached = data["cache_hit_tokens"]
-                if isinstance(data.get("steps"), int):
+                if type(data.get("steps")) is int:
                     turns = data["steps"]
-                if isinstance(data.get("cost"), (int, float)):
+                if type(data.get("cost")) in (int, float):
                     cost_usd = float(data["cost"])
 
         if tokens_in is None and tokens_out is None:
@@ -209,4 +221,5 @@ if __name__ == "__main__":
     print("env keys:", sorted(ps.env.keys()))
     print("artifacts:", ps.artifacts)
     assert ps.argv[-1] == "smoke test prompt", "prompt not verbatim"
-    print("verbatim prompt OK")
+    assert ps.argv[-2] == "--", "missing -- separator before prompt"
+    print("verbatim prompt OK (after --)")
