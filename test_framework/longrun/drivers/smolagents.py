@@ -3,11 +3,16 @@
 Plan §Scope Ruling: smolagents is a LIBRARY (pip-installable), not a CLI, so
 its "binary" is a bespoke single-file harness: _smolagents_harness.py (next to
 this module) run under a dedicated venv. Network is used AT PREPARE TIME ONLY
-(venv creation + `pip install smolagents`; kimi uv-sync precedent) — never at
+(venv creation + `pip install "smolagents[litellm]"`; kimi uv-sync precedent) — never at
 run time. The venv lives at test_framework/longrun/_venvs/smolagents
 (gitignored; platform tooling belongs to the main checkout, run isolation
 applies to fixtures only). Nothing is resolved from Path.home() — the venv
 path is repo-relative and the venv's own python is invoked explicitly.
+
+Cold-start note: pip inherits os.environ, so on hosts where direct pypi
+downloads exceed the 1800 s install timeout (observed 2026-10-07), export
+PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple before running —
+mirror install of the full litellm tree took ~4 min.
 
 Usage contract (harness -> collect()): the harness prints the agent's final
 answer to stdout, then exactly one machine-readable line
@@ -91,8 +96,10 @@ class SmolagentsDriver(DriverBase):
             )
 
         try:
+            # litellm is an OPTIONAL extra in smolagents 1.26.0 (models.py:1261);
+            # LONGRUN_MODEL runs go through LiteLLMModel, so install the extra.
             proc = subprocess.run(
-                [str(self._venv / "bin" / "pip"), "install", "smolagents"],
+                [str(self._venv / "bin" / "pip"), "install", "smolagents[litellm]"],
                 capture_output=True,
                 text=True,
                 timeout=1800,  # cold start downloads the full dep tree
@@ -102,7 +109,8 @@ class SmolagentsDriver(DriverBase):
         if proc.returncode != 0:
             tail = (proc.stderr or proc.stdout or "").strip().splitlines()[-3:]
             raise PrepareError(
-                "smolagents: pip install smolagents failed: " + " | ".join(tail)
+                "smolagents: pip install smolagents[litellm] failed: "
+                + " | ".join(tail)
             )
         self._python = venv_python
 
