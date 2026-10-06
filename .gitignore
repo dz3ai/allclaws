@@ -46,6 +46,9 @@ __pycache__/
 # Benchmark results (CI artifacts only)
 test_framework/benchmark_results/
 
+# Long-run benchmark platform venvs (created at prepare time)
+test_framework/longrun/_venvs/
+
 # IDE and editor files
 .vscode/
 .idea/
