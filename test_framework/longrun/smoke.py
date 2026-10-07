@@ -2,14 +2,16 @@
 
 Checks:
 1. all longrun modules compile + import
-2. all 7 drivers load and build a ProcSpec from a fake TaskSpec:
+2. all 8 drivers load and build a ProcSpec from a fake TaskSpec:
    - aider/codex/kimi_cli: Phase 1 checks kept (codex calls real prepare)
    - reasonix: stubbed _binary_path (no Go toolchain needed for argv build)
    - opencode: REAL prepare (CLI installed on this host)
    - smolagents + hermes: stubbed venv python path
-   Phase 2 drivers assert: verbatim prompt, non-interactive env keys, and
+   - kimi_code: stubbed binary path (installed CLI, argv build only)
+    Phase 2 drivers assert: verbatim prompt, non-interactive env keys, and
    LONGRUN_MODEL mapping (--model ONLY when the env var is set; empty-string
-   treated as unset where the driver documents that, smolagents + hermes).
+   treated as unset where the driver documents that, smolagents + hermes +
+   kimi_code).
 3. codex driver resolves the real entry (bin/codex.js via package.json)
 4. all 5 task specs validate against the contract (fixture/ + acceptance/)
 
@@ -195,6 +197,27 @@ def t_hermes():
     assert ps.argv[-2:] == ["--model", "test-provider/test-model"], ps.argv
 
 
+@model_env_restored
+def t_kimi_code():
+    d = load_driver("kimi_code", REPO_ROOT)
+    d._binary_path = "/nonexistent-but-set"  # stub binary path: argv build only
+    wt = Path(tempfile.mkdtemp())
+    ps = d.run(wt, fake_spec())
+    assert ps.argv[1] == "--prompt=p", ps.argv  # verbatim, '='-joined channel
+    assert "--output-format=text" in ps.argv, ps.argv  # pins KIMI_MODEL_OUTPUT_FORMAT
+    assert "--model" not in ps.argv and not any(  # LONGRUN_MODEL unset
+        a.startswith("--model=") for a in ps.argv
+    ), ps.argv
+    assert_non_interactive(ps)
+    os.environ["LONGRUN_MODEL"] = ""
+    ps = d.run(wt, fake_spec())  # empty LONGRUN_MODEL treated as unset
+    assert not any(a.startswith("--model=") for a in ps.argv), ps.argv
+    os.environ["LONGRUN_MODEL"] = "test-provider/test-model"
+    ps = d.run(wt, fake_spec())
+    assert ps.argv[-1] == "--model=test-provider/test-model", ps.argv
+    assert ps.argv[1] == "--prompt=p", ps.argv
+
+
 check("aider ProcSpec", t_aider)
 check("codex prepare + ProcSpec", t_codex)
 check("kimi_cli ProcSpec", t_kimi)
@@ -202,6 +225,7 @@ check("reasonix ProcSpec (stubbed binary)", t_reasonix)
 check("opencode REAL prepare + ProcSpec", t_opencode)
 check("smolagents ProcSpec (stubbed venv)", t_smolagents)
 check("hermes ProcSpec (stubbed venv)", t_hermes)
+check("kimi_code ProcSpec (stubbed binary)", t_kimi_code)
 
 print("== task specs ==")
 

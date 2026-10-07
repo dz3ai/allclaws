@@ -37,4 +37,4 @@ def load_driver(name: str, repo_root: Path) -> DriverBase:
     return candidates[0](repo_root=Path(repo_root))
 
 
-AVAILABLE_DRIVERS = ("aider", "codex", "kimi_cli", "reasonix", "opencode", "smolagents", "hermes")
+AVAILABLE_DRIVERS = ("aider", "codex", "kimi_cli", "reasonix", "opencode", "smolagents", "hermes", "kimi_code")
