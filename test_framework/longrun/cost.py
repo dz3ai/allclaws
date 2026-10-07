@@ -10,6 +10,7 @@ exceed the ceiling, the grid aborts with a clear message (hard stop per plan).
 from __future__ import annotations
 
 import json
+import os
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -53,10 +54,19 @@ def usd_cost(model: str, tokens_in: int, tokens_out: int) -> float:
 
 
 class SpendLedger:
-    """Cumulative spend tracker with hard ceiling enforcement."""
+    """Cumulative spend tracker with hard ceiling enforcement.
 
-    def __init__(self, path: Path, ceiling: float = BUDGET_CEILING_USD):
+    Ceiling resolution: explicit arg > env LONGRUN_BUDGET (USD, CI dispatch
+    input) > plan default $150.
+    """
+
+    def __init__(self, path: Path, ceiling: float | None = None):
         self.path = Path(path)
+        if ceiling is None:
+            try:
+                ceiling = float(os.environ.get("LONGRUN_BUDGET", BUDGET_CEILING_USD))
+            except ValueError:
+                ceiling = BUDGET_CEILING_USD
         self.ceiling = ceiling
         self.entries: list[LedgerEntry] = []
         self._load()
