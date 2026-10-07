@@ -181,7 +181,7 @@ Currently only AgentScope represents the Chinese ecosystem among 34 tracked plat
 
 ### 4. Long-Running Agent Benchmarks
 
-**Status:** 🔄 In Progress — execution plan at [`docs/reports/long-running-benchmark-research-plan.md`](reports/long-running-benchmark-research-plan.md)
+**Status:** 🔄 In Progress — **first live grid published (Oct 7, 2026):** [`docs/reports/long-running-benchmarks-2026.md`](reports/long-running-benchmarks-2026.md) — 22 runs, 4 platforms, fatigue protocol operational ($0.06 spend). Criteria 4/6 met; open gap = platform cohort (5th platform blocked: codex auth / Go for reasonix / hermes provider key). Execution plan: [`docs/reports/long-running-benchmark-research-plan.md`](reports/long-running-benchmark-research-plan.md)
 **Target:** Upgrade benchmark suite from micro-benchmarks to end-to-end task evaluation
 
 Current benchmarks measure startup time and dependencies — informative but disconnected from real work. The next evolution tracks agents completing sustained, realistic tasks.
