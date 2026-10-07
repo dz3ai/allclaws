@@ -227,6 +227,15 @@ def run_one(
                 result.extra["windows"] = []
                 result.notes += f" | window scoring failed: {e}"
 
+        # 6b. fixture drift guard: fixtures live in the parent repo working
+        # tree; any in-place mutation between runs silently invalidates later
+        # run copies. Detect, record, and auto-restore from HEAD.
+        drift = _fixture_drift(spec)
+        if drift:
+            result.extra["fixture_drift"] = drift
+            result.notes += " | fixture drifted in parent tree (restored)"
+            _restore_fixture(spec)
+
     except PrepareError as e:
         result = RunResult(
             platform=driver.name,
@@ -252,6 +261,57 @@ def run_one(
 
     _write_result(run_dir, result, repeat)
     return result.to_dict() | {"score": result.extra.get("score", {}), "repeat": repeat}
+
+
+def _fixture_drift(spec: TaskSpec) -> list[str]:
+    """Uncommitted changes to this task's fixture dir in the parent tree.
+
+    Best-effort: any git failure returns [] (drift detection must never
+    fail a run). Paths are reported relative to the fixture dir.
+    """
+    try:
+        proc = subprocess.run(
+            [
+                "git",
+                "status",
+                "--porcelain",
+                "--",
+                spec.fixture_dir.relative_to(_repo_root()),
+            ],
+            cwd=str(_repo_root()),
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        if proc.returncode != 0:
+            return []
+        return [line for line in proc.stdout.splitlines() if line.strip()]
+    except (subprocess.TimeoutExpired, OSError, ValueError):
+        return []
+
+
+def _restore_fixture(spec: TaskSpec) -> None:
+    """Best-effort restore of the fixture dir from HEAD (checkout + clean)."""
+    try:
+        rel = spec.fixture_dir.relative_to(_repo_root())
+    except ValueError:
+        return
+    for cmd in (["git", "checkout", "--", str(rel)], ["git", "clean", "-fdq", str(rel)]):
+        try:
+            subprocess.run(
+                cmd,
+                cwd=str(_repo_root()),
+                capture_output=True,
+                text=True,
+                timeout=60,
+            )
+        except (subprocess.TimeoutExpired, OSError):
+            pass
+
+
+def _repo_root() -> Path:
+    """Parent repo root (longrun lives at <root>/test_framework/longrun)."""
+    return Path(__file__).resolve().parent.parent.parent
 
 
 def _archive_artifacts(run_dir: Path, worktree: Path, artifacts: list[str]) -> list[str]:
