@@ -1,18 +1,28 @@
 """Aider driver — Python CLI with ready venv at coding-agents/cli-agents/aider.
 
 Non-interactive invocation per plan §drivers:
-    aider --yes-always --no-git --no-auto-commits --message <prompt> --model <m>
+    aider --yes-always --no-git --no-auto-commits [chat files...] \
+        --message <prompt> --model <m>
 
-Token parsing: aider prints a summary line on exit; we scan stdout for
-"N tokens sent" / "N tokens received" style lines (both comma-grouped and
-plain digits accepted) and fall back to the chars/4 estimate.
+One-shot `--message` mode with no chat files does NOT explore the repo: it
+replies by asking the user to /add files (observed live: exit 0 in ~15s,
+zero diff). run() therefore enumerates the worktree's text files and passes
+them as positional chat-file arguments (see run() docstring for the
+fairness rationale).
+
+Token parsing: aider prints a usage summary line on exit, e.g.
+    Tokens: 1.9k sent, 176 received. Cost: $0.00062 message, $0.00062 session.
+We parse sent (tokens_in), received (tokens_out) and the SESSION cost
+(cost_usd), accepting plain numbers, comma groups and k/m suffixes
+("1.9k" -> 1900); the legacy "N tokens sent" style is kept as a fallback.
 """
 
 from __future__ import annotations
 
 import os
 import re
-from pathlib import Path
+import subprocess
+from pathlib import Path, PurePosixPath
 
 from longrun.drivers.base import (
     STATUS_FAIL,
@@ -26,8 +36,34 @@ from longrun.drivers.base import (
 )
 from longrun.spec import TaskSpec
 
-SENT_RE = re.compile(r"([\d,.]+)\s*tokens?\s*sent", re.IGNORECASE)
-RECEIVED_RE = re.compile(r"([\d,.]+)\s*tokens?\s*received", re.IGNORECASE)
+# Usage summary: "Tokens: 1.9k sent, 176 received." (aider >= 0.5x style).
+_SUMMARY_RE = re.compile(
+    r"Tokens?\s*:\s*"
+    r"(?P<sent>[\d][\d,]*(?:\.\d+)?)\s*(?P<sent_suf>[kKmM]?)\s*sent\b\s*,\s*"
+    r"(?P<recv>[\d][\d,]*(?:\.\d+)?)\s*(?P<recv_suf>[kKmM]?)\s*received\b",
+    re.IGNORECASE,
+)
+# Session cost: "Cost: $0.00062 message, $0.00062 session." -> take session.
+_SESSION_COST_RE = re.compile(
+    r"Cost\s*:\s*\$[\d.]+\s*message\s*,\s*\$([\d.]+)\s*session\b", re.IGNORECASE
+)
+# Legacy style fallback: "1234 tokens sent, 567 tokens received".
+_NUM = r"(?P<num>[\d][\d,]*(?:\.\d+)?)\s*(?P<suf>[kKmM]?)"
+SENT_RE = re.compile(_NUM + r"\s*tokens?\s*sent\b", re.IGNORECASE)
+RECEIVED_RE = re.compile(_NUM + r"\s*tokens?\s*received\b", re.IGNORECASE)
+
+# Chat-file discovery: fixtures are tiny (<5K LOC) but one-shot aider never
+# explores on its own, so we hand it the tree. Text-source extensions only —
+# binary/irrelevant junk (.bin, .pyc, images, lockfiles) stays out.
+_CHAT_FILE_EXTS = {
+    ".py", ".md", ".txt", ".toml", ".cfg", ".ini", ".json",
+    ".yaml", ".yml", ".ts", ".js", ".go", ".rs",
+}
+_CHAT_FILE_NAMES = {"Makefile"}
+# Never add to the chat: git internals, hidden acceptance suite (must stay
+# invisible to the agent pre-scoring), tool caches.
+_CHAT_FILE_EXCLUDED_DIRS = {".git", "acceptance", "__pycache__", ".pytest_cache"}
+_CHAT_FILE_CAP = 200
 
 
 class AiderDriver(DriverBase):
@@ -53,6 +89,25 @@ class AiderDriver(DriverBase):
 
     # ------------------------------------------------------------------
     def run(self, worktree: Path, spec: TaskSpec) -> ProcSpec:
+        """Launch aider in one-shot --message mode over the fixture tree.
+
+        One-shot `aider --message` with NO chat files does not explore the
+        repo on its own — it replies by asking the user to provide file
+        paths (observed live: exit 0, zero diff, zero edits). To make the
+        one-shot driver effective we enumerate the worktree's files (subprocess
+        `git ls-files` — fixtures are git-inited by the runner; rglob fallback
+        when git fails or returns nothing) and pass them as positional
+        chat-file arguments before --message, excluding .git internals,
+        acceptance/ (hidden tests must not be visible pre-scoring), caches
+        (__pycache__, .pytest_cache) and binary/irrelevant junk, capped at
+        200 files.
+
+        Fairness rationale: this hands aider the same information an
+        exploring agent would gather by itself — a task-level, not
+        agent-level, information advantage. Every other agent is free to
+        read the same tree; the benchmark contract only fixes the prompt,
+        not how the platform reaches the code.
+        """
         model = os.environ.get("LONGRUN_AIDER_MODEL", "gpt-5.2")
         argv = [
             str(self._binary_path),
@@ -62,6 +117,7 @@ class AiderDriver(DriverBase):
             "--no-check-update",
             "--no-suggest-shell-commands",
             "--no-fancy-input",
+            *_list_chat_files(worktree),
             "--message", spec.task_prompt,
             "--model", model,
         ]
@@ -86,12 +142,21 @@ class AiderDriver(DriverBase):
             pass
 
         tokens_in = tokens_out = None
-        m = SENT_RE.search(stdout)
+        cost_usd = None
+        m = _SUMMARY_RE.search(stdout)
         if m:
-            tokens_in = _to_int(m.group(1))
-        m = RECEIVED_RE.search(stdout)
+            tokens_in = _to_int(m.group("sent"), m.group("sent_suf"))
+            tokens_out = _to_int(m.group("recv"), m.group("recv_suf"))
+        else:
+            m = SENT_RE.search(stdout)
+            if m:
+                tokens_in = _to_int(m.group("num"), m.group("suf"))
+            m = RECEIVED_RE.search(stdout)
+            if m:
+                tokens_out = _to_int(m.group("num"), m.group("suf"))
+        m = _SESSION_COST_RE.search(stdout)
         if m:
-            tokens_out = _to_int(m.group(1))
+            cost_usd = float(m.group(1))
         if tokens_in is None and tokens_out is None:
             size = 0
             for p in (outcome.stdout_path, outcome.stderr_path):
@@ -121,13 +186,65 @@ class AiderDriver(DriverBase):
             wall_seconds=outcome.wall_seconds,
             tokens_in=tokens_in,
             tokens_out=tokens_out,
+            cost_usd=cost_usd,
             transcript_path=transcript,
-            notes="aider token summary parsed" if tokens_in else "chars/4 estimate",
+            notes=(
+                "aider usage summary parsed"
+                if tokens_in is not None
+                else "chars/4 estimate"
+            ),
         )
 
 
-def _to_int(group: str) -> int:
-    return int(group.replace(",", "").replace(".", ""))
+def _to_int(number: str, suffix: str = "") -> int:
+    """Parse an aider token count: plain, comma-grouped, or k/m-suffixed.
+
+    "176" -> 176, "1,234" -> 1234, "1.9k" -> 1900, "19k" -> 19000,
+    "1.2M" -> 1200000.
+    """
+    value = float(number.replace(",", ""))
+    multiplier = {"": 1, "k": 1_000, "m": 1_000_000}.get(suffix.lower(), 1)
+    return round(value * multiplier)
+
+
+def _list_chat_files(worktree: Path) -> list[str]:
+    """Relative text-file paths in `worktree` to feed aider as chat files.
+
+    Order: `git ls-files` (authoritative for a git-inited fixture); falls
+    back to rglob when git is unavailable or returns nothing. Filtered to
+    text source extensions + Makefile; .git internals, acceptance/, caches
+    and everything else excluded. Capped at _CHAT_FILE_CAP entries.
+    """
+    rels: list[str] = []
+    try:
+        res = subprocess.run(
+            ["git", "-C", str(worktree), "ls-files"],
+            capture_output=True,
+            text=True,
+            timeout=30,
+            check=True,
+        )
+        rels = [line.strip() for line in res.stdout.splitlines() if line.strip()]
+    except (OSError, subprocess.SubprocessError):
+        rels = []
+    if not rels:
+        for p in sorted(worktree.rglob("*")):
+            if p.is_file():
+                rels.append(p.relative_to(worktree).as_posix())
+
+    kept: list[str] = []
+    for rel in rels:
+        if len(kept) >= _CHAT_FILE_CAP:
+            break
+        parts = PurePosixPath(rel).parts
+        if not parts or any(seg in _CHAT_FILE_EXCLUDED_DIRS for seg in parts):
+            continue
+        if parts[-1] in _CHAT_FILE_NAMES:
+            kept.append(rel)
+            continue
+        if Path(rel).suffix.lower() in _CHAT_FILE_EXTS:
+            kept.append(rel)
+    return kept
 
 
 if __name__ == "__main__":
