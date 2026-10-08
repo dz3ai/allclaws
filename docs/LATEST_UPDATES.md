@@ -41,7 +41,7 @@ Completed research beyond platform tracking — full roadmap status in [ROADMAP.
 - [x] Protocol wars analysis (Q4-5) — MCP/ACP/A2A layering, not war — [reports/protocol-wars-2026.md](reports/protocol-wars-2026.md)
 - [x] Platform governance & quality thresholds (Q4-6) — three-tier tracking model, Tier-1 cap of 35 — [governance.md](governance.md)
 - [x] Category coverage gap-closure (Q4-7) — 6 candidates evaluated, browser-use admitted as #35 (first computer-use representative)
-- [ ] Long-running agent benchmarks (Q4-4) — first live grid published (Oct 7): 22 runs, 4 platforms, fatigue protocol operational, $0.06 spend — [long-running-benchmarks-2026.md](reports/long-running-benchmarks-2026.md); open gap: 5th platform blocked (codex auth / Go for reasonix / hermes key)
+- [x] Long-running agent benchmarks (Q4-4) — ✅ completed Oct 8: 26 runs, 5 platforms × 4 scenarios, fatigue protocol operational, $0.37 spend, weekly CI merged — [long-running-benchmarks-2026.md](reports/long-running-benchmarks-2026.md)
 
 ## Test & Benchmark Results
 

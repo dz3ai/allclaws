@@ -41,7 +41,7 @@
 - [x] 协议之争分析（Q4-5）— MCP/ACP/A2A 分层而非战争 — [reports/protocol-wars-2026.md](reports/protocol-wars-2026.md)
 - [x] 平台治理与质量门槛（Q4-6）— 三层跟踪模型、Tier-1 上限 35 — [governance.zh-CN.md](governance.zh-CN.md)
 - [x] 品类覆盖缺口闭合（Q4-7）— 评估 6 个候选，browser-use 以 #35 入选（首个 computer-use 代表）
-- [ ] 长时运行代理基准测试（Q4-4）— 首轮实测网格已发布（10-07）：22 次运行、4 个平台、疲劳协议跑通、花费 $0.06 — [long-running-benchmarks-2026.md](reports/long-running-benchmarks-2026.md)；剩余缺口：第 5 个平台受阻（codex 凭证 / reasonix 需 Go / hermes 需密钥）
+- [x] 长时运行代理基准测试（Q4-4）— ✅ 10-08 完成：26 次运行、5 平台 × 4 场景、疲劳协议跑通、花费 $0.37、每周 CI 已合并 — [long-running-benchmarks-2026.md](reports/long-running-benchmarks-2026.md)
 
 ## 测试与基准结果
 

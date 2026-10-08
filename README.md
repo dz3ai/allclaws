@@ -72,7 +72,7 @@ Investigations beyond cataloguing — how agents fail, interoperate, and are gov
 
 ## 📊 Current Status & Roadmap
 
-H2 2026 research plan: **12 of 13 items completed**. Q4-4 (long-running agent benchmarks) is live: first grid published (22 runs, 4 platforms, $0.06) — [`docs/reports/long-running-benchmarks-2026.md`](docs/reports/long-running-benchmarks-2026.md). Open gap: one blocked platform slot (codex auth / Go for reasonix / hermes key).
+H2 2026 research plan: **13 of 13 items completed** ✅. Q4-4 (long-running agent benchmarks) closed Oct 8: first live grid — 26 runs, 5 platforms, $0.37 — [`docs/reports/long-running-benchmarks-2026.md`](docs/reports/long-running-benchmarks-2026.md).
 
 ### ✅ Completed (selected)
 - [x] Architecture analysis of 35 platforms (11 claw + 18 external + 5 CLI coding agents + 1 human digital twin)
@@ -86,7 +86,7 @@ H2 2026 research plan: **12 of 13 items completed**. Q4-4 (long-running agent be
 - [x] Category coverage gap-closure (Q4-7) — browser-use admitted, 6 candidates evaluated
 
 ### 🔄 In Progress (H2 2026)
-- [ ] Q4-4: Long-running agent benchmarks (end-to-end task evaluation, 30+ min tasks) — first live grid published, 4/6 criteria met: [`docs/reports/long-running-benchmarks-2026.md`](docs/reports/long-running-benchmarks-2026.md)
+- [x] Q4-4: Long-running agent benchmarks (end-to-end task evaluation, 30+ min tasks) — ✅ Oct 8: 26 runs, 5 platforms, fatigue protocol operational: [`docs/reports/long-running-benchmarks-2026.md`](docs/reports/long-running-benchmarks-2026.md)
 
 ### 📋 Planned (H1 2027 Preview)
 - [ ] Agent economics — real cost models beyond API pricing

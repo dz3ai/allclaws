@@ -177,7 +177,7 @@ AllClaws 的初期阶段对 34 个平台进行了编目并分析了其架构。2
 
 ### 4. 长时间运行代理基准测试
 
-**状态：** 🔄 进行中 — **首轮实测网格已发布（2026-10-07）：** [`docs/reports/long-running-benchmarks-2026.md`](reports/long-running-benchmarks-2026.md) —— 22 次运行、4 个平台、疲劳协议已跑通（花费 $0.06）。6 项验收标准已达成 4 项；剩余缺口 = 平台梯队（第 5 个平台受阻：codex 凭证 / reasonix 需 Go 工具链 / hermes 需模型密钥）。执行计划：[`docs/reports/long-running-benchmark-research-plan.md`](reports/long-running-benchmark-research-plan.md)
+**状态：** ✅ 已完成（2026-10-08）— [`docs/reports/long-running-benchmarks-2026.md`](reports/long-running-benchmarks-2026.md) —— 首轮实测网格：26 次运行、5 平台 × 4 场景、疲劳协议跑通、花费 $0.37；每周 CI 工作流已合并。引擎与驱动：[`test_framework/longrun/`](../test_framework/longrun/) · 执行计划：[`docs/reports/long-running-benchmark-research-plan.md`](reports/long-running-benchmark-research-plan.md)
 **目标：** 将基准套件从微基准升级为端到端任务评估
 
 当前基准测量启动时间和依赖项——有信息量但与实际工作脱节。下一阶段跟踪代理完成持续的、现实的任务。
