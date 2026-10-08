@@ -181,7 +181,7 @@ Currently only AgentScope represents the Chinese ecosystem among 34 tracked plat
 
 ### 4. Long-Running Agent Benchmarks
 
-**Status:** ✅ Completed (October 8, 2026) — [`docs/reports/long-running-benchmarks-2026.md`](reports/long-running-benchmarks-2026.md) — first live grid: 26 runs, 5 platforms × 4 scenarios, fatigue protocol operational, $0.37 spend; weekly CI workflow merged. Engine + drivers: [`test_framework/longrun/`](../test_framework/longrun/) · execution plan: [`docs/reports/long-running-benchmark-research-plan.md`](reports/long-running-benchmark-research-plan.md)
+**Status:** ✅ Completed (October 8, 2026) — [`docs/reports/long-running-benchmarks-2026.md`](reports/long-running-benchmarks-2026.md) — first live grid: 30 runs, 6 platforms × 4 scenarios, fatigue protocol operational, ~$0.40 spend; weekly CI workflow merged. Engine + drivers: [`test_framework/longrun/`](../test_framework/longrun/) · execution plan: [`docs/reports/long-running-benchmark-research-plan.md`](reports/long-running-benchmark-research-plan.md)
 **Target:** Upgrade benchmark suite from micro-benchmarks to end-to-end task evaluation
 
 Current benchmarks measure startup time and dependencies — informative but disconnected from real work. The next evolution tracks agents completing sustained, realistic tasks.
