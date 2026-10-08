@@ -226,6 +226,14 @@ class HermesDriver(DriverBase):
                 "GIT_TERMINAL_PROMPT": "0",
                 "NO_COLOR": "1",
                 "TERM": "dumb",
+                # hermes' file tools + context-file loader resolve against
+                # TERMINAL_CWD in preference to the process cwd (source:
+                # hermes_cli/kanban_db_dispatch.py:2823-2835 pins TERMINAL_CWD
+                # to the task workspace for exactly this reason). Without it,
+                # the first live run edited the parent-repo fixture template
+                # instead of the worktree copy (caught by the runner's
+                # fixture-drift guard on 2026-10-08).
+                "TERMINAL_CWD": str(worktree),
                 # provider credentials + optional HERMES_HOME injected by the
                 # runner via os.environ (hermes also reads its own dotenv
                 # chain at import — see module docstring)
