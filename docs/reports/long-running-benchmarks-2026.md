@@ -24,13 +24,15 @@ The benchmark engine went live. Six agent platforms completed 30 machine-scored 
 | smolagents | library harness (CodeAgent) | `deepseek/deepseek-chat` (litellm) | 7 | live ✅ |
 | hermes-agent | library harness (in-process `run_agent.main`) | `deepseek-chat` | 4 | live ✅ (Oct 8 addendum) |
 | opencode *(untracked reference)* | CLI agent | `opencode/ling-3.1-flash-free` | 4 | live ✅ (reference only) |
-| codex | CLI coding agent | — | 0 | blocked: no provider auth on host |
+| codex | CLI coding agent | — | 0 | blocked: **Responses-API-only build vs DeepSeek chat-only** (protocol mismatch); native binary also absent |
 | kimi-cli (1.0) | CLI coding agent | — | 0 | archived upstream → superseded by kimi-code 2.0 driver |
 | zeroclaw | Rust binary | — | 0 | optional stretch (plan), not built |
 
 **Oct 8 addendum:** Go 1.26.6 installed user-locally (`~/.local/go`, apt's 1.22 too old for the go.mod toolchain pin) and reasonix built from the pinned submodule (`bin/reasonix`, 52MB). The reasonix driver's graceful-degrade `prepare()` picked it up unchanged — first live grid ran within the hour.
 
 **Oct 8 addendum 2 (hermes):** hermes' zero-balance `zai`/glm-5.2 provider was switched to the built-in `deepseek` provider (`config.yaml` + `DEEPSEEK_API_KEY` in `~/.hermes/.env`). Its first live grid wrote its fixes into the **parent-repo fixture template instead of the run worktree** — hermes' file tools resolve against `TERMINAL_CWD` in preference to the process cwd (`hermes_cli/kanban_db_dispatch.py:2823-2835`). The runner's fixture-drift guard caught every run, restored the template, and recorded `fixture_drift`; the driver now pins `TERMINAL_CWD=<worktree>`. Rerun: **4/4 solved**, no drift.
+
+**Oct 8 addendum 3 (codex — negative result):** an attempt to wire codex to DeepSeek failed for a protocol-layer reason, not credentials. This codex build supports **only** the OpenAI **Responses** API: the provider config rejects `wire_api = "chat"` outright (`codex-rs/model-provider-info/src/lib.rs:95` — "`wire_api = "chat"` is no longer supported") and the request builder targets `/responses` exclusively (`codex-rs/codex-api/src/endpoint/responses.rs:67`). DeepSeek exposes `/chat/completions`, not `/responses`, so codex cannot use it. codex requires a Responses-API provider (OpenAI proper, or an aggregator that proxies `/responses`). Separately, the JS launcher also needs the native `@openai/codex-linux-x64` binary (absent on this host; buildable from `codex-rs` via cargo). **This is provider wire-protocol lock-in in practice** — a datum for the protocol-wars thread: the winning agent harness can hard-depend on the losing vendor's wire format.
 
 Model pinning note: the cohort is deliberately heterogeneous-harness / single-model-tier (DeepSeek V3.x class + one free-slot reference model), matching the plan's "domestic-model statistical cohort" cost design. opencode's paid coding-plan auth errored server-side on run day; the free flash model keeps the reference platform participating without affecting tracked rankings (reference is excluded from rankings by plan).
 
@@ -105,7 +107,7 @@ Three live-fire fixes landed in the engine during this grid (all discovered by t
 | 5 | Weekly long-run CI workflow merged | ✅ `.github/workflows/longrun-weekly.yml` (manual dispatch) |
 | 6 | Report published; ROADMAP → ✅ | ✅ this document (Oct 8 addenda close criterion 2); ROADMAP Q4-4 flipped to ✅ (both languages) |
 
-**Residual blockers (do not affect criteria):** codex (no provider auth on host), funded Kimi keys for the kimi-code native path (current kimi-code runs route DeepSeek through its OpenAI-compatible provider).
+**Residual blockers (do not affect criteria):** codex (Responses-API-only build — needs an OpenAI/Responses-compatible provider, not DeepSeek; native binary also unbuilt), funded Kimi keys for the kimi-code native path (current kimi-code runs route DeepSeek through its OpenAI-compatible provider).
 
 ## 8. Reproduction
 
