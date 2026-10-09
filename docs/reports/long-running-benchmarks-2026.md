@@ -24,7 +24,7 @@ The benchmark engine went live. Six agent platforms completed 30 machine-scored 
 | smolagents | library harness (CodeAgent) | `deepseek/deepseek-chat` (litellm) | 7 | live ✅ |
 | hermes-agent | library harness (in-process `run_agent.main`) | `deepseek-chat` | 4 | live ✅ (Oct 8 addendum) |
 | opencode *(untracked reference)* | CLI agent | `opencode/ling-3.1-flash-free` | 4 | live ✅ (reference only) |
-| codex | CLI coding agent | — | 0 | blocked: **Responses-API-only build vs DeepSeek chat-only** (protocol mismatch); native binary also absent |
+| codex | CLI coding agent | — | 0 | **excluded from this grid** (Responses-API-only build vs chat-only providers; see addendum 3) |
 | kimi-cli (1.0) | CLI coding agent | — | 0 | archived upstream → superseded by kimi-code 2.0 driver |
 | zeroclaw | Rust binary | — | 0 | optional stretch (plan), not built |
 
@@ -101,13 +101,13 @@ Three live-fire fixes landed in the engine during this grid (all discovered by t
 | # | Criterion | Status |
 |---|---|---|
 | 1 | ≥5 scenarios, machine-checkable, one command | ✅ 5/5 |
-| 2 | ≥5 platforms completing runs on ≥3 scenarios | ✅ **6 platforms × 4 scenarios** (3 tracked CLI + 2 library harnesses + 1 untracked reference; composition note: plan's letter said "4 tracked CLI agents" — codex remains blocked on provider auth) |
+| 2 | ≥5 platforms completing runs on ≥3 scenarios | ✅ **6 platforms × 4 scenarios** (3 tracked CLI + 2 library harnesses + 1 untracked reference; composition note: plan's letter said "4 tracked CLI agents" — codex is excluded from this grid by decision, see addendum 3) |
 | 3 | Token cost vs quality curve, ≥3 platforms | ✅ 6 platforms |
 | 4 | Fatigue signal (or absence) documented, ≥2 platforms | ✅ 2 platforms |
 | 5 | Weekly long-run CI workflow merged | ✅ `.github/workflows/longrun-weekly.yml` (manual dispatch) |
 | 6 | Report published; ROADMAP → ✅ | ✅ this document (Oct 8 addenda close criterion 2); ROADMAP Q4-4 flipped to ✅ (both languages) |
 
-**Residual blockers (do not affect criteria):** codex (Responses-API-only build — needs an OpenAI/Responses-compatible provider; neither DeepSeek nor GLM exposes `/responses`; native binary also unbuilt), funded Kimi keys for the kimi-code native path (current kimi-code runs route DeepSeek through its OpenAI-compatible provider).
+**Residual blockers (do not affect criteria):** codex — **excluded from this grid by decision** (Responses-API-only build; neither DeepSeek nor GLM exposes `/responses`; revisit with a Responses-capable provider or a chat→Responses proxy), funded Kimi keys for the kimi-code native path (current kimi-code runs route DeepSeek through its OpenAI-compatible provider).
 
 ## 8. Reproduction
 
@@ -130,7 +130,7 @@ CI: `.github/workflows/longrun-weekly.yml` — `workflow_dispatch` with task/rep
 2. **S4 difficulty bump** so fatigue is measurable for top performers (S4-hard: 5 bugs requiring cross-file edits).
 3. **Frontier spot-check** (plan budget line: $20–60): aider × claude/gpt-class on S2/S5 to calibrate the domestic cohort's ceiling gap — and to see whether frontier models dodge the S2 duplicate-logic trap that caught aider and reasonix. hermes cleared it; worth a repeat to see if that is stable.
 4. **opencode paid-model retry** when the coding-plan server recovers — the reference point deserves its intended model.
-5. **codex auth** — last blocked tracked CLI agent.
+5. **codex** — excluded from this grid for now (Responses-API-only wire format vs the chat-only provider cohort). Revisit via an OpenAI/Responses-capable key, a Responses→chat proxy, or a future codex build that restores chat support.
 
 ---
 
