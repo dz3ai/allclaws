@@ -4,12 +4,12 @@ title: "Weekly Highlights: The Operations Week (Oct 12–18, 2026)"
 date: 2026-10-18 21:00:00 +0800
 author: Danny Zeng
 categories: [Weekly Update]
-tags: [weekly-highlights, releases, hiclaw, agentscope, nanoclaw, browser-use, openworker, agent-zero, goclaw, copilot-cli, mcp]
+tags: [weekly-highlights, releases, hiclaw, agentscope, nanoclaw, browser-use, openworker, agent-zero, goclaw, copilot-cli, mcp, zeroclaw, openhuman, reasonix]
 ---
 
 Twenty-three of the twenty-nine tracked submodules synced this week across three fetch passes — and the window they reveal has a clear shape. October's monthly report named **cadence** as the ecosystem's operating doctrine. This week adds the second half of that sentence: cadence is only survivable if the *operations around it* are engineered too. Call it the operations week.
 
-The window covers **Oct 12–18**. The synced cohort absorbed **~4,400 upstream commits** since the Oct 6 pins, including a 775-commit week from the heavyweight cohort (Codex 223, Dify 236, PraisonAI 163, NanoBot 103). Six repos — OpenClaw, Eliza, Hermes, ZeroClaw, Reasonix, OpenHuman — stayed unfetchable even at 15-minute fetch budgets and remain at Oct 6 pins; their story waits for next week. Counts below reflect the synced cohort only.
+The window covers **Oct 12–18**. The synced cohort absorbed **~4,400 upstream commits** since the Oct 6 pins, including a 775-commit week from the heavyweight cohort (Codex 223, Dify 236, PraisonAI 163, NanoBot 103). Six more — OpenClaw, Eliza, Hermes, ZeroClaw, Reasonix, OpenHuman — stayed unfetchable in the main passes, but an Oct 18 evening retry pulled remote history for three of them, and their week is covered below. OpenClaw, Eliza and Hermes remain at their September pins. Counts reflect the synced cohort unless marked otherwise.
 
 ---
 
@@ -31,6 +31,16 @@ The second fetch pass landed the heavy repos, and they had been busy.
 - **Agent Zero v2.14** (Oct 13) enabled Venice cache routing and shipped signed ARM64 Xpra packages. **AgentScope v2.0.10** (Oct 12) — its first release in 34 days — carries the week's most consequential commit (below). **Browser Use** shipped 0.13.12/0.13.13 the same day (Oct 15), cleaning up failed browser-reconnect initialization. **GoClaw** ended a 13-day beta gap with beta.229, making `StopFlusher` idempotent. **Copilot-CLI** crossed 1.0.100 with four tags in one day, public repo still changelog-only. **HiClaw v1.2.5** (Oct 17, first release in 26 days) is the week's heavyweight — see below.
 
 NanoClaw's v2026.10.0 stable technically predates the window (tagged Oct 9), but it closes a story this column has followed since September: the repo migrated from semver to CalVer (rc.1/rc.2 in early October) and v2026.10.0 is the first *production* artifact on the new scheme. Version-number-as-infrastructure, shipped.
+
+## The stragglers surface: ZeroClaw, OpenHuman, Reasonix
+
+An evening retry pass on Oct 18 finally pulled remote history for three of the six holdouts — read-only, working-tree pointers untouched, but enough to read their week.
+
+**ZeroClaw** had been the quietest of the cohort and posted the sharpest window (70 commits): the **WASM plugin host now ships in supported release artifacts** (#11347) — plugins as a sandboxed, portable runtime target — and `zeroclaw plugin update` lands with *verified replacement* (#11262), supply-chain discipline applied to its own extension mechanism. Two commits read like one idea applied twice: effort-aware local/cloud routing (#11516) sends work to the cheapest capable tier, and mid-turn steering is now delivered at the next step instead of after the final answer (#11725) — correction arriving while it can still matter. No tag since v0.8.5, but the v0.8.6 version bump is already committed (#11835).
+
+**OpenHuman** is the week's volume shock: **4,100+ non-merge commits in the window** (20,390 absorbed since the September pin), and almost all of it is one campaign — storage. A storage layout module with v1→v2 migration, archive and storage controllers, configurable backend selection, and layout status reporting landed as a sequence; profile credentials migrated into encrypted storage (#8069); a bypass ratchet (#7520) keeps the migration from silently regressing; MCP embed teardown followed (#7521). Releases v0.64.0 → v0.64.10. Treating storage layout as a versioned, migrated, status-reported product surface is infrastructure doctrine most platforms never reach.
+
+**Reasonix** moves slowest on main-v2 (10 commits in the window) but ships widest: desktop, npm, and studio tags all advanced (v1.39.7 / studio v2.28.0), and the window's work is recovery-flavored — session-catalog recovery now preserves recovery identity instead of reconciling catalogs away (#13594), and Studio's `v4-` imports stop polluting session scans and maintenance (#13439). The Go toolchain bump to 1.26.9 with x/net v0.60.0 (#12951) keeps the fleet current.
 
 ## HiClaw ships day-2 operations
 
@@ -56,7 +66,7 @@ The week's quietest cross-ecosystem pattern: failure recovery and honest failure
 
 ## Sync notes
 
-Twenty-three of twenty-nine submodules synced across three fetch passes over ~3.5 hours on a throttled link (~20 KiB/s at best). Six remain at Oct 6 pins — **OpenClaw, Eliza, Hermes, ZeroClaw, Reasonix, OpenHuman** — their deltas too large for 15-minute fetch budgets; their activity will roll into next week's sync. Per-project reports live in [docs/reports](https://github.com/dz3ai/allclaws/tree/main/docs/reports); status in [docs/PROJECT_STATUS.md](https://github.com/dz3ai/allclaws/blob/main/docs/PROJECT_STATUS.md).
+Twenty-three of twenty-nine submodules synced across three fetch passes over ~3.5 hours on a throttled link (~20 KiB/s at best). An evening retry on Oct 18 then fetched *remote history only* for three of the six holdouts — **ZeroClaw, OpenHuman, Reasonix** — with pointers left at their September pins; their week is covered above from those remote logs. **OpenClaw, Eliza, Hermes** remain unfetchable, their deltas still too large for 15-minute fetch budgets; their story rolls into next week. Per-project reports live in [docs/reports](https://github.com/dz3ai/allclaws/tree/main/docs/reports); status in [docs/PROJECT_STATUS.md](https://github.com/dz3ai/allclaws/blob/main/docs/PROJECT_STATUS.md).
 
 ## Stay Updated
 
@@ -64,4 +74,4 @@ Follow the research on [GitHub](https://github.com/dz3ai/allclaws) or subscribe 
 
 ---
 
-*Methodology: 29 AI agent platforms tracked as git submodules. This week 23 synced successfully (15 pointers advanced, 8 already current); highlights drawn from remote-branch logs Oct 12–18 and release tags. Commit counts are upstream-only, bot commits discounted where identifiable.*
+*Methodology: 29 AI agent platforms tracked as git submodules. This week 23 synced successfully (15 pointers advanced, 8 already current); for ZeroClaw, OpenHuman and Reasonix, highlights come from remote-branch logs fetched after the sync (pointers unchanged at their September pins; counts measured against those pins). Highlights drawn from remote-branch logs Oct 12–18 and release tags. Commit counts are upstream-only, bot commits discounted where identifiable.*
