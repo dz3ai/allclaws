@@ -8,14 +8,17 @@
 #   ./scripts/track-agent-updates.sh [options]
 #
 # Options:
-#   --since <date>    Only show changes since this date (default: last run)
-#   --blog           Create blog post for significant changes
-#   --report-only    Only generate report, don't update documents
-#   --force          Force check all projects (ignore cache)
-#   --help           Show this help message
+#   --since <date>          Only show changes since this date (default: last run)
+#   --blog                  Create blog post for significant changes
+#   --report-only           Only generate report, don't update documents
+#   --force                 Force check all projects (ignore cache)
+#   --show-branch-map       Print the parsed submodule branch map and exit
+#   --validate-branch-map   Validate the branch map against .gitmodules and exit
+#   --help                  Show this help message
 #
 # Environment:
-#   TRACKER_STATE_FILE: Path to state tracking file (default: .tracker-state.json)
+#   TRACKER_STATE_FILE:  Path to state tracking file (default: .tracker-state.json)
+#   TRACKER_BRANCH_MAP:  Path to branch map JSON (default: docs/reports/submodule-branch-map.json)
 ###############################################################################
 
 set -e
@@ -36,6 +39,13 @@ BLOG_DIR="$PROJECT_ROOT/_posts"
 CURRENT_DATE=$(date +%Y-%m-%d)
 CURRENT_MONTH=$(date +%Y-%m)
 
+BRANCH_MAP_FILE="${TRACKER_BRANCH_MAP:-$REPORT_DIR/submodule-branch-map.json}"
+declare -A BRANCH_MAP_DEFAULT=()
+declare -A BRANCH_MAP_ACTIVE=()
+declare -A BRANCH_MAP_STABLE=()
+declare -A BRANCH_MAP_RELEASE=()
+declare -A BRANCH_MAP_STATUS=()
+
 # Agent projects being tracked
 declare -A AGENT_PROJECTS=(
   ["openclaw"]="OpenClaw - TypeScript AI Agent Platform"
@@ -53,6 +63,8 @@ SINCE_DATE=""
 CREATE_BLOG=false
 REPORT_ONLY=false
 FORCE_CHECK=false
+SHOW_BRANCH_MAP=false
+VALIDATE_BRANCH_MAP=false
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -70,6 +82,14 @@ while [[ $# -gt 0 ]]; do
       ;;
     --force)
       FORCE_CHECK=true
+      shift
+      ;;
+    --show-branch-map)
+      SHOW_BRANCH_MAP=true
+      shift
+      ;;
+    --validate-branch-map)
+      VALIDATE_BRANCH_MAP=true
       shift
       ;;
     --help)
@@ -98,6 +118,108 @@ log_warning() {
 
 log_error() {
   echo -e "${RED}[ERROR]${NC} $1"
+}
+
+load_branch_map() {
+  if [[ ! -f "$BRANCH_MAP_FILE" ]]; then
+    log_warning "Branch map not found: $BRANCH_MAP_FILE"
+    return 0
+  fi
+
+  if ! jq -e '.submodules | type == "object"' "$BRANCH_MAP_FILE" >/dev/null 2>&1; then
+    log_error "Invalid branch map JSON: $BRANCH_MAP_FILE"
+    return 1
+  fi
+
+  local path default_branch active_branch stable release status
+  while IFS=$'\t' read -r path default_branch active_branch stable release status; do
+    [[ -z "$path" ]] && continue
+    BRANCH_MAP_DEFAULT["$path"]="$default_branch"
+    BRANCH_MAP_ACTIVE["$path"]="$active_branch"
+    BRANCH_MAP_STABLE["$path"]="$stable"
+    BRANCH_MAP_RELEASE["$path"]="$release"
+    BRANCH_MAP_STATUS["$path"]="$status"
+  done < <(jq -r '.submodules | to_entries[] | [.key, (.value.default_branch // ""), (.value.active_branch // ""), ((.value.stable_branches // []) | join(",") | if . == "" then "-" else . end), ((.value.release_patterns // []) | join(",") | if . == "" then "-" else . end), (.value.status // "")] | @tsv' "$BRANCH_MAP_FILE")
+
+  log_info "Loaded branch map: ${#BRANCH_MAP_DEFAULT[@]} submodules from $BRANCH_MAP_FILE"
+}
+
+resolve_tracking_branch() {
+  local project=$1
+  local repo="$PROJECT_ROOT/$project"
+  local branch="${BRANCH_MAP_ACTIVE[$project]:-}"
+
+  [[ "$branch" == "-" ]] && branch=""
+
+  if [[ "$branch" == *'*'* ]]; then
+    branch=$(git -C "$repo" for-each-ref --sort=-committerdate \
+      --format='%(refname:short)' "refs/remotes/origin/${branch}" 2>/dev/null | head -1)
+  fi
+
+  if [[ -z "$branch" || "$branch" == "-" ]]; then
+    branch="${BRANCH_MAP_DEFAULT[$project]:-}"
+    [[ "$branch" == "-" ]] && branch=""
+  fi
+
+  branch="${branch#origin/}"
+
+  if [[ -n "$branch" ]] && git -C "$repo" rev-parse --verify --quiet "origin/$branch" >/dev/null 2>&1; then
+    echo "origin/$branch"
+    return 0
+  fi
+
+  local candidate
+  for candidate in main master develop; do
+    if git -C "$repo" rev-parse --verify --quiet "origin/$candidate" >/dev/null 2>&1; then
+      echo "origin/$candidate"
+      return 0
+    fi
+  done
+
+  echo "origin/HEAD"
+}
+
+show_branch_map() {
+  local p resolved
+  printf '%-46s %-16s %-16s %-16s %-10s\n' "path" "default" "active" "resolved" "status"
+  printf '%-46s %-16s %-16s %-16s %-10s\n' "----" "-------" "------" "--------" "------"
+  for p in $(printf '%s\n' "${!BRANCH_MAP_DEFAULT[@]}" | sort); do
+    if [[ -e "$PROJECT_ROOT/$p/.git" ]]; then
+      resolved=$(resolve_tracking_branch "$p")
+    else
+      resolved="(not initialized)"
+    fi
+    printf '%-46s %-16s %-16s %-16s %-10s\n' \
+      "$p" "${BRANCH_MAP_DEFAULT[$p]}" "${BRANCH_MAP_ACTIVE[$p]}" "$resolved" "${BRANCH_MAP_STATUS[$p]}"
+  done
+}
+
+validate_branch_map() {
+  if [[ ! -f "$BRANCH_MAP_FILE" ]]; then
+    log_error "Branch map not found: $BRANCH_MAP_FILE"
+    return 1
+  fi
+
+  if ! jq -e '.submodules | type == "object"' "$BRANCH_MAP_FILE" >/dev/null 2>&1; then
+    log_error "Invalid branch map JSON: $BRANCH_MAP_FILE"
+    return 1
+  fi
+
+  local expected mapped missing extra p
+  expected=$(git -C "$PROJECT_ROOT" config --file .gitmodules --get-regexp path | awk '{print $2}' | sort)
+  mapped=$(jq -r '.submodules | keys[]' "$BRANCH_MAP_FILE" | sort)
+
+  missing=$(comm -23 <(printf '%s\n' "$expected") <(printf '%s\n' "$mapped"))
+  extra=$(comm -13 <(printf '%s\n' "$expected") <(printf '%s\n' "$mapped"))
+
+  if [[ -n "$missing" ]]; then
+    while IFS= read -r p; do [[ -n "$p" ]] && log_warning "Unmapped submodule: $p"; done <<< "$missing"
+  fi
+  if [[ -n "$extra" ]]; then
+    while IFS= read -r p; do [[ -n "$p" ]] && log_warning "Unknown path in map: $p"; done <<< "$extra"
+  fi
+
+  log_success "Branch map valid: ${#BRANCH_MAP_DEFAULT[@]} entries, $(printf '%s\n' "$expected" | wc -l) submodules in .gitmodules"
 }
 
 # Initialize state file
@@ -152,7 +274,7 @@ check_submodule() {
     }
   fi
 
-  if [[ ! -d "$project_path/.git" ]]; then
+  if [[ ! -e "$project_path/.git" ]]; then
     log_warning "Submodule $project not initialized. Initializing..."
     cd "$PROJECT_ROOT"
     git submodule update --init "$project" || {
@@ -168,14 +290,17 @@ check_submodule() {
 fetch_changes() {
   local project=$1
   local project_path="$PROJECT_ROOT/$project"
+  local branch fetch_timeout="${TRACKER_FETCH_TIMEOUT:-120}"
 
   check_submodule "$project" || return 1
 
+  branch=$(resolve_tracking_branch "$project")
+  branch="${branch#origin/}"
+
   cd "$project_path"
 
-  # Fetch latest changes
-  git fetch origin >/dev/null 2>&1 || {
-    log_error "Failed to fetch updates for $project"
+  timeout "$fetch_timeout" git fetch --tags origin "$branch" >/dev/null 2>&1 || {
+    log_error "Failed to fetch updates for $project ($branch, ${fetch_timeout}s)"
     return 1
   }
 
@@ -187,17 +312,25 @@ get_commits() {
   local project=$1
   local since_date=$2
   local project_path="$PROJECT_ROOT/$project"
+  local branch ref chosen=""
+
+  branch=$(resolve_tracking_branch "$project")
+
+  for ref in "$branch" origin/main origin/master; do
+    [[ -z "$ref" ]] && continue
+    if git -C "$project_path" rev-parse --verify --quiet "$ref" >/dev/null 2>&1; then
+      chosen="$ref"
+      break
+    fi
+  done
+  chosen="${chosen:-$branch}"
 
   cd "$project_path"
 
   if [[ -n "$since_date" ]]; then
-    # Get commits since specific date
-    git log --since="$since_date" --pretty=format:"%H|%ai|%s|%an" origin/main 2>/dev/null || \
-    git log --since="$since_date" --pretty=format:"%H|%ai|%s|%an" origin/master 2>/dev/null
+    git log --since="$since_date" --pretty=format:"%H|%ai|%s|%an" "$chosen" 2>/dev/null
   else
-    # Get all commits
-    git log --pretty=format:"%H|%ai|%s|%an" origin/main 2>/dev/null || \
-    git log --pretty=format:"%H|%ai|%s|%an" origin/master 2>/dev/null | head -20
+    git log --pretty=format:"%H|%ai|%s|%an" "$chosen" 2>/dev/null | head -20
   fi
 }
 
@@ -221,20 +354,20 @@ get_doc_updates() {
   local project=$1
   local since_date=$2
   local project_path="$PROJECT_ROOT/$project"
+  local branch
+
+  [[ -z "$since_date" ]] && return 0
 
   cd "$project_path"
 
-  local doc_files=$(find . -name "*.md" -o -name "README*" -o -name "CHANGELOG*" | grep -v node_modules | grep -v .git)
+  branch=$(resolve_tracking_branch "$project")
 
-  if [[ -n "$since_date" ]]; then
-    echo "$doc_files" | while read -r file; do
-      local last_modified=$(git log --since="$since_date" --pretty=format:"%ai" -1 -- "$file" 2>/dev/null || echo "")
-      if [[ -n "$last_modified" ]]; then
-        local commit_hash=$(git log --since="$since_date" --pretty=format:"%H" -1 -- "$file" 2>/dev/null || echo "")
-        echo "$file|$last_modified|$commit_hash"
-      fi
-    done
-  fi
+  git log --since="$since_date" --name-only --pretty=format:'%H|%ai' "$branch" 2>/dev/null | \
+    awk -F'|' '
+      /^[0-9a-f]{40}\|/ { hash=$1; date=$2; next }
+      /(^|\/)(node_modules|\.git)\// { next }
+      /(\.md$|README|CHANGELOG)/ && !seen[$0]++ { print $0"|"date"|"hash }
+    '
 }
 
 # Analyze changes for significance
@@ -309,7 +442,7 @@ EOF
 - **Author:** $author
 - **Commit:** $hash
 EOF
-        ((commit_count++))
+        commit_count=$((commit_count + 1))
         if [[ $commit_count -ge 20 ]]; then
           echo "... and more (showing recent 20 commits)" >> "$report"
           break
@@ -454,6 +587,18 @@ main() {
   log_info "=== Agent Updates Tracker ==="
   log_info "Checking ${#AGENT_PROJECTS[@]} agent projects..."
   log_info ""
+
+  load_branch_map
+
+  if [[ "$SHOW_BRANCH_MAP" == "true" ]]; then
+    show_branch_map
+    return 0
+  fi
+
+  if [[ "$VALIDATE_BRANCH_MAP" == "true" ]]; then
+    validate_branch_map
+    return 0
+  fi
 
   # Initialize state
   init_state

@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "verified": "2026-10-24",
+  "source": "git ls-remote --symref HEAD plus blobless shallow fetches",
+  "submodules": {
+    "agent-zero": {
+      "default_branch": "main",
+      "active_branch": "ready",
+      "stable_branches": ["main"],
+      "release_patterns": ["v*"],
+      "status": "active",
+      "notes": "ready (2026-10-22) ahead of main (v2.14, 2026-10-13); development/testing stale"
+    },
+    "agentscope": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": ["v1", "v0"],
+      "release_patterns": ["v*"],
+      "status": "active",
+      "notes": "2.x on main; v1 legacy 1.x; v0 legacy"
+    },
+    "browser-use": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": ["dev"],
+      "release_patterns": ["0.*"],
+      "status": "active",
+      "notes": "dev stale since 2025-08-29"
+    },
+    "claw-ai-lab": {
+      "default_branch": "preview-v1.1.0",
+      "active_branch": "preview-v1.1.0",
+      "stable_branches": ["preview-v1.0.0"],
+      "release_patterns": [],
+      "status": "dormant",
+      "notes": "last tip 2026-06-15"
+    },
+    "clawteam": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": [],
+      "release_patterns": ["v*"],
+      "status": "dormant",
+      "notes": "last tip 2026-07-04"
+    },
+    "coding-agents/cli-agents/aider": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": [],
+      "release_patterns": ["v*"],
+      "status": "dormant",
+      "notes": "last tip 2026-05-22"
+    },
+    "coding-agents/cli-agents/codex": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": [],
+      "release_patterns": ["rust-v*"],
+      "status": "active",
+      "notes": "release tags rust-v*"
+    },
+    "coding-agents/cli-agents/copilot-cli": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": [],
+      "release_patterns": ["v*"],
+      "status": "active",
+      "notes": "public repo changelog-only"
+    },
+    "coding-agents/cli-agents/kimi-cli": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": [],
+      "release_patterns": ["[0-9]*"],
+      "status": "archived",
+      "notes": "superseded by kimi-code (2026-09-22)"
+    },
+    "coding-agents/cli-agents/reasonix": {
+      "default_branch": "studio",
+      "active_branch": "studio",
+      "stable_branches": ["main-v2", "v1"],
+      "release_patterns": ["studio-v*", "v*"],
+      "status": "dual-line",
+      "notes": "2.x=studio (default); 1.x=main-v2 maintenance; v1 legacy"
+    },
+    "coding-agents/external-frameworks/agentscope": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": ["v1", "v0"],
+      "release_patterns": ["v*"],
+      "status": "active",
+      "notes": "duplicate checkout of agentscope"
+    },
+    "coding-agents/external-frameworks/dify": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": [],
+      "release_patterns": ["v*", "[0-9]*"],
+      "status": "active"
+    },
+    "coding-agents/external-frameworks/metagpt": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": ["dev"],
+      "release_patterns": ["v*"],
+      "status": "dormant",
+      "notes": "dev last 2024-02-07"
+    },
+    "coding-agents/external-frameworks/openworker": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": [],
+      "release_patterns": ["v*"],
+      "status": "active"
+    },
+    "coding-agents/external-frameworks/qwen-agent": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": [],
+      "release_patterns": ["v*"],
+      "status": "dormant",
+      "notes": "last tip 2026-03-04"
+    },
+    "coding-agents/kimi-code": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": ["dev-v2"],
+      "release_patterns": ["@moonshot-ai/kimi-code@*"],
+      "status": "active",
+      "notes": "dev-v2 stale 2026-09-16"
+    },
+    "eliza": {
+      "default_branch": "develop",
+      "active_branch": "develop",
+      "stable_branches": ["staging"],
+      "release_patterns": ["v*"],
+      "status": "active",
+      "notes": "default develop; staging pre-release"
+    },
+    "goclaw": {
+      "default_branch": "dev",
+      "active_branch": "dev",
+      "stable_branches": ["main"],
+      "release_patterns": ["v*"],
+      "status": "active",
+      "notes": "default dev; main stable"
+    },
+    "hermes-agent": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": [],
+      "release_patterns": ["v*"],
+      "status": "active"
+    },
+    "hiclaw": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": [],
+      "release_patterns": ["v*"],
+      "status": "active"
+    },
+    "ironclaw": {
+      "default_branch": "main",
+      "active_branch": "release/*",
+      "stable_branches": ["main"],
+      "release_patterns": ["release/*", "v*"],
+      "status": "stale",
+      "notes": "main stale 2026-09-10; latest activity release/2026-08-26 (2026-09-29)"
+    },
+    "maxclaw": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": [],
+      "release_patterns": ["v*"],
+      "status": "dormant",
+      "notes": "last tip 2026-06-13"
+    },
+    "nanobot": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": [],
+      "release_patterns": ["v*"],
+      "status": "active"
+    },
+    "nanoclaw": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": ["v2"],
+      "release_patterns": ["v*"],
+      "status": "active",
+      "notes": "v2 stale 2026-04-23"
+    },
+    "openclaw": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": [],
+      "release_patterns": ["release/*", "v*"],
+      "status": "active"
+    },
+    "openhuman": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": [],
+      "release_patterns": ["v*"],
+      "status": "active"
+    },
+    "praisonai": {
+      "default_branch": "main",
+      "active_branch": "main",
+      "stable_branches": ["develop"],
+      "release_patterns": ["v*"],
+      "status": "active",
+      "notes": "develop stale 2026-03-26"
+    },
+    "rocketride-server": {
+      "default_branch": "develop",
+      "active_branch": "develop",
+      "stable_branches": ["stage"],
+      "release_patterns": ["server-v*", "client-*-v*", "vscode-v*"],
+      "status": "active",
+      "notes": "default develop; stage pre-release"
+    },
+    "zeroclaw": {
+      "default_branch": "master",
+      "active_branch": "master",
+      "stable_branches": [],
+      "release_patterns": ["v*"],
+      "status": "active"
+    }
+  }
+}
