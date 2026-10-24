@@ -1,4 +1,21 @@
 {
-  "last_check": "2026-03-31",
-  "projects": {}
+  "last_check": "2026-10-24",
+  "projects": {
+    "nanoclaw": {
+      "last_check": "2026-10-24",
+      "last_commit": "b1a9b65806d2c4d3c6981bd96448068fb6c62606"
+    },
+    "nanobot": {
+      "last_check": "2026-10-24",
+      "last_commit": "f4aacdbec2785549c89f0abce60759555e21779b"
+    },
+    "zeroclaw": {
+      "last_check": "2026-10-24",
+      "last_commit": "4db7afdcfa9a4b07d55dc6df4331d8076b64c2cb"
+    },
+    "goclaw": {
+      "last_check": "2026-10-24",
+      "last_commit": "1fc98bcd75543662f2522972724ed2042d820688"
+    }
+  }
 }
