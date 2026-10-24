@@ -121,4 +121,9 @@ benchmarks/results/
 *secret*
 *token*
 *key*
-*credential*.worktrees/
+*credential*
+
+.worktrees/
+
+# Agent runtime state (Sisyphus/OhMyOpenCode)
+.sisyphus/
