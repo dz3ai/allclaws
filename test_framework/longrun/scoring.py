@@ -7,12 +7,15 @@ mounted into the run worktree only at scoring time. The scorer:
 2. runs the spec's acceptance.command with cwd=<worktree>
 3. exit 0 => pass
 
-Scenario 4 (triage-burndown) extends this with per-window scoring — the
-extension point is score_windows(); Phase 2 wires it up.
+Scenario 4 (triage-burndown) extends this with per-window scoring —
+score_windows() implements it (plan §Fatigue Detection Protocol): the
+hidden acceptance dir ships check_windows.py, which prints ONE JSON line
+{"windows": [{"window": N, "solved": bool}, ...]}.
 """
 
 from __future__ import annotations
 
+import json
 import shutil
 import subprocess
 from dataclasses import dataclass, field
@@ -22,6 +25,9 @@ from longrun.spec import TaskSpec
 
 ACCEPTANCE_DIRNAME = "acceptance"
 SCORING_TIMEOUT_SECONDS = 600  # generous: hidden suites are small
+WINDOW_SCORING_TIMEOUT_SECONDS = 300  # per-window checker budget (task-7 brief)
+PYTHON_BIN = "/usr/bin/python3"  # repo convention: stdlib checks use system python3
+WINDOW_CHECKER = "check_windows.py"
 
 
 @dataclass
@@ -105,10 +111,136 @@ def diff_stats(worktree: Path) -> dict:
     return stats
 
 
-def score_windows(spec: TaskSpec, worktree: Path, run_dir: Path) -> list[dict]:
-    """Per-window scoring for triage-burndown (Phase 2 fatigue protocol).
+def score_windows(
+    spec: TaskSpec,
+    worktree: Path,
+    run_dir: Path,
+    window_metrics: list[dict | None] | None = None,
+) -> list[dict]:
+    """Per-window scoring for triage-burndown (plan §Fatigue Detection Protocol).
 
-    Each window = one issue in the 5-issue sequence. Returns one dict per
-    window: solved, tokens, turns, wall_seconds. Placeholder until S4 lands.
+    Runs <worktree>/acceptance/check_windows.py (mount_acceptance is done by
+    the runner before scoring) and parses the LAST stdout line that is valid
+    JSON carrying a windows list. Every returned dict honors the hard
+    contract consumed by longrun.fatigue and report.py:
+
+        {"window": int, "solved": bool,
+         "tokens": int|None, "turns": int|None, "wall_seconds": float|None}
+
+    window_metrics: the run's result.extra["window_metrics"] (driver-recorded
+    per-window metrics, list aligned by window number, may be partial or
+    absent) — merged in here because the RunResult itself is not reachable
+    from this signature; runner.run_one passes it through.
+
+    Failure contract: returns [] — never raises — when the spec is not
+    triage-burndown, the checker is missing, it exits nonzero / times out /
+    hits an OS error, or its output cannot be parsed (run_one adds the note).
     """
-    raise NotImplementedError("S4 per-window scoring lands in Phase 2")
+    if spec.type != "triage-burndown":
+        return []
+    checker = worktree / ACCEPTANCE_DIRNAME / WINDOW_CHECKER
+    if not checker.is_file():
+        return []
+    try:
+        proc = subprocess.run(
+            [PYTHON_BIN, f"{ACCEPTANCE_DIRNAME}/{WINDOW_CHECKER}"],
+            cwd=str(worktree),
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            text=True,
+            timeout=WINDOW_SCORING_TIMEOUT_SECONDS,
+        )
+    except (subprocess.TimeoutExpired, OSError):
+        return []
+    _write_checker_log(run_dir, proc)
+    if proc.returncode != 0:
+        return []
+    windows = _parse_windows_stdout(proc.stdout)
+    return merge_window_metrics(windows, window_metrics)
+
+
+def _write_checker_log(run_dir: Path, proc: subprocess.CompletedProcess) -> None:
+    """Persist raw checker output beside the other run artifacts (best effort)."""
+    try:
+        (run_dir / "windows.log").write_text(
+            f"$ {PYTHON_BIN} {ACCEPTANCE_DIRNAME}/{WINDOW_CHECKER}\n"
+            f"exit={proc.returncode}\n"
+            f"--- stdout ---\n{proc.stdout}\n--- stderr ---\n{proc.stderr}",
+            encoding="utf-8",
+        )
+    except OSError:
+        pass
+
+
+def _parse_windows_stdout(stdout: str) -> list[dict]:
+    """Parse the LAST stdout line that is valid JSON with a windows list.
+
+    Defensive (task-7 bar): every field is type-gated (type(x) is int / is
+    bool, which also rejects bool masquerading as int), malformed lines and
+    entries are skipped, and no match yields [] instead of raising.
+    """
+    for line in reversed(stdout.splitlines()):
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            payload = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if type(payload) is not dict or type(payload.get("windows")) is not list:
+            continue
+        windows: list[dict] = []
+        for item in payload["windows"]:
+            if type(item) is not dict:
+                continue
+            number = item.get("window")
+            solved = item.get("solved")
+            if type(number) is not int or type(solved) is not bool:
+                continue
+            windows.append(
+                {
+                    "window": number,
+                    "solved": solved,
+                    "tokens": None,
+                    "turns": None,
+                    "wall_seconds": None,
+                }
+            )
+        return windows
+    return []
+
+
+def merge_window_metrics(
+    windows: list[dict], metrics: list[dict | None] | None
+) -> list[dict]:
+    """Overlay driver-recorded per-window metrics onto checker window dicts.
+
+    metrics is result.extra["window_metrics"]: a list aligned by window
+    number (index i -> window i+1); drivers emit shorter/partial lists or
+    None. An entry may carry "tokens" (int), "turns" (int) and
+    "wall_seconds" (int|float, coerced to float); anything else keeps the
+    None placeholder. Returns NEW dicts — neither input is mutated.
+    """
+    merged = [dict(w) for w in windows]
+    if type(metrics) is not list:
+        return merged
+    for w in merged:
+        number = w.get("window")
+        if type(number) is not int or not 1 <= number <= len(metrics):
+            continue
+        entry = metrics[number - 1]
+        if type(entry) is not dict:
+            continue
+        declared = entry.get("window")
+        if type(declared) is int and declared != number:
+            continue  # entry self-declares a different window: do not guess
+        tokens = entry.get("tokens")
+        if type(tokens) is int:
+            w["tokens"] = tokens
+        turns = entry.get("turns")
+        if type(turns) is int:
+            w["turns"] = turns
+        wall = entry.get("wall_seconds")
+        if type(wall) is int or type(wall) is float:
+            w["wall_seconds"] = float(wall)
+    return merged

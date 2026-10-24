@@ -514,11 +514,13 @@ SIA is the open-source counterpart to HarnessX's co-evolution research. While Ha
 **Repository:** [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)
 **Language:** TypeScript (pnpm monorepo) + Python SDK
 **License:** MIT
-**Stars:** ~158.8K (as of August 17, 2026)
+**Stars:** ~244.5K (as of October 6, 2026; ~158.8K at the August 17 evaluation)
 **Created:** August 13, 2026
-**Version:** v0.1.0-rc.7 (developer preview — breaking changes expected)
+**Version:** v0.2.1-alpha.1 (2026-10-03) — still prerelease-only; no stable release, breaking changes expected
 
 **Philosophy:** *"Everything is a Plugin."*
+
+> **October 2026 refresh:** seven weeks post-launch, dsh stands at **244.5K★ / 29.3K forks** (+85.7K★ since the Aug 17 evaluation), but the 1.0 bar remains unmet — every release is still a prerelease, the train running v0.1.3-alpha (Sep 4) → v0.1.7-rc.2 (Sep 24) → **v0.2.0-rc.1/rc.2** (Sep 28/29) → v0.2.1-alpha.1 (Oct 3). Two architecturally significant moves in the window: **(1)** an experimental **Claude Code Mods bridge** (Oct 2–3) — the first direct compatibility layer between rival harness ecosystems, staged explicitly as a validation that the Mods API is roughly a subset of dsh plugin capabilities; **(2)** a **"let the Agent create a plugin"** entry in plugin management — dsh adopting the self-extension that is Pi's core thesis, i.e. the two harness candidates are converging. v0.2.0 also dogfooded the plugin model (automation tasks moved to an optional plugin package), added a Windows-sandbox permission-diagnostics skill and verify-side-effects-before-retry tool-scheduling semantics. Governance: remains **Tier 3 pending 1.0**; these data go to the Q4 review (~2026-10-13). August snapshot retained below for provenance.
 
 ### Overview
 
@@ -550,11 +552,13 @@ dsh is the strongest evidence yet for harness engineering as a distinct discipli
 **Repository:** [earendil-works/pi](https://github.com/earendil-works/pi)
 **Language:** TypeScript (npm monorepo)
 **License:** MIT
-**Stars:** ~93.0K (as of August 18, 2026)
-**Created:** August 2025 (one year of production iteration)
-**Version:** Multi-package npm releases with SHA256SUMS-signed source archives
+**Stars:** ~112.9K (as of October 6, 2026; ~93.0K at the Aug 18 evaluation)
+**Created:** August 2025 (14 months of production iteration)
+**Version:** **v1.0.0 (2026-10-01)** — first stable; 4 patch releases in the following 5 days. Multi-package npm releases with SHA256SUMS-signed source archives
 
 **Philosophy:** *"A self-extensible coding agent — ask it to build the extension you need."*
+
+> **October 2026 refresh:** Pi crossed two thresholds the August evaluation was watching for. **v1.0.0 shipped 2026-10-01** (the doc's own promotion trigger — cf. the dsh "Tier 3 → Tier 2 on 1.0" rule), followed by v1.0.1–1.0.4 within five days and daily pushes. Stars grew **93.0K → 112.9K** (+19.9K in ~7 weeks), forks to 14.3K, and a downstream ecosystem materialized: `awesome-pi-agent` (1.1K★), `pi-book` (336★), the OpenPipal visual client, a Java port, and a Chinese source deep-dive. Per [governance.md §7](../docs/governance.md), Pi is now flagged a **Tier-1 promotion candidate for the Q4 review (~2026-10-13)**, contesting the slot freed by the kimi-cli archival against LangBot — the open question being whether the TUI + coding-agent CLI now clears the full-platform bar or stays harness-form (Tier 2). August snapshot retained below for provenance.
 
 ### Overview
 

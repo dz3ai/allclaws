@@ -5,7 +5,11 @@ one via `uv sync` inside the submodule (network-using BY DESIGN — dependency
 install happens at prepare time, never at run time). This writes untracked
 files (.venv/, uv.lock updates) inside the submodule worktree, which is
 acceptable per the long-run plan: platform tooling lives in the main
-checkout; run isolation applies to fixtures only.
+checkout; run isolation applies to fixtures only. uv is resolved via
+shutil.which("uv") first, with the legacy ~/.local/bin/uv path as fallback
+candidate — the original hardcoded ~/.local/bin/uv was a Phase 1 latent bug
+on hosts where uv installs elsewhere (this host: ~/.cargo/bin/uv; the
+Path.home() hardcode is the known anti-pattern, see hermes.py docstring).
 
 Entry + one-shot mode were verified from source (2026-08-24):
 - [project.scripts] kimi = "kimi_cli.__main__:kimi"  (root pyproject.toml)
@@ -16,6 +20,7 @@ Entry + one-shot mode were verified from source (2026-08-24):
 from __future__ import annotations
 
 import os
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -31,7 +36,15 @@ from longrun.drivers.base import (
 )
 from longrun.spec import TaskSpec
 
-UV = Path.home() / ".local" / "bin" / "uv"
+LEGACY_UV = Path.home() / ".local" / "bin" / "uv"
+
+
+def _resolve_uv() -> Path | None:
+    """shutil.which("uv") first; legacy ~/.local/bin/uv as fallback candidate."""
+    found = shutil.which("uv")
+    if found:
+        return Path(found)
+    return LEGACY_UV if LEGACY_UV.is_file() else None
 
 
 class KimiCliDriver(DriverBase):
@@ -48,14 +61,18 @@ class KimiCliDriver(DriverBase):
         """Idempotent: create .venv via uv sync if missing (network exempt)."""
         if not self._submodule.is_dir():
             raise PrepareError(f"kimi-cli submodule missing at {self._submodule}")
-        if not UV.is_file():
-            raise PrepareError(f"uv not found at {UV}")
+        uv = _resolve_uv()
+        if uv is None:
+            raise PrepareError(
+                "uv not found: shutil.which('uv') missed and legacy "
+                f"{LEGACY_UV} absent"
+            )
 
         candidate = self._submodule / ".venv" / "bin" / "kimi"
         if not candidate.is_file():
             # uv sync resolves the workspace and installs console scripts.
             proc = subprocess.run(
-                [str(UV), "sync"],
+                [str(uv), "sync"],
                 cwd=str(self._submodule),
                 capture_output=True,
                 text=True,
@@ -129,6 +146,7 @@ if __name__ == "__main__":
         task_dir=Path(tempfile.mkdtemp()),
     )
     driver = KimiCliDriver(repo_root=Path(__file__).resolve().parents[3])
+    driver._binary_path = Path("/nonexistent-but-set")  # stub: argv build only
     ps = driver.run(Path(tempfile.mkdtemp()), fake)
     print("argv:", ps.argv)
     print("env keys:", sorted(ps.env.keys()))

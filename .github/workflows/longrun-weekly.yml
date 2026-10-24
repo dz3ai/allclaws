@@ -1,0 +1,98 @@
+name: Long-Run Benchmarks (Q4-4)
+
+# Weekly long-run agent benchmarks — manual dispatch per plan
+# (docs/reports/long-running-benchmark-research-plan.md §Execution Phases).
+# Requires provider credentials as repository secrets:
+#   DEEPSEEK_API_KEY (primary statistical cohort)
+# Optional: LONGRUN_BUDGET overrides the spend ceiling (default $150).
+# Runs are sequential per platform (plan guardrail: no parallel burn).
+
+on:
+  workflow_dispatch:
+    inputs:
+      tasks:
+        description: 'Comma-separated task ids (default: all 5 scenarios)'
+        default: 'gh-issue-001,refactor-multi,feature-crud,triage-burndown,legacy-migrate'
+      repeats:
+        description: 'Repeats per (platform, task); 3 needed for fatigue stats'
+        default: '1'
+      budget:
+        description: 'Spend ceiling in USD for this dispatch'
+        default: '150'
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  longrun-grid:
+    name: Live grid (aider, smolagents, kimi_code)
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    defaults:
+      run:
+        working-directory: test_framework
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Task inventory (spec validation gate)
+        run: |
+          PYTHONPATH=. python3 -m longrun.cli list
+
+      - name: Live grid — aider (DeepSeek)
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          LONGRUN_AIDER_MODEL: deepseek/deepseek-chat
+          LONGRUN_BUDGET: ${{ inputs.budget || '150' }}
+        run: |
+          PYTHONPATH=. python3 -m longrun.cli run \
+            --drivers aider \
+            --tasks "${{ inputs.tasks || 'gh-issue-001,refactor-multi,feature-crud,triage-burndown,legacy-migrate' }}" \
+            --repeats "${{ inputs.repeats || '1' }}" \
+            --model deepseek-chat
+
+      - name: Live grid — smolagents (DeepSeek)
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          LONGRUN_BUDGET: ${{ inputs.budget || '150' }}
+        run: |
+          PYTHONPATH=. python3 -m longrun.cli run \
+            --drivers smolagents \
+            --tasks "${{ inputs.tasks || 'gh-issue-001,refactor-multi,feature-crud,triage-burndown,legacy-migrate' }}" \
+            --repeats "${{ inputs.repeats || '1' }}" \
+            --model deepseek/deepseek-chat
+
+      - name: Live grid — kimi_code (DeepSeek via kimi-code provider)
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          LONGRUN_BUDGET: ${{ inputs.budget || '150' }}
+        run: |
+          PYTHONPATH=. python3 -m longrun.cli run \
+            --drivers kimi_code \
+            --tasks "${{ inputs.tasks || 'gh-issue-001,refactor-multi,feature-crud,triage-burndown,legacy-migrate' }}" \
+            --repeats "${{ inputs.repeats || '1' }}" \
+            --model deepseek-via-kimi-code
+
+      - name: Report
+        if: always()
+        run: |
+          PYTHONPATH=. python3 -m longrun.cli report || true
+          PYTHONPATH=. python3 -m longrun.cli budget || true
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: longrun-results-${{ github.run_id }}
+          path: |
+            test_framework/benchmark_results/longrun/
+          retention-days: 30
+          if-no-files-found: warn

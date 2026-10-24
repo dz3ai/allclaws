@@ -1,0 +1,1 @@
+# metricslite is stdlib-only by design: no runtime dependencies to install.

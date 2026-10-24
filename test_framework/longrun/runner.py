@@ -144,12 +144,20 @@ def run_one(
     scratch_root: Path | None = None,
     skip_scoring: bool = False,
     dry_run: bool = False,
+    repeat: int = 1,
 ) -> dict:
-    """Full lifecycle for one (platform, task) run. Returns the result dict."""
-    run_dir = results_root / driver.name / spec.id
+    """Full lifecycle for one (platform, task, repeat) run. Returns the dict.
+
+    Artifacts land under results_root/<driver>/<task-id>/rep<repeat>/ so
+    repeats persist side by side (plan §Fatigue Detection Protocol: 3
+    repeats per agent; report/fatigue group result dicts by "repeat").
+    """
+    run_dir = results_root / driver.name / spec.id / f"rep{repeat}"
     run_dir.mkdir(parents=True, exist_ok=True)
     scratch_root = scratch_root or (results_root / "_scratch")
     worktree = None
+    proc_spec = None
+    result = None
 
     try:
         # 1-2. isolation + platform prep
@@ -161,6 +169,7 @@ def run_one(
             payload = {
                 "platform": driver.name,
                 "task_id": spec.id,
+                "repeat": repeat,
                 "status": "dry-run",
                 "argv": proc_spec.argv,
                 "env_keys": sorted(proc_spec.env.keys()),
@@ -202,6 +211,30 @@ def run_one(
                 result.extra["score"] = score.to_dict()
         result.extra.setdefault("score", {"passed": False, "details": "not scored"})
         result.extra["diff_stats"] = scoring.diff_stats(worktree)
+        # triage-burndown fatigue windows (plan §Fatigue Detection Protocol);
+        # drivers may have attached result.extra["window_metrics"] in
+        # collect() — passed through to score_windows untouched. Never
+        # crashes the run: any failure degrades to [] + note.
+        if spec.type == "triage-burndown":
+            try:
+                result.extra["windows"] = scoring.score_windows(
+                    spec,
+                    worktree,
+                    run_dir,
+                    window_metrics=result.extra.get("window_metrics"),
+                )
+            except Exception as e:
+                result.extra["windows"] = []
+                result.notes += f" | window scoring failed: {e}"
+
+        # 6b. fixture drift guard: fixtures live in the parent repo working
+        # tree; any in-place mutation between runs silently invalidates later
+        # run copies. Detect, record, and auto-restore from HEAD.
+        drift = _fixture_drift(spec)
+        if drift:
+            result.extra["fixture_drift"] = drift
+            result.notes += " | fixture drifted in parent tree (restored)"
+            _restore_fixture(spec)
 
     except PrepareError as e:
         result = RunResult(
@@ -216,36 +249,94 @@ def run_one(
             cleanup_worktree(worktree)
         raise
     finally:
-        # 7. preserve artifacts from the worktree before cleanup
+        # 7. preserve driver-declared artifacts from the worktree before
+        # cleanup (proc_spec exists only once driver.run() succeeded)
         if worktree and worktree.exists():
-            for rel in ("aider", ".aider.chat.history.md", ".aider.input.history"):
-                pass  # transcript paths recorded by drivers via RunResult
-            _archive_artifacts(run_dir, worktree, proc_spec_artifacts(result) if 'result' in dir() else [])
+            archived = _archive_artifacts(
+                run_dir, worktree, proc_spec.artifacts if proc_spec else []
+            )
+            if archived and result is not None:
+                result.extra["artifacts_archived"] = archived
             cleanup_worktree(worktree)
 
-    _write_result(run_dir, result)
-    return result.to_dict() | {"score": result.extra.get("score", {})}
+    _write_result(run_dir, result, repeat)
+    return result.to_dict() | {"score": result.extra.get("score", {}), "repeat": repeat}
 
 
-def proc_spec_artifacts(result: RunResult) -> list[str]:
-    return []
+def _fixture_drift(spec: TaskSpec) -> list[str]:
+    """Uncommitted changes to this task's fixture dir in the parent tree.
+
+    Best-effort: any git failure returns [] (drift detection must never
+    fail a run). Paths are reported relative to the fixture dir.
+    """
+    try:
+        proc = subprocess.run(
+            [
+                "git",
+                "status",
+                "--porcelain",
+                "--",
+                spec.fixture_dir.relative_to(_repo_root()),
+            ],
+            cwd=str(_repo_root()),
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        if proc.returncode != 0:
+            return []
+        return [line for line in proc.stdout.splitlines() if line.strip()]
+    except (subprocess.TimeoutExpired, OSError, ValueError):
+        return []
 
 
-def _archive_artifacts(run_dir: Path, worktree: Path, artifacts: list[str]) -> None:
-    """Copy driver-declared artifact files from worktree into run_dir."""
-    if not artifacts:
+def _restore_fixture(spec: TaskSpec) -> None:
+    """Best-effort restore of the fixture dir from HEAD (checkout + clean)."""
+    try:
+        rel = spec.fixture_dir.relative_to(_repo_root())
+    except ValueError:
         return
+    for cmd in (["git", "checkout", "--", str(rel)], ["git", "clean", "-fdq", str(rel)]):
+        try:
+            subprocess.run(
+                cmd,
+                cwd=str(_repo_root()),
+                capture_output=True,
+                text=True,
+                timeout=60,
+            )
+        except (subprocess.TimeoutExpired, OSError):
+            pass
+
+
+def _repo_root() -> Path:
+    """Parent repo root (longrun lives at <root>/test_framework/longrun)."""
+    return Path(__file__).resolve().parent.parent.parent
+
+
+def _archive_artifacts(run_dir: Path, worktree: Path, artifacts: list[str]) -> list[str]:
+    """Copy driver-declared artifact files (ProcSpec.artifacts, relative to
+    cwd) from the worktree into run_dir/artifacts/. Returns the declared
+    paths actually saved; missing sources are skipped, never fatal."""
+    if not artifacts:
+        return []
     keep = run_dir / "artifacts"
     keep.mkdir(parents=True, exist_ok=True)
+    saved = []
     for rel in artifacts:
         src = worktree / rel
         if src.is_file():
             shutil.copy2(src, keep / Path(rel).name)
+            saved.append(rel)
+    return saved
 
 
-def _write_result(run_dir: Path, result: RunResult) -> None:
+def _write_result(run_dir: Path, result: RunResult, repeat: int = 1) -> None:
     payload = result.to_dict()
     payload["extra"] = result.extra
+    # repeat stamped here (not post-hoc in run_grid) so the DISK payload
+    # carries it; run_grid's returned-dict stamping stays as a belt-and-braces
+    payload["repeat"] = repeat
     (run_dir / "result.json").write_text(
         json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8"
     )
@@ -293,7 +384,7 @@ def run_grid(
                 except DriverError as e:
                     print(f"[longrun] SKIP {driver_name}: {e}", flush=True)
                     continue
-                res = run_one(driver, spec, run_root, dry_run=dry_run)
+                res = run_one(driver, spec, run_root, dry_run=dry_run, repeat=repeat)
                 res["repeat"] = repeat
                 all_results.append(res)
                 # record spend from reported tokens (model-pinned per batch)
