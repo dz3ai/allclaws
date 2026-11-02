@@ -1,0 +1,1001 @@
+# OpenClaw - TypeScript AI Agent Platform - Update Report
+
+**Generated:** 2026-11-02 22:11:18
+**Tracking Period:** 2026-10-24 to 2026-11-02
+
+## Recent Commits
+
+### fix(doctor): historical import coverage times out in CI (#191129)
+- **Date:** 2026-11-02
+- **Author:** Vincent Koc
+- **Commit:** 395a8c13b042de340d7c2bbc7a31d163ab24ff50
+### fix(plugins): detach retained consumer cleanup from caller scope (#191126)
+- **Date:** 2026-11-02
+- **Author:** Vincent Koc
+- **Commit:** 5a160d1aaa8ef3ac6c937a8877c658b1d8776da5
+### fix(plugins): distinguish CLI inspection from Gateway state (#191095)
+- **Date:** 2026-11-02
+- **Author:** RoboClaw
+- **Commit:** 47ccc4e24be3321456042e79c28225b851c6061e
+### fix: avoid state database clone stalls during Gateway startup (#190918)
+- **Date:** 2026-11-02
+- **Author:** Peter Steinberger
+- **Commit:** e68dfaf78a587b8be63168e397fc52290ea3eff0
+### ci: use portable Docker builders for install smoke (#191098)
+- **Date:** 2026-11-02
+- **Author:** Vincent Koc
+- **Commit:** 0b36305eb71fe84f6895ac9dfde4b680ec05cf0e
+### improve(ui): tighten the Plugins hub at phone width (#190361)
+- **Date:** 2026-11-02
+- **Author:** Vyctor H. Brzezowski
+- **Commit:** 47ce1aaa4c1cbb7bb4b456ece5421f0e203d386e
+### fix(test): align steer settlement timing with its phase boundary
+- **Date:** 2026-11-02
+- **Author:** Vincent Koc
+- **Commit:** a269a3a03639cc9c33cc429b063b1cb93c9fea86
+### refactor(pr): share string enum validation (#191120)
+- **Date:** 2026-11-02
+- **Author:** Vincent Koc
+- **Commit:** 68dacd9c4d4f0a6d99e66618b23b6ba500507302
+### perf(control-ui): paint cached context usage with the composer (#190824)
+- **Date:** 2026-11-02
+- **Author:** Peter Steinberger
+- **Commit:** ee3d681d411eeb73962862a0988e1b21c5ae7fa7
+### fix(backup): release unselected verification candidates (#191107)
+- **Date:** 2026-11-02
+- **Author:** Vincent Koc
+- **Commit:** e4758f1fc47280dc9c9142762b58c58c042c5c33
+### fix(memory-wiki): bracket and backslash titles break generated links (#191094)
+- **Date:** 2026-11-02
+- **Author:** Leon-SK668
+- **Commit:** 962ead69b09420b331a75171decf42a4e7bdeca9
+### fix(automations): honor selected accounts without a credential store (#190956)
+- **Date:** 2026-11-02
+- **Author:** Vincent Koc
+- **Commit:** f4619fdf2adef4884293111fd4c42dafa3cbd76f
+### fix: await Doctor session and shared-auth inspection (#190870)
+- **Date:** 2026-11-02
+- **Author:** RoboClaw
+- **Commit:** 6434b62cbd30624b90e526634c768be980c898a9
+### fix: reduce shared-session context preparation overhead (#191105)
+- **Date:** 2026-11-02
+- **Author:** Peter Steinberger
+- **Commit:** 1940af245311d717e4f8055050ba05cfdd420cd8
+### test(agents): exercise plugin memory callback revocation (#191096)
+- **Date:** 2026-11-02
+- **Author:** Vincent Koc
+- **Commit:** 3d652ed5edf38d27a59cdc4aa8b7c97221514858
+### fix(openai): avoid repacing GPT-Live carrier audio (#189029)
+- **Date:** 2026-11-02
+- **Author:** restalfep
+- **Commit:** c6ad0a95c8aa01eade73a956e437e963605657f3
+### chore(ui): refresh control ui locales (#191121)
+- **Date:** 2026-11-02
+- **Author:** openclaw-mantis[bot]
+- **Commit:** 2e23a5d175fe6850342b66fd89f81938c294b4b4
+### fix(skills): allow browsing with unrelated invalid configuration (#191044)
+- **Date:** 2026-11-02
+- **Author:** xingzhou
+- **Commit:** 0c662aa1ce08ddf86cb008b5b6671bbbf0f33492
+### fix(ui): memory settings expose a translation key for custom models (#191046)
+- **Date:** 2026-11-02
+- **Author:** Alix-007
+- **Commit:** 7c33f2b58607f61e160149ffb3cf39806be20e7d
+### fix(ui): background updates clear uncommitted custom models (#191045)
+- **Date:** 2026-11-02
+- **Author:** Alix-007
+- **Commit:** 0b3f03f67afc7fa804c1a2c2ab70df0774a8d46a
+... and more (showing recent 20 commits)
+
+## Recent Releases
+
+### v2026.10.10-beta.5
+- **Date:** 2026-10-29
+- **Description:** openclaw 2026.10.10-beta.5
+### v2026.10.10-beta.4
+- **Date:** 2026-10-26
+- **Description:** openclaw 2026.10.10-beta.4
+### v2026.10.10-beta.3
+- **Date:** 2026-10-20
+- **Description:** openclaw 2026.10.10-beta.3
+### v2026.10.10-beta.2
+- **Date:** 2026-10-16
+- **Description:** openclaw 2026.10.10-beta.2
+### v2026.10.10-beta.1
+- **Date:** 2026-10-15
+- **Description:** OpenClaw 2026.10.10-beta.1
+
+## Documentation Updates
+
+- **docs/cli/plugins/inspect-and-diagnose.md** - Updated: 2026-11-02
+- **docs/reference/database-schemas/integrity-and-recovery.md** - Updated: 2026-11-02
+- **scripts/perf/warm-reload-proof.md** - Updated: 2026-11-02
+- **docs/cli/backup.md** - Updated: 2026-11-02
+- **docs/reference/database-schemas/worker-access.md** - Updated: 2026-11-02
+- **test/test-audit-ledger.md** - Updated: 2026-11-02
+- **docs/plugins/sdk-provider-plugins/voice-and-audio.md** - Updated: 2026-11-02
+- **docs/providers/openai/voice-and-speech.md** - Updated: 2026-11-02
+- **docs/cli/skills.md** - Updated: 2026-11-02
+- **docs/web/control-ui/settings.md** - Updated: 2026-11-02
+- **docs/plugins/sdk-runtime/agent.md** - Updated: 2026-11-02
+- **docs/plugins/sdk-overview/host-hooks.md** - Updated: 2026-11-02
+- **docs/plugins/sdk-overview/tools-and-commands.md** - Updated: 2026-11-02
+- **docs/ci/scheduled-workflows.md** - Updated: 2026-11-02
+- **packages/ai/README.md** - Updated: 2026-11-02
+- **docs/plugins/hooks/lifecycle.md** - Updated: 2026-11-02
+- **docs/plugins/sdk-provider-plugins.md** - Updated: 2026-11-02
+- **docs/gateway/config-tools/tool-policy.md** - Updated: 2026-11-02
+- **docs/gateway/permission-modes.md** - Updated: 2026-11-02
+- **docs/help/troubleshooting.md** - Updated: 2026-11-02
+- **docs/web/control-ui/panels.md** - Updated: 2026-11-02
+- **docs/web/control-ui/sessions-and-sidebar.md** - Updated: 2026-11-02
+- **docs/web/dashboard-architecture.md** - Updated: 2026-11-02
+- **docs/web/dashboards.md** - Updated: 2026-11-02
+- **docs/web/control-ui/chat.md** - Updated: 2026-11-02
+- **docs/web/control-ui.md** - Updated: 2026-11-02
+- **docs/concepts/usage-tracking.md** - Updated: 2026-11-02
+- **scripts/bench-control-ui-cold-load.md** - Updated: 2026-11-02
+- **docs/gateway/health.md** - Updated: 2026-11-02
+- **docs/gateway/restart-recovery.md** - Updated: 2026-11-02
+- **docs/channels/discord/access-control.md** - Updated: 2026-11-02
+- **docs/reference/database-schemas/agent-schema-history.md** - Updated: 2026-11-02
+- **docs/reference/database-schemas.md** - Updated: 2026-11-02
+- **docs/reference/database-schemas/worker-access-inventory.md** - Updated: 2026-11-02
+- **docs/help/testing-updates-plugins.md** - Updated: 2026-11-02
+- **docs/install/macos-vm.md** - Updated: 2026-11-02
+- **docs/reference/database-engines.md** - Updated: 2026-11-02
+- **docs/providers/minimax.md** - Updated: 2026-11-02
+- **docs/tools/thinking.md** - Updated: 2026-11-02
+- **docs/gateway/authentication.md** - Updated: 2026-11-02
+- **docs/gateway/cli-backends.md** - Updated: 2026-11-02
+- **docs/start/why-openclaw/identity-and-roles.md** - Updated: 2026-11-02
+- **docs/cli/index.md** - Updated: 2026-11-02
+- **docs/plugins/beam.md** - Updated: 2026-11-02
+- **extensions/beam/README.md** - Updated: 2026-11-02
+- **docs/plugins/hooks/reference.md** - Updated: 2026-11-02
+- **docs/nodes/file-transfers.md** - Updated: 2026-11-02
+- **docs/cli/gateway/restart-and-supervision.md** - Updated: 2026-11-02
+- **docs/concepts/session.md** - Updated: 2026-11-02
+- **docs/logging.md** - Updated: 2026-11-02
+- **docs/ci/capacity.md** - Updated: 2026-11-02
+- **docs/gateway/cloudflare-access.md** - Updated: 2026-11-02
+- **.agents/skills/update-team-server/controller/README.md** - Updated: 2026-11-02
+- **docs/tools/exec.md** - Updated: 2026-11-02
+- **docs/cli/config.md** - Updated: 2026-11-02
+- **docs/gateway/security/browser-control.md** - Updated: 2026-11-02
+- **docs/gateway/prometheus.md** - Updated: 2026-11-02
+- **docs/automation/cron-jobs/payloads.md** - Updated: 2026-11-02
+- **docs/automation/cron-jobs/troubleshooting.md** - Updated: 2026-11-02
+- **docs/cli/update/repair-and-recovery.md** - Updated: 2026-11-02
+- **docs/install/updating.md** - Updated: 2026-11-02
+- **docs/concepts/retry.md** - Updated: 2026-11-02
+- **docs/concepts/session-controller.md** - Updated: 2026-11-02
+- **docs/cli/doctor/lint.md** - Updated: 2026-11-02
+- **docs/reference/token-use.md** - Updated: 2026-11-02
+- **docs/help/testing/docker.md** - Updated: 2026-11-02
+- **docs/plugins/workboard.md** - Updated: 2026-11-02
+- **docs/gateway/doctor/config-migrations.md** - Updated: 2026-11-02
+- **docs/tools/self-learning.md** - Updated: 2026-11-02
+- **docs/tools/skill-workshop.md** - Updated: 2026-11-02
+- **docs/tools/skills-config.md** - Updated: 2026-11-02
+- **docs/plugins/sdk-runtime.md** - Updated: 2026-11-02
+- **docs/tools/code-mode/internals.md** - Updated: 2026-11-02
+- **docs/gateway/operator-scopes.md** - Updated: 2026-11-02
+- **docs/cli/logs.md** - Updated: 2026-11-02
+- **docs/cli/pairing.md** - Updated: 2026-11-02
+- **docs/tools/exec-approvals.md** - Updated: 2026-11-02
+- **docs/ci.md** - Updated: 2026-11-02
+- **.agents/skills/release-openclaw-maintainer/references/extended-stable-publish.md** - Updated: 2026-11-01
+- **.agents/skills/release-openclaw-maintainer/references/regular-release.md** - Updated: 2026-11-01
+- **docs/nodes/computer-use.md** - Updated: 2026-11-02
+- **docs/gateway/config-agents/models.md** - Updated: 2026-11-02
+- **extensions/cua-computer/README.md** - Updated: 2026-11-02
+- **docs/tools/firecrawl.md** - Updated: 2026-11-02
+- **docs/plugins/voice-call/realtime-and-streaming.md** - Updated: 2026-11-02
+- **docs/concepts/context.md** - Updated: 2026-11-02
+- **docs/cli/transcripts.md** - Updated: 2026-11-02
+- **docs/cli/path.md** - Updated: 2026-11-01
+- **docs/cli/doctor/checks.md** - Updated: 2026-11-02
+- **docs/cli/gateway/service.md** - Updated: 2026-11-02
+- **docs/cli/doctor/sqlite-maintenance.md** - Updated: 2026-11-02
+- **.agents/skills/openclaw-performance/SKILL.md** - Updated: 2026-11-02
+- **scripts/bench-control-ui-history-depth.md** - Updated: 2026-11-02
+- **docs/gateway/sandboxing/docker-backend.md** - Updated: 2026-11-02
+- **docs/gateway/sandboxing/modes-scope-and-backend.md** - Updated: 2026-11-02
+- **docs/gateway/sandboxing/setup-command.md** - Updated: 2026-11-02
+- **docs/automation/cron-jobs/managing-jobs.md** - Updated: 2026-11-01
+- **test/fixtures/agents/prompt-snapshots/codex-runtime-happy-path/telegram-direct-codex-message-tool.md** - Updated: 2026-11-01
+- **docs/gateway/config-tools/github-identity.md** - Updated: 2026-11-01
+- **docs/nodes/talk/session-ownership.md** - Updated: 2026-11-02
+- **docs/cli/infer.md** - Updated: 2026-11-01
+- **docs/plugins/sdk-channel-plugins.md** - Updated: 2026-11-02
+- **docs/plugins/sdk-entrypoints.md** - Updated: 2026-11-02
+- **docs/plugins/manage-plugins.md** - Updated: 2026-11-01
+- **docs/tools/chrome-extension.md** - Updated: 2026-11-02
+- **docs/providers/ollama/troubleshooting.md** - Updated: 2026-11-02
+- **docs/gateway/cloud-workers/session-lifecycle.md** - Updated: 2026-11-02
+- **docs/gateway/config-cloud-workers.md** - Updated: 2026-11-02
+- **docs/gateway/doctor/workspace-and-dreams.md** - Updated: 2026-11-02
+- **docs/web/tui.md** - Updated: 2026-11-01
+- **docs/cli/wiki.md** - Updated: 2026-11-01
+- **docs/reference/prompt-caching.md** - Updated: 2026-11-02
+- **docs/concepts/messages.md** - Updated: 2026-11-01
+- **docs/cli/update.md** - Updated: 2026-11-01
+- **docs/concepts/system-prompt.md** - Updated: 2026-11-01
+- **docs/concepts/dreaming.md** - Updated: 2026-11-01
+- **docs/plugins/sdk-overview/capabilities.md** - Updated: 2026-11-01
+- **docs/reference/database-schemas/state-schema-history.md** - Updated: 2026-11-01
+- **src/state/postgres-schema.generated/portability-report.md** - Updated: 2026-11-01
+- **docs/gateway/config-extensions.md** - Updated: 2026-11-01
+- **docs/concepts/model-failover.md** - Updated: 2026-11-01
+- **docs/plugins/google-meet/oauth-and-artifacts.md** - Updated: 2026-11-01
+- **docs/plugins/manifest.md** - Updated: 2026-11-01
+- **docs/tools/progress-card.md** - Updated: 2026-11-01
+- **.agents/skills/release-openclaw-ci/SKILL.md** - Updated: 2026-11-01
+- **docs/reference/full-release-validation/continuation.md** - Updated: 2026-11-01
+- **docs/plugins/voice-call/tts-and-inbound-calls.md** - Updated: 2026-11-01
+- **docs/providers/openai/setup.md** - Updated: 2026-11-01
+- **docs/ci/scope-and-routing/selection.md** - Updated: 2026-11-01
+- **docs/gateway/sandboxing/workspace-access.md** - Updated: 2026-11-01
+- **docs/concepts/models.md** - Updated: 2026-11-01
+- **docs/plugins/sdk-agent-harness/attempt-runtime.md** - Updated: 2026-11-01
+- **docs/cli/acp.md** - Updated: 2026-11-01
+- **docs/tools/slash-commands.md** - Updated: 2026-11-01
+- **docs/concepts/user-model.md** - Updated: 2026-11-01
+- **docs/web/control-ui/security-model.md** - Updated: 2026-11-01
+- **docs/install/node-compatibility.md** - Updated: 2026-11-01
+- **docs/concepts/active-memory/troubleshooting.md** - Updated: 2026-11-01
+- **docs/platforms/ios.md** - Updated: 2026-11-01
+- **docs/gateway/config-tools.md** - Updated: 2026-11-01
+- **docs/gateway/troubleshooting.md** - Updated: 2026-11-01
+- **docs/providers/ollama.md** - Updated: 2026-11-01
+- **docs/concepts/compaction.md** - Updated: 2026-11-01
+- **docs/cli/sessions.md** - Updated: 2026-11-01
+- **docs/web/control-ui/feature-reference.md** - Updated: 2026-11-01
+- **docs/cli/configure.md** - Updated: 2026-11-01
+- **ui/docs/design-system/accessibility.md** - Updated: 2026-11-01
+- **ui/docs/design-system/motion.md** - Updated: 2026-11-01
+- **docs/concepts/markdown-formatting.md** - Updated: 2026-11-01
+- **docs/gateway/config-runtime.md** - Updated: 2026-11-01
+- **docs/gateway/doctor/gateway-and-services.md** - Updated: 2026-11-01
+- **docs/channels/slack/threads-and-sessions.md** - Updated: 2026-11-01
+- **docs/concepts/managed-worktrees.md** - Updated: 2026-11-01
+- **docs/nodes/session-hosting.md** - Updated: 2026-11-01
+- **docs/cli/voicecall.md** - Updated: 2026-11-01
+- **docs/cli/gateway/query.md** - Updated: 2026-11-01
+- **docs/nodes/media-playback.md** - Updated: 2026-11-01
+- **docs/web/control-ui/offline-and-reconnect.md** - Updated: 2026-11-01
+- **docs/cli/uninstall.md** - Updated: 2026-11-01
+- **docs/install/uninstall.md** - Updated: 2026-11-01
+- **docs/plugins/hooks.md** - Updated: 2026-11-01
+- **docs/plugins/hooks/prompt-and-session.md** - Updated: 2026-11-01
+- **docs/plugins/memory-wiki.md** - Updated: 2026-11-01
+- **docs/platforms/android.md** - Updated: 2026-11-01
+- **docs/cli/models.md** - Updated: 2026-11-01
+- **docs/providers/openrouter.md** - Updated: 2026-11-01
+- **docs/gateway/config-agents/heartbeat-compaction-and-streaming.md** - Updated: 2026-11-01
+- **docs/reference/session-management-compaction/compaction.md** - Updated: 2026-11-01
+- **scripts/perf/README.md** - Updated: 2026-11-01
+- **docs/reference/test/performance.md** - Updated: 2026-11-01
+- **docs/cli/plugins.md** - Updated: 2026-11-01
+- **docs/gateway/heartbeat.md** - Updated: 2026-11-01
+- **docs/providers/openai/image-and-video.md** - Updated: 2026-11-01
+- **docs/gateway/bonjour.md** - Updated: 2026-11-01
+- **scripts/README.md** - Updated: 2026-11-01
+- **.agents/skills/openclaw-parallels-smoke/SKILL.md** - Updated: 2026-11-01
+- **docs/cli/approvals.md** - Updated: 2026-11-01
+- **docs/gateway/security/access-control.md** - Updated: 2026-11-01
+- **docs/gateway/security/secrets-and-storage.md** - Updated: 2026-11-01
+- **docs/start/setup.md** - Updated: 2026-11-01
+- **docs/concepts/session-tool.md** - Updated: 2026-11-01
+- **.agents/skills/openclaw-pr-maintainer/references/landing-recovery.md** - Updated: 2026-11-01
+- **docs/cli/update/status-and-history.md** - Updated: 2026-11-01
+- **docs/gateway/protocol/operator-methods.md** - Updated: 2026-11-01
+- **docs/plugins/codex-harness-reference/dynamic-tools.md** - Updated: 2026-11-01
+- **docs/plugins/codex-harness-reference/restricted-turns.md** - Updated: 2026-11-01
+- **docs/plugins/codex-harness/commands.md** - Updated: 2026-11-01
+- **docs/plugins/manifest/models.md** - Updated: 2026-11-01
+- **docs/platforms/linux.md** - Updated: 2026-11-01
+- **docs/providers/google.md** - Updated: 2026-11-01
+- **docs/channels/telegram/mini-app.md** - Updated: 2026-11-01
+- **docs/web/dashboard.md** - Updated: 2026-11-01
+- **.agents/skills/release-openclaw-maintainer/references/publication-recovery.md** - Updated: 2026-10-31
+- **docs/reference/RELEASING.md** - Updated: 2026-10-31
+- **docs/plugins/sdk-overview/infrastructure.md** - Updated: 2026-11-01
+- **docs/tools/show-widget.md** - Updated: 2026-11-01
+- **docs/plugins/plugin-inventory.md** - Updated: 2026-11-01
+- **docs/plugins/reference.md** - Updated: 2026-11-01
+- **docs/plugins/reference/skill-workshop.md** - Updated: 2026-11-01
+- **docs/plugins/codex-harness.md** - Updated: 2026-11-01
+- **docs/gateway/protocol/handshake.md** - Updated: 2026-11-01
+- **docs/web/control-ui/connect-and-pair.md** - Updated: 2026-11-01
+- **docs/platforms/windows.md** - Updated: 2026-11-01
+- **docs/cli/update/how-updates-run.md** - Updated: 2026-11-01
+- **docs/gateway/postgresql.md** - Updated: 2026-11-01
+- **docs/channels/slack/messaging.md** - Updated: 2026-11-01
+- **docs/tools/image-generation.md** - Updated: 2026-11-01
+- **docs/tools/ask-user.md** - Updated: 2026-10-31
+- **docs/channels/matrix.md** - Updated: 2026-10-31
+- **ui/docs/design-system/settings-design.md** - Updated: 2026-10-31
+- **extensions/fal/README.md** - Updated: 2026-11-01
+- **docs/tools/screen.md** - Updated: 2026-10-31
+- **docs/tools/browser/configuration.md** - Updated: 2026-10-31
+- **docs/tools/browser/troubleshooting.md** - Updated: 2026-10-31
+- **docs/concepts/queue-steering.md** - Updated: 2026-11-01
+- **docs/plugins/architecture.md** - Updated: 2026-10-31
+- **docs/channels/whatsapp.md** - Updated: 2026-11-01
+- **docs/web/control-ui/asset-delivery.md** - Updated: 2026-10-31
+- **docs/plugins/voice-call/configuration.md** - Updated: 2026-11-01
+- **docs/providers/openai/advanced.md** - Updated: 2026-11-01
+- **docs/cli/doctor/state-migrations.md** - Updated: 2026-11-01
+- **docs/concepts/decision-models.md** - Updated: 2026-11-01
+- **docs/nodes/mcp-and-skills.md** - Updated: 2026-11-01
+- **docs/tools/skills.md** - Updated: 2026-11-01
+- **docs/install/installer.md** - Updated: 2026-11-01
+- **docs/gateway/background-process.md** - Updated: 2026-10-31
+- **docs/providers/anthropic.md** - Updated: 2026-10-31
+- **docs/gateway/diagnostics.md** - Updated: 2026-10-31
+- **docs/gateway/cloud-workers/setup-and-bundle-installation.md** - Updated: 2026-10-31
+- **docs/gateway/telemetry.md** - Updated: 2026-10-31
+- **docs/channels/group-messages.md** - Updated: 2026-10-31
+- **docs/channels/feishu/configuration-reference.md** - Updated: 2026-10-31
+- **docs/plugins/sdk-provider-plugins/runtime-hooks.md** - Updated: 2026-10-31
+- **docs/gateway/configuration/hot-reload.md** - Updated: 2026-10-31
+- **docs/channels/discord/messaging.md** - Updated: 2026-10-31
+- **docs/plugins/sdk-channel-outbound.md** - Updated: 2026-10-31
+- **docs/concepts/typing-indicators.md** - Updated: 2026-10-31
+- **docs/channels/msteams.md** - Updated: 2026-10-31
+- **docs/channels/msteams/configuration.md** - Updated: 2026-10-31
+- **docs/channels/msteams/messaging.md** - Updated: 2026-10-31
+- **.agents/skills/solid/references/performance.md** - Updated: 2026-10-31
+- **scripts/bench-control-ui-chat-actions.md** - Updated: 2026-10-31
+- **docs/tools/trajectory.md** - Updated: 2026-10-31
+- **scripts/bench-plugin-views.md** - Updated: 2026-10-31
+- **src/gateway/AGENTS.md** - Updated: 2026-10-31
+- **docs/concepts/memory.md** - Updated: 2026-10-31
+- **docs/plugins/knowledge/local-history.md** - Updated: 2026-10-31
+- **apps/ios/VERSIONING.md** - Updated: 2026-10-31
+- **docs/tools/acp-agents/delivery.md** - Updated: 2026-10-31
+- **extensions/acpx/README.md** - Updated: 2026-10-31
+- **docs/concepts/multi-user.md** - Updated: 2026-10-31
+- **docs/plugins/logbook.md** - Updated: 2026-10-31
+- **docs/plugins/sdk-migration/removed-surfaces.md** - Updated: 2026-10-31
+- **docs/plugins/sdk-subpaths.md** - Updated: 2026-10-31
+- **docs/plugins/sdk-testing.md** - Updated: 2026-10-31
+- **docs/gateway/protocol/transport.md** - Updated: 2026-10-31
+- **docs/nodes/node-host.md** - Updated: 2026-10-31
+- **docs/platforms/macos.md** - Updated: 2026-10-31
+- **docs/channels/feishu/messaging.md** - Updated: 2026-10-31
+- **docs/reference/database-schemas/storage-changes.md** - Updated: 2026-10-31
+- **docs/channels/matrix/messaging.md** - Updated: 2026-10-31
+- **docs/platforms/mac/bundled-gateway.md** - Updated: 2026-10-31
+- **scripts/bench-control-ui-wire.md** - Updated: 2026-10-31
+- **docs/tools/code-mode/guest-api.md** - Updated: 2026-10-31
+- **docs/tools/mcp.md** - Updated: 2026-10-31
+- **docs/channels/matrix/threads-and-sessions.md** - Updated: 2026-10-31
+- **docs/plugins/sdk-runtime/config-and-utilities.md** - Updated: 2026-10-31
+- **docs/cli/plugins/uninstall-and-update.md** - Updated: 2026-10-31
+- **docs/plugins/sdk-agent-harness/sessions-and-results.md** - Updated: 2026-10-31
+- **docs/gateway/cloud-workers/warm-images.md** - Updated: 2026-10-31
+- **docs/cli/triage.md** - Updated: 2026-10-31
+- **docs/plugins/codex-harness-runtime.md** - Updated: 2026-10-31
+- **docs/gateway/cloud-workers/troubleshooting.md** - Updated: 2026-10-31
+- **docs/gateway/sandboxing/podman-backend.md** - Updated: 2026-10-31
+- **docs/plugins/sdk-runtime/state-and-system.md** - Updated: 2026-10-31
+- **docs/plugins/reference/tokenjuice.md** - Updated: 2026-10-31
+- **docs/tools/tokenjuice.md** - Updated: 2026-10-31
+- **extensions/tokenjuice/README.md** - Updated: 2026-10-31
+- **scripts/perf/team-shape-stress.md** - Updated: 2026-10-31
+- **docs/automation/cron-jobs/how-it-works.md** - Updated: 2026-10-31
+- **extensions/visitor-access/README.md** - Updated: 2026-10-31
+- **docs/ci/runners.md** - Updated: 2026-10-30
+- **docs/plugins/sdk-entrypoints/tool-policy-and-sandbox.md** - Updated: 2026-10-31
+- **docs/install/docker.md** - Updated: 2026-10-31
+- **docs/web/webchat.md** - Updated: 2026-10-31
+- **docs/channels/tlon.md** - Updated: 2026-10-30
+- **docs/gateway/logging.md** - Updated: 2026-10-31
+- **docs/install/jetson.md** - Updated: 2026-10-31
+- **docs/channels/slack/transports.md** - Updated: 2026-10-31
+- **docs/gateway/protocol/rpc-session-control.md** - Updated: 2026-10-31
+- **docs/plugins/reference/google.md** - Updated: 2026-10-31
+- **docs/providers/google-vertex.md** - Updated: 2026-10-31
+- **docs/concepts/agent-workspace.md** - Updated: 2026-10-30
+- **docs/gateway/config-agents/workspace-and-bootstrap.md** - Updated: 2026-10-30
+- **docs/gateway/sandboxing/openshell-backend.md** - Updated: 2026-10-31
+- **.agents/skills/release-openclaw-maintainer/references/hotfix-ledger-management.md** - Updated: 2026-10-30
+- **.agents/skills/release-openclaw-maintainer/references/release-manager.md** - Updated: 2026-10-30
+- **docs/concepts/memory-architecture.md** - Updated: 2026-10-31
+- **docs/gateway/configuration-reference.md** - Updated: 2026-10-31
+- **docs/reference/memory-config.md** - Updated: 2026-10-31
+- **scripts/control-ui-retention/README.md** - Updated: 2026-10-30
+- **docs/cli/status.md** - Updated: 2026-10-31
+- **docs/plugins/sdk-agent-harness/user-input-and-execution.md** - Updated: 2026-10-30
+- **docs/tools/goal.md** - Updated: 2026-10-30
+- **docs/gateway/security/dependency-locking.md** - Updated: 2026-10-31
+- **docs/gateway/secrets/secret-store-and-egress.md** - Updated: 2026-10-30
+- **docs/gateway/audit.md** - Updated: 2026-10-30
+- **docs/channels/feishu.md** - Updated: 2026-10-30
+- **docs/platforms/mac/voice-overlay.md** - Updated: 2026-10-31
+- **docs/platforms/mac/voicewake.md** - Updated: 2026-10-31
+- **docs/gateway/protocol/presence.md** - Updated: 2026-10-30
+- **docs/nodes/pairing-and-status.md** - Updated: 2026-10-30
+- **docs/tools/diffs.md** - Updated: 2026-10-30
+- **docs/cli/cron.md** - Updated: 2026-10-30
+- **docs/cli/doctor/recovery.md** - Updated: 2026-10-31
+- **docs/ci/local-proof.md** - Updated: 2026-10-31
+- **docs/gateway/cloud-workers.md** - Updated: 2026-10-31
+- **docs/gateway/cloud-workers/verify-the-profile.md** - Updated: 2026-10-31
+- **docs/gateway/sandboxing/crabbox-backend.md** - Updated: 2026-10-31
+- **docs/reference/test/remote-proof.md** - Updated: 2026-10-31
+- **docs/cli/agent.md** - Updated: 2026-10-30
+- **docs/cli/memory.md** - Updated: 2026-10-30
+- **docs/concepts/memory-search.md** - Updated: 2026-10-30
+- **docs/gateway/doctor/state-and-sessions.md** - Updated: 2026-10-30
+- **docs/install/backups.md** - Updated: 2026-10-30
+- **docs/plugins/sdk-migration/compatibility-policy.md** - Updated: 2026-10-30
+- **docs/reference/database-schemas/layout.md** - Updated: 2026-10-30
+- **docs/reference/session-management-compaction/store.md** - Updated: 2026-10-30
+- **docs/web/control-ui/development.md** - Updated: 2026-10-30
+- **docs/concepts/session-search.md** - Updated: 2026-10-30
+- **docs/plugins/codex-harness/runtime-behavior.md** - Updated: 2026-10-30
+- **docs/reference/scripts/pr-preparation.md** - Updated: 2026-10-30
+- **docs/reference/scripts/pr-tooling.md** - Updated: 2026-10-30
+- **scripts/perf/long-lived-error-stacks-measure.md** - Updated: 2026-10-30
+- **docs/plugins/sdk-runtime/models.md** - Updated: 2026-10-30
+- **docs/providers/baseten.md** - Updated: 2026-10-30
+- **docs/cli/agents.md** - Updated: 2026-10-30
+- **docs/install/node.md** - Updated: 2026-10-30
+- **docs/gateway/configuration.md** - Updated: 2026-10-30
+- **apps/ios/README.md** - Updated: 2026-10-30
+- **docs/gateway/secrets/secretref-contract.md** - Updated: 2026-10-30
+- **docs/help/environment.md** - Updated: 2026-10-30
+- **docs/tools/exec-approvals-advanced.md** - Updated: 2026-10-30
+- **docs/channels/bot-loop-protection.md** - Updated: 2026-10-30
+- **src/plugins/AGENTS.md** - Updated: 2026-10-30
+- **docs/automation/cron-jobs/delivery.md** - Updated: 2026-10-30
+- **docs/plugins/codex-harness/troubleshooting.md** - Updated: 2026-10-30
+- **docs/plugins/reference/particle.md** - Updated: 2026-10-30
+- **docs/providers/index.md** - Updated: 2026-10-30
+- **docs/providers/models.md** - Updated: 2026-10-30
+- **docs/providers/particle.md** - Updated: 2026-10-30
+- **extensions/particle/README.md** - Updated: 2026-10-30
+- **ui/public/provider-icons/ATTRIBUTION.md** - Updated: 2026-10-30
+- **docs/help/testing/suites.md** - Updated: 2026-10-30
+- **docs/plugins/codex-harness-reference/auth.md** - Updated: 2026-10-30
+- **docs/help/testing-live/model-smoke.md** - Updated: 2026-10-30
+- **docs/concepts/queue.md** - Updated: 2026-10-29
+- **docs/providers/moonshot.md** - Updated: 2026-10-30
+- **extensions/kimi-coding/README.md** - Updated: 2026-10-30
+- **docs/automation/cron-jobs/schedules.md** - Updated: 2026-10-30
+- **docs/plugins/codex-native-plugins.md** - Updated: 2026-10-29
+- **docs/plugins/knowledge/control-ui.md** - Updated: 2026-10-29
+- **docs/plugins/knowledge/ingestion.md** - Updated: 2026-10-29
+- **docs/plugins/knowledge/retrieval.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-capture/references/conventions.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-capture/references/identity.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-capture/references/meeting-entity-example.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-capture/references/profiles.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-capture/references/publish.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-claim-consolidation/SKILL.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-claim-consolidation/references/conventions.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-claim-consolidation/references/identity.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-claim-consolidation/references/meeting-entity-example.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-claim-consolidation/references/profiles.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-claim-consolidation/references/publish.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-correct/SKILL.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-correct/references/conventions.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-correct/references/identity.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-correct/references/meeting-entity-example.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-correct/references/profiles.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-correct/references/publish.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-entities/SKILL.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-entities/references/conventions.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-entities/references/evidence-repair.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-entities/references/identity.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-entities/references/meeting-entity-example.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-entities/references/profiles.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-entities/references/publish.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-ingest/SKILL.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-ingest/references/conventions.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-ingest/references/identity.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-ingest/references/meeting-entity-example.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-ingest/references/profiles.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-ingest/references/publish.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-meeting-ingest/SKILL.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/conventions.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/identity.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/meeting-entity-example.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/profiles.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/publish.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-recall/SKILL.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-recall/references/conventions.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-recall/references/identity.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-recall/references/meeting-entity-example.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-recall/references/profiles.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-recall/references/publish.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-source-ingest/SKILL.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-source-ingest/references/conventions.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-source-ingest/references/identity.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-source-ingest/references/meeting-entity-example.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-source-ingest/references/profiles.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-source-ingest/references/publish.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/shared/conventions.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/shared/identity.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/shared/meeting-entity-example.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/shared/profiles.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/shared/publish.md** - Updated: 2026-10-29
+- **docs/plugins/building-plugins.md** - Updated: 2026-10-30
+- **extensions/diffs/README.md** - Updated: 2026-10-30
+- **docs/cli/doctor/running.md** - Updated: 2026-10-29
+- **docs/gateway/sandboxing/images-and-setup.md** - Updated: 2026-10-29
+- **docs/cli/onboard.md** - Updated: 2026-10-29
+- **docs/gateway/cloud-sessions.md** - Updated: 2026-10-30
+- **CHANGELOG/2026.10.9.md** - Updated: 2026-10-29
+- **docs/releases/2026.10.9.md** - Updated: 2026-10-29
+- **docs/releases/index.md** - Updated: 2026-10-29
+- **docs/gateway/index.md** - Updated: 2026-10-30
+- **extensions/lobster/README.md** - Updated: 2026-10-30
+- **docs/reference/scripts/github-transport.md** - Updated: 2026-10-30
+- **CHANGELOG.md** - Updated: 2026-10-29
+- **CHANGELOG/records/2026.10.9.md** - Updated: 2026-10-29
+- **extensions/matrix/CHANGELOG.md** - Updated: 2026-10-29
+- **docs/cli/templates.md** - Updated: 2026-10-29
+- **docs/help/testing-live/acp-and-codex.md** - Updated: 2026-10-29
+- **docs/plugins/knowledge/scribes.md** - Updated: 2026-10-29
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/source-acquisition.md** - Updated: 2026-10-29
+- **docs/help/debugging.md** - Updated: 2026-10-29
+- **docs/install/updating/rollback-and-recovery.md** - Updated: 2026-10-29
+- **docs/plugins/codex-harness-runtime/compaction.md** - Updated: 2026-10-29
+- **docs/providers/litellm.md** - Updated: 2026-10-29
+- **docs/cli/system.md** - Updated: 2026-10-29
+- **docs/install/update-troubleshooting.md** - Updated: 2026-10-29
+- **docs/ci/release-validation/full-release-validation.md** - Updated: 2026-10-28
+- **docs/reference/full-release-validation/dispatch.md** - Updated: 2026-10-28
+- **docs/cli/connect.md** - Updated: 2026-10-29
+- **docs/plugins/architecture-internals/provider-hooks.md** - Updated: 2026-10-29
+- **docs/plugins/sdk-provider-plugins/model-catalogs.md** - Updated: 2026-10-29
+- **docs/cli/policy/running-checks.md** - Updated: 2026-10-29
+- **.agents/skills/release-openclaw-maintainer/SKILL.md** - Updated: 2026-10-28
+- **.agents/skills/release-openclaw-maintainer/references/backport-discovery.md** - Updated: 2026-10-28
+- **docs/reference/full-release-validation/extended-stable.md** - Updated: 2026-10-28
+- **docs/reference/full-release-validation/profiles.md** - Updated: 2026-10-28
+- **docs/reference/full-release-validation/stages.md** - Updated: 2026-10-28
+- **docs/plugins/team-reports.md** - Updated: 2026-10-28
+- **docs/tools/subagents/operations.md** - Updated: 2026-10-29
+- **extensions/code-mode-quickjs/bench/README.md** - Updated: 2026-10-29
+- **AGENTS.md** - Updated: 2026-10-29
+- **extensions/AGENTS.md** - Updated: 2026-10-29
+- **src/agents/AGENTS.md** - Updated: 2026-10-29
+- **ui/AGENTS.md** - Updated: 2026-10-29
+- **.agents/skills/openclaw-testing/SKILL.md** - Updated: 2026-10-29
+- **docs/help/testing/writing-tests.md** - Updated: 2026-10-29
+- **docs/plugins/cli-backend-plugins.md** - Updated: 2026-10-28
+- **docs/reference/scripts/prior-ci.md** - Updated: 2026-10-29
+- **docs/reference/control-ui-warm-transcript-design.md** - Updated: 2026-10-28
+- **docs/tools/subagents/tool-reference.md** - Updated: 2026-10-29
+- **docs/gateway/external-apps.md** - Updated: 2026-10-28
+- **docs/ci/scope-and-routing/node-test-lanes.md** - Updated: 2026-10-28
+- **docs/concepts/context-engine.md** - Updated: 2026-10-28
+- **docs/gateway/clients.md** - Updated: 2026-10-28
+- **docs/gateway/cloud-workers/per-project-default-profiles.md** - Updated: 2026-10-28
+- **docs/gateway/cloud-workers/placement-and-machine-selection.md** - Updated: 2026-10-28
+- **docs/gateway/configuration/config-rpc.md** - Updated: 2026-10-28
+- **docs/gateway/doctor/checks.md** - Updated: 2026-10-28
+- **docs/gateway/protocol/rpc-talk-config-and-agents.md** - Updated: 2026-10-28
+- **docs/plugins/manifest/capabilities.md** - Updated: 2026-10-28
+- **docs/plugins/sdk-runtime/background-work.md** - Updated: 2026-10-28
+- **docs/plugins/tool-plugins.md** - Updated: 2026-10-28
+- **docs/start/why-openclaw/versioned-state-guarded-upgrades.md** - Updated: 2026-10-28
+- **docs/tools/code-mode/output.md** - Updated: 2026-10-28
+- **docs/tools/code-mode/quickstart.md** - Updated: 2026-10-28
+- **docs/tools/code-mode/tool-surface.md** - Updated: 2026-10-28
+- **docs/tools/code-mode/troubleshooting.md** - Updated: 2026-10-28
+- **scripts/perf/flaky-network-proof.md** - Updated: 2026-10-28
+- **docs/cli/docs.md** - Updated: 2026-10-29
+- **docs/gateway/cloud-workers/native-inference.md** - Updated: 2026-10-28
+- **docs/plugins/codex-harness/app-server.md** - Updated: 2026-10-28
+- **apps/android/VERSIONING.md** - Updated: 2026-10-28
+- **docs/gateway/doctor/running.md** - Updated: 2026-10-28
+- **docs/cli/plugins/authoring.md** - Updated: 2026-10-29
+- **docs/nodes/talk.md** - Updated: 2026-10-28
+- **docs/ci/scope-and-routing/manual-dispatches.md** - Updated: 2026-10-28
+- **docs/tools/tool-search.md** - Updated: 2026-10-29
+- **docs/tools/loop-detection.md** - Updated: 2026-10-28
+- **docs/gateway/cloud-workers/dispatching-a-session.md** - Updated: 2026-10-28
+- **docs/gateway/config-gateway.md** - Updated: 2026-10-28
+- **docs/providers/clawrouter.md** - Updated: 2026-10-28
+- **docs/cli/sandbox.md** - Updated: 2026-10-28
+- **docs/web/urls.md** - Updated: 2026-10-28
+- **docs/plugins/knowledge.md** - Updated: 2026-10-28
+- **docs/plugins/knowledge/memory-provider.md** - Updated: 2026-10-28
+- **docs/plugins/knowledge/stores-and-access.md** - Updated: 2026-10-28
+- **docs/gateway/config-agents/messages-and-talk.md** - Updated: 2026-10-28
+- **docs/gateway/security/presets.md** - Updated: 2026-10-28
+- **docs/tools/apply-patch.md** - Updated: 2026-10-28
+- **docs/tools/steer.md** - Updated: 2026-10-28
+- **docs/plugins/knowledge/tools.md** - Updated: 2026-10-28
+- **docs/gateway/config-tools/custom-providers.md** - Updated: 2026-10-28
+- **docs/cli/plugins/install.md** - Updated: 2026-10-28
+- **docs/concepts/experimental-features.md** - Updated: 2026-10-28
+- **docs/concepts/multi-agent.md** - Updated: 2026-10-28
+- **docs/gateway/protocol/rpc-system-and-channels.md** - Updated: 2026-10-28
+- **docs/reference/database-schemas/versioning.md** - Updated: 2026-10-28
+- **docs/releases/2026.10.1.md** - Updated: 2026-10-28
+- **docs/releases/2026.8.1/plugins-and-integrations.md** - Updated: 2026-10-28
+- **skills/create-template/SKILL.md** - Updated: 2026-10-28
+- **skills/create-template/references/draft-format.md** - Updated: 2026-10-28
+- **src/templates/fixtures/delegating-agent/CLAW.md** - Updated: 2026-10-28
+- **src/templates/fixtures/workspace/HEARTBEAT.md** - Updated: 2026-10-28
+- **src/templates/fixtures/workspace/SOUL.md** - Updated: 2026-10-28
+- **src/templates/fixtures/workspace/reference/policy.md** - Updated: 2026-10-28
+- **test/fixtures/templates/project-v1/BOOTSTRAP.md** - Updated: 2026-10-28
+- **test/fixtures/templates/project-v1/CLAW.md** - Updated: 2026-10-28
+- **test/fixtures/templates/project-v1/references/guide.md** - Updated: 2026-10-28
+- **docs/tools/web-fetch.md** - Updated: 2026-10-28
+- **docs/tools/swarm.md** - Updated: 2026-10-28
+- **docs/cli/completion.md** - Updated: 2026-10-28
+- **docs/ci/pipeline.md** - Updated: 2026-10-28
+- **docs/platforms/mac/signing.md** - Updated: 2026-10-28
+- **docs/cli/policy/attestation.md** - Updated: 2026-10-28
+- **docs/tools/browser/agent-tools.md** - Updated: 2026-10-28
+- **docs/cli/security.md** - Updated: 2026-10-28
+- **docs/gateway/security/audit-checks.md** - Updated: 2026-10-28
+- **docs/install/ansible.md** - Updated: 2026-10-28
+- **docs/install/bun-compatibility.md** - Updated: 2026-10-28
+- **docs/install/bun.md** - Updated: 2026-10-28
+- **docs/install/index.md** - Updated: 2026-10-28
+- **docs/platforms/chromeos.md** - Updated: 2026-10-28
+- **docs/platforms/mac/dev-setup.md** - Updated: 2026-10-28
+- **docs/start/getting-started.md** - Updated: 2026-10-28
+- **docs/cli/setup.md** - Updated: 2026-10-28
+- **docs/providers/fireworks.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-capture/SKILL.md** - Updated: 2026-10-28
+- **docs/plugins/knowledge/corrections.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-capture/references/publication.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-claim-consolidation/references/publication.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-correct/references/publication.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-entities/references/publication.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-ingest/references/publication.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/publication.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-source-ingest/references/publication.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/shared/publication.md** - Updated: 2026-10-28
+- **docs/diagnostics/flags.md** - Updated: 2026-10-28
+- **docs/concepts/typebox.md** - Updated: 2026-10-28
+- **docs/plugins/memory-lancedb.md** - Updated: 2026-10-27
+- **extensions/memory-lancedb/README.md** - Updated: 2026-10-27
+- **ui/src/lib/reactive/README.md** - Updated: 2026-10-28
+- **docs/cli/secrets.md** - Updated: 2026-10-28
+- **docs/channels/x.md** - Updated: 2026-10-28
+- **docs/plugins/feature-plugins.md** - Updated: 2026-10-28
+- **docs/plugins/manifest/surfaces.md** - Updated: 2026-10-28
+- **docs/plugins/sdk-overview.md** - Updated: 2026-10-28
+- **docs/install/standalone.md** - Updated: 2026-10-27
+- **docs/concepts/streaming.md** - Updated: 2026-10-28
+- **docs/tools/code-mode/maintainers.md** - Updated: 2026-10-28
+- **docs/plugins/knowledge/maintenance.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-claim-consolidation/references/assertions.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-claim-consolidation/references/recovery.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-claim-consolidation/references/setup.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-claim-consolidation/references/sources.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-claim-consolidation/references/verify.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-claim-consolidation/references/writing.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-unlinked-claims/SKILL.md** - Updated: 2026-10-28
+- **docs/cli/gateway/running.md** - Updated: 2026-10-27
+- **docs/help/faq-first-run/quick-start.md** - Updated: 2026-10-27
+- **docs/tools/subagents/nesting.md** - Updated: 2026-10-28
+- **scripts/perf/native-allocation-profile.md** - Updated: 2026-10-28
+- **docs/platforms/mac/webchat.md** - Updated: 2026-10-28
+- **docs/install/updating/update-methods.md** - Updated: 2026-10-28
+- **docs/plugins/google-meet/transports.md** - Updated: 2026-10-28
+- **docs/reference/session-management-compaction/housekeeping.md** - Updated: 2026-10-27
+- **docs/channels/mattermost.md** - Updated: 2026-10-28
+- **docs/channels/a2a.md** - Updated: 2026-10-28
+- **docs/plugins/sdk-runtime/channel.md** - Updated: 2026-10-28
+- **docs/web/notifications.md** - Updated: 2026-10-28
+- **docs/gateway/local-models.md** - Updated: 2026-10-27
+- **docs/channels/discord/threads-and-sessions.md** - Updated: 2026-10-28
+- **docs/channels/signal.md** - Updated: 2026-10-28
+- **docs/cli/mcp/registry.md** - Updated: 2026-10-28
+- **docs/gateway/config-agents/sandbox.md** - Updated: 2026-10-27
+- **docs/plugins/hooks/tool-policy.md** - Updated: 2026-10-27
+- **docs/providers/lmstudio.md** - Updated: 2026-10-27
+- **docs/tools/agent-send.md** - Updated: 2026-10-28
+- **docs/concepts/agent-loop.md** - Updated: 2026-10-28
+- **docs/channels/discord/troubleshooting.md** - Updated: 2026-10-27
+- **docs/gateway/team-server.md** - Updated: 2026-10-27
+- **docs/gateway/sandboxing.md** - Updated: 2026-10-27
+- **docs/tools/subagents/announce.md** - Updated: 2026-10-27
+- **CHANGELOG/2026.10.8.md** - Updated: 2026-10-27
+- **docs/releases/2026.10.8.md** - Updated: 2026-10-27
+- **CHANGELOG/2026.10.7.md** - Updated: 2026-10-27
+- **docs/releases/2026.10.7.md** - Updated: 2026-10-27
+- **CHANGELOG/records/2026.10.8.md** - Updated: 2026-10-27
+- **docs/concepts/subagent-yield-handoff.md** - Updated: 2026-10-28
+- **docs/gateway/protocol/rpc-bootstrap-and-events.md** - Updated: 2026-10-28
+- **apps/linux/README.md** - Updated: 2026-10-27
+- **docs/gateway/config-tools/provider-examples.md** - Updated: 2026-10-28
+- **scripts/perf/control-ui-data-pages.md** - Updated: 2026-10-27
+- **apps/android/README.md** - Updated: 2026-10-27
+- **docs/cli/node.md** - Updated: 2026-10-27
+- **docs/tools/code-mode/executors.md** - Updated: 2026-10-27
+- **packages/gateway-client/README.md** - Updated: 2026-10-27
+- **packages/mermaid-renderer/README.md** - Updated: 2026-10-28
+- **extensions/knowledge/skills/knowledge-ingest/references/scribe-setup.md** - Updated: 2026-10-27
+- **extensions/knowledge/skills/knowledge-unlinked-claims/references/scribe-setup.md** - Updated: 2026-10-27
+- **extensions/knowledge/skills/shared/scribe-setup.md** - Updated: 2026-10-27
+- **docs/reference/session-management-compaction/maintenance.md** - Updated: 2026-10-27
+- **docs/cli/hooks.md** - Updated: 2026-10-27
+- **docs/reference/session-start-measurement.md** - Updated: 2026-10-27
+- **docs/providers/llmman.md** - Updated: 2026-10-27
+- **docs/gateway/security/network-exposure.md** - Updated: 2026-10-27
+- **docs/auth-credential-semantics.md** - Updated: 2026-10-27
+- **docs/providers/openai/models.md** - Updated: 2026-10-27
+- **docs/tools/subagents/slash-command.md** - Updated: 2026-10-27
+- **docs/gateway/embedding.md** - Updated: 2026-10-27
+- **docs/plugins/session-share.md** - Updated: 2026-10-27
+- **docs/cli/audit.md** - Updated: 2026-10-27
+- **.agents/skills/openclaw-pr-maintainer/SKILL.md** - Updated: 2026-10-27
+- **CONTRIBUTING.md** - Updated: 2026-10-27
+- **docs/reference/pull-request-review-flow.md** - Updated: 2026-10-27
+- **docs/gateway/config-agents/entries-and-multi-agent.md** - Updated: 2026-10-27
+- **docs/plugins/muse.md** - Updated: 2026-10-27
+- **scripts/perf/heap-retention-runbook.md** - Updated: 2026-10-27
+- **docs/tools/code-mode.md** - Updated: 2026-10-27
+- **docs/plugins/reference/liquid-ai.md** - Updated: 2026-10-27
+- **docs/providers/liquid-ai.md** - Updated: 2026-10-27
+- **extensions/liquid-ai/README.md** - Updated: 2026-10-27
+- **docs/agent-runtime-architecture.md** - Updated: 2026-10-27
+- **scripts/perf/pr-restore-memory.md** - Updated: 2026-10-27
+- **.agents/skills/solid/references/overlays.md** - Updated: 2026-10-27
+- **packages/worker-runtime/README.md** - Updated: 2026-10-27
+- **docs/tools/acp-agents/controls.md** - Updated: 2026-10-27
+- **docs/tools/btw.md** - Updated: 2026-10-27
+- **.agents/skills/openclaw-ci-limits/SKILL.md** - Updated: 2026-10-26
+- **docs/tools/browser/lightweight.md** - Updated: 2026-10-27
+- **extensions/browser/skills/browser-automation/SKILL.md** - Updated: 2026-10-27
+- **extensions/browser/skills/browser-automation/references/page-triage.md** - Updated: 2026-10-27
+- **scripts/bench-control-ui-reactive-graph.md** - Updated: 2026-10-26
+- **skills/sherpa-onnx-tts/SKILL.md** - Updated: 2026-10-27
+- **docs/cli/browser.md** - Updated: 2026-10-27
+- **docs/tools/video-generation.md** - Updated: 2026-10-27
+- **docs/nodes/session-catalogs.md** - Updated: 2026-10-27
+- **docs/cli/qr.md** - Updated: 2026-10-27
+- **README.md** - Updated: 2026-10-26
+- **SECURITY.md** - Updated: 2026-10-26
+- **docs/concepts/mantis.md** - Updated: 2026-10-26
+- **docs/index.md** - Updated: 2026-10-26
+- **docs/reference/test/local.md** - Updated: 2026-10-26
+- **extensions/memory-wiki/README.md** - Updated: 2026-10-27
+- **docs/cli/mcp/control-ui.md** - Updated: 2026-10-26
+- **docs/cli/mcp/transports.md** - Updated: 2026-10-26
+- **extensions/ICON_SOURCES.md** - Updated: 2026-10-26
+- **docs/ci/scope-and-routing/job-budgets.md** - Updated: 2026-10-26
+- **.agents/skills/openclaw-changelog-update/SKILL.md** - Updated: 2026-10-26
+- **docs/plugins/typesafe.md** - Updated: 2026-10-26
+- **extensions/typesafe/README.md** - Updated: 2026-10-26
+- **docs/channels/clickclack.md** - Updated: 2026-10-27
+- **.agents/skills/release-openclaw-maintainer/references/extended-stable-backports.md** - Updated: 2026-10-26
+- **.agents/skills/release-openclaw-maintainer/references/release-handoff-template.md** - Updated: 2026-10-26
+- **.agents/skills/release-openclaw-maintainer/references/release-owner.md** - Updated: 2026-10-26
+- **docs/install/nix.md** - Updated: 2026-10-27
+- **docs/plugins/sdk-overview/memory-and-context.md** - Updated: 2026-10-26
+- **docs/gateway/protocol.md** - Updated: 2026-10-26
+- **scripts/perf/transcript-broadcast-run-retention.md** - Updated: 2026-10-26
+- **report-round2.md** - Updated: 2026-10-26
+- **docs/tools/plugin.md** - Updated: 2026-10-26
+- **scripts/perf/queued-input-retention.md** - Updated: 2026-10-26
+- **.agents/skills/release-openclaw-maintainer/references/platform-publication.md** - Updated: 2026-10-27
+- **docs/ci/release-validation/install-smoke-and-docker-e2e.md** - Updated: 2026-10-26
+- **docs/cli/daemon.md** - Updated: 2026-10-26
+- **docs/help/faq-first-run/providers-and-hosting.md** - Updated: 2026-10-26
+- **docs/platforms/index.md** - Updated: 2026-10-26
+- **docs/start/wizard-cli-reference.md** - Updated: 2026-10-26
+- **docs/nodes/troubleshooting.md** - Updated: 2026-10-27
+- **docs/providers/deepseek.md** - Updated: 2026-10-27
+- **docs/tools/web.md** - Updated: 2026-10-27
+- **extensions/deepseek/README.md** - Updated: 2026-10-27
+- **scripts/perf/agent-stream-update-measure.md** - Updated: 2026-10-26
+- **scripts/bench-control-ui-reconnect.md** - Updated: 2026-10-26
+- **docs/plugins/sdk-overview/cli-and-discovery.md** - Updated: 2026-10-27
+- **docs/plugins/sdk-provider-plugins/media-and-search.md** - Updated: 2026-10-26
+- **VISION.md** - Updated: 2026-10-27
+- **docs/gateway/config-observability.md** - Updated: 2026-10-27
+- **docs/plugins/codex-harness-runtime/replies.md** - Updated: 2026-10-27
+- **docs/plugins/sdk-migration.md** - Updated: 2026-10-26
+- **docs/refactor/conversation-transcript-ownership.md** - Updated: 2026-10-26
+- **.agents/skills/crabbox/SKILL.md** - Updated: 2026-10-26
+- **docs/nodes/talk/realtime-sessions.md** - Updated: 2026-10-26
+- **docs/cli/doctor/health-contract.md** - Updated: 2026-10-26
+- **scripts/AGENTS.md** - Updated: 2026-10-26
+- **docs/gateway/gateway-lock.md** - Updated: 2026-10-26
+- **scripts/perf/pairing-live-measure.md** - Updated: 2026-10-26
+- **scripts/perf/git-operation-allocation-measure.md** - Updated: 2026-10-25
+- **docs/plugins/architecture-internals/load-pipeline.md** - Updated: 2026-10-25
+- **docs/concepts/model-providers/custom-providers.md** - Updated: 2026-10-25
+- **docs/reference/test/lanes.md** - Updated: 2026-10-25
+- **scripts/perf/test-harness-cost.md** - Updated: 2026-10-25
+- **scripts/perf/postgres-conformance-harness.md** - Updated: 2026-10-25
+- **scripts/perf/plugin-state-memory.md** - Updated: 2026-10-25
+- **src/daemon/fixtures/legacy-ca/README.md** - Updated: 2026-10-25
+- **docs/plugins/dependency-resolution.md** - Updated: 2026-10-25
+- **docs/gateway/local-model-services.md** - Updated: 2026-10-25
+- **docs/cli/gateway/discovery.md** - Updated: 2026-10-26
+- **extensions/whatsapp/browser/i18n/README.md** - Updated: 2026-10-25
+- **docs/plugins/facetime-recovery.md** - Updated: 2026-10-25
+- **docs/plugins/facetime.md** - Updated: 2026-10-25
+- **extensions/facetime/docs/phase1-verification.md** - Updated: 2026-10-25
+- **scripts/perf/plugin-state-boot.md** - Updated: 2026-10-25
+- **.agents/skills/release-openclaw-maintainer/references/preparation.md** - Updated: 2026-10-25
+- **docs/plugins/codex-harness-runtime/queue-and-feedback.md** - Updated: 2026-10-25
+- **docs/cli/storage.md** - Updated: 2026-10-26
+- **extensions/diagnostics-prometheus/benchmarks/README.md** - Updated: 2026-10-25
+- **docs/concepts/memory-builtin.md** - Updated: 2026-10-25
+- **extensions/memory-core/browser/i18n/README.md** - Updated: 2026-10-25
+- **extensions/workboard/browser/i18n/README.md** - Updated: 2026-10-25
+- **docs/plugins/codex-harness/config-fields.md** - Updated: 2026-10-26
+- **scripts/perf/provider-rate-limit-retention.md** - Updated: 2026-10-25
+- **docs/reference/test/runner-internals.md** - Updated: 2026-10-25
+- **extensions/knowledge/README.md** - Updated: 2026-10-25
+- **docs/plugins/onnx.md** - Updated: 2026-10-25
+- **docs/tools/acp-agents-setup.md** - Updated: 2026-10-25
+- **docs/plugins/knowledge/evidence.md** - Updated: 2026-10-25
+- **docs/plugins/knowledge/records-and-ontology.md** - Updated: 2026-10-25
+- **docs/plugins/reference/knowledge.md** - Updated: 2026-10-25
+- **extensions/knowledge/THIRD_PARTY_NOTICES.md** - Updated: 2026-10-25
+- **extensions/knowledge/fixtures/sample-vault/README.md** - Updated: 2026-10-25
+- **extensions/knowledge/fixtures/sample-vault/RESOLVER.md** - Updated: 2026-10-25
+- **extensions/knowledge/fixtures/sample-vault/claims/pilot-decision.md** - Updated: 2026-10-25
+- **extensions/knowledge/fixtures/sample-vault/companies/harbor-collective.md** - Updated: 2026-10-25
+- **extensions/knowledge/fixtures/sample-vault/meetings/planning.md** - Updated: 2026-10-25
+- **extensions/knowledge/fixtures/sample-vault/people/alex-rivera.md** - Updated: 2026-10-25
+- **extensions/knowledge/fixtures/sample-vault/projects/community-garden.md** - Updated: 2026-10-25
+- **extensions/knowledge/fixtures/sample-vault/relationships/alex-leads-garden.md** - Updated: 2026-10-25
+- **extensions/knowledge/fixtures/sample-vault/relationships/harbor-supports-garden.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-automation/SKILL.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-capture/references/assertions.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-capture/references/recovery.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-capture/references/setup.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-capture/references/sources.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-capture/references/verify.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-capture/references/writing.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-correct/references/assertions.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-correct/references/recovery.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-correct/references/setup.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-correct/references/sources.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-correct/references/verify.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-correct/references/writing.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-entities/references/assertions.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-entities/references/enrichment.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-entities/references/recovery.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-entities/references/setup.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-entities/references/sources.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-entities/references/verify.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-entities/references/writing.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-ingest/references/assertions.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-ingest/references/recovery.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-ingest/references/setup.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-ingest/references/sources.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-ingest/references/verify.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-ingest/references/writing.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/assertions.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/meeting-page.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/recovery.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/setup.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/sources.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/speakers.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/verify.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/writing.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-recall/references/assertions.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-recall/references/recovery.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-recall/references/setup.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-recall/references/sources.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-recall/references/verify.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-recall/references/writing.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-source-ingest/references/assertions.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-source-ingest/references/recovery.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-source-ingest/references/setup.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-source-ingest/references/source-manifest.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-source-ingest/references/sources.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-source-ingest/references/verify.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-source-ingest/references/writing.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-unlinked-claims/references/assertions.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-unlinked-claims/references/conventions.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-unlinked-claims/references/identity.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-unlinked-claims/references/meeting-entity-example.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-unlinked-claims/references/profiles.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-unlinked-claims/references/publication.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-unlinked-claims/references/publish.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-unlinked-claims/references/recovery.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-unlinked-claims/references/setup.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-unlinked-claims/references/sources.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-unlinked-claims/references/verify.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/knowledge-unlinked-claims/references/writing.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/shared/assertions.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/shared/recovery.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/shared/setup.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/shared/sources.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/shared/verify.md** - Updated: 2026-10-25
+- **extensions/knowledge/skills/shared/writing.md** - Updated: 2026-10-25
+- **extensions/knowledge/test-fixtures/invalid-vault/notes/bad-typed.md** - Updated: 2026-10-25
+- **extensions/knowledge/test-fixtures/invalid-vault/notes/broken-reference.md** - Updated: 2026-10-25
+- **extensions/knowledge/test-fixtures/invalid-vault/notes/duplicate-a.md** - Updated: 2026-10-25
+- **extensions/knowledge/test-fixtures/invalid-vault/notes/duplicate-b.md** - Updated: 2026-10-25
+- **extensions/knowledge/test-fixtures/invalid-vault/notes/malformed.md** - Updated: 2026-10-25
+- **docs/gateway/protocol/rpc-devices-nodes-and-approvals.md** - Updated: 2026-10-25
+- **docs/install/kubernetes.md** - Updated: 2026-10-25
+- **scripts/perf/pg-footprint.md** - Updated: 2026-10-25
+- **scripts/perf/pairing-allowlist-attribution.md** - Updated: 2026-10-25
+- **scripts/perf/session-maintenance-handoff.md** - Updated: 2026-10-25
+- **scripts/perf/session-participant-capacity.md** - Updated: 2026-10-25
+- **scripts/perf/reef-boot.md** - Updated: 2026-10-25
+- **scripts/perf/cron-sql-attribution.md** - Updated: 2026-10-25
+- **docs/plugins/sdk-agent-harness/registration.md** - Updated: 2026-10-25
+- **docs/tools/llm-task.md** - Updated: 2026-10-25
+- **extensions/llm-task/README.md** - Updated: 2026-10-25
+- **scripts/perf/single-statement-snapshots.md** - Updated: 2026-10-25
+- **docs/providers/inworld.md** - Updated: 2026-10-25
+- **docs/tools/tts.md** - Updated: 2026-10-25
+- **docs/tools/tts/field-reference.md** - Updated: 2026-10-25
+- **docs/gateway/opentelemetry/privacy-and-trace-context.md** - Updated: 2026-10-25
+- **docs/gateway/opentelemetry/spans-and-events.md** - Updated: 2026-10-25
+- **docs/channels/nextcloud-talk.md** - Updated: 2026-10-25
+- **scripts/perf/node-worker-journal-measure.md** - Updated: 2026-10-25
+- **docs/cli/nodes.md** - Updated: 2026-10-25
+- **docs/cli/health.md** - Updated: 2026-10-24
+- **scripts/perf/memory-publication.md** - Updated: 2026-10-24
+- **docs/plugins/codex-harness/native-features.md** - Updated: 2026-10-24
+- **docs/install/migrating-claude.md** - Updated: 2026-10-25
+- **docs/nodes/audio.md** - Updated: 2026-10-25
+- **docs/cli/plugins/list.md** - Updated: 2026-10-25
+- **docs/channels/feishu/advanced-configuration.md** - Updated: 2026-10-24
+- **docs/install/migrating-hermes.md** - Updated: 2026-10-25
+- **docs/plugins/reference/amazon-bedrock-mantle.md** - Updated: 2026-10-24
+- **docs/providers/bedrock-mantle.md** - Updated: 2026-10-24
+- **scripts/perf/crabbox-state-polling.md** - Updated: 2026-10-24
+- **scripts/perf/plugin-state-live-reads.md** - Updated: 2026-10-24
+- **docs/plugins/codex-harness/configuration.md** - Updated: 2026-10-25
+- **docs/providers/liquid-inference.md** - Updated: 2026-10-25
+- **docs/channels/googlechat.md** - Updated: 2026-10-24
+- **scripts/perf/bootlive.md** - Updated: 2026-10-24
+- **docs/cli/channels.md** - Updated: 2026-10-24
+- **scripts/perf/livetail.md** - Updated: 2026-10-24
+- **docs/channels/groups.md** - Updated: 2026-10-25
+- **scripts/perf/config-watcher-recovery.md** - Updated: 2026-10-24
+- **scripts/perf/cold-turn-attribution.md** - Updated: 2026-10-24
+- **docs/nodes/camera.md** - Updated: 2026-10-25
+- **docs/nodes/device-commands.md** - Updated: 2026-10-25
+- **docs/start/onboarding.md** - Updated: 2026-10-24
+- **docs/cli/claws.md** - Updated: 2026-10-25
+- **docs/install/standalone-aot-actions.md** - Updated: 2026-10-24
+- **docs/plugins/codex-computer-use.md** - Updated: 2026-10-25
+- **scripts/perf/idle-connected-attribution.md** - Updated: 2026-10-24
+- **scripts/perf/session-readiness.md** - Updated: 2026-10-24
+- **scripts/perf/model-prompt-stats-measure.md** - Updated: 2026-10-24
+- **scripts/perf/health-cron.md** - Updated: 2026-10-24
+- **docs/plugins/sdk-runtime/gateway-and-nodes.md** - Updated: 2026-10-25
+- **docs/tools/subagents/tool-policy.md** - Updated: 2026-10-24
+- **scripts/perf/workboard-card-write.md** - Updated: 2026-10-24
+- **scripts/perf/sql-probe.md** - Updated: 2026-10-24
+- **docs/cli/dns.md** - Updated: 2026-10-25
+- **scripts/perf/background-readers.md** - Updated: 2026-10-24
+- **scripts/perf/cold-session-preparation.md** - Updated: 2026-10-24
+- **scripts/perf/plugin-metadata-lease.md** - Updated: 2026-10-24
+- **docs/channels/feishu/access-control.md** - Updated: 2026-10-24
+- **docs/channels/telegram/messaging.md** - Updated: 2026-10-24
+- **scripts/perf/workboard-placement.md** - Updated: 2026-10-24
+- **docs/nodes/images.md** - Updated: 2026-10-24
+- **docs/reference/transcript-hygiene.md** - Updated: 2026-10-24
+- **docs/tools/lobster.md** - Updated: 2026-10-24
+- **patches/README.md** - Updated: 2026-10-24
+- **docs/plugins/sdk-channel-plugins/approvals.md** - Updated: 2026-10-24
+- **scripts/perf/plugin-state-bookkeeping.md** - Updated: 2026-10-24
+- **scripts/perf/memory-source-header-batching.md** - Updated: 2026-10-24
+- **scripts/perf/single-read-snapshots.md** - Updated: 2026-10-24
+- **scripts/perf/plugin-state-polling.md** - Updated: 2026-10-24
+- **docs/concepts/runtime-profiles.md** - Updated: 2026-10-24
+- **scripts/perf/ingress-polling.md** - Updated: 2026-10-24
+- **docs/gateway/security/tool-permissions.md** - Updated: 2026-10-24
+- **docs/providers/runway.md** - Updated: 2026-10-24
+- **docs/tools/subagents.md** - Updated: 2026-10-25
+- **extensions/zalouser/README.md** - Updated: 2026-10-24
+- **docs/plugins/google-meet/troubleshooting.md** - Updated: 2026-10-24

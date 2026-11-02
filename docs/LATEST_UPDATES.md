@@ -6,6 +6,16 @@ English | **[中文](LATEST_UPDATES.zh-CN.md)**
 
 ---
 
+
+## 2026-11
+
+_Updated on 2026-11-02_
+
+**Key Findings:**
+\n- **openclaw**: Found significant changes (check report for details)\n- **nanobot**: Found significant changes (check report for details)\n- **zeroclaw**: Found significant changes (check report for details)
+
+---
+
 ## Cross-Cutting Themes
 
 April-May 2026 revealed four defining trends shaping the ecosystem:
