@@ -1,11 +1,11 @@
-# AllClaws 项目状态 — 2026-10-18
+# AllClaws 项目状态 — 2026-11-05（补完 10-18 周报）
 
 ## 总览
 - 仓库: dz3ai/allclaws (GitHub)
 - 平台数: **34** (11 Claw + 17 External + 5 CLI + 1 Digital Twin)
-- 最近提交: `087e365` — report: exclude codex from this grid (per decision; protocol-incompatible)
+- 最近提交: `774e2da` — post: fold in Oct 18 evening retry — ZeroClaw/OpenHuman/Reasonix highlights, 3 holdouts roll to next week
 - 分支: main
-- 本周动作: **三轮重试后 23/29 子模块完成同步** (15 个指针前进, 共吸收 ~4,400 个上游提交), 6 个大仓库因链路限速 (~20KiB/s) 无法在 15 分钟 fetch 预算内完成
+- 本周动作: **三轮重试后 23/29 子模块完成同步** (15 个指针前进, 共吸收 ~4,400 个上游提交); 6 个受阻仓库的周报已全部补齐 (3 个远端历史 + 3 个 GitHub API 元数据), 但指针未前进
 
 ## 本周活动 (2026-10-12 → 10-18, 周日) — 子模块同步 + 周报
 **子模块指针更新 (15/29, 共 ~4,400 个上游提交):**
@@ -29,7 +29,7 @@
 
 **已 fetch 但无新提交 (8):** ironclaw, maxclaw, kimi-cli, aider, clawteam, claw-ai-lab, metagpt, qwen-agent — 保持原指针。
 
-**同步受阻 (6/29, 三轮重试未果):** openclaw, eliza, hermes-agent, zeroclaw, reasonix, openhuman — 增量过大 (codex 单仓 1152 提交在 15 分钟内可完成, 但此 6 仓库 pack 更大), 指针保持在 10-06 快照。下周单独长超时重试。
+**同步受阻 (6/29, 三轮重试未果):** openclaw, eliza, hermes-agent, zeroclaw, reasonix, openhuman — 增量过大 (codex 单仓 1152 提交在 15 分钟内可完成, 但此 6 仓库 pack 更大), 指针保持在 9 月快照。**后续:** 6 个仓库的 10-12→10-18 周报已全部补齐; 其中 zeroclaw/reasonix/openhuman 走远端历史, openclaw/eliza/hermes-agent 走 GitHub commits/releases/tags API。指针同步仍需高带宽窗口。
 
 **本周新发布 (10-11 → 10-18, 已同步仓库):** agentscope v2.0.10, agent-zero v2.14, browser-use 0.13.12/0.13.13, copilot-cli 1.0.99/1.0.100, hiclaw v1.2.5, goclaw beta.229, praisonai v4.7.13-15, rocketride server 3.5.0/clients 1.5.0 — 共 12+ 个 tag/发布。
 
@@ -44,6 +44,7 @@
 ## 已完成 (本周新增)
 30. ✅ **15 子模块指针同步** — 第一轮 9 个 + 重试轮 6 个 (codex/praisonai/dify/nanobot/kimi-code/rocketride) (10-18)
 31. ✅ **本周亮点周报** — `_posts/2026-10-18-weekly-highlights-oct-week3.md` (10-18)
+32. ✅ **补完 3 个滞留仓库的周报** — openclaw/eliza/hermes-agent 经 GitHub commits/releases/tags API 采集 (5,890 / 2,769 / 3,189 提交; 11-05), 已合并进周报; 指针未移动
 
 ## ROADMAP 进度 (H2 2026)
 **10/12 完成** — Q4 剩余 3 项:
@@ -52,7 +53,7 @@
 - 🟡 Q4-6 Platform Governance Thresholds — 未启动
 
 ## 进行中 / 待完成
-1. 🟡 **6 个子模块同步推迟** — openclaw, eliza, hermes-agent, zeroclaw, reasonix, openhuman; 增量过大 + 链路限速, 指针停在 10-06; 下周单独长超时重试
+1. 🟡 **6 个子模块指针未同步** — 周报已全部补齐 (见已完成 #32); 指针仍停在 9 月快照。本轮完整 fetch 四小时仅到 17 MiB 即超时, `--filter=tree:0` fetch 194 秒后被重置, eliza/hermes 直接连接失败; 待高带宽窗口重试。
 2. 🟡 Q4-4/5/6 — 见 ROADMAP
 3. 🟢 工作区干净 (本次同步提交后)
 4. 🟢 CI 未在本轮查询 (上次 08-01 全绿)
