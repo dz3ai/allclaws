@@ -7,9 +7,15 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TASK="$HERE"
 cd "$TASK/fixture"
 
-# drop stale bytecode caches before diffing (never part of the fixture)
+# drop stale bytecode caches before diffing (never part of the fixture).
+# Remove from the INDEX one path at a time (git rm aborts ALL paths if one
+# is missing — e.g. .pytest_cache is untracked here; verified 2026-11-13:
+# the old single-command form silently left tracked pyc deletions in the
+# patch, which then failed to apply on the scratch copy).
 rm -rf taskboard/__pycache__ tests/__pycache__ .pytest_cache acceptance_run
-git rm -r -q --cached taskboard/__pycache__ tests/__pycache__ .pytest_cache 2>/dev/null || true
+for p in taskboard/__pycache__ tests/__pycache__ .pytest_cache; do
+  git rm -r -q --cached "$p" 2>/dev/null || true
+done
 
 git diff > "$TASK/acceptance/reference_fix.patch"
 echo "patch: $(wc -l < "$TASK/acceptance/reference_fix.patch") lines"
