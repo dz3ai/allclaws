@@ -34,6 +34,17 @@ def load_runs(run_dir: Path) -> list[dict[str, Any]]:
     return runs
 
 
+def _scored(run: dict[str, Any]) -> bool:
+    """Acceptance verdict. The runner writes it at extra.score.passed;
+    a top-level score.passed is honored as a fallback for older layouts."""
+    for holder in (run.get("extra"), run):
+        if type(holder) is dict:
+            score = holder.get("score")
+            if type(score) is dict and score.get("passed") is True:
+                return True
+    return False
+
+
 def summarize(runs: list[dict[str, Any]]) -> dict[str, Any]:
     """Grid-level aggregates: per-platform pass rates, tokens, cost, time."""
     by_platform: dict[str, list[dict]] = {}
@@ -43,7 +54,7 @@ def summarize(runs: list[dict[str, Any]]) -> dict[str, Any]:
     platform_stats = {}
     for platform, prows in sorted(by_platform.items()):
         n = len(prows)
-        passed = sum(1 for r in prows if r.get("score", {}).get("passed"))
+        passed = sum(1 for r in prows if _scored(r))
         tin = [r.get("tokens_in") or 0 for r in prows]
         tout = [r.get("tokens_out") or 0 for r in prows]
         wall = [r.get("wall_seconds") or 0 for r in prows]
@@ -139,7 +150,7 @@ def render_markdown(summary: dict[str, Any], runs: list[dict[str, Any]]) -> str:
               "| platform | task | status | scored | wall s | tokens in/out | notes |",
               "|---|---|---|---|---|---|---|"]
     for r in runs:
-        scored = "PASS" if r.get("score", {}).get("passed") else "FAIL"
+        scored = "PASS" if _scored(r) else "FAIL"
         notes = (r.get("notes") or "").replace("|", "/")[:60]
         lines.append(
             f"| {r.get('platform')} | {r.get('task_id')} | {r.get('status')} | "

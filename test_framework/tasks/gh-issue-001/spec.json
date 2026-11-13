@@ -16,5 +16,5 @@
     "pass_criteria": "exit 0"
   },
   "cost_cap_usd": 2.0,
-  "notes": "S1 bug fix from issue text. Hidden tests: 404 contract, case-insensitive search, regression on list/create endpoints."
+  "notes": "S1 bug fix from issue text. Hidden tests: 404 contract, case-insensitive search, regression on list/create endpoints. CLOSED 2026-11-13: reference patch re-verified byte-identical; opencode reference runs 2/2 PASS (85s/94s, 2 files each, no drift)."
 }

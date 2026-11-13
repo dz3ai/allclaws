@@ -12,5 +12,5 @@
     "pass_criteria": "exit 0"
   },
   "cost_cap_usd": 3.0,
-  "notes": "S2 multi-file refactor. Structural checks: invcalc/engine.py exists and is used by core; percentage-round formula appears at most once across the package; models.py uses dataclass/NamedTuple with to_dict(); public API signatures unchanged; existing behavior preserved."
+  "notes": "S2 multi-file refactor. Structural checks: invcalc/engine.py exists and is used by core; percentage-round formula appears at most once across the package; models.py uses dataclass/NamedTuple with to_dict(); public API signatures unchanged; existing behavior preserved. CLOSED 2026-11-13: reference patch re-verified byte-identical; opencode reference runs 2/2 PASS (505s/223s, 3-4 files, no drift)."
 }

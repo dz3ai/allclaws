@@ -19,5 +19,5 @@
     "pass_criteria": "exit 0"
   },
   "cost_cap_usd": 2.0,
-  "notes": "S4 fatigue instrument: 5 independent same-difficulty bugs solved in one continuous session; per-window (per-issue) scoring feeds the fatigue engine via acceptance/check_windows.py, which prints the one-line {\"windows\": [{\"window\": N, \"solved\": bool}]} contract."
+  "notes": "S4 fatigue instrument: 5 independent same-difficulty bugs solved in one continuous session; per-window (per-issue) scoring feeds the fatigue engine via acceptance/check_windows.py, which prints the one-line {\"windows\": [{\"window\": N, \"solved\": bool}]} contract. CLOSED 2026-11-13: reference patch re-verified byte-identical; opencode reference runs 2/2 PASS, 5/5 windows solved both repeats (102s/124s, no drift), fatigue_flagged=false."
 }
