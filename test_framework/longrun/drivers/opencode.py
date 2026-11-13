@@ -5,11 +5,15 @@ participates in the long-run benchmark as an UNTRACKED REFERENCE POINT and is
 EXCLUDED FROM RANKINGS ("opencode reference bias — labeled untracked,
 excluded from rankings"). collect() notes carry that label on every result.
 
-Invocation evidence from the installed CLI (opencode 1.18.34 at
-~/.opencode/bin/opencode; `opencode run --help` captured 2026-10-06):
-- Usage: `opencode run [message..]` — the prompt is the POSITIONAL `message`
-  array ("message to send"); there is no dedicated prompt flag.
-- `-m, --model` — "model to use in the format of provider/model".
+Invocation evidence from the installed CLI (opencode 2.2.7 at
+/home/linuxbrew/.linuxbrew/bin/opencode; `opencode --help` / `run --help`
+captured 2026-11-13):
+- Usage: `opencode <subcommand> [flags] [<directory>]` — the DIRECTORY
+  positional pins the session root; `run <dir> --auto ... -- <msg>` verified
+  live to root the session at <dir> even when the invoking process's cwd is
+  elsewhere (the client otherwise resolves the root from the INVOKING
+  process context — a Popen cwd override is NOT enough).
+- `-m, --model` — "model to use in the format provider/model".
 - `--auto` — "auto-approve permissions that are not explicitly denied
   (dangerous!)" [boolean, default false] — the only documented approve flag;
   required so the agent can edit fixture files unattended.
@@ -103,7 +107,16 @@ class OpencodeDriver(DriverBase):
         assert self._binary_path is not None, "prepare() not called"
         argv = [
             self._binary_path,
-            "run",        # one-shot subcommand (`opencode run [message..]`)
+            "run",          # one-shot subcommand (`opencode run [message..]`)
+            str(worktree),  # DIRECTORY positional (`opencode <subcommand>
+            # [flags] [<directory>]`) — pins the session root to the worktree.
+            # Without it the client resolves the root from the INVOKING
+            # process context, not the child's cwd (verified 2026-11-13:
+            # runs launched with cwd=<scratch worktree> rooted at the
+            # benchmark repo instead — the agent read hidden acceptance
+            # materials and patched the pristine parent fixture).
+            "--standalone",  # private server per run: no cross-run state via
+            # the shared background service
             "--auto",     # auto-approve permissions (run --help); unattended writes
         ]
         model = os.environ.get("LONGRUN_MODEL")
