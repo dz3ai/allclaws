@@ -12,5 +12,5 @@
     "pass_criteria": "exit 0"
   },
   "cost_cap_usd": 2.0,
-  "notes": "S5 legacy-migrate: vendored oldorm 0.x -> neworm 2.x breaking-change upgrade (plan's pydantic v1->v2 example adapted to be network-free). Hidden acceptance = behavior mirror + AST deprecated-surface scanner over inventory/ (oldorm imports, .query/.validate/.dict/.save calls, class Meta, old (instance, old) callbacks). Reference fix rewrites all 6 inventory modules; fixture tests unchanged."
+  "notes": "S5 legacy-migrate: vendored oldorm 0.x -> neworm 2.x breaking-change upgrade (plan's pydantic v1->v2 example adapted to be network-free). Hidden acceptance = behavior mirror + AST deprecated-surface scanner over inventory/ (oldorm imports, .query/.validate/.dict/.save calls, class Meta, old (instance, old) callbacks). Reference fix rewrites all 6 inventory modules; fixture tests unchanged. CLOSED 2026-11-13: reference patch re-verified byte-identical (hidden acceptance 18/18 incl. scanner); opencode reference runs 3/3 PASS incl. smoke (97s/80s/101s, 6 files each, no drift)."
 }

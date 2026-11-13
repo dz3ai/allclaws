@@ -12,5 +12,5 @@
     "pass_criteria": "exit 0"
   },
   "cost_cap_usd": 3.0,
-  "notes": "S3 CRUD feature implementation. Hidden tests exercise the comments API over live HTTP (ephemeral port) + Python API + validation + 404/400 + regression on existing endpoints."
+  "notes": "S3 CRUD feature implementation. Hidden tests exercise the comments API over live HTTP (ephemeral port) + Python API + validation + 404/400 + regression on existing endpoints. CLOSED 2026-11-13: capture_fix cache-untracking fixed (one path at a time); reference patch re-verified byte-identical with hidden acceptance 15/15 executing on patched scratch; opencode reference runs 3/3 PASS incl. smoke (212s/202s/208s, 3-4 files, no drift)."
 }
