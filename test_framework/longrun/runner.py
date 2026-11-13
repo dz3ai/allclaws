@@ -18,6 +18,7 @@ import shutil
 import signal
 import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -154,7 +155,18 @@ def run_one(
     """
     run_dir = results_root / driver.name / spec.id / f"rep{repeat}"
     run_dir.mkdir(parents=True, exist_ok=True)
-    scratch_root = scratch_root or (results_root / "_scratch")
+    # Scratch isolation: worktrees must live OUTSIDE the benchmark repo by
+    # default (hidden acceptance materials are one `cd ..` away otherwise —
+    # verified 2026-11-13: an opencode agent escaped its worktree, read the
+    # reference patch, and patched the pristine parent fixture). The
+    # LONGRUN_SCRATCH_ROOT env var overrides for debugging in-repo runs.
+    scratch_root = (
+        scratch_root
+        or (Path(os.environ["LONGRUN_SCRATCH_ROOT"]).resolve()
+            if os.environ.get("LONGRUN_SCRATCH_ROOT")
+            else None)
+        or (Path(tempfile.gettempdir()) / "longrun-scratch")
+    )
     worktree = None
     proc_spec = None
     result = None

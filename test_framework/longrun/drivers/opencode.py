@@ -28,6 +28,14 @@ Invocation evidence from the installed CLI (opencode 1.18.34 at
 Model mapping: env LONGRUN_MODEL only (never hardcoded) -> `--model
 provider/model` per the --help format above. Credentials are already
 configured on this host (opencode auth list); the driver never touches them.
+
+Host-default caveat (verified 2026-11-13, opencode 2.2.7): with LONGRUN_MODEL
+unset, `opencode run` falls back to the host default (moa-orchestrator /
+qwen36-35b-mtp) whose endpoint refuses connections — every run dies after 11
+ECONNREFUSED retries with 0 files touched (status=fail, ~85s wall). Pin the
+model explicitly for benchmark grids, e.g.
+LONGRUN_MODEL=zhipuai-coding-plan/glm-5.3 (verified live: responds via the
+moa-orchestrator agent layer).
 """
 
 from __future__ import annotations
