@@ -2,7 +2,9 @@
 # Full-grid DRY-RUN: validates spec loading, driver wiring, ProcSpec build,
 # worktree copying, result writing — for all 3 drivers x 3 tasks. NO API calls.
 set -eu
-cd /home/dannyz/src/github/allclaws/test_framework
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+FRAMEWORK_DIR="$(dirname "$HERE")"
+cd "$FRAMEWORK_DIR"
 rm -rf benchmark_results/longrun/*T*   # drop earlier dry-run dirs
 /usr/bin/python3 -m longrun.cli run \
   --drivers aider,codex,kimi_cli \

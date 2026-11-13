@@ -6,6 +6,10 @@
   "timeout_minutes": 20,
   "max_turns": 150,
   "difficulty": "easy",
+  "existing_suite_allow_red": [
+    "test_app.py::TestUsers::test_get_missing_user_returns_404",
+    "test_app.py::TestItems::test_search_is_case_insensitive"
+  ],
   "acceptance": {
     "method": "pytest",
     "command": "/usr/bin/python3 -m pytest acceptance/tests/ -q",

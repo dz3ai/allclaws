@@ -30,9 +30,13 @@ find "$FIXTURE" -name '__pycache__' -type d -prune -exec rm -rf {} + 2>/dev/null
 find "$FIXTURE" -name '.pytest_cache' -type d -prune -exec rm -rf {} + 2>/dev/null || true
 
 # --- 2. existing suite: PASS, or PASS-except-documented-bug-tests -------
-# ALLOW_RED: space-separated test names expected to fail on the pristine
-# fixture (bug-fix scenarios ship with failing tests documenting the bug).
+# Expected-red tests come from spec.json "existing_suite_allow_red" (list of
+# node ids, e.g. "test_app.py::TestUsers::test_x"); the ALLOW_RED env var
+# (space-separated test names) is a legacy fallback.
 ALLOW_RED="${ALLOW_RED:-}"
+if [ -z "$ALLOW_RED" ] && [ -f "$TASK_DIR/spec.json" ]; then
+  ALLOW_RED=$(jq -r '(.existing_suite_allow_red // []) | join(" ")' "$TASK_DIR/spec.json" 2>/dev/null || true)
+fi
 cd "$FIXTURE"
 if /usr/bin/python3 -m pytest tests/ -q > "$TASK_DIR/.verify_existing.log" 2>&1; then
   echo "existing suite: PASS ($(tail -1 "$TASK_DIR/.verify_existing.log"))"
@@ -53,7 +57,15 @@ cp -r "$ACCEPTANCE/tests" acceptance_run/
 if /usr/bin/python3 -m pytest acceptance_run/tests -q > "$TASK_DIR/.verify_acceptance.log" 2>&1; then
   fail "acceptance PASSED on pristine fixture — it must fail there (discriminates fixed vs unfixed)"
 else
-  echo "acceptance vs pristine: FAIL as expected ($(grep -c '^FAILED' "$TASK_DIR/.verify_acceptance.log" 2>/dev/null || echo ?) failing checks)"
+  # Count assertion failures AND collection errors (an ImportError during
+  # collection reports as ERROR, not FAILED — both mean "red on pristine").
+  red=$(grep -cE '^(FAILED|ERROR)' "$TASK_DIR/.verify_acceptance.log" 2>/dev/null || true)
+  echo "acceptance vs pristine: FAIL as expected (${red:-?} failing checks)"
 fi
+
+# --- 4. restore pristine: never leave hidden tests inside the fixture ----
+# The runner copies this fixture into agent worktrees; a leftover
+# acceptance_run/ would leak the hidden suite to the agent.
+rm -rf "$FIXTURE/acceptance_run"
 
 echo "VERIFY_OK: $TASK_DIR"

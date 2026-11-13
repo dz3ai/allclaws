@@ -3,7 +3,8 @@
 #   complete patch -> self-verify on scratch copy (acceptance PASS + existing
 #   suite PASS) -> restore pristine fixture.
 set -eu
-TASK=/home/dannyz/src/github/allclaws/test_framework/tasks/gh-issue-001
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TASK="$HERE"
 cd "$TASK/fixture"
 
 # drop stale bytecode caches before diffing (never part of the fixture).

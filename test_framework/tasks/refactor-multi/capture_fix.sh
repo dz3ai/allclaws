@@ -6,7 +6,8 @@
 #        apply patch -> acceptance PASS + existing suite PASS
 #   4. restore the fixture to pristine state
 set -eu
-TASK=/home/dannyz/src/github/allclaws/test_framework/tasks/refactor-multi
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TASK="$HERE"
 cd "$TASK"
 
 mkdir -p acceptance/reference

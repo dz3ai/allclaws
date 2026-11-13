@@ -6,6 +6,13 @@
   "timeout_minutes": 60,
   "max_turns": 200,
   "difficulty": "medium",
+  "existing_suite_allow_red": [
+    "test_issue_001.py::test_percentile_interpolates_between_ranks",
+    "test_issue_002.py::test_default_window_is_five",
+    "test_issue_003.py::test_summarize_empty_raises_value_error",
+    "test_issue_004.py::test_counter_keys_are_case_insensitive",
+    "test_issue_005.py::test_timer_immune_to_wall_clock_steps"
+  ],
   "acceptance": {
     "method": "pytest",
     "command": "/usr/bin/python3 -m pytest acceptance/tests/ -q",
