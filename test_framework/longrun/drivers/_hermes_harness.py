@@ -35,6 +35,7 @@ main's own default of 10 (run_agent.py:1491) is far below long-run budgets.
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
@@ -80,6 +81,13 @@ def main() -> int:
         kwargs["model"] = args.model
     if args.max_turns is not None:
         kwargs["max_turns"] = args.max_turns
+    # Local-model tier: HERMES_BASE_URL routes run_agent at an arbitrary
+    # OpenAI-compatible endpoint (run_agent.main(base_url=...) exists but has
+    # no CLI flag; the runner exports this env from local_model.env).
+    base_url = os.environ.get("HERMES_BASE_URL", "")
+    if base_url:
+        kwargs["base_url"] = base_url
+        kwargs.setdefault("api_key", os.environ.get("HERMES_API_KEY", "sk-local"))
     run_agent.main(**kwargs)
     return 0
 
