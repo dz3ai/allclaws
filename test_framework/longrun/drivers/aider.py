@@ -117,6 +117,14 @@ class AiderDriver(DriverBase):
             "--no-check-update",
             "--no-suggest-shell-commands",
             "--no-fancy-input",
+        ]
+        # Local/cloud tiers use model names aider has no metadata for — without
+        # this file it warns "Unknown context window size", disables its window
+        # guard (max_input_tokens=0), and floors chat history at 1k tokens.
+        meta = self.repo_root / "test_framework" / "longrun" / "aider_model_metadata.json"
+        if meta.is_file():
+            argv += ["--model-metadata-file", str(meta)]
+        argv += [
             *_list_chat_files(worktree),
             "--message", spec.task_prompt,
             "--model", model,
