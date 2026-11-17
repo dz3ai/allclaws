@@ -216,7 +216,13 @@ class HermesDriver(DriverBase):
             f"--prompt={spec.task_prompt}",  # verbatim, '='-joined channel
             "--max-turns", str(spec.max_turns),  # task fixture budget → main(max_turns=)
         ]
-        model = os.environ.get("LONGRUN_MODEL")
+        # LONGRUN_HERMES_MODEL overrides LONGRUN_MODEL for hermes alone
+        # (mirrors LONGRUN_AIDER_MODEL): strict endpoints reject prefixed
+        # names — Zhipu 400s on "cloud/glm-5.3" while reasonix REQUIRES the
+        # provider prefix, so a shared LONGRUN_MODEL cannot serve both.
+        model = os.environ.get("LONGRUN_HERMES_MODEL") or os.environ.get(
+            "LONGRUN_MODEL"
+        )
         if model is not None and model != "":  # explicit: present and non-empty
             argv += ["--model", model]
         return ProcSpec(
