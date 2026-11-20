@@ -1,25 +1,25 @@
 {
-  "last_check": "2026-11-13",
+  "last_check": "2026-11-20",
   "projects": {
     "nanoclaw": {
-      "last_check": "2026-11-13",
-      "last_commit": "0ede4cf61c139879024a941ebbfe1c90b626c7fb"
+      "last_check": "2026-11-20",
+      "last_commit": "ddf824e8c261bb17d630c5e1ea9965c714050d42"
     },
     "nanobot": {
-      "last_check": "2026-11-13",
-      "last_commit": "3f65a8f86c079d36c4f31c7f009bf116316e7ccc"
+      "last_check": "2026-11-20",
+      "last_commit": "db0306b404954e48ffb82ceae70cbf6f73094348"
     },
     "zeroclaw": {
-      "last_check": "2026-11-13",
-      "last_commit": "2c0a8c26354b7fbd52fc8ff52cb1ba81c6fcaf0c"
+      "last_check": "2026-11-20",
+      "last_commit": "dfc70a2b499a5e5ad777a9174a216a29fda7aa35"
     },
     "goclaw": {
-      "last_check": "2026-11-13",
-      "last_commit": "9aa045c47adadccf59a84f44034d614b1c5c102d"
+      "last_check": "2026-11-20",
+      "last_commit": "5849a984275de546fd24c09d597a72d99325905c"
     },
     "openclaw": {
-      "last_check": "2026-11-13",
-      "last_commit": "8ae9d35bd53b98072e72f5793eb41de5ddc0ddaf"
+      "last_check": "2026-11-20",
+      "last_commit": "e44a7e36817e3ba9aa7169e06f7c8be4dcd08903"
     },
     "clawteam": {
       "last_check": "2026-11-13",

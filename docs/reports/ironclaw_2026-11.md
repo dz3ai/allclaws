@@ -1,7 +1,7 @@
 # IronClaw - Rust-based Agent Framework - Update Report
 
-**Generated:** 2026-11-13 21:34:37
-**Tracking Period:** 2026-11-02 to 2026-11-13
+**Generated:** 2026-11-20 21:45:55
+**Tracking Period:** 2026-11-13 to 2026-11-20
 
 
 ## Recent Releases

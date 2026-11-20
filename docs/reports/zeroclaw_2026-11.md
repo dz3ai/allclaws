@@ -1,90 +1,90 @@
 # ZeroClaw - Zero-dependency Agent - Update Report
 
-**Generated:** 2026-11-13 21:35:29
-**Tracking Period:** 2026-11-02 to 2026-11-13
+**Generated:** 2026-11-20 21:46:02
+**Tracking Period:** 2026-11-13 to 2026-11-20
 
 ## Recent Commits
 
-### chore(deps): bump the web-minor-patch group across 1 directory with 21 updates (#11842)
-- **Date:** 2026-11-12
-- **Author:** dependabot[bot]
-- **Commit:** 2c0a8c26354b7fbd52fc8ff52cb1ba81c6fcaf0c
-### chore(deps-dev): bump happy-dom from 20.11.6 to 21.0.4 in /web (#12012)
-- **Date:** 2026-11-12
-- **Author:** dependabot[bot]
-- **Commit:** 535f0844d7e54f636b2fd1e7dea8b1110cbb4c68
-### chore(deps-dev): bump vite from 8.0.16 to 8.3.5 in /web (#11936)
-- **Date:** 2026-11-12
-- **Author:** dependabot[bot]
-- **Commit:** 060fe00604de8c99a03672608e0284854dc1a48d
-### chore(deps-dev): bump brace-expansion from 2.1.4 to 2.1.7 in /web (#11282)
-- **Date:** 2026-11-12
-- **Author:** dependabot[bot]
-- **Commit:** 79a1bbde4cbafeaf5e5ca71ca05e64438d995e9e
-### chore(docs): pin translations to v0.9.0 (#12380)
-- **Date:** 2026-11-11
-- **Author:** JordanTheJet
-- **Commit:** 6c78ba59bce6a3d5079cf0c0310488770e264ad4
-### fix(deps): bump rustix to 1.1.6 for RUSTSEC-2026-0486 (#12392)
-- **Date:** 2026-11-11
+### fix(xtask): read the Windows prebuilt installer when the guide is rendered (#12571)
+- **Date:** 2026-11-19
 - **Author:** Tidux
-- **Commit:** 775713383a7ec246eab6c925b2ef1846b998ee8c
-### chore(release): bump version to v0.9.0 (#12377)
-- **Date:** 2026-11-11
+- **Commit:** dfc70a2b499a5e5ad777a9174a216a29fda7aa35
+### fix(deps): patch heapless and Wasmtime RustSec advisories (#12577)
+- **Date:** 2026-11-19
+- **Author:** CastelloBrancoTecnologia
+- **Commit:** 597f53ba7e5b3396ad7b43460f65fd54887efc4c
+### fix(gateway): keep per-connection task records out of the INFO trace (#12499)
+- **Date:** 2026-11-19
 - **Author:** JordanTheJet
-- **Commit:** 1a79f89d1e18ed2af337cae73b1a02a6defd57c5
-### fix(docs): send links to pruned doc versions to the stable page (#12329)
-- **Date:** 2026-11-10
-- **Author:** JordanTheJet
-- **Commit:** a4beef9a6d6965ff3b5290f94ff97bd0b4bcbb85
-### docs(zerocode): document device certificate end-of-life and JWKS azp matching (#12370)
-- **Date:** 2026-11-10
-- **Author:** ump45nose
-- **Commit:** 1124ec667faf734a0456a0cc647a3efc84707297
-### docs(zerocode): document PKCE on every device grant and scope legacy credentials (#12364)
-- **Date:** 2026-11-10
-- **Author:** ump45nose
-- **Commit:** d1d561c91671ca5790670babee00ecc1bf32febd
-### fix(docs): give the stable docs a URL that survives releases (#12328)
-- **Date:** 2026-11-10
-- **Author:** JordanTheJet
-- **Commit:** ff49c94b1dec714a038b12e23bdb32b9b2dd85c0
-### fix(xtask): keep the API reference and error pages out of search (#12327)
-- **Date:** 2026-11-10
-- **Author:** JordanTheJet
-- **Commit:** 57f1ea25841bab7a87701d523816c23c83c54a18
-### fix(runtime): stop hard-coding temperature in the heartbeat decision and the model-routing probe (#1
-- **Date:** 2026-11-10
-- **Author:** JordanTheJet
-- **Commit:** e6e798937b40aada907501c8c8f6051426eb5b25
-### docs(security): list supported OIDC providers and v0.9.0 sign-in limitations (#12365)
-- **Date:** 2026-11-10
-- **Author:** JordanTheJet
-- **Commit:** 53674f61421be325031115d918958e8f01308808
-### fix(providers): recognize claude-opus-5-5 and other adaptive-only models (#12352)
-- **Date:** 2026-11-10
+- **Commit:** ad4c1f6c3a7d2f734c0b4dab0ff37533971eebb5
+### feat(security): read POSIX commands in bash's grammar when bash runs them (#11994)
+- **Date:** 2026-11-19
 - **Author:** Tidux
-- **Commit:** 461b972853ff17f3da7619f231fd636c95cbf083
-### fix(skills): inherit parent temperature for the skill review fork (#12363)
-- **Date:** 2026-11-10
-- **Author:** ump45nose
-- **Commit:** 6877da56d2a0ab580776235e6d68a716d5ce4f0d
-### feat(gateway): scoped dashboard chat through the core, on a shared RPC client (#12244)
-- **Date:** 2026-11-10
-- **Author:** JordanTheJet
-- **Commit:** a11a5ce5b4238d4766fbe7d07efef055a75532c2
-### fix(zerocode): open for an account the daemon refuses its config or log (#12359)
-- **Date:** 2026-11-10
-- **Author:** JordanTheJet
-- **Commit:** 057a392fe8552043f6e9cb580d07030e6f624ee3
-### feat(zerocode): add pairing-free OIDC login and saved remote credentials (#12317)
-- **Date:** 2026-11-10
+- **Commit:** dfe8ab35bd682e3510fe81856f27c0926742cd25
+### docs(runtime): correct the shell-grammar binding row before recording approval (#12395)
+- **Date:** 2026-11-18
 - **Author:** Tidux
-- **Commit:** b4ea905936b61a6dddfe998b8bff00c1e1835b49
-### fix(zerorelay): flush dashboard and frontdoor writes so responses reach the browser whole (#12355)
-- **Date:** 2026-11-10
+- **Commit:** 1c8f2b59bae7d20ac4f8d548824792fd8b2f11e9
+### fix(deps): patch SMTP advisories with a bounded base64 duplicate (#12552)
+- **Date:** 2026-11-18
+- **Author:** CastelloBrancoTecnologia
+- **Commit:** 3773cae2d7288f9e6af1ad8414e6d2cd33e90451
+### fix(install): verify Windows prebuilt release checksums (#12166)
+- **Date:** 2026-11-18
+- **Author:** Adam
+- **Commit:** bec292f66722234df06fc4b09adf4ac1b625d9f5
+### fix(tools): inherit headless SOP step scope on peer-send turns (#12170)
+- **Date:** 2026-11-18
+- **Author:** ump45nose
+- **Commit:** 5e67c70ed99071959c6f5a1bc69a7ccea83f97d5
+### fix(tools): require read access before uploads and edits (#12151)
+- **Date:** 2026-11-18
+- **Author:** Adam
+- **Commit:** e59e65f04e05ad5e6950e525c1b4385594cdcbcd
+### fix(mcp): confine SSE endpoints and redirects to the server origin (#12149)
+- **Date:** 2026-11-18
+- **Author:** Adam
+- **Commit:** 3537a3533ed2d6e020e03915f7c15a0293609dca
+### fix(gateway): treat forwarded loopback as non-local for SOP cancel (#12281)
+- **Date:** 2026-11-18
+- **Author:** ump45nose
+- **Commit:** 1284c6075ba72a76c3a13f1151288fe9140d24fd
+### fix(gateway): pin Scalar docs bundle with Subresource Integrity (#12115)
+- **Date:** 2026-11-18
+- **Author:** ump45nose
+- **Commit:** 9426b99cf595caf0b769b5929709a8c70c7513ab
+### fix(sop): use the fail-closed mode when the decision answers are unusable (#12237)
+- **Date:** 2026-11-18
+- **Author:** joalvaradon
+- **Commit:** 115a03b51706d3ddbb9c6b7bb06ed2a8f2d1d4af
+### fix(deps): update zip for RUSTSEC-2026-0548 and accept the chrono maintenance advisories (#12516)
+- **Date:** 2026-11-18
 - **Author:** JordanTheJet
-- **Commit:** 60d7f6ed8db8b9a70806c10b1dd99213470949c7
+- **Commit:** c66542445a3d4c60889c62bfd17aa995e5d8606a
+### fix(web): keep paired WebSocket credentials out of URLs (#12335)
+- **Date:** 2026-11-17
+- **Author:** CastelloBrancoTecnologia
+- **Commit:** cda933e6b9937deacbcc0d4d2cd7f1ae5bb4500e
+### fix(web): close the model picker on Escape (#12375)
+- **Date:** 2026-11-17
+- **Author:** GaijinSystems
+- **Commit:** b97fa49fe7d32d927a14c043658becc8905e9e39
+### fix(web): show a check on the pressed "Keep thinking collapsed" button (#12374)
+- **Date:** 2026-11-17
+- **Author:** GaijinSystems
+- **Commit:** 508e7b79af74d5841f699bf6af737cc189e3e68f
+### feat(providers): send output_config.effort on Anthropic requests (#12379)
+- **Date:** 2026-11-16
+- **Author:** Alejandro Cárdenas
+- **Commit:** 69ea0ae1ae6f662ea9952e6247c764289adfe6a2
+### fix(zerocode): refresh the context budget after a trim (#12074)
+- **Date:** 2026-11-15
+- **Author:** Tidux
+- **Commit:** 6e83982340297d4682c5399792549ee9e2f275f0
+### docs(runtime): propose ADR-016 exception for plugin wake dispatch (#12417)
+- **Date:** 2026-11-14
+- **Author:** Tidux
+- **Commit:** 3a3f2e35865579843e5c37d8eee2e612cd98cd26
 ... and more (showing recent 20 commits)
 
 ## Recent Releases
@@ -107,39 +107,11 @@
 
 ## Documentation Updates
 
-- **CHANGELOG-next.md** - Updated: 2026-11-11
-- **docs/book/src/architecture/logging.md** - Updated: 2026-11-11
-- **docs/book/src/architecture/rpc-socket.md** - Updated: 2026-11-11
-- **docs/book/src/developing/plugin-protocol.md** - Updated: 2026-11-11
-- **docs/book/src/gateway/a2a-discovery.md** - Updated: 2026-11-11
-- **docs/book/src/maintainers/release-runbook.md** - Updated: 2026-11-10
-- **docs/book/src/zerocode/remote.md** - Updated: 2026-11-10
-- **docs/book/src/security/authentication.md** - Updated: 2026-11-10
-- **docs/book/src/architecture/generated-documentation-pipeline.md** - Updated: 2026-11-10
-- **docs/book/src/SUMMARY.md** - Updated: 2026-11-10
-- **docs/book/src/security/identity-providers.md** - Updated: 2026-11-10
-- **docs/book/src/providers/configuration.md** - Updated: 2026-11-10
-- **.github/workflows/README.md** - Updated: 2026-11-10
-- **docs/book/src/architecture/crates.md** - Updated: 2026-11-10
-- **crates/zeroclaw-runtime/AGENTS.md** - Updated: 2026-11-10
-- **docs/book/src/zerocode/secure-transport.md** - Updated: 2026-11-10
-- **docs/maintainers/audit-policy.md** - Updated: 2026-11-09
-- **docs/book/src/agents/multi-agent-setup.md** - Updated: 2026-11-09
-- **docs/book/src/channels/filesystem.md** - Updated: 2026-11-08
-- **docs/book/src/sop/fan-in/overview.md** - Updated: 2026-11-08
-- **docs/book/src/architecture/config-lifecycle.md** - Updated: 2026-11-08
-- **docs/book/src/architecture/runtime-state-and-persistence.md** - Updated: 2026-11-08
-- **docs/book/src/providers/custom.md** - Updated: 2026-11-08
-- **docs/book/src/channels/acp.md** - Updated: 2026-11-08
-- **docs/security/oidc-browser-pkce-design-8289.md** - Updated: 2026-11-07
-- **README.md** - Updated: 2026-11-06
-- **docs/book/src/channels/email.md** - Updated: 2026-11-06
-- **docs/book/src/ops/network-deployment.md** - Updated: 2026-11-05
-- **docs/book/src/architecture/runtime-composition.md** - Updated: 2026-11-05
-- **apps/tauri/TESTING.md** - Updated: 2026-11-04
-- **docs/dashboard-mcp-per-field-todo.md** - Updated: 2026-11-04
-- **docs/book/src/architecture/decisions/ADR-017-inbound-authentication-and-principals.md** - Updated: 2026-11-04
-- **CLAUDE.md** - Updated: 2026-11-03
-- **docs/book/src/maintainers/ci-and-actions.md** - Updated: 2026-11-03
-- **docs/book/src/agents/history-management.md** - Updated: 2026-11-02
-- **docs/book/src/getting-started/multi-model-setup.md** - Updated: 2026-11-02
+- **docs/book/src/security/sandboxing.md** - Updated: 2026-11-19
+- **crates/zeroclaw-runtime/AGENTS.md** - Updated: 2026-11-18
+- **docs/book/src/setup/windows.md** - Updated: 2026-11-18
+- **docs/book/src/agents/internals.md** - Updated: 2026-11-18
+- **docs/book/src/tools/mcp.md** - Updated: 2026-11-18
+- **docs/book/src/sop/decision-models.md** - Updated: 2026-11-18
+- **docs/book/src/sop/syntax.md** - Updated: 2026-11-18
+- **docs/maintainers/audit-policy.md** - Updated: 2026-11-18

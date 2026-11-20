@@ -1,225 +1,546 @@
 # OpenClaw - TypeScript AI Agent Platform - Update Report
 
-**Generated:** 2026-11-13 21:45:00
-**Tracking Period:** 2026-11-02 to 2026-11-13
+**Generated:** 2026-11-20 21:45:27
+**Tracking Period:** 2026-11-13 to 2026-11-20
 
 ## Recent Commits
 
-### chore(ui): refresh control ui locales (#198280)
-- **Date:** 2026-11-13
-- **Author:** openclaw-mantis[bot]
-- **Commit:** 8ae9d35bd53b98072e72f5793eb41de5ddc0ddaf
-### fix: isolate held agent databases until explicit restoration (#198180)
-- **Date:** 2026-11-13
+### fix(ui): retain the reader position through history measurements (#200482)
+- **Date:** 2026-11-20
 - **Author:** Peter Steinberger
-- **Commit:** 68a839b937868db841ae65af2b4c85b2ff8d7e9c
-### test(release): remove waiver regression coverage (#198274)
-- **Date:** 2026-11-13
-- **Author:** Dallin Romney
-- **Commit:** b9f1e62e00d81cf1048af24aaecb47c97afe15c1
-### fix(release): apply 2026.11.4 performance waiver release-wide (#198271)
-- **Date:** 2026-11-13
-- **Author:** Dallin Romney
-- **Commit:** 514a224c6eab039a926e4c47b22bb42e51484408
-### improve: compact person activity cards (#198040)
-- **Date:** 2026-11-13
-- **Author:** RoboClaw
-- **Commit:** 439a9c3552da1e939803fc3c69d87bc6e16a6553
-### improve(ui): keep flat-reply reactions under the reply and the reaction picker in place (#198252)
-- **Date:** 2026-11-13
-- **Author:** RoboClaw
-- **Commit:** 60aead2d9454cbd26c4101ecf8613599c540d6b2
-### feat(ui): switch command palette between Search and Compose (#186059)
-- **Date:** 2026-11-13
-- **Author:** Vyctor H. Brzezowski
-- **Commit:** 9b11465147cb3e6567940da1ea9f6ff0616d4d7c
-### test(agents): account for Anthropic cache checkpoints in forks
-- **Date:** 2026-11-13
+- **Commit:** e44a7e36817e3ba9aa7169e06f7c8be4dcd08903
+### fix(ci): remove unused OAuth callback re-export (#202493)
+- **Date:** 2026-11-20
 - **Author:** Vincent Koc
-- **Commit:** 94018632e72d8cb6aca3c8af3da52f7bea8d3462
-### fix(ui): chat cost popover hides the session's total spend (#198261)
-- **Date:** 2026-11-13
-- **Author:** Ayaan Zaidi
-- **Commit:** eb1a592fc06233963cb8b70ad998f271b8e2da81
-### fix(telegram): keep callback controls when replacement delivery fails (#193948)
-- **Date:** 2026-11-13
-- **Author:** AmelioMansour
-- **Commit:** 69a232ff34c8df4083dc422dd1787e819c2ffd99
-### fix(telegram): disabled buttons render as active and stay clickable (#191647)
-- **Date:** 2026-11-13
-- **Author:** Arseniy Palagin
-- **Commit:** f978e54df2d81b21d1cc55ac83ebc68fada97a6c
-### fix(auto-reply): keep group-thread digest/reply truncation surrogate-safe (#198200)
-- **Date:** 2026-11-13
-- **Author:** SunnyShu
-- **Commit:** 3dce8063a241793feb9abc9e2bc4383d86723f13
-### test(talk): retire native fixture prompt observations (#198248)
-- **Date:** 2026-11-13
+- **Commit:** 745288fe28e8f026b5889248f6fef6c8a153d56f
+### fix: stop a database move when a plugin's migration contract cannot load (#202466)
+- **Date:** 2026-11-20
 - **Author:** RoboClaw
-- **Commit:** f52d9254a99cd061f19f24459fa48fd5704e8cc5
-### fix(media): downscale tall screenshots instead of dropping them (#198250)
-- **Date:** 2026-11-13
-- **Author:** Ayaan Zaidi
-- **Commit:** 777c036d592808418f95da97cf6b4ee6af614bbc
-### fix(gateway): keep ACP bridge photos in the Control UI chat history (#193703)
-- **Date:** 2026-11-13
-- **Author:** weiqinl
-- **Commit:** 9d28854c4322988d1ad1443604e365547224695
-### fix(telegram): drop native commands from DM senders dmPolicy does not admit (#182128)
-- **Date:** 2026-11-13
-- **Author:** mushuiyu886
-- **Commit:** d5d77e181a2eb67ba71852e51c68b5ab018a326f
-### chore(ui): refresh control ui locales (#198249)
-- **Date:** 2026-11-13
+- **Commit:** d567cf9f4d8ed5cf4310a473d41f70f8227ccdeb
+### refactor(sessions): separate user-turn input data from recorder control (#202455)
+- **Date:** 2026-11-20
+- **Author:** Vincent Koc
+- **Commit:** 34377253062e79d59e78ca1c798f38f44b7f7128
+### fix: warm first-send sandbox templates after the base advances (#202464)
+- **Date:** 2026-11-20
+- **Author:** Peter Steinberger
+- **Commit:** 6d8091f0242fda60c31455950765f0b795f5313b
+### chore(ui): refresh control ui locales (#202492)
+- **Date:** 2026-11-20
 - **Author:** openclaw-mantis[bot]
-- **Commit:** c0a4b4bf6496217e9a5cd91f0cc8f29c64b83d
-### test(auto-reply): scope memory carriers to the current human turn (#198242)
-- **Date:** 2026-11-13
+- **Commit:** 89e265fe603a078450496a1d2cdff8b354c2f8ba
+### test(openai): catch lost GPT-6.2 prompt cache reads
+- **Date:** 2026-11-20
 - **Author:** RoboClaw
-- **Commit:** 6399d3151e1dd64a1dd188feee53172368ccdb7e
-### fix(workspaces): let checkpoints progress during manifest sweeps (#198157)
-- **Date:** 2026-11-13
+- **Commit:** 238160cf99b254aebd96a8ed34b9148b3e56903b
+### fix: match chat reaction tabs to their message bubbles (#202259)
+- **Date:** 2026-11-20
+- **Author:** RoboClaw
+- **Commit:** 12fd5618353faf4dd2a19474685f3de6343713ef
+### fix: keep automation timing separate from run status (#202260)
+- **Date:** 2026-11-20
+- **Author:** RoboClaw
+- **Commit:** 8479dacd2e105468fdcbdb2f16c27629a6e5eb54
+### fix: show automation cards only after saving (#202271)
+- **Date:** 2026-11-20
+- **Author:** RoboClaw
+- **Commit:** c9cc12844c7d9a0f5ed77d75e610b8631e739265
+### fix: stop People cards from flashing empty sessions (#202222)
+- **Date:** 2026-11-20
+- **Author:** RoboClaw
+- **Commit:** b084c7f9cc485591ad1607f452be4616145a5e8b
+### fix(test): expect the current message retirement refusal (#202481)
+- **Date:** 2026-11-20
+- **Author:** Vincent Koc
+- **Commit:** 9f20b63e77964ca76f1c61df7af01e40cdcff00d
+### refactor(transcripts): separate data contracts from provider control (#202448)
+- **Date:** 2026-11-20
+- **Author:** Vincent Koc
+- **Commit:** 6c98b7ed70b227236351ec0f10721ceebbf00615
+### refactor(gateway): delete in-run operator authority watchers (#202442)
+- **Date:** 2026-11-20
+- **Author:** Ayaan Zaidi
+- **Commit:** 00bc7923f32af37e06e074248ddb2be5fb3162df
+### fix: keep mobile attachment pickers at the plus button (#202463)
+- **Date:** 2026-11-20
+- **Author:** Vincent Koc
+- **Commit:** bbce2b3fead43eab0b5ae8a2bc5f7693fee981d7
+### fix(ui): remove the desktop Subagents row tooltip (#202225)
+- **Date:** 2026-11-20
+- **Author:** RoboClaw
+- **Commit:** 6409198e0d143ca61598b00fcde850218cb40eda
+### perf: reduce allocation before repeated sandbox turns (#202469)
+- **Date:** 2026-11-20
 - **Author:** Peter Steinberger
-- **Commit:** 3e0130930848d53adcdf0198157
-### feat(database): hold Gateway state ownership in PostgreSQL on all-PostgreSQL installs (#196237)
-- **Date:** 2026-11-13
-- **Author:** Mitchell Etzel
-- **Commit:** c886f82c779386cc320195732b6d1b74ad5d05ae
-### a71fd0b7326 fix(mattermost): answer shows twice when a post lands below the streaming preview (#198206)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** a71fd0b7326
-### e9f72a9f29b fix(telegram): a bare `<word` hides later tags in Markdown replies (#196281)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** e9f72a9f29b
-### def307d6d73 fix(worktrees): resume bounded pack retirement before batching (#198236)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** def307d6d73
-### 84727572dd0 fix(test): detect caller header mutation on redirects (#198181)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 84727572dd0
-### 8ff37a6828b fix(sandbox): keep agents running during atomic workspace snapshots (#198128)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 8ff37a6828b
-### 6057a3b2529 feat: keep creative projects grounded in their visual references (#198229)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 6057a3b2529
-### 4f8df80bd00 fix(cli): Claude CLI conversation keeps failing after one live-session cleanup failure (#198224)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 4f8df80bd00
-### 928c118f64d fix(telegram): agent inline button taps expire instead of reaching the agent (#196217)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 928c118f64d
-### aab5100b8a5 fix(skills): skills update --all keeps replacing skills after Ctrl+C (#198163)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** aab5100b8a5
-### c4f355c2 fix: honor corrected image references and generation options (#198196)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** c4f355c2
-### f86e06de8c7 improve(ui): show plugin guidance as a quiet aside in the transcript (#198215)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** f86e06de8c7
-### 3370acfc747 fix(ui): name the subagent a live activity line addresses, not its key suffix (#198213)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 3370acfc747
-### 1ec9d7b379e fix(update): retain failed preflight cleanup ownership (#198217)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 1ec9d7b379e
-### 4a24e68929d fix(qa): ignore appended prompt updates when selecting tasks (#198177)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 4a24e68929d
-### 32527d0af04 docs(ios): agent skill and pnpm ios:sim:pair for simulator proof (#198186)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 32527d0af04
-### f4e9c2731b1 test(ui): await pending input dismissal request receipt (#198209)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** f4e9c2731b1
-### de02a1f5749 fix(system-agent): reply with rescue command findings when the command exits non-zero (#195451)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** de02a1f5749
-### 4aa0168e1f2 chore(ui): refresh control ui locales (#198211)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 4aa0168e1f2
-### 986f9ed766d fix(agents): stop warning that documented core tool groups need a plugin (#161245) (#161362)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 986f9ed766d
-### 46b5a3b3558 fix(skills): reject missing values for telegram e2e runner options (#197627)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 46b5a3b3558
-### 31f619ac1b4 test(gateway): align continuation skip with pinned prompts (#198199)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 31f619ac1b4
-### d4efc84735c fix(exec): keep line-continued commands intact during shell preflight (#166714)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** d4efc84735c
-### f5ceb2dc770 fix(worktrees): report scratch deferrals before the GC backlog (#198165)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** f5ceb2dc770
-### 2ff4256ae37 feat(database): keep PostgreSQL rollback captures in PostgreSQL (#196236)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 2ff4256ae37
-### 0f17a804ea3 fix: configured extra bootstrap files are skipped without a warning (#188295)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 0f17a804ea3
-### a7d05c7af04 test(ui): follow ordered browser input in route handoff (#198192)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** a7d05c7af04
-### 5da97e5b0bb fix(ui): keep dictated text when the window loses focus (#197852)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 5da97e5b0bb
-### 08103c5df8b test(agents): preserve BTW user context boundaries
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 08103c5df8b
-### e1bfcc0887d fix(ci): bound planner benchmark dispatch inputs (#198147)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** e1bfcc0887d
-### 96c685be0e0 feat(backup): restore PostgreSQL stores into a staging database for restore drills (#194808)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** 96c685be0e0
-### af98b870029 fix(auth): report named profile expiry in fallback status JSON (#197113)
-- **Date:** 2026-11-12
-- **Author:** Peter Steinberger
-- **Commit:** af98b870029
+- **Commit:** d58aa48f927ed3c46f681edf1715b5ae71779e20
+### fix(ui): let Sessions interrupt a pending Activity navigation (#202425)
+- **Date:** 2026-11-20
+- **Author:** RoboClaw
+- **Commit:** 9cabea53d824fe02570388b7146c52c4c349d9c9
+### test(discord): stop pinning refused-followup notice wording (#202471)
+- **Date:** 2026-11-20
+- **Author:** Ayaan Zaidi
+- **Commit:** 656de08d57ea78c50ae7b4517ed6b9d898c77d38
+### refactor(auth): give OAuth contracts a pure type owner (#202443)
+- **Date:** 2026-11-20
+- **Author:** Vincent Koc
+- **Commit:** e5b085abf795261d61f4bf5f72698359d85bfe54
+... and more (showing recent 20 commits)
 
-... and more (showing recent 49 of 4,019 commits)
+## Recent Releases
 
-## Releases
-
-No new tagged release in the window. Latest: `v2026.10.10-beta.5` (2026-10-29).
-
-The `2026.11.4` performance waiver landed as a release-wide fix (#198271) without a new tag.
+### v2026.11.10-beta.1
+- **Date:** 2026-11-19
+- **Description:** OpenClaw 2026.11.10-beta.1
+### v2026.11.6
+- **Date:** 2026-11-19
+- **Description:** OpenClaw 2026.11.6
+### v2026.11.5-beta.4
+- **Date:** 2026-11-15
+- **Description:** OpenClaw 2026.11.5-beta.4
+### v2026.11.5-beta.3
+- **Date:** 2026-11-14
+- **Description:** OpenClaw 2026.11.5-beta.3
+### v2026.11.5-beta.2
+- **Date:** 2026-11-07
+- **Description:** OpenClaw 2026.11.5-beta.2
 
 ## Documentation Updates
 
-- **docs/ios/AGENTS.md** - Updated: 2026-11-12
-- **docs/ios/AGENTS.md** - Updated: 2026-11-12
-- **CLAUDE.md** - Updated: 2026-11-05 (estimated from commit pattern)
+- **docs/reference/database-engines.md** - Updated: 2026-11-20
+- **docs/concepts/managed-worktrees.md** - Updated: 2026-11-20
+- **docs/automation/cron-jobs/managing-jobs.md** - Updated: 2026-11-20
+- **docs/concepts/multi-user.md** - Updated: 2026-11-20
+- **scripts/perf/local-workspace-checkpoint-measure.md** - Updated: 2026-11-20
+- **docs/platforms/linux.md** - Updated: 2026-11-20
+- **docs/nodes/file-transfers.md** - Updated: 2026-11-20
+- **docs/concepts/subagent-yield-handoff.md** - Updated: 2026-11-20
+- **docs/gateway/doctor/state-and-sessions.md** - Updated: 2026-11-20
+- **docs/gateway/security/browser-control.md** - Updated: 2026-11-20
+- **docs/tools/browser/configuration.md** - Updated: 2026-11-20
+- **docs/tools/subagents/announce.md** - Updated: 2026-11-20
+- **docs/reference/transcript-hygiene.md** - Updated: 2026-11-20
+- **docs/gateway/configuration/hot-reload.md** - Updated: 2026-11-20
+- **docs/web/control-ui.md** - Updated: 2026-11-20
+- **docs/plugins/sdk-channel-plugins.md** - Updated: 2026-11-20
+- **docs/gateway/operator-scopes.md** - Updated: 2026-11-20
+- **docs/gateway/security/tool-permissions.md** - Updated: 2026-11-20
+- **test/fixtures/agents/prompt-snapshots/codex-runtime-happy-path/telegram-direct-codex-message-tool.md** - Updated: 2026-11-20
+- **test/test-audit-ledger.md** - Updated: 2026-11-20
+- **docs/ci/scope-and-routing/selection.md** - Updated: 2026-11-20
+- **docs/ci/release-validation/package-acceptance.md** - Updated: 2026-11-20
+- **docs/automation/cron-jobs/payloads.md** - Updated: 2026-11-20
+- **docs/plugins/codex-harness-reference/app-server-transport.md** - Updated: 2026-11-20
+- **docs/plugins/codex-harness-reference/model-discovery.md** - Updated: 2026-11-20
+- **src/plugins/AGENTS.md** - Updated: 2026-11-20
+- **docs/gateway/config-tools/custom-providers.md** - Updated: 2026-11-20
+- **docs/channels/discord/voice-transcripts.md** - Updated: 2026-11-20
+- **docs/gateway/configuration-examples.md** - Updated: 2026-11-20
+- **docs/nodes/audio.md** - Updated: 2026-11-20
+- **docs/providers/openai/voice-and-speech.md** - Updated: 2026-11-20
+- **docs/gateway/protocol/rpc-talk-config-and-agents.md** - Updated: 2026-11-20
+- **docs/gateway/configuration-reference.md** - Updated: 2026-11-20
+- **docs/plugins/session-share.md** - Updated: 2026-11-20
+- **docs/gateway/sandboxing/docker-backend.md** - Updated: 2026-11-19
+- **docs/concepts/experimental-features.md** - Updated: 2026-11-19
+- **docs/gateway/config-gateway.md** - Updated: 2026-11-19
+- **docs/start/multiplayer.md** - Updated: 2026-11-19
+- **docs/cli/reset.md** - Updated: 2026-11-20
+- **docs/ci/runners.md** - Updated: 2026-11-20
+- **docs/web/control-ui/sessions-and-sidebar.md** - Updated: 2026-11-20
+- **docs/plugins/codex-harness/commands.md** - Updated: 2026-11-20
+- **docs/channels/groups.md** - Updated: 2026-11-20
+- **CHANGELOG.md** - Updated: 2026-11-19
+- **CHANGELOG/2026.11.6.md** - Updated: 2026-11-19
+- **CHANGELOG/records/2026.11.6.md** - Updated: 2026-11-19
+- **docs/releases/2026.11.6.md** - Updated: 2026-11-19
+- **docs/releases/index.md** - Updated: 2026-11-19
+- **CHANGELOG/2026.11.5.md** - Updated: 2026-11-19
+- **docs/releases/2026.11.5.md** - Updated: 2026-11-19
+- **docs/plugins/feature-plugins.md** - Updated: 2026-11-20
+- **docs/web/control-ui/chat.md** - Updated: 2026-11-19
+- **docs/reference/prompt-caching.md** - Updated: 2026-11-20
+- **docs/tools/tool-search.md** - Updated: 2026-11-20
+- **docs/ci/capacity.md** - Updated: 2026-11-20
+- **docs/tools/swarm.md** - Updated: 2026-11-20
+- **docs/channels/discord/rich-messages.md** - Updated: 2026-11-20
+- **docs/concepts/session-tool.md** - Updated: 2026-11-20
+- **docs/cli/templates.md** - Updated: 2026-11-19
+- **.agents/skills/ios-e2e/BEHAVIOR.md** - Updated: 2026-11-20
+- **skills/create-template/SKILL.md** - Updated: 2026-11-19
+- **skills/create-template/references/draft-format.md** - Updated: 2026-11-19
+- **docs/cli/setup.md** - Updated: 2026-11-20
+- **packages/worker-runtime/README.md** - Updated: 2026-11-20
+- **docs/gateway/security/secrets-and-storage.md** - Updated: 2026-11-19
+- **docs/help/environment.md** - Updated: 2026-11-19
+- **docs/cli/infer.md** - Updated: 2026-11-20
+- **docs/web/control-ui/settings.md** - Updated: 2026-11-19
+- **packages/gateway-protocol/CHANGELOG.md** - Updated: 2026-11-19
+- **docs/start/onboarding-overview.md** - Updated: 2026-11-20
+- **docs/plugins/sdk-entrypoints.md** - Updated: 2026-11-19
+- **docs/cli/openclaw.md** - Updated: 2026-11-19
+- **docs/gateway/restart-recovery.md** - Updated: 2026-11-20
+- **docs/automation/cron-jobs/delivery.md** - Updated: 2026-11-20
+- **docs/tools/autoreview.md** - Updated: 2026-11-20
+- **docs/plugins/codex-harness/config-fields.md** - Updated: 2026-11-20
+- **docs/cli/update/how-updates-run.md** - Updated: 2026-11-19
+- **docs/cli/models.md** - Updated: 2026-11-20
+- **docs/gateway/doctor/running.md** - Updated: 2026-11-20
+- **docs/reference/database-schemas/worker-access.md** - Updated: 2026-11-19
+- **docs/tools/subagents/operations.md** - Updated: 2026-11-19
+- **docs/gateway/local-models.md** - Updated: 2026-11-19
+- **docs/concepts/user-model.md** - Updated: 2026-11-20
+- **docs/ci.md** - Updated: 2026-11-20
+- **docs/help/testing/docker.md** - Updated: 2026-11-19
+- **docs/install/updating.md** - Updated: 2026-11-19
+- **docs/channels/telegram/rich-messages.md** - Updated: 2026-11-19
+- **docs/plugins/message-presentation.md** - Updated: 2026-11-19
+- **docs/cli/agent.md** - Updated: 2026-11-19
+- **docs/cli/update/repair-and-recovery.md** - Updated: 2026-11-19
+- **docs/install/updating/rollback-and-recovery.md** - Updated: 2026-11-19
+- **docs/gateway/gateway-lock.md** - Updated: 2026-11-19
+- **docs/gateway/protocol/rpc-devices-nodes-and-approvals.md** - Updated: 2026-11-20
+- **docs/reference/database-schemas/versioning.md** - Updated: 2026-11-19
+- **docs/plugins/sdk-provider-plugins/hook-families.md** - Updated: 2026-11-19
+- **docs/providers/clawrouter.md** - Updated: 2026-11-19
+- **docs/cli/dashboard.md** - Updated: 2026-11-19
+- **docs/web/dashboard.md** - Updated: 2026-11-19
+- **docs/web/urls.md** - Updated: 2026-11-19
+- **docs/concepts/model-providers/control-ui-and-keys.md** - Updated: 2026-11-19
+- **docs/concepts/usage-tracking.md** - Updated: 2026-11-19
+- **docs/reference/full-release-validation/evidence.md** - Updated: 2026-11-19
+- **docs/reference/scripts/pr-tooling.md** - Updated: 2026-11-19
+- **.agents/skills/release-openclaw-maintainer/SKILL.md** - Updated: 2026-11-19
+- **.agents/skills/release-openclaw-maintainer/references/validation.md** - Updated: 2026-11-19
+- **docs/concepts/queue-steering.md** - Updated: 2026-11-19
+- **docs/plugins/architecture.md** - Updated: 2026-11-19
+- **docs/ci/local-proof.md** - Updated: 2026-11-19
+- **docs/ci/scope-and-routing/node-test-lanes.md** - Updated: 2026-11-19
+- **docs/reference/full-release-validation/release-checks.md** - Updated: 2026-11-19
+- **docs/plugins/knowledge/scribes.md** - Updated: 2026-11-19
+- **extensions/knowledge/skills/knowledge-claim-consolidation/SKILL.md** - Updated: 2026-11-19
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/scribe-runs.md** - Updated: 2026-11-19
+- **docs/concepts/agent-runtimes.md** - Updated: 2026-11-19
+- **docs/gateway/prometheus.md** - Updated: 2026-11-19
+- **docs/gateway/config-agents/models.md** - Updated: 2026-11-19
+- **docs/providers/google.md** - Updated: 2026-11-19
+- **docs/tools/image-generation.md** - Updated: 2026-11-19
+- **docs/nodes/talk/realtime-sessions.md** - Updated: 2026-11-18
+- **scripts/perf/README.md** - Updated: 2026-11-18
+- **docs/reference/database-schemas/integrity-and-recovery.md** - Updated: 2026-11-18
+- **docs/gateway/configuration.md** - Updated: 2026-11-19
+- **docs/concepts/queue.md** - Updated: 2026-11-19
+- **docs/concepts/compaction.md** - Updated: 2026-11-19
+- **docs/plugins/architecture-internals/load-pipeline.md** - Updated: 2026-11-18
+- **AGENTS.md** - Updated: 2026-11-19
+- **docs/reference/scripts/pr-preparation.md** - Updated: 2026-11-18
+- **docs/plugins/manage-plugins.md** - Updated: 2026-11-18
+- **docs/install/updating/update-methods.md** - Updated: 2026-11-18
+- **docs/tools/subagents/slash-command.md** - Updated: 2026-11-18
+- **docs/gateway/protocol/operator-methods.md** - Updated: 2026-11-18
+- **docs/automation/cron-jobs/how-it-works.md** - Updated: 2026-11-18
+- **docs/automation/cron-jobs/schedules.md** - Updated: 2026-11-18
+- **docs/concepts/system-prompt.md** - Updated: 2026-11-19
+- **scripts/perf/sandbox-template-commit-measure.md** - Updated: 2026-11-18
+- **docs/help/testing/suites.md** - Updated: 2026-11-19
+- **docs/nodes/talk/session-ownership.md** - Updated: 2026-11-18
+- **docs/install/updating/automatic-updates.md** - Updated: 2026-11-18
+- **docs/gateway/security/dependency-locking.md** - Updated: 2026-11-19
+- **patches/README.md** - Updated: 2026-11-19
+- **docs/nodes/mcp-and-skills.md** - Updated: 2026-11-19
+- **docs/plugins/sdk-runtime/gateway-and-nodes.md** - Updated: 2026-11-19
+- **docs/plugins/codex-harness/app-server.md** - Updated: 2026-11-19
+- **docs/reference/session-management-compaction/maintenance.md** - Updated: 2026-11-18
+- **docs/gateway/sandboxing/workspace-access.md** - Updated: 2026-11-18
+- **docs/agent-runtime-architecture.md** - Updated: 2026-11-18
+- **docs/gateway/postgresql.md** - Updated: 2026-11-18
+- **docs/plugins/sdk-migration/talk.md** - Updated: 2026-11-19
+- **docs/start/onboarding.md** - Updated: 2026-11-18
+- **docs/plugins/workboard.md** - Updated: 2026-11-18
+- **docs/plugins/sdk-runtime.md** - Updated: 2026-11-18
+- **docs/plugins/manifest/surfaces.md** - Updated: 2026-11-19
+- **docs/tools/slash-commands.md** - Updated: 2026-11-18
+- **docs/reference/full-release-validation/continuation.md** - Updated: 2026-11-18
+- **.agents/skills/release-openclaw-maintainer/references/regular-release.md** - Updated: 2026-11-18
+- **docs/gateway/doctor/config-migrations.md** - Updated: 2026-11-18
+- **docs/reference/database-schemas/layout.md** - Updated: 2026-11-18
+- **docs/plugins/sdk-subpaths.md** - Updated: 2026-11-18
+- **src/agents/AGENTS.md** - Updated: 2026-11-18
+- **docs/gateway/health.md** - Updated: 2026-11-18
+- **extensions/matrix/SPEC-SUPPORT.md** - Updated: 2026-11-18
+- **docs/gateway/cloud-workers.md** - Updated: 2026-11-18
+- **docs/web/notifications.md** - Updated: 2026-11-18
+- **docs/gateway/secrets/operations.md** - Updated: 2026-11-18
+- **docs/gateway/background-process.md** - Updated: 2026-11-18
+- **docs/gateway/logging.md** - Updated: 2026-11-18
+- **docs/tools/code-mode/tool-surface.md** - Updated: 2026-11-18
+- **.agents/skills/release-openclaw-maintainer/references/backport-discovery.md** - Updated: 2026-11-18
+- **.agents/skills/release-openclaw-maintainer/references/preparation.md** - Updated: 2026-11-18
+- **.agents/skills/release-openclaw-maintainer/references/platform-publication.md** - Updated: 2026-11-18
+- **apps/android/README.md** - Updated: 2026-11-18
+- **apps/android/VERSIONING.md** - Updated: 2026-11-18
+- **apps/android/fastlane/SETUP.md** - Updated: 2026-11-18
+- **docs/ci/release-validation/full-release-validation.md** - Updated: 2026-11-18
+- **docs/platforms/android.md** - Updated: 2026-11-18
+- **docs/reference/full-release-validation/extended-stable.md** - Updated: 2026-11-18
+- **docs/plugins/codex-harness-runtime/hooks.md** - Updated: 2026-11-18
+- **docs/automation/cron-jobs/troubleshooting.md** - Updated: 2026-11-18
+- **CONTRIBUTING.md** - Updated: 2026-11-18
+- **docs/ci/pipeline.md** - Updated: 2026-11-18
+- **docs/channels/sms.md** - Updated: 2026-11-18
+- **docs/cli/gateway/restart-and-supervision.md** - Updated: 2026-11-18
+- **docs/ci/release-validation/plugin-prerelease.md** - Updated: 2026-11-18
+- **docs/plugins/hooks/prompt-and-session.md** - Updated: 2026-11-18
+- **docs/plugins/hooks/tool-policy.md** - Updated: 2026-11-18
+- **docs/concepts/memory.md** - Updated: 2026-11-18
+- **docs/gateway/config-extensions.md** - Updated: 2026-11-18
+- **docs/plugins/hooks.md** - Updated: 2026-11-18
+- **docs/plugins/manifest/capabilities.md** - Updated: 2026-11-18
+- **docs/tools/exec.md** - Updated: 2026-11-18
+- **docs/concepts/models.md** - Updated: 2026-11-18
+- **docs/plugins/sdk-provider-plugins/model-catalogs.md** - Updated: 2026-11-18
+- **docs/gateway/diagnostics.md** - Updated: 2026-11-17
+- **docs/plugins/codex-native-plugins.md** - Updated: 2026-11-18
+- **docs/logging.md** - Updated: 2026-11-17
+- **scripts/README.md** - Updated: 2026-11-18
+- **docs/tools/code-mode/internals.md** - Updated: 2026-11-17
+- **docs/plugins/gbrain.md** - Updated: 2026-11-18
+- **extensions/gbrain/README.md** - Updated: 2026-11-18
+- **docs/reference/scripts/merge-recovery.md** - Updated: 2026-11-18
+- **docs/gateway/security/prompt-injection.md** - Updated: 2026-11-17
+- **docs/plugins/hooks/reference.md** - Updated: 2026-11-17
+- **.agents/skills/openclaw-pr-maintainer/SKILL.md** - Updated: 2026-11-18
+- **docs/concepts/recommended-models.md** - Updated: 2026-11-18
+- **docs/plugins/sdk-overview.md** - Updated: 2026-11-17
+- **docs/concepts/session-controller.md** - Updated: 2026-11-18
+- **docs/reference/database-schemas/agent-schema-history.md** - Updated: 2026-11-18
+- **src/state/postgres-schema.generated/portability-report.md** - Updated: 2026-11-18
+- **docs/plugins/codex-harness.md** - Updated: 2026-11-17
+- **docs/tools/web-fetch.md** - Updated: 2026-11-17
+- **docs/cli/backup.md** - Updated: 2026-11-17
+- **docs/gateway/cloud-workers/troubleshooting.md** - Updated: 2026-11-17
+- **docs/tools/subagents/tool-reference.md** - Updated: 2026-11-17
+- **docs/gateway/config-agents/entries-and-multi-agent.md** - Updated: 2026-11-18
+- **docs/cli/config.md** - Updated: 2026-11-18
+- **docs/install/uninstall.md** - Updated: 2026-11-18
+- **docs/plugins/reference/advisor.md** - Updated: 2026-11-17
+- **docs/tools/ask-user.md** - Updated: 2026-11-17
+- **docs/channels/a2a.md** - Updated: 2026-11-18
+- **docs/concepts/context.md** - Updated: 2026-11-18
+- **docs/help/faq/chat-commands-and-stopping.md** - Updated: 2026-11-18
+- **docs/tools/thinking.md** - Updated: 2026-11-18
+- **docs/gateway/cli-backends.md** - Updated: 2026-11-17
+- **docs/cli/plugins/uninstall-and-update.md** - Updated: 2026-11-17
+- **CHANGELOG/records/2026.11.5.md** - Updated: 2026-11-17
+- **docs/tools/show-widget.md** - Updated: 2026-11-17
+- **extensions/matrix/CHANGELOG.md** - Updated: 2026-11-17
+- **docs/channels/matrix.md** - Updated: 2026-11-18
+- **docs/channels/matrix/encryption.md** - Updated: 2026-11-18
+- **docs/plugins/sdk-entrypoints/registration-mode.md** - Updated: 2026-11-18
+- **docs/plugins/sdk-overview/infrastructure.md** - Updated: 2026-11-18
+- **docs/web/dashboards.md** - Updated: 2026-11-18
+- **ui/src/e2e/side-panel-scrolling.investigation.md** - Updated: 2026-11-18
+- **docs/concepts/session-search.md** - Updated: 2026-11-17
+- **docs/cli/gateway/service.md** - Updated: 2026-11-17
+- **docs/platforms/mac/bundled-gateway.md** - Updated: 2026-11-17
+- **docs/gateway/config-tools/github-identity.md** - Updated: 2026-11-18
+- **docs/providers/openai/models.md** - Updated: 2026-11-17
+- **scripts/perf/transcript-facts-backfill.md** - Updated: 2026-11-17
+- **docs/platforms/windows.md** - Updated: 2026-11-17
+- **docs/tools/acp-agents/bindings.md** - Updated: 2026-11-17
+- **docs/concepts/agent-loop.md** - Updated: 2026-11-18
+- **docs/start/wizard-cli-reference.md** - Updated: 2026-11-17
+- **docs/plugins/plugin-inventory.md** - Updated: 2026-11-17
+- **docs/plugins/reference.md** - Updated: 2026-11-17
+- **docs/plugins/reference/gbrain.md** - Updated: 2026-11-17
+- **docs/cli/update.md** - Updated: 2026-11-17
+- **docs/install/development-channels.md** - Updated: 2026-11-17
+- **.agents/skills/telegram-e2e-userbot/features/README.md** - Updated: 2026-11-17
+- **docs/channels/telegram/media.md** - Updated: 2026-11-17
+- **.agents/skills/release-openclaw-maintainer/references/extended-stable-backports.md** - Updated: 2026-11-17
+- **docs/gateway/config-hooks.md** - Updated: 2026-11-18
+- **docs/concepts/session-state.md** - Updated: 2026-11-17
+- **docs/channels/telegram/troubleshooting.md** - Updated: 2026-11-17
+- **docs/concepts/retry.md** - Updated: 2026-11-17
+- **docs/cli/mcp/registry.md** - Updated: 2026-11-17
+- **docs/tools/self-learning.md** - Updated: 2026-11-17
+- **docs/cli/mcp.md** - Updated: 2026-11-17
+- **docs/cli/mcp/control-ui.md** - Updated: 2026-11-17
+- **docs/cli/mcp/transports.md** - Updated: 2026-11-17
+- **docs/tools/mcp.md** - Updated: 2026-11-17
+- **docs/reference/RELEASING.md** - Updated: 2026-11-17
+- **.agents/skills/release-openclaw-ci/SKILL.md** - Updated: 2026-11-17
+- **.agents/skills/release-openclaw-maintainer/references/hotfix-ledger-management.md** - Updated: 2026-11-17
+- **docs/cli/update/status-and-history.md** - Updated: 2026-11-17
+- **.agents/skills/release-openclaw-maintainer/references/stable-main-closeout.md** - Updated: 2026-11-17
+- **.agents/skills/release-openclaw-maintainer/references/publication-recovery.md** - Updated: 2026-11-17
+- **.agents/skills/openclaw-testing/SKILL.md** - Updated: 2026-11-17
+- **docs/tools/browser/isolation.md** - Updated: 2026-11-17
+- **docs/help/debugging.md** - Updated: 2026-11-17
+- **docs/tools/code-mode/guest-api.md** - Updated: 2026-11-17
+- **extensions/visitor-access/README.md** - Updated: 2026-11-17
+- **docs/platforms/ios.md** - Updated: 2026-11-16
+- **docs/gateway/config-runtime.md** - Updated: 2026-11-16
+- **docs/plugins/knowledge/memory-provider.md** - Updated: 2026-11-16
+- **extensions/knowledge/skills/knowledge-capture/SKILL.md** - Updated: 2026-11-16
+- **extensions/knowledge/skills/knowledge-capture/references/profiles.md** - Updated: 2026-11-16
+- **extensions/knowledge/skills/knowledge-claim-consolidation/references/profiles.md** - Updated: 2026-11-16
+- **extensions/knowledge/skills/knowledge-correct/references/profiles.md** - Updated: 2026-11-16
+- **extensions/knowledge/skills/knowledge-entities/references/profiles.md** - Updated: 2026-11-16
+- **extensions/knowledge/skills/knowledge-ingest/references/profiles.md** - Updated: 2026-11-16
+- **extensions/knowledge/skills/knowledge-meeting-ingest/references/profiles.md** - Updated: 2026-11-16
+- **extensions/knowledge/skills/knowledge-recall/references/profiles.md** - Updated: 2026-11-16
+- **extensions/knowledge/skills/knowledge-source-ingest/references/profiles.md** - Updated: 2026-11-16
+- **extensions/knowledge/skills/shared/profiles.md** - Updated: 2026-11-16
+- **scripts/bench-control-ui-cold-load.md** - Updated: 2026-11-17
+- **docs/tools/code-mode.md** - Updated: 2026-11-16
+- **docs/tools/browser/agent-tools.md** - Updated: 2026-11-16
+- **extensions/browser/skills/browser-automation/SKILL.md** - Updated: 2026-11-16
+- **docs/channels/slack/messaging.md** - Updated: 2026-11-16
+- **docs/screens/member-recovery-kit/live-history/README.md** - Updated: 2026-11-16
+- **packages/openclaw-id-protocol/docs/acceptance.md** - Updated: 2026-11-16
+- **packages/openclaw-id-protocol/docs/discovery.md** - Updated: 2026-11-16
+- **packages/openclaw-id-protocol/docs/enrollment.md** - Updated: 2026-11-16
+- **packages/openclaw-id-protocol/docs/statements.md** - Updated: 2026-11-16
+- **docs/reference/session-management-compaction/resident-history.md** - Updated: 2026-11-16
+- **docs/cli/triage.md** - Updated: 2026-11-17
+- **docs/install/ansible.md** - Updated: 2026-11-17
+- **.github/pull_request_template.md** - Updated: 2026-11-16
+- **docs/start/getting-started.md** - Updated: 2026-11-17
+- **docs/plugins/sdk-agent-harness/native-inventories.md** - Updated: 2026-11-16
+- **docs/tools/tavily.md** - Updated: 2026-11-16
+- **docs/gateway/protocol/rpc-session-control.md** - Updated: 2026-11-17
+- **docs/web/webchat.md** - Updated: 2026-11-17
+- **packages/openclaw-id-protocol/docs/versioning.md** - Updated: 2026-11-16
+- **docs/help/testing/qa-runners.md** - Updated: 2026-11-17
+- **.agents/skills/control-ui-e2e/references/visual-proof.md** - Updated: 2026-11-17
+- **.agents/skills/ios-e2e/SKILL.md** - Updated: 2026-11-17
+- **.agents/skills/openclaw-pr-maintainer/references/media.md** - Updated: 2026-11-17
+- **.agents/skills/proof-video/SKILL.md** - Updated: 2026-11-17
+- **.agents/skills/proof-video/references/annotations.md** - Updated: 2026-11-17
+- **apps/android/AGENTS.md** - Updated: 2026-11-17
+- **apps/macos/AGENTS.md** - Updated: 2026-11-17
+- **docs/providers/openai/advanced.md** - Updated: 2026-11-16
+- **docs/cli/plugins/install.md** - Updated: 2026-11-16
+- **docs/plugins/sdk-runtime/config-and-utilities.md** - Updated: 2026-11-16
+- **CHANGELOG/2026.11.4.md** - Updated: 2026-11-16
+- **docs/releases/2026.11.4.md** - Updated: 2026-11-16
+- **docs/providers/tencent.md** - Updated: 2026-11-17
+- **docs/plugins/knowledge/tools.md** - Updated: 2026-11-16
+- **docs/cli/sessions.md** - Updated: 2026-11-16
+- **docs/gateway/config-agents/sessions.md** - Updated: 2026-11-16
+- **docs/plugins/tool-plugins.md** - Updated: 2026-11-16
+- **docs/tools/goal.md** - Updated: 2026-11-16
+- **docs/providers/minimax.md** - Updated: 2026-11-16
+- **docs/providers/litellm.md** - Updated: 2026-11-16
+- **.agents/skills/update-team-server/controller/README.md** - Updated: 2026-11-16
+- **.agents/skills/update-team-server/controller/bench/config-contract/README.md** - Updated: 2026-11-16
+- **docs/providers/openai/authentication.md** - Updated: 2026-11-15
+- **docs/providers/openai/setup.md** - Updated: 2026-11-15
+- **.agents/skills/openclaw-ci-limits/SKILL.md** - Updated: 2026-11-16
+- **docs/cli/migrate.md** - Updated: 2026-11-16
+- **.agents/skills/openclaw-changelog-update/SKILL.md** - Updated: 2026-11-16
+- **docs/nodes/talk.md** - Updated: 2026-11-16
+- **docs/providers/deepgram.md** - Updated: 2026-11-16
+- **docs/providers/elevenlabs.md** - Updated: 2026-11-16
+- **docs/providers/mistral.md** - Updated: 2026-11-16
+- **CHANGELOG/records/2026.11.4.md** - Updated: 2026-11-15
+- **docs/plugins/sdk-migration/how-to-migrate.md** - Updated: 2026-11-15
+- **docs/cli/agents.md** - Updated: 2026-11-16
+- **skills/create-blobster/SKILL.md** - Updated: 2026-11-16
+- **skills/create-blobster/references/design-guide.md** - Updated: 2026-11-16
+- **docs/cli/plugins/authoring.md** - Updated: 2026-11-16
+- **docs/gateway/config-tools/built-in-tools.md** - Updated: 2026-11-16
+- **docs/help/testing-live/acp-and-codex.md** - Updated: 2026-11-16
+- **docs/plugins/codex-harness/troubleshooting.md** - Updated: 2026-11-16
+- **docs/providers/ollama/troubleshooting.md** - Updated: 2026-11-16
+- **docs/tools/loop-detection.md** - Updated: 2026-11-16
+- **docs/concepts/agents-and-templates.md** - Updated: 2026-11-15
+- **docs/concepts/multi-agent.md** - Updated: 2026-11-15
+- **.agents/skills/release-openclaw-maintainer/references/extended-stable-publish.md** - Updated: 2026-11-15
+- **.agents/skills/release-openclaw-maintainer/references/release-handoff-template.md** - Updated: 2026-11-15
+- **.agents/skills/release-openclaw-maintainer/references/release-owner.md** - Updated: 2026-11-15
+- **.agents/skills/release-openclaw-plugin-testing/SKILL.md** - Updated: 2026-11-15
+- **docs/ci/scope-and-routing/manual-dispatches.md** - Updated: 2026-11-15
+- **docs/reference/full-release-validation/dispatch.md** - Updated: 2026-11-15
+- **docs/reference/full-release-validation/stages.md** - Updated: 2026-11-15
+- **docs/gateway/cloud-workers/verify-the-profile.md** - Updated: 2026-11-16
+- **docs/gateway/config-cloud-workers.md** - Updated: 2026-11-16
+- **docs/gateway/sandboxing/crabbox-backend.md** - Updated: 2026-11-16
+- **docs/reference/test/remote-proof.md** - Updated: 2026-11-16
+- **skills/github/SKILL.md** - Updated: 2026-11-16
+- **.agents/skills/release-openclaw-maintainer/references/release-manager.md** - Updated: 2026-11-15
+- **.agents/skills/release-openclaw-maintainer/references/retrospective.md** - Updated: 2026-11-15
+- **.agents/skills/update-team-server/controller/RETAINED-REPAIR.md** - Updated: 2026-11-15
+- **docs/plugins/sdk-migration/sqlite-async.md** - Updated: 2026-11-15
+- **docs/web/control-ui/feature-reference.md** - Updated: 2026-11-16
+- **docs/start/bootstrapping.md** - Updated: 2026-11-16
+- **docs/reference/team-immutable-update-design.md** - Updated: 2026-11-16
+- **apps/linux/README.md** - Updated: 2026-11-15
+- **apps/macos/README.md** - Updated: 2026-11-15
+- **extensions/diagnostics-prometheus/benchmarks/README.md** - Updated: 2026-11-15
+- **docs/cli/connect.md** - Updated: 2026-11-15
+- **docs/cli/node.md** - Updated: 2026-11-15
+- **docs/gateway/remote.md** - Updated: 2026-11-15
+- **test/fixtures/state-corpus-populated/README.md** - Updated: 2026-11-16
+- **docs/plugins/knowledge/retrieval.md** - Updated: 2026-11-16
+- **extensions/advisor/README.md** - Updated: 2026-11-15
+- **docs/cli/skills.md** - Updated: 2026-11-16
+- **docs/ci/adaptive-testing.md** - Updated: 2026-11-16
+- **docs/cli/nodes.md** - Updated: 2026-11-16
+- **docs/cli/doctor/lint.md** - Updated: 2026-11-15
+- **docs/cli/status.md** - Updated: 2026-11-15
+- **docs/channels/feishu/messaging.md** - Updated: 2026-11-16
+- **docs/plugins/sdk-channel-plugins/status-and-media.md** - Updated: 2026-11-15
+- **docs/plugins/sdk-overview/host-hooks.md** - Updated: 2026-11-15
+- **docs/tools/skills.md** - Updated: 2026-11-15
+- **docs/tools/exec-approvals.md** - Updated: 2026-11-15
+- **docs/cli/cron.md** - Updated: 2026-11-15
+- **docs/gateway/config-automation.md** - Updated: 2026-11-15
+- **docs/install/update-troubleshooting.md** - Updated: 2026-11-15
+- **docs/plugins/mcp-relay.md** - Updated: 2026-11-15
+- **extensions/mcp-relay/README.md** - Updated: 2026-11-15
+- **docs/web/control-ui/panels.md** - Updated: 2026-11-15
+- **docs/reference/database-schemas/worker-access-inventory.md** - Updated: 2026-11-15
+- **docs/plugins/knowledge/control-ui.md** - Updated: 2026-11-15
+- **docs/plugins/logbook.md** - Updated: 2026-11-15
+- **docs/tools/tokenjuice.md** - Updated: 2026-11-15
+- **docs/tools/browser/security.md** - Updated: 2026-11-14
+- **docs/tools/browser/troubleshooting.md** - Updated: 2026-11-14
+- **docs/plugins/reference/team-reports.md** - Updated: 2026-11-15
+- **docs/tools/browser/profiles.md** - Updated: 2026-11-14
+- **docs/tools/acp-agents/quickstart.md** - Updated: 2026-11-14
+- **ui/public/provider-icons/ATTRIBUTION.md** - Updated: 2026-11-15
+- **docs/automation/cron-jobs.md** - Updated: 2026-11-14
+- **docs/tools/progress-card.md** - Updated: 2026-11-15
+- **docs/gateway/pairing.md** - Updated: 2026-11-14
+- **docs/tools/trajectory.md** - Updated: 2026-11-14
+- **scripts/perf/transcript-plan-stats.md** - Updated: 2026-11-14
+- **docs/auth-credential-semantics.md** - Updated: 2026-11-14
+- **extensions/ICON_SOURCES.md** - Updated: 2026-11-14
+- **docs/tools/browser/lightweight.md** - Updated: 2026-11-14
+- **docs/install/boat.md** - Updated: 2026-11-14
+- **docs/vps.md** - Updated: 2026-11-14
+- **docs/nodes/images.md** - Updated: 2026-11-14
+- **docs/concepts/progress-drafts.md** - Updated: 2026-11-13
+- **docs/cli/pair.md** - Updated: 2026-11-13
+- **docs/web/control-ui/connect-and-pair.md** - Updated: 2026-11-13
+- **docs/reference/database-schemas/storage-changes.md** - Updated: 2026-11-13
+- **scripts/perf/transcript-facts-cron-model.md** - Updated: 2026-11-13
+- **docs/nodes/session-catalogs.md** - Updated: 2026-11-13
+- **docs/install/standalone.md** - Updated: 2026-11-13
+- **docs/concepts/messages.md** - Updated: 2026-11-14
+- **docs/cli/mcp/apps.md** - Updated: 2026-11-13
+- **docs/plugins/manifest/models.md** - Updated: 2026-11-13
+- **docs/plugins/codex-harness-runtime.md** - Updated: 2026-11-13
+- **docs/plugins/codex-harness-runtime/permissions.md** - Updated: 2026-11-13
+- **test/fixtures/agents/prompt-snapshots/codex-runtime-happy-path/README.md** - Updated: 2026-11-13
+- **docs/channels/discord/events.md** - Updated: 2026-11-13
+- **docs/gateway/config-channels/community-chat.md** - Updated: 2026-11-13
+- **docs/cli/workboard.md** - Updated: 2026-11-13
+- **docs/platforms/macos.md** - Updated: 2026-11-13
+- **docs/channels/telegram/threads-and-sessions.md** - Updated: 2026-11-13
+- **docs/concepts/model-failover.md** - Updated: 2026-11-13
+- **docs/install/docker/networking-and-storage.md** - Updated: 2026-11-13
+- **docs/install/podman.md** - Updated: 2026-11-13
+- **docs/cli/tui.md** - Updated: 2026-11-13
