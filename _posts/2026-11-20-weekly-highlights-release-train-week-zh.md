@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "周报亮点：发车的一周（2026 年 11 月 13–20 日）"
+title: "周报：密集发版的一周（2026 年 11 月 13–20 日）"
 lang: zh
 date: 2026-11-20 21:00:00 +0800
 author: Danny Zeng
@@ -8,50 +8,56 @@ categories: [周报]
 tags: [weekly-highlights, releases, openclaw, nanoclaw, zeroclaw, nanobot, goclaw, security, rustsec, gpt-6.2, codex]
 ---
 
-十月的月报给这个生态下的判词是 **cadence（节奏）**。本周窗口——**11 月 13–20 日**，覆盖 tracker 盯着的八个项目——给这句话补了一个更锋利的从句：节奏已经**多轨化**。最重的那个项目不再只跑一条发布线，而是同时跑三条：给十月线打 backport，给十一月稳定版打 patch，同时开下一趟车的 beta。其余项目也各自归位：按点发车的、发完车加固的、以及闷头写码不打 tag 的。
+十月的月报说，这个生态的关键词是「节奏」（cadence）。本周（11 月 13–20 日，我们跟踪的 8 个项目）把这个判断又推进了一步：节奏不只是快，而是同时跑好几条线。OpenClaw 一边给十月版本打补丁、一边修十一月稳定版、一边开了下一版的 beta。其他项目也各有分工：有按计划发版的，有发完版专心修安全的，也有闷头开发不发版的。
 
-## OpenClaw：七个 tag、三条线、一个星期
+## OpenClaw：一周七个版本，三条线并行
 
-`main` 七天吃进 **2,353 个 commit**——commit 类型分布说明了力气花在哪：**1,616 个 `fix`**、143 `improve`、139 `test`、117 `perf`、115 `feat`。这是一个全面进入持续维护态的代码库，窗口内产出了**七个 tagged release**：`v2026.11.5-beta.3`/`beta.4`、`v2026.11.4`、`v2026.11.5`、十月线的 backport `v2026.10.33`、`v2026.11.6`、以及开出下一趟车的 `v2026.11.10-beta.1`——最后两个落在同一天。
+`main` 分支这七天合入了 2,353 个 commit。从类型分布能看出力气花在哪：1,616 个是 `fix`，143 个 `improve`，139 个 `test`，117 个 `perf`，115 个 `feat`。代码库已经进入持续维护状态。这一周发了七个带 tag 的版本：`v2026.11.5-beta.3`、`beta.4`、`v2026.11.4`、`v2026.11.5`、十月线的补丁 `v2026.10.33`、`v2026.11.6`，以及下一版的第一个 beta `v2026.11.10-beta.1`。最后两个在同一天发布。
 
-头条是 `v2026.11.6`（11 月 19 日）：一个 *patch* release 装着 **386 个 PR、48 个直接 commit、157 位贡献者**。它的 changelog 读起来像一份围绕 agent 循环周边所有东西的事后复盘：
+重点是 `v2026.11.6`（11 月 19 日）：一个补丁版装了 386 个 PR、48 个直接 commit、157 位贡献者。它的 changelog 主要在修 agent 循环周边的基础设施：
 
-- **Turn 存活率**——subagent 与后台 turn 在配置变更中存活；Gateway 重启打断发送时最终答案仍能送达；subagent 结果跨重启存活且*不重放已消费的结果*；长链条、重工具的 Claude CLI turn 保住了 append-only 的 provider 历史和逐字节精确的 Responses 工具参数。「投递失败」和「已被成功消费」被区分开——这种正确性只在重启之下才显形。
-- **Gateway 减重**——受限主机上启动内存压力与常驻内存下降，未用到的本地凭据 runtime 延迟加载，插件工具发现不再阻塞 Gateway。
-- **发车机械**——2026.11.5 的 updater 桥接到当前发布路径；Git-release 安装在 `node_modules` 之外构建与伺服；Windows 在 core readback 后才通知。11.5 的 release notes 本身还在窗口内被恢复又修补了一遍——发布工程在修发布工程。
-- **对齐 ChatGPT**——数字版 OpenClaw release 作为 ChatGPT version header 发送，模型目录带 release 版本列出，新增测试捕捉 GPT-6.2 prompt cache 读丢失。
-- **信任面**——配置读取中内联环境凭据被脱敏；SecretRef 支撑的 skill API key 保留引用而不被压平成明文；PostgreSQL 升级在备份跑不动时会停在「仍在服务的实例」之前。
+- **任务可靠性**：改配置不再打断 subagent 和后台任务；Gateway 重启时，最终回复仍能送达；subagent 的结果跨重启保留，已消费的结果不会重复执行；长任务里 Claude CLI 的对话历史和工具参数按原始字节保留，不做改写。「投递失败」和「已经成功消费」被区分开——这类问题平时看不出来，只有重启时才暴露。
+- **Gateway 减负**：受限主机上，启动内存和常驻内存都降了；用不到的本地凭据延迟加载；插件的工具发现不再阻塞 Gateway。
+- **发布流程本身**：2026.11.5 的升级器能桥接到当前发布路径；Git 方式安装的版本在 `node_modules` 之外构建和运行；Windows 改为核心读回后再通知。连 11.5 的 release notes 本身都在这周内修了两遍。
+- **对接 ChatGPT**：把 OpenClaw 的数字版本号作为 ChatGPT 的 version header 发送；模型目录带版本号列出；新增测试，检查 GPT-6.2 的 prompt cache 是否丢失。
+- **安全**：读配置时，内联的环境凭据会先脱敏；skill 的 API key 保留 SecretRef 引用，不会被压成明文；PostgreSQL 升级时，如果备份跑不了，会停在还在服务的实例之前，不强行替换。
 
-三条并行发布线才是真正的故事：十月线拿 backport、十一月稳定版拿两个 patch、下一趟车拿首个 beta——*同一天*。这个规模的 cadence 已经不是速度问题，是车道纪律问题。
+三条线并行才是本周真正的故事：十月线拿补丁、十一月稳定版拿两个补丁、下一版拿首个 beta，全部落在同一天。版本密到这个程度，考验的不是速度，是同时维护几条线不出错的纪律。
 
 ## NanoClaw：六天从 beta.3 到 rc.3
 
-`v2026.11.0` 列车从 `beta.3`（11-14）一路过 `beta.4`、`rc.1`、`rc.2`，到 `rc.3`（11-19）——final 在望。背后 86 个 commit 大半在 add-codex/OneCLI 这一层，其中一条的生态相关度最高：**把 Codex 钉在 0.169.0，「让 ChatGPT 登录用上 GPT-6.2」**（`ab9551f0`）。
+`v2026.11.0` 的发布节奏：11 月 14 日 `beta.3`，接着 `beta.4`、`rc.1`、`rc.2`，11 月 19 日 `rc.3`。正式版很近了。
 
-这个 pin 是我们在 benchmark 工作里独立撞上的那个事实的另一半：上游 Codex 在 2026 年 2 月硬切断了 chat wire API，于是所有说 ChatGPT OAuth 的客户端都得守住最后一个还收它的版本。NanoClaw 的处置相当完整——登录走钉住的 CLI、经 `pnpm dlx` 在 `/tmp` 之外执行；Codex AGENTS.md 上限提到 64 KiB；内置图像生成在 OneCLI 后面可用。外围还有：setup 步骤只有原始日志落盘才算结束；linger 校验不再触发交互式 polkit；agent-runner 对 Claude 的 `settings.json` 既不阻塞也不跟随链接；周期性 mailbox 系列每次运行只留一个 task payload。
+背后 86 个 commit 多数在改 add-codex 和 OneCLI。最值得注意的是：把 Codex 固定在 0.169.0，提交说明写的是「让 ChatGPT 登录用上 GPT-6.2」（`ab9551f0`）。
 
-## ZeroClaw：安全周
+这个版本固定和我们在 benchmark 里遇到的是同一件事：上游 Codex 在 2026 年 2 月删掉了 chat 接口，想用 ChatGPT OAuth 的客户端只能守住最后一个还支持它的版本。NanoClaw 做得比较完整：登录走固定版本的 CLI，通过 `pnpm dlx` 在 `/tmp` 之外执行；Codex 的 AGENTS.md 大小上限提到 64 KiB；内置图像生成也能在 OneCLI 后面用。其他改动：setup 步骤要等原始日志写完才算结束；检查 linger 时不再弹交互式 polkit；agent-runner 读 Claude 的 `settings.json` 时既不阻塞、也不跟随软链接；周期性邮箱任务每次运行只保留一条任务记录。
 
-二十一个 commit、零 tag——`v0.9.0` 之后的这一周是一场 Rust 味很浓的加固：**六个 RustSec advisory 修补**（heapless、Wasmtime、SMTP 用有界 base64 副本堵住、zip 对应 RUSTSEC-2026-0548、quinn-udp 对应 RUSTSEC-2026-0538，chrono 的维护性 advisory 被评估接受）。
+## ZeroClaw：安全加固周
 
-更有意思的一半是 confinement：MCP SSE 端点及其重定向被限制在 server origin 内；每连接的 task 记录移出 INFO trace；转发的 loopback 在 SOP 取消判定里按非本地处理；配对的 WebSocket 凭据移出 URL；Scalar 文档 bundle 用 Subresource Integrity 钉住。访问控制同步收紧——上传与编辑前必须先有读权限；SOP 决策答案不可用时走 fail-closed。同一批里悄悄落了两个 feature：bash 执行 POSIX 命令时按 bash 自己的语法读命令；Anthropic 请求开始携带 `output_config.effort`。
+21 个 commit，没有发版。`v0.9.0` 之后的一周全用在加固上。
 
-## NanoBot：一百个 commit，没有 tag
+一半是 Rust 生态的例行安全公告，共六个 RustSec 修补：heapless、Wasmtime、SMTP（用一个有界的 base64 副本堵住）、zip 的 RUSTSEC-2026-0548、quinn-udp 的 RUSTSEC-2026-0538；chrono 的维护性公告评估后接受。
 
-`v0.4.1`（11-06）之后继续滚，NanoBot 这一周泡在 webui 里：composer 的 slash/skill/mention 三个 palette；goal island 重做成「浮动的 vibrancy platter」；重连语义重做——运行中的 turn 在重连时对账，排队消息在 agent 接手时可见。我们想单独点名的一条更安静：**畸形主机名在 DNS 解析之前就被拒绝**——校验搬到了最早的位子，也就是它该在的位子。会话的用户图片改从存储附件回放；gateway mutation 与 UI state 分离——和 OpenClaw 那边 transcript 重构在做的是同一种数据/控制分离。
+另一半是收紧访问范围：MCP 的 SSE 端点和重定向只能访问 server 自己的 origin；每连接的任务记录不再写进 INFO 日志；经过转发的 loopback 地址，在取消 SOP 时按非本地处理；WebSocket 的配对凭据从 URL 里移走；Scalar 文档用 Subresource Integrity 固定版本。权限也收紧了：上传和编辑之前必须先有读权限；SOP 决策的答案不可用时直接失败，不猜测。同一批里还落了两个功能：bash 执行 POSIX 命令时，按 bash 自己的语法解析命令；Anthropic 请求带上了 `output_config.effort` 参数。
 
-## GoClaw 与安静的三家
+## NanoBot：一百个 commit，没有发版
 
-GoClaw 从 `beta.247` 点到 `beta.250`，五个会计级修补：Ollama 工具 schema 保住 enum/items/嵌套结构和 `[]any` required 字段；Gemini 思考 token 计入原生媒体用量；Claude CLI 缓存 token 计入上下文用量；cron 在 SQLite 里拒绝重叠的手动运行、在 PG 和 SQLite 两个存储里都尊重 `due` 模式。小、不花哨，恰是一列成熟 beta 列车该有的样子。
+`v0.4.1`（11 月 6 日）之后继续开发。这一周主要在做 webui：composer 里的 slash、skill、mention 三个自动补全面板；goal 页重做成一个悬浮面板；重连逻辑重做——重连时，正在运行的任务会对账，排队的消息在 agent 接手时会显示出来。
 
-IronClaw（HEAD 停在 9 月 29 日）、ClawTeam（11 月 7 日）、MaxClaw（6 月 13 日）继续休眠。
+有一条值得单独说：畸形的主机名在 DNS 解析之前就会被拒绝。把校验放在最早的一步，是最省事也最安全的位置。另外：会话里的用户图片改从已存附件回放；gateway 的数据操作和 UI 状态做了分离——和 OpenClaw 这周对 transcript 做的拆分是同一个思路。
 
-## 底下的那条线：GPT-6.2 对齐
+## GoClaw 和安静的三家
 
-把最忙的两个项目放在一起读，一个上游事件就同时解释了它们：OpenClaw 在刷 ChatGPT 模型列表、version header、GPT-6.2 缓存测试，NanoClaw 在为 ChatGPT 登录钉 Codex 0.169.0。当生态里最大的项目和一个跑得飞快的小项目从相反方向汇到同一个外部发布波上，那不是巧合——那是依赖引力。接下来几个周报窗口，大概率会看到其余项目以各自的方言吸收同一波。
+GoClaw 从 `beta.247` 发到 `beta.250`，五个补丁都在修用量统计：Ollama 的工具 schema 不再丢失 enum、嵌套结构和 `[]any` 必填字段；Gemini 的思考 token 计入用量；Claude CLI 的缓存 token 计入上下文用量；cron 在 SQLite 里拒绝重叠的手动运行，PG 和 SQLite 两个存储都正确处理 `due` 模式。都是小修补，但正是 beta 阶段该有的样子。
+
+IronClaw（代码停在 9 月 29 日）、ClawTeam（11 月 7 日）、MaxClaw（6 月 13 日）这周没有动静。
+
+## 这周的暗线：GPT-6.2
+
+把最忙的两个项目放在一起看，会发现它们在追同一个上游变化：OpenClaw 在改 ChatGPT 的模型列表和 version header，还加了 GPT-6.2 缓存的测试；NanoClaw 为 ChatGPT 登录固定了 Codex 0.169.0。最大的项目和一个跑得很快的小项目同时追同一个外部变化，说明是上游的发布节奏在拉动整个生态。接下来几周，大概率会看到其他项目用各自的方式跟上来。
 
 ---
 
 *[English version](/allclaws/blog/2026/11/20/weekly-highlights-release-train-week/)*
 
-*数据：[周报 digest 2026-11-20](https://github.com/dz3ai/allclaws/blob/main/docs/reports/weekly/2026-11-20-submodule-weekly.md)及 [docs/reports](https://github.com/dz3ai/allclaws/tree/main/docs/reports) 下各项目月报。窗口 2026-11-13 至 11-20，共 8 个追踪项目。*
+*数据：[周报 digest 2026-11-20](https://github.com/dz3ai/allclaws/blob/main/docs/reports/weekly/2026-11-20-submodule-weekly.md)及 [docs/reports](https://github.com/dz3ai/allclaws/tree/main/docs/reports) 下各项目月报。窗口 2026 年 11 月 13–20 日，共 8 个追踪项目。*
