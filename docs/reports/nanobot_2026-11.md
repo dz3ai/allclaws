@@ -1,94 +1,97 @@
 # Nanobot - Multi-agent Research - Update Report
 
-**Generated:** 2026-11-02 22:11:24
-**Tracking Period:** 2026-10-24 to 2026-11-02
+**Generated:** 2026-11-13 21:34:27
+**Tracking Period:** 2026-11-02 to 2026-11-13
 
 ## Recent Commits
 
-### fix(runtime): preserve recovery history and prevent unsafe MCP replays (#6537)
-- **Date:** 2026-11-02
+### fix(models): route image input by preset capability (#6651)
+- **Date:** 2026-11-13
 - **Author:** chengyongru
-- **Commit:** 384b7638307e5c9279286df78ace5759311ea603
-### fix(webui): avoid remounting outgoing conversations (#6540)
-- **Date:** 2026-11-02
+- **Commit:** 3f65a8f86c079d36c4f31c7f009bf116316e7ccc
+### feat(webui): refresh the empty chat welcome (#6650)
+- **Date:** 2026-11-13
 - **Author:** chengyongru
-- **Commit:** c1ed649b81906394e35d553ae2a3319ebfe7b935
-### fix(providers): tighten tool calls and compatibility fallbacks
-- **Date:** 2026-10-10
-- **Author:** chengyongru
-- **Commit:** 8b37976d36c2812c62b464321e729a88872b60f9
-### refactor(agent): delegate recovery channel eligibility to admission
-- **Date:** 2026-10-30
-- **Author:** chengyongru
-- **Commit:** 3e4068411275fac02fbc109926fffea855a94961
-### fix(tools): correct DeepSeek Search rate-limit guidance
-- **Date:** 2026-10-30
-- **Author:** chengyongru
-- **Commit:** 29d0023fcadf7fecd595f32f999d8e9b83392e8c
-### docs: add nanobot WeChat community QR entry
-- **Date:** 2026-10-30
+- **Commit:** 6a24b17629aad9bd0566ad0a7699d686ea860abb
+### refactor(exec): share the sandbox launch path with settings checks (#6645)
+- **Date:** 2026-11-13
 - **Author:** Xubin Ren
-- **Commit:** 7eacc789d426a8293459d0ed0d5ca48c0c65ce1d
-### refactor: remove redundant comments and docstrings (#6527)
-- **Date:** 2026-10-30
-- **Author:** chengyongru
-- **Commit:** a4d2430140735a85cf0634d8ae888cd42f1913bf
-### refactor: remove legacy history and proxy migrations (#6518)
-- **Date:** 2026-10-29
-- **Author:** chengyongru
-- **Commit:** cb3ba4531761b49f61568754eb3d3ce84db4b75d
-### fix(gateway): reuse Windows-safe atomic lease I/O
-- **Date:** 2026-10-29
-- **Author:** chengyongru
-- **Commit:** 1c28b20c7e11c06b5f589259e62be238da387b11
-### perf(gateway): avoid unchanged client lease writes
-- **Date:** 2026-10-29
-- **Author:** chengyongru
-- **Commit:** 2853287ed79d9abe997bb98e8163ad79419a4cbd
-### feat(matrix): per-room group policy overrides (groupPolicyOverrides) (#6287)
-- **Date:** 2026-10-28
-- **Author:** Orrin Witt
-- **Commit:** 8a989d5adf1aebf497288351582572c342d794ed
-### feat(matrix): make non-threaded reply quoting optional
-- **Date:** 2026-10-29
-- **Author:** chengyongru
-- **Commit:** c5cee9f204b6788a8384fb41375f3cb5ce0d36f7
-### fix(retry): prevent replay amplification and isolate backoff (NAN-313)
-- **Date:** 2026-10-21
-- **Author:** chengyongru
-- **Commit:** 4e77d9c3f2bc6b7a77f4e9f3640a98ef19ce80e0
-### refactor(sessions): discover target handles through search (#6315)
-- **Date:** 2026-10-29
-- **Author:** david
-- **Commit:** b6d9009bb472f25cc1e89623d254a0ec16d96d0f
-### refactor(channels): move tool hint rendering out of core (#6498)
-- **Date:** 2026-10-29
-- **Author:** chengyongru
-- **Commit:** acc3750c281a322f9647fc7285ed6647c4d214bf
-### feat(matrix): add "listen" group policy (observe room, reply on mention) (#6289)
-- **Date:** 2026-10-28
-- **Author:** Orrin Witt
-- **Commit:** b1cc89e9220f31a9af32f2d3abb76185a1eb13ce
-### docs: refresh README news and WebUI gallery
-- **Date:** 2026-10-28
-- **Author:** chengyongru
-- **Commit:** 55210eb9f1217bcddb53b8987bcd74ecadd975af
-### refactor(webui): centralize outbound delivery (NAN-365)
-- **Date:** 2026-10-27
-- **Author:** chengyongru
-- **Commit:** 2a3d29ce73bb7649faba089aba23e351fed3e67f
-### fix(webui): keep saved topics bound to their project (#6509)
-- **Date:** 2026-10-28
-- **Author:** chengyongru
-- **Commit:** 4a14faa47e9af06a66968cb59f5b5d46754dc6fe
-### fix(build): fetch locked WebUI packages from npm registry
-- **Date:** 2026-10-28
+- **Commit:** 90d69e7a112915b3fd36af153a34da3d8aee83c6
+### refactor(execution): share bounded HTTP redirects (#6637)
+- **Date:** 2026-11-13
 - **Author:** Xubin Ren
-- **Commit:** 8f7a7d17590de7ab187650381894dba2b9e060ab
+- **Commit:** 0f5e56edd4180b0925a17eb7565e281d2d1a5d70
+### fix(webui): prevent single-dollar math from crossing code spans (#6646)
+- **Date:** 2026-11-13
+- **Author:** chengyongru
+- **Commit:** c7a1eb910d17cf638bd7e11d0a549effad8e67cd
+### fix(tools): validate arguments with jsonschema without coercion (#6648)
+- **Date:** 2026-11-13
+- **Author:** chengyongru
+- **Commit:** 8cce73465b79418f8f71d5075dca908a0cbce229
+### refactor: drop unreferenced dead code
+- **Date:** 2026-11-12
+- **Author:** chengyongru
+- **Commit:** 25ed91ffeb93e8fa2e81765f422a9817037a8763
+### perf(subagent): read saved task history by loaded turns (#6634)
+- **Date:** 2026-11-12
+- **Author:** chengyongru
+- **Commit:** eb8546c32111b157759132eefb020545cc196e69
+### refactor(telegram): derive command regexes from the alias map
+- **Date:** 2026-11-12
+- **Author:** chengyongru
+- **Commit:** 1196698ecb2449c19b344b7e52be02d25e715b51
+### refactor(agent): clarify run-local input and checkpoint ownership
+- **Date:** 2026-11-12
+- **Author:** chengyongru
+- **Commit:** f94f245dcac6fbb573e99244fedeec8e6310bbd0
+### feat(webui): show the full token-usage picture in settings (#6638)
+- **Date:** 2026-11-12
+- **Author:** chengyongru
+- **Commit:** e6b23c7356f225709f7fc3d97748613a6f8839b1
+### fix(webui): avoid phantom reasoning on empty streams
+- **Date:** 2026-11-12
+- **Author:** chengyongru
+- **Commit:** b49218b6a3f7c809c2c7f7e63e6fef32e9f7c36c
+### fix(webui): reorder appearance settings and trim preview
+- **Date:** 2026-11-12
+- **Author:** chengyongru
+- **Commit:** c3403e6a6fdb668eef9a2350ef3798f65373d883
+### fix(webui): preserve session caches during history revalidation (#6636)
+- **Date:** 2026-11-12
+- **Author:** chengyongru
+- **Commit:** 0ce10533d364607f1e75bb061577272e4ba80a11
+### fix(webui): correlate chat requests and cancel stale reconnects (#6617)
+- **Date:** 2026-11-12
+- **Author:** chengyongru
+- **Commit:** 1046a37be12aecfac716f681260779d9f9fb2821
+### fix(subagent): discourage duplicate delegated work
+- **Date:** 2026-11-12
+- **Author:** chengyongru
+- **Commit:** 9f7ae6fb7b60ae1efb23688716f8a64807914970
+### refactor(exec): centralize process-tree lifecycle (#6623)
+- **Date:** 2026-11-12
+- **Author:** Xubin Ren
+- **Commit:** 8607b6445cdaedb2cd93f248a0ffbe952c93ea98
+### fix(webui): keep completed subagent results with loaded prompts (#6630)
+- **Date:** 2026-11-12
+- **Author:** chengyongru
+- **Commit:** c37af82e3fa4653e405af7de57c6cf9e3805fe1c
+### refactor(sessions)!: retire the global shared session (#6621)
+- **Date:** 2026-11-12
+- **Author:** Xubin Ren
+- **Commit:** e6b0aec2a8d3ac8c915fa085a248872fd7bf6e6e
+### perf(webui): streamline model preset saves (#6631)
+- **Date:** 2026-11-11
+- **Author:** chengyongru
+- **Commit:** 28d73b6942621ffedc0d7a9639e429595f34bd36
 ... and more (showing recent 20 commits)
 
 ## Recent Releases
 
+### v0.4.1
+- **Date:** 2026-11-06
+- **Description:** v0.4.1
 ### v0.4.0
 - **Date:** 2026-10-28
 - **Description:** nanobot v0.4.0
@@ -101,34 +104,50 @@
 ### v0.2.2
 - **Date:** 2026-06-22
 - **Description:** v0.2.2
-### v0.2.1
-- **Date:** 2026-06-01
-- **Description:** v0.2.1
 
 ## Documentation Updates
 
-- **docs/configuration.md** - Updated: 2026-10-10
-- **docs/providers.md** - Updated: 2026-10-10
-- **COMMUNICATION.md** - Updated: 2026-10-30
-- **README.md** - Updated: 2026-10-30
-- **docs/architecture.md** - Updated: 2026-10-29
-- **docs/cli-reference.md** - Updated: 2026-10-29
-- **docs/releases/0.4.0.md** - Updated: 2026-10-29
-- **docs/releasing.md** - Updated: 2026-10-29
-- **docs/chat-apps.md** - Updated: 2026-10-28
-- **docs/channel-package-guide.md** - Updated: 2026-10-29
-- **docs/release-archive.md** - Updated: 2026-10-28
-- **.agent/design.md** - Updated: 2026-10-27
-- **docs/webui.md** - Updated: 2026-10-28
-- **tui/README.md** - Updated: 2026-10-28
-- **nanobot/skills/update-setup/SKILL.md** - Updated: 2026-10-28
-- **CONTRIBUTING.md** - Updated: 2026-10-27
-- **.agent/gotchas.md** - Updated: 2026-10-26
-- **docs/my-tool.md** - Updated: 2026-10-26
-- **nanobot/skills/my/SKILL.md** - Updated: 2026-10-26
-- **nanobot/skills/my/references/examples.md** - Updated: 2026-10-26
-- **webui/COMPONENTS.md** - Updated: 2026-10-25
-- **docs/websocket.md** - Updated: 2026-10-25
-- **docs/automations.md** - Updated: 2026-10-20
-- **nanobot/skills/cron/SKILL.md** - Updated: 2026-10-20
-- **tui/RELINKING.md** - Updated: 2026-10-24
+- **docs/configuration.md** - Updated: 2026-11-13
+- **.agent/navigation.md** - Updated: 2026-11-13
+- **.agent/security.md** - Updated: 2026-11-13
+- **webui/src/tests/fixtures/markdown-dollar-refs.md** - Updated: 2026-11-13
+- **docs/architecture.md** - Updated: 2026-11-13
+- **docs/webui.md** - Updated: 2026-11-12
+- **.agent/review-guide.md** - Updated: 2026-11-12
+- **AGENTS.md** - Updated: 2026-11-12
+- **CONTRIBUTING.md** - Updated: 2026-11-12
+- **docs/guides/remote-instances.md** - Updated: 2026-11-12
+- **docs/websocket.md** - Updated: 2026-11-12
+- **docs/automations.md** - Updated: 2026-11-12
+- **docs/concepts.md** - Updated: 2026-11-12
+- **docs/troubleshooting.md** - Updated: 2026-11-12
+- **docs/updating.md** - Updated: 2026-11-12
+- **docs/development.md** - Updated: 2026-11-11
+- **docs/provider-cookbook.md** - Updated: 2026-11-11
+- **docs/providers.md** - Updated: 2026-11-11
+- **docs/releases/0.4.0.md** - Updated: 2026-11-11
+- **docs/releasing.md** - Updated: 2026-11-11
+- **docs/deployment.md** - Updated: 2026-11-10
+- **README.md** - Updated: 2026-11-10
+- **SECURITY.md** - Updated: 2026-11-10
+- **docs/README.md** - Updated: 2026-11-10
+- **docs/cli-reference.md** - Updated: 2026-11-10
+- **docs/guides/README.md** - Updated: 2026-11-10
+- **docs/guides/build-a-personal-ai-agent.md** - Updated: 2026-11-10
+- **docs/guides/configure-openai-compatible-provider.md** - Updated: 2026-11-10
+- **docs/guides/deploy-nanobot-gateway.md** - Updated: 2026-11-10
+- **docs/guides/email-ai-agent.md** - Updated: 2026-11-10
+- **docs/guides/openai-compatible-agent-api.md** - Updated: 2026-11-10
+- **docs/guides/python-ai-agent-sdk.md** - Updated: 2026-11-10
+- **docs/guides/secure-local-ai-agent.md** - Updated: 2026-11-10
+- **docs/guides/self-hosted-ai-agent.md** - Updated: 2026-11-10
+- **docs/openai-api.md** - Updated: 2026-11-10
+- **docs/python-sdk.md** - Updated: 2026-11-10
+- **docs/quick-start.md** - Updated: 2026-11-10
+- **webui/COMPONENTS.md** - Updated: 2026-11-07
+- **THIRD_PARTY_NOTICES.md** - Updated: 2026-11-06
+- **webui/README.md** - Updated: 2026-11-06
+- **.agent/design.md** - Updated: 2026-11-06
+- **COMMUNICATION.md** - Updated: 2026-11-05
+- **docs/guides/long-running-ai-agent.md** - Updated: 2026-11-03
+- **docs/guides/whatsapp-ai-agent.md** - Updated: 2026-11-03

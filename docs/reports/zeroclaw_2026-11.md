@@ -1,94 +1,97 @@
 # ZeroClaw - Zero-dependency Agent - Update Report
 
-**Generated:** 2026-11-02 22:11:45
-**Tracking Period:** 2026-10-24 to 2026-11-02
+**Generated:** 2026-11-13 21:35:29
+**Tracking Period:** 2026-11-02 to 2026-11-13
 
 ## Recent Commits
 
-### docs(plugins): correct the call_channel! note on results that fail to lift (#11686)
-- **Date:** 2026-11-02
-- **Author:** Iftekhar Uddin
-- **Commit:** 9dbb57231f48e26fee56243de4f7845924ce4f04
-### fix(install): show package version from zeroclaw --version field 2 (#12159)
-- **Date:** 2026-11-01
+### chore(deps): bump the web-minor-patch group across 1 directory with 21 updates (#11842)
+- **Date:** 2026-11-12
+- **Author:** dependabot[bot]
+- **Commit:** 2c0a8c26354b7fbd52fc8ff52cb1ba81c6fcaf0c
+### chore(deps-dev): bump happy-dom from 20.11.6 to 21.0.4 in /web (#12012)
+- **Date:** 2026-11-12
+- **Author:** dependabot[bot]
+- **Commit:** 535f0844d7e54f636b2fd1e7dea8b1110cbb4c68
+### chore(deps-dev): bump vite from 8.0.16 to 8.3.5 in /web (#11936)
+- **Date:** 2026-11-12
+- **Author:** dependabot[bot]
+- **Commit:** 060fe00604de8c99a03672608e0284854dc1a48d
+### chore(deps-dev): bump brace-expansion from 2.1.4 to 2.1.7 in /web (#11282)
+- **Date:** 2026-11-12
+- **Author:** dependabot[bot]
+- **Commit:** 79a1bbde4cbafeaf5e5ca71ca05e64438d995e9e
+### chore(docs): pin translations to v0.9.0 (#12380)
+- **Date:** 2026-11-11
+- **Author:** JordanTheJet
+- **Commit:** 6c78ba59bce6a3d5079cf0c0310488770e264ad4
+### fix(deps): bump rustix to 1.1.6 for RUSTSEC-2026-0486 (#12392)
+- **Date:** 2026-11-11
+- **Author:** Tidux
+- **Commit:** 775713383a7ec246eab6c925b2ef1846b998ee8c
+### chore(release): bump version to v0.9.0 (#12377)
+- **Date:** 2026-11-11
+- **Author:** JordanTheJet
+- **Commit:** 1a79f89d1e18ed2af337cae73b1a02a6defd57c5
+### fix(docs): send links to pruned doc versions to the stable page (#12329)
+- **Date:** 2026-11-10
+- **Author:** JordanTheJet
+- **Commit:** a4beef9a6d6965ff3b5290f94ff97bd0b4bcbb85
+### docs(zerocode): document device certificate end-of-life and JWKS azp matching (#12370)
+- **Date:** 2026-11-10
 - **Author:** ump45nose
-- **Commit:** b28d1c3de99099fd565cdedd4d80d8cff7f6a855
-### fix(enroll): redeem enrollment codes on the daemon's canonical pairing guard (#11940)
-- **Date:** 2026-11-01
-- **Author:** Tidux
-- **Commit:** 0bb1d4a801ac7dbecc9e9a91128c0a96ace98ab3
-### fix(security): split POSIX commands at substitution and subshell boundaries (#11822)
-- **Date:** 2026-11-01
-- **Author:** Tidux
-- **Commit:** 4c9edcf33716381b2c3455649cbd0f3e6b3a38b1
-### feat(zerocode): add /load-session to resume a saved session by name or id (#12071)
-- **Date:** 2026-11-01
-- **Author:** Tidux
-- **Commit:** 0e931888de0862fe2143389a86077c28826e877e
-### feat(install): install the CLI-only build and switch it to the standard build only on request (#1211
-- **Date:** 2026-11-01
-- **Author:** JordanTheJet
-- **Commit:** df34caf27816fc468f2fde41f190216e8892fe02
-### fix(deps): bump Wasmtime to 48.0.8 for RUSTSEC-2026-0420 to 0424 (#12129)
-- **Date:** 2026-10-31
-- **Author:** JordanTheJet
-- **Commit:** f87368a6aa53d16b0bd7411b002331a22622c2a7
-### fix(zerocode): clean active-turn clipboard temps on disconnect (#10485)
-- **Date:** 2026-10-30
+- **Commit:** 1124ec667faf734a0456a0cc647a3efc84707297
+### docs(zerocode): document PKCE on every device grant and scope legacy credentials (#12364)
+- **Date:** 2026-11-10
 - **Author:** ump45nose
-- **Commit:** 1c1cd118ac536a1dd1bc79b9cce69cbdc04e4f29
-### fix(sop): match step scope groups to registered tool names (#11283)
-- **Date:** 2026-10-30
-- **Author:** Iftekhar Uddin
-- **Commit:** 3047a6bb6101e90d9b0bb17874dcfe7bc8005c6f
-### fix(rpc): refuse persisted log reads to scoped principals (#11326)
-- **Date:** 2026-10-30
-- **Author:** Iftekhar Uddin
-- **Commit:** 8312ef098e07ade301ff268b0561f2d26b2b0dbd
-### test(log): cover UTF-8 byte-offset pagination (#12030)
-- **Date:** 2026-10-30
-- **Author:** Leon-SK668
-- **Commit:** 0e526f2aa3856a92429ba711981f2cde69aaf9e8
-### test(memory): cover persisted redaction around Unicode text (#12029)
-- **Date:** 2026-10-30
-- **Author:** Leon-SK668
-- **Commit:** 2bfa9ed71be25f0fae954a61514689ce7aac6dab
-### fix(plugins): clear abandoned install stages on the next install (#11855)
-- **Date:** 2026-10-29
+- **Commit:** d1d561c91671ca5790670babee00ecc1bf32febd
+### fix(docs): give the stable docs a URL that survives releases (#12328)
+- **Date:** 2026-11-10
 - **Author:** JordanTheJet
-- **Commit:** 5a51398dd52469644f2c2a017296b4ff89c8e02a
-### ci(cli-only): build and test the CLI-only feature set with an artifact ratchet (#11976)
-- **Date:** 2026-10-29
+- **Commit:** ff49c94b1dec714a038b12e23bdb32b9b2dd85c0
+### fix(xtask): keep the API reference and error pages out of search (#12327)
+- **Date:** 2026-11-10
 - **Author:** JordanTheJet
-- **Commit:** 161ac74562f48e9f279bba6fa9571323fda29c39
-### feat(cli): point builds without the gateway to the standard build (#11975)
-- **Date:** 2026-10-29
+- **Commit:** 57f1ea25841bab7a87701d523816c23c83c54a18
+### fix(runtime): stop hard-coding temperature in the heartbeat decision and the model-routing probe (#1
+- **Date:** 2026-11-10
 - **Author:** JordanTheJet
-- **Commit:** d4dcfa46c28ed48b5fbe200d2ed0eec873aa386c
-### feat(channels/signal): add media attachment support (#11556)
-- **Date:** 2026-10-29
-- **Author:** GaijinSystems
-- **Commit:** 3158c45d1d7b076abd9cfce682e4e9b4a9768d4d
-### feat(skills): add built-in zeroclaw docs skill (#9579)
-- **Date:** 2026-10-29
-- **Author:** Cherilyn Buren
-- **Commit:** c9dab92c33fc638e1b149a42fd891a93a0c218d8
-### feat(telegram): make unauthorized notices configurable and authorization-aware (#11728)
-- **Date:** 2026-10-29
-- **Author:** Dan Gilles
-- **Commit:** 5a28cda06e55af575fcb3c900340f140be465ebb
-### fix(plugins): admit a component only beside the manifest that described it (#12040)
-- **Date:** 2026-10-29
-- **Author:** Magnus Hedemark
-- **Commit:** 2161bfe35aac03d376d3e12da7bc8433ae56132c
-### fix(tools): expose scenario routing requirements (#11720)
-- **Date:** 2026-10-29
-- **Author:** Dan Gilles
-- **Commit:** 1449d3389f5da9553d9f49cd759251f12e685c93
+- **Commit:** e6e798937b40aada907501c8c8f6051426eb5b25
+### docs(security): list supported OIDC providers and v0.9.0 sign-in limitations (#12365)
+- **Date:** 2026-11-10
+- **Author:** JordanTheJet
+- **Commit:** 53674f61421be325031115d918958e8f01308808
+### fix(providers): recognize claude-opus-5-5 and other adaptive-only models (#12352)
+- **Date:** 2026-11-10
+- **Author:** Tidux
+- **Commit:** 461b972853ff17f3da7619f231fd636c95cbf083
+### fix(skills): inherit parent temperature for the skill review fork (#12363)
+- **Date:** 2026-11-10
+- **Author:** ump45nose
+- **Commit:** 6877da56d2a0ab580776235e6d68a716d5ce4f0d
+### feat(gateway): scoped dashboard chat through the core, on a shared RPC client (#12244)
+- **Date:** 2026-11-10
+- **Author:** JordanTheJet
+- **Commit:** a11a5ce5b4238d4766fbe7d07efef055a75532c2
+### fix(zerocode): open for an account the daemon refuses its config or log (#12359)
+- **Date:** 2026-11-10
+- **Author:** JordanTheJet
+- **Commit:** 057a392fe8552043f6e9cb580d07030e6f624ee3
+### feat(zerocode): add pairing-free OIDC login and saved remote credentials (#12317)
+- **Date:** 2026-11-10
+- **Author:** Tidux
+- **Commit:** b4ea905936b61a6dddfe998b8bff00c1e1835b49
+### fix(zerorelay): flush dashboard and frontdoor writes so responses reach the browser whole (#12355)
+- **Date:** 2026-11-10
+- **Author:** JordanTheJet
+- **Commit:** 60d7f6ed8db8b9a70806c10b1dd99213470949c7
 ... and more (showing recent 20 commits)
 
 ## Recent Releases
 
+### v0.9.0
+- **Date:** 2026-11-11
+- **Description:** chore(docs): pin translations to v0.9.0 (#12380)
 ### v0.8.7
 - **Date:** 2026-10-27
 - **Description:** chore(docs): pin translations to v0.8.7 (#12019)
@@ -101,29 +104,42 @@
 ### v0.8.4
 - **Date:** 2026-08-03
 - **Description:** chore(release): bump version to v0.8.4 (#9648)
-### v0.8.3
-- **Date:** 2026-07-15
-- **Description:** ci(release): raise build matrix timeout to 90 minutes (#9098)
 
 ## Documentation Updates
 
-- **docs/book/src/zerocode/secure-transport.md** - Updated: 2026-11-01
-- **docs/book/src/zerocode/running.md** - Updated: 2026-11-01
-- **docs/book/src/setup/linux.md** - Updated: 2026-11-01
-- **docs/book/src/zerocode/remote.md** - Updated: 2026-11-01
-- **docs/book/src/architecture/logging.md** - Updated: 2026-10-30
-- **docs/book/src/security/authentication.md** - Updated: 2026-10-30
-- **docs/book/src/developing/plugin-protocol.md** - Updated: 2026-10-29
-- **docs/book/src/plugins/index.md** - Updated: 2026-10-29
-- **docs/book/src/maintainers/ci-and-actions.md** - Updated: 2026-10-29
-- **docs/book/src/channels/signal.md** - Updated: 2026-10-29
-- **crates/zeroclaw-runtime/src/skills/assets/zeroclaw-docs/SKILL.md** - Updated: 2026-10-29
-- **docs/book/src/tools/skills.md** - Updated: 2026-10-29
-- **docs/book/src/channels/telegram.md** - Updated: 2026-10-29
-- **docs/book/src/agents/internals.md** - Updated: 2026-10-29
-- **crates/zeroclaw-runtime/AGENTS.md** - Updated: 2026-10-29
-- **docs/book/src/architecture/runtime-state-and-persistence.md** - Updated: 2026-10-29
-- **docs/book/src/zerocode/config.md** - Updated: 2026-10-29
-- **CHANGELOG-next.md** - Updated: 2026-10-24
-- **docs/book/src/architecture/rpc-socket.md** - Updated: 2026-10-24
-- **docs/book/src/gateway/a2a-discovery.md** - Updated: 2026-10-24
+- **CHANGELOG-next.md** - Updated: 2026-11-11
+- **docs/book/src/architecture/logging.md** - Updated: 2026-11-11
+- **docs/book/src/architecture/rpc-socket.md** - Updated: 2026-11-11
+- **docs/book/src/developing/plugin-protocol.md** - Updated: 2026-11-11
+- **docs/book/src/gateway/a2a-discovery.md** - Updated: 2026-11-11
+- **docs/book/src/maintainers/release-runbook.md** - Updated: 2026-11-10
+- **docs/book/src/zerocode/remote.md** - Updated: 2026-11-10
+- **docs/book/src/security/authentication.md** - Updated: 2026-11-10
+- **docs/book/src/architecture/generated-documentation-pipeline.md** - Updated: 2026-11-10
+- **docs/book/src/SUMMARY.md** - Updated: 2026-11-10
+- **docs/book/src/security/identity-providers.md** - Updated: 2026-11-10
+- **docs/book/src/providers/configuration.md** - Updated: 2026-11-10
+- **.github/workflows/README.md** - Updated: 2026-11-10
+- **docs/book/src/architecture/crates.md** - Updated: 2026-11-10
+- **crates/zeroclaw-runtime/AGENTS.md** - Updated: 2026-11-10
+- **docs/book/src/zerocode/secure-transport.md** - Updated: 2026-11-10
+- **docs/maintainers/audit-policy.md** - Updated: 2026-11-09
+- **docs/book/src/agents/multi-agent-setup.md** - Updated: 2026-11-09
+- **docs/book/src/channels/filesystem.md** - Updated: 2026-11-08
+- **docs/book/src/sop/fan-in/overview.md** - Updated: 2026-11-08
+- **docs/book/src/architecture/config-lifecycle.md** - Updated: 2026-11-08
+- **docs/book/src/architecture/runtime-state-and-persistence.md** - Updated: 2026-11-08
+- **docs/book/src/providers/custom.md** - Updated: 2026-11-08
+- **docs/book/src/channels/acp.md** - Updated: 2026-11-08
+- **docs/security/oidc-browser-pkce-design-8289.md** - Updated: 2026-11-07
+- **README.md** - Updated: 2026-11-06
+- **docs/book/src/channels/email.md** - Updated: 2026-11-06
+- **docs/book/src/ops/network-deployment.md** - Updated: 2026-11-05
+- **docs/book/src/architecture/runtime-composition.md** - Updated: 2026-11-05
+- **apps/tauri/TESTING.md** - Updated: 2026-11-04
+- **docs/dashboard-mcp-per-field-todo.md** - Updated: 2026-11-04
+- **docs/book/src/architecture/decisions/ADR-017-inbound-authentication-and-principals.md** - Updated: 2026-11-04
+- **CLAUDE.md** - Updated: 2026-11-03
+- **docs/book/src/maintainers/ci-and-actions.md** - Updated: 2026-11-03
+- **docs/book/src/agents/history-management.md** - Updated: 2026-11-02
+- **docs/book/src/getting-started/multi-model-setup.md** - Updated: 2026-11-02
