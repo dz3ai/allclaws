@@ -1,28 +1,36 @@
 #!/usr/bin/env bash
-# Local-model service gate for ranked-driver bring-up (Sat-night setup).
+# Local-model service gate for ranked-driver bring-up.
 #
-# Probes a llama.cpp llama-server (OpenAI-compatible) and answers ONE
-# question: can every CLI agent in the driver roster rely on this endpoint?
-# The decisive gate is TOOL CALLING — CLI agents live or die on it.
+# Probes an OpenAI-compatible endpoint (fleet router or a bare llama-server)
+# and answers ONE question: can every CLI agent in the driver roster rely on
+# this endpoint? The decisive gate is TOOL CALLING — CLI agents live or die
+# on it.
 #
 # Gates:
-#   1. /health            — server up
-#   2. /v1/models         — exact model id (needed by every driver config)
-#   3. /props             — build/template snapshot ("model version pin")
+#   1. /health            — server up (llama.cpp body or router {"status":"ok"})
+#   2. /v1/models         — model id resolved (explicit arg, or picked from the
+#                           catalog by capabilities per the fleet guide: tools
+#                           capable + status up, code-task pick first)
+#   3. /props             — build/template snapshot (llama.cpp only; SKIPped
+#                           on the router, which has no /props)
 #   4. plain completion   — generation works end-to-end
 #   5. TOOL-CALL probe    — model emits a valid tool_calls array for a
 #                           trivial JSON-schema tool. THIS is the go/no-go.
 #
-# Usage:  probe_local_model.sh [base-url]     (default http://localhost:8080)
-# Exit:   0 = all gates green;  1 = at least one red (see output)
-# Notes:  pass "?auth" as 2nd arg to also test bearer auth is NOT required.
+# Usage:  probe_local_model.sh [base-url] [model-id]
+#         defaults: http://192.168.3.26:8000  + auto-pick from /v1/models
+# Exit:   0 = all gates green (SKIP does not count against);  1 = at least one red
+# Notes:  pass "?auth" as 3rd arg to also test bearer auth is NOT required.
 set -u
-BASE="${1:-http://localhost:8080}"
+BASE="${1:-http://192.168.3.26:8000}"
+WANT_MODEL="${2:-}"
 GATES_FAIL=0
 
 say()  { printf '%s\n' "$*"; }
-gate() { # gate <name> <ok:0|1> <detail>
-  if [ "$2" -eq 0 ]; then say "  [PASS] $1 — $3"; else say "  [FAIL] $1 — $3"; GATES_FAIL=$((GATES_FAIL+1)); fi
+gate() { # gate <name> <ok:0|1|2> <detail>  (2 = SKIP — not a failure)
+  if [ "$2" -eq 0 ]; then say "  [PASS] $1 — $3"
+  elif [ "$2" -eq 2 ]; then say "  [SKIP] $1 — $3"
+  else say "  [FAIL] $1 — $3"; GATES_FAIL=$((GATES_FAIL+1)); fi
 }
 
 say "=== local-model service gate: $BASE ==="
@@ -40,23 +48,43 @@ else
 fi
 
 # ---- 2. model id --------------------------------------------------------
+# Explicit arg wins; otherwise pick from the catalog per the fleet guide's
+# capability rules: status up + tools capable (drivers need tool_calls),
+# preferring the guide's code-task pick (qwen3-coder-30b) when present.
 MODELS_JSON=$(curl -sf -m 5 "$BASE/v1/models" 2>/dev/null)
-MODEL_ID=$(printf '%s' "$MODELS_JSON" | jq -r '.data[0].id // empty' 2>/dev/null)
-if [ -n "$MODEL_ID" ]; then
-  gate "2/model-id" 0 "$MODEL_ID (all drivers must use this exact id)"
+if [ -n "$WANT_MODEL" ]; then
+  MODEL_ID="$WANT_MODEL"
+  if printf '%s' "$MODELS_JSON" | jq -e --arg m "$MODEL_ID" '.data[] | select(.id == $m and .status == "up")' >/dev/null 2>&1; then
+    gate "2/model-id" 0 "$MODEL_ID (explicit arg, status up in catalog)"
+  elif printf '%s' "$MODELS_JSON" | jq -e --arg m "$MODEL_ID" '.data[] | select(.id == $m)' >/dev/null 2>&1; then
+    gate "2/model-id" 1 "$MODEL_ID is in the catalog but not status=up"
+  else
+    gate "2/model-id" 1 "$MODEL_ID not in $BASE/v1/models"
+  fi
 else
-  gate "2/model-id" 1 "/v1/models unreachable or empty: ${MODELS_JSON:-<none>}"
+  MODEL_ID=$(printf '%s' "$MODELS_JSON" | jq -r '
+    [ .data[] | select(.status == "up" and (.capabilities // [] | index("tools"))) ]
+    | (map(select(.id == "qwen3-coder-30b")) + .)[0].id // empty' 2>/dev/null)
+  if [ -n "$MODEL_ID" ]; then
+    gate "2/model-id" 0 "$MODEL_ID (auto-picked: up + tools-capable, code-task pick first)"
+  else
+    gate "2/model-id" 1 "no up+tools-capable model in catalog: ${MODELS_JSON:-<none>}"
+  fi
 fi
 
-# ---- 3. props snapshot (model pin) --------------------------------------
-PROPS=$(curl -sf -m 5 "$BASE/props" 2>/dev/null || echo "{}")
+# ---- 3. props snapshot (model pin; llama.cpp only) -----------------------
+PROPS_HTTP=$(curl -s -m 5 -o /tmp/opencode/probe_props.json -w "%{http_code}" "$BASE/props" 2>/dev/null || echo "000")
+PROPS=$(cat /tmp/opencode/probe_props.json 2>/dev/null || echo "{}")
 BUILD=$(printf '%s' "$PROPS" | jq -r '.build.build_str // "unknown"' 2>/dev/null)
 MODEL_PATH=$(printf '%s' "$PROPS" | jq -r '.model_path // "unknown"' 2>/dev/null)
 N_CTX=$(printf '%s' "$PROPS" | jq -r '.default_generation_settings.n_ctx // "unknown"' 2>/dev/null)
-if [ "$BUILD" != "unknown" ] || [ "$MODEL_PATH" != "unknown" ]; then
+CTX_LEN=$(printf '%s' "$MODELS_JSON" | jq -r --arg m "$MODEL_ID" '.data[] | select(.id == $m) | .context_length // "unknown"' 2>/dev/null)
+if [ "$PROPS_HTTP" = "404" ]; then
+  gate "3/props" 2 "no /props on this endpoint (router, not llama.cpp) — catalog says ctx=$CTX_LEN"
+elif [ "$BUILD" != "unknown" ] || [ "$MODEL_PATH" != "unknown" ]; then
   gate "3/props" 0 "build=$BUILD ctx=$N_CTX model=$(basename "$MODEL_PATH")"
 else
-  gate "3/props" 1 "/props empty — snapshot unavailable (non-fatal, but record manually)"
+  gate "3/props" 1 "/props reachable ($PROPS_HTTP) but snapshot unparseable"
 fi
 
 # ---- 4. plain completion ------------------------------------------------
@@ -122,6 +150,7 @@ say ""
 say "=== snapshot (paste into session notes / result metadata) ==="
 say "endpoint:   $BASE"
 say "model_id:   ${MODEL_ID:-unknown}"
+say "catalog_ctx: ${CTX_LEN:-unknown}"
 say "build:      $BUILD"
 say "model_file: $(basename "$MODEL_PATH")"
 say "n_ctx:      $N_CTX"

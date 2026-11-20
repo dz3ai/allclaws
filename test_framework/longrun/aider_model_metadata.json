@@ -1,4 +1,22 @@
 {
+  "openai/qwen3-coder-30b": {
+    "litellm_provider": "openai",
+    "max_context_window": 65536,
+    "max_input_tokens": 65536,
+    "max_output_tokens": 8192,
+    "input_cost_per_token": 0,
+    "output_cost_per_token": 0,
+    "supports_vision": false
+  },
+  "openai/qwopus38-flash-v2": {
+    "litellm_provider": "openai",
+    "max_context_window": 65536,
+    "max_input_tokens": 65536,
+    "max_output_tokens": 8192,
+    "input_cost_per_token": 0,
+    "output_cost_per_token": 0,
+    "supports_vision": true
+  },
   "openai/qwen36-35b-mtp": {
     "litellm_provider": "openai",
     "max_context_window": 131072,
